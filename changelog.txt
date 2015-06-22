@@ -1,0 +1,17 @@
+/**
+ * Change log
+ *
+ * Note: started version 1.1.0
+ *
+ * @package Indiegogo Visual Composer Add-ons
+ */
+
+= 1.1.0 =
+* Remove VC component exclude functionality from mm_vc_init(), switch to using VC settings. [functions.php]
+* Hero Banner - add color overlay functionality.
+* Hero Banner - add secondary call to action field.
+* Hero Banner - add center-aligned text option.
+
+= 1.2.0 =
+* Add custom attach_image(s) field description and filter. [functions.php, assorted files /component]
+* In progress - Hero Banner - BG video

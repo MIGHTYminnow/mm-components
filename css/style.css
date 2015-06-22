@@ -1,0 +1,189 @@
+/**
+ * General Styles.
+ *
+ * @since 1.0.0
+ *
+ * @package Mm Visual Composer Add Ons
+ */
+
+/* Highlight Box
+--------------------------------------------- */
+.mm-highlight-box {
+	margin-bottom: 35px;
+	padding: 20px 30px;
+	background-color: #f7f7f7;
+}
+
+.mm-highlight-box h3 {
+	margin-bottom: 15px;
+	color: #1f6284;
+	font-size: 24px;
+}
+
+
+.mm-highlight-box a {
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+.mm-highlight-box a:before {
+	content: "\f105\0000a0";
+	position: relative;
+	top: -1px;
+	font-family: FontAwesome;
+}
+
+/* Phone Number Box
+--------------------------------------------- */
+.mm-phone-number-box {
+	position: relative;
+	float: left;
+	width: 100%;
+	margin-bottom: 35px;
+	padding: 80px 30px 20px;
+	background-color: #f7f7f7;
+	border-top: 4px solid #e6e3e1;
+	line-height: 1.2;
+	text-align: center;
+}
+
+.mm-phone-number-box:before {
+	content: "\f095";
+	position: absolute;
+	top: -44px;
+	left: 50%;
+	width: 88px;
+	height: 88px;
+	margin-left: -44px;
+	background-color: #8b0e03;
+	border-radius: 100%;
+	color: #fff;
+	font-family: FontAwesome;
+	font-size: 48px;
+	text-align: center;
+	line-height: 88px;
+}
+
+.mm-phone-number-box .col {
+	margin-bottom: 30px;
+}
+
+.mm-phone-number-box h4 {
+	margin-bottom: 0;
+	font-size: 18px;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+
+.mm-phone-number-box a {
+	font-size: 30px;
+	color: #8b0e03;
+}
+
+.mm-phone-number-box a:hover {
+	color: #333;
+}
+
+@media (min-width: 768px) {
+
+	.mm-phone-number-box {
+		min-height: 100px;
+		padding: 30px 30px 40px 140px;
+	}
+
+	.mm-phone-number-box:before {
+		top: 50%;
+		left: 30px;
+		margin-top: -44px;
+		margin-left: 0;
+	}
+
+	.mm-phone-number-box .col-wrap {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.mm-phone-number-box .col-wrap:before {
+		content: "";
+		position: absolute;
+		left: 52%;
+		width: 1px;
+		height: 100%;
+		background-color: #e6e3e1;
+	}
+
+	.mm-phone-number-box .col {
+		margin-bottom: 0;
+		padding: 10px 0 0;
+	}
+
+	.mm-phone-number-box h4 {
+		font-size: 14px;
+	}
+
+}
+
+/* Icon Box
+--------------------------------------------- */
+
+.mm-icon-box {
+	position: relative;
+	margin-top: 60px;
+	margin-bottom: 35px;
+	padding: 80px 20px 20px;
+	border: 4px solid #e6e3e1;
+	border-width: 4px 0;
+	text-align: center;
+}
+
+.mm-icon-box .main-icon {
+	position: absolute;
+	top: -56px;
+	left: 50%;
+	width: 112px;
+	height: 112px;
+	margin-left: -56px;
+	background-color: #fff;
+	border: 1px solid #e6e3e1;
+	border-radius: 100%;
+	color: #319bcc;
+	font-family: FontAwesome;
+	font-size: 30px;
+	text-align: center;
+	line-height: 112px;
+}
+
+.mm-icon-box h3 {
+	margin-bottom: 15px;
+	font-size: 16px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.mm-icon-box a {
+	color: #1f6284;
+	font-weight: bold;
+}
+
+.mm-icon-box :last-child {
+	margin-bottom: 0;
+}
+
+@media (min-width: 480px) {
+
+	.mm-icon-box {
+		min-height: 120px;
+		margin-top: 0;
+		padding: 55px 55px 55px 145px;
+		text-align: left;
+	}
+
+	.mm-icon-box .main-icon {
+		top: 50%;
+		left: 0;
+		margin-top: -56px;
+		margin-left: 0;
+	}
+
+}
