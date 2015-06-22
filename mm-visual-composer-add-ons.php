@@ -36,9 +36,18 @@ function mm_vcao_startup() {
 
 	// Load custom VC components.
 	require_once MM_PLUG_PATH . 'components/blockquote.php';
+	require_once MM_PLUG_PATH . 'components/button.php';
 	require_once MM_PLUG_PATH . 'components/countdown/countdown.php';
+	require_once MM_PLUG_PATH . 'components/custom-heading.php';
+	require_once MM_PLUG_PATH . 'components/hero-banner.php';
 	require_once MM_PLUG_PATH . 'components/highlight-box.php';
 	require_once MM_PLUG_PATH . 'components/icon-box.php';
+	require_once MM_PLUG_PATH . 'components/image-grid.php';
+	require_once MM_PLUG_PATH . 'components/logo-strip.php';
+	require_once MM_PLUG_PATH . 'components/phone-number-box.php';
+	require_once MM_PLUG_PATH . 'components/polaroid.php';
+	require_once MM_PLUG_PATH . 'components/polaroid-2.php';
+	require_once MM_PLUG_PATH . 'components/twitter-feed.php';
 
 	// Load front-end scripts and styles (priority 20 to load after Trestle).
 	add_action( 'wp_enqueue_scripts', 'mm_vcao_scripts_and_styles', 20 );
