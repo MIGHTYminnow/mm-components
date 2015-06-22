@@ -1,11 +1,10 @@
 <?php
-
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Mm Button
  *
- * @package Mm Custom Visual Composer Add-ons
+ * @package mm-add-ons
  * @since   1.0.0
  */
 
@@ -67,35 +66,35 @@ add_action( 'vc_before_init', 'mm_vc_button' );
  */
 function mm_vc_button() {
    vc_map( array(
-      'name' => __( 'Button', 'mm-visual-composer-add-ons' ),
+      'name' => __( 'Button', 'mm-add-ons' ),
       'base' => 'mm-button',
       'class' => '',
       'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-      'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+      'category' => __( 'Content', 'mm-add-ons' ),
       'params' => array(
          array(
             'type' => 'vc_link',
-            'heading' => __( 'Button URL', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Button URL', 'mm-add-ons' ),
             'param_name' => 'link',
             'value' => '',
          ),
          array(
             'type' => 'dropdown',
-            'heading' => __( 'Button Style', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Button Style', 'mm-add-ons' ),
             'param_name' => 'style',
             'value' => array(
-               __( 'Default (solid)', 'mm-visual-composer-add-ons ') => 'default',
-               __( 'Ghost (transparent background, white border)', 'mm-visual-composer-add-ons ') => 'ghost',
-               __( 'Text Only (transparent background, no border)', 'mm-visual-composer-add-ons ') => 'text-only',
+               __( 'Default (solid)', 'mm-add-ons ') => 'default',
+               __( 'Ghost (transparent background, white border)', 'mm-add-ons ') => 'ghost',
+               __( 'Text Only (transparent background, no border)', 'mm-add-ons ') => 'text-only',
             ),
          ),
          array(
             'type' => 'dropdown',
-            'heading' => __( 'Border Style', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Border Style', 'mm-add-ons' ),
             'param_name' => 'border_style',
             'value' => array(
-               __( 'Thin', 'mm-visual-composer-add-ons ') => 'thin',
-               __( 'Thick', 'mm-visual-composer-add-ons ') => 'thick',
+               __( 'Thin', 'mm-add-ons ') => 'thin',
+               __( 'Thick', 'mm-add-ons ') => 'thick',
             ),
             'dependency' => array(
                'element' => 'style',
@@ -106,12 +105,12 @@ function mm_vc_button() {
          ),
          array(
             'type' => 'dropdown',
-            'heading' => __( 'Color', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Color', 'mm-add-ons' ),
             'param_name' => 'color',
             'value' => array(
-               __( 'White', 'mm-visual-composer-add-ons ') => 'white',
-               __( 'Pink', 'mm-visual-composer-add-ons ') => 'pink',
-               __( 'Gray', 'mm-visual-composer-add-ons ') => 'gray',
+               __( 'White', 'mm-add-ons ') => 'white',
+               __( 'Pink', 'mm-add-ons ') => 'pink',
+               __( 'Gray', 'mm-add-ons ') => 'gray',
             ),
             'dependency' => array(
                'element' => 'style',
@@ -122,37 +121,37 @@ function mm_vc_button() {
          ),
          array(
             'type' => 'dropdown',
-            'heading' => __( 'Button Weight', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Button Weight', 'mm-add-ons' ),
             'param_name' => 'font_style',
             'value' => array(
-               __( 'Default', 'mm-visual-composer-add-ons ') => 'default',
-               __( 'Strong', 'mm-visual-composer-add-ons ') => 'strong',
-               __( 'Soft', 'mm-visual-composer-add-ons ') => 'soft',
+               __( 'Default', 'mm-add-ons ') => 'default',
+               __( 'Strong', 'mm-add-ons ') => 'strong',
+               __( 'Soft', 'mm-add-ons ') => 'soft',
             ),
          ),
          array(
             'type' => 'dropdown',
-            'heading' => __( 'Button Size', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Button Size', 'mm-add-ons' ),
             'param_name' => 'size',
             'value' => array(
-               __( 'Normal', 'mm-visual-composer-add-ons ') => 'normal-size',
-               __( 'Large', 'mm-visual-composer-add-ons ') => 'large',
+               __( 'Normal', 'mm-add-ons ') => 'normal-size',
+               __( 'Large', 'mm-add-ons ') => 'large',
             ),
          ),
          array(
             'type' => 'dropdown',
-            'heading' => __( 'Button Alignment', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Button Alignment', 'mm-add-ons' ),
             'param_name' => 'alignment',
             'value' => array(
-               __( 'Default', 'mm-visual-composer-add-ons ') => 'default',
-               __( 'Left', 'mm-visual-composer-add-ons ') => 'left',
-               __( 'Center', 'mm-visual-composer-add-ons ') => 'center',
-               __( 'Right ', 'mm-visual-composer-add-ons ') => 'right',
+               __( 'Default', 'mm-add-ons ') => 'default',
+               __( 'Left', 'mm-add-ons ') => 'left',
+               __( 'Center', 'mm-add-ons ') => 'center',
+               __( 'Right ', 'mm-add-ons ') => 'right',
             ),
          ),
          array(
             'type' => 'textarea_html',
-            'heading' => __( 'Button Text', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Button Text', 'mm-add-ons' ),
             'param_name' => 'content',
             'admin_label' => true,
             'value' => '',

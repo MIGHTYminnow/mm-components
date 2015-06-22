@@ -1,17 +1,16 @@
 <?php
-
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Twitter Feed
  *
- * @package Mm Custom Visual Composer Add-ons
+ * @package mm-add-ons
  * @since   1.0.0
  */
 
 add_shortcode( 'twitter-feed', 'mm_twitter_feed_shortcode' );
 /**
- * Output Sailthru Form.
+ * Output Twitter Feed.
  *
  * @since   1.0.0
  *
@@ -94,7 +93,7 @@ function mm_vc_mm_twitter_feed() {
 	$default_template_object = new FetchTweets_Template();
 	$proper_default_template_name = trestle_get_ft_template_name_from_path( $default_template_object->getSlug() );
 	$vc_template_array = array(
-		sprintf( __( 'Default (%s) - set via Fetch Tweets settings', 'mm-visual-composer-add-ons' ), $proper_default_template_name ) => 'default',
+		sprintf( __( 'Default (%s) - set via Fetch Tweets settings', 'mm-add-ons' ), $proper_default_template_name ) => 'default',
 	);
 
 	// Append each template.
@@ -104,38 +103,38 @@ function mm_vc_mm_twitter_feed() {
 	}
 
 	vc_map( array(
-		'name' => __( 'Twitter Feed', 'mm-visual-composer-add-ons' ),
+		'name' => __( 'Twitter Feed', 'mm-add-ons' ),
 		'base' => 'twitter-feed',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+		'category' => __( 'Content', 'mm-add-ons' ),
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Heading', 'mm-add-ons' ),
 				'param_name' => 'heading',
 				'value' => '',
-				'description' => __( 'Heading to output above tweets', 'mm-visual-composer-add-ons' ),
+				'description' => __( 'Heading to output above tweets', 'mm-add-ons' ),
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Users', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Users', 'mm-add-ons' ),
 				'param_name' => 'user_names',
 				'admin_label' => true,
 				'value' => '',
-				'description' => __( 'Comma separated list of user names (without the @ symbol). E.g. Mm, MmLife', 'mm-visual-composer-add-ons' ),
+				'description' => __( 'Comma separated list of user names (without the @ symbol). E.g. Mm, MmLife', 'mm-add-ons' ),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Output', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Output', 'mm-add-ons' ),
 				'param_name' => 'template',
 				'value' => $vc_template_array,
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Number of tweets to show', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Number of tweets to show', 'mm-add-ons' ),
 				'param_name' => 'count',
-				'description' => __( 'Defaults to 10', 'mm-visual-composer-add-ons' ),
+				'description' => __( 'Defaults to 10', 'mm-add-ons' ),
 			),
 		)
 	) );

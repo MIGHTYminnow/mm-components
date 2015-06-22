@@ -4,7 +4,7 @@
  *
  * @since 1.0.0
  *
- * @package Mm Visual Composer Add Ons
+ * @package mm-add-ons
  */
 
 add_action( 'vc_after_mapping', 'mm_vc_custom_component_atts' );
@@ -19,18 +19,18 @@ function mm_vc_custom_component_atts() {
 	$components = WPBMap::getSortedUserShortCodes();
 
 	// Create custom group title.
-	$custom_group = __( 'Mm Custom Settings', 'mm-visual-composer-add-ons' );
+	$custom_group = __( 'Mm Custom Settings', 'mm-add-ons' );
 
 	// Text color
 	$atts[] = array(
 		'type' => 'dropdown',
-		'heading' => __( 'Text Color Scheme', 'mm-visual-composer-add-ons' ),
+		'heading' => __( 'Text Color Scheme', 'mm-add-ons' ),
 		'param_name' => 'mm_class_text_color',
 		'value' => array(
-			__( 'Default', 'mm-visual-composer-add-ons ') => 'text-color-default',
-            __( 'Dark', 'mm-visual-composer-add-ons ') => 'dark-text',
-            __( 'Light', 'mm-visual-composer-add-ons ') => 'light-text',
-            __( 'Medium', 'mm-visual-composer-add-ons ') => 'medium-text',
+			__( 'Default', 'mm-add-ons ') => 'text-color-default',
+            __( 'Dark', 'mm-add-ons ') => 'dark-text',
+            __( 'Light', 'mm-add-ons ') => 'light-text',
+            __( 'Medium', 'mm-add-ons ') => 'medium-text',
 		),
 		'group' => $custom_group,
 	);
@@ -38,13 +38,13 @@ function mm_vc_custom_component_atts() {
 	// Text alignment
 	$atts[] = array(
 		'type' => 'dropdown',
-		'heading' => __( 'Text Alignment', 'mm-visual-composer-add-ons' ),
+		'heading' => __( 'Text Alignment', 'mm-add-ons' ),
 		'param_name' => 'mm_class_text_align',
 		'value' => array(
-			__( 'Default', 'mm-visual-composer-add-ons ') => 'text-align-default',
-            __( 'Left', 'mm-visual-composer-add-ons ') => 'text-align-left',
-            __( 'Center', 'mm-visual-composer-add-ons ') => 'text-align-center',
-            __( 'Right', 'mm-visual-composer-add-ons ') => 'text-align-right',
+			__( 'Default', 'mm-add-ons ') => 'text-align-default',
+            __( 'Left', 'mm-add-ons ') => 'text-align-left',
+            __( 'Center', 'mm-add-ons ') => 'text-align-center',
+            __( 'Right', 'mm-add-ons ') => 'text-align-right',
 		),
 		'group' => $custom_group,
 	);
@@ -131,7 +131,7 @@ function mm_filter_vc_field_descriptions( $param, $value ) {
  */
 function mm_custom_image_field_description( $image_size = '' ) {
 
-	$default_message = __( 'Upload an image that is large enough to be output without stretching.', 'mm-visual-composer-add-ons' );
+	$default_message = __( 'Upload an image that is large enough to be output without stretching.', 'mm-add-ons' );
 
 	// Do default image message if no specific image_size is passed.
 	if ( ! $image_size ) {
@@ -149,7 +149,7 @@ function mm_custom_image_field_description( $image_size = '' ) {
 	$width = $image_dimensions['width'] * 2;
 	$height = $image_dimensions['height'] * 2;
 
-	return sprintf( __( 'Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that it is not stretched.', 'mm-visual-composer-add-ons' ), $width, $height );
+	return sprintf( __( 'Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that it is not stretched.', 'mm-add-ons' ), $width, $height );
 
 }
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Highlight Box
  *
- * @package Mm Custom Visual Composer Add-ons
+ * @package mm-add-ons
  * @since   1.0.0
  */
 
@@ -79,31 +79,31 @@ add_action( 'vc_before_init', 'mm_vc_highlight_box' );
  */
 function mm_vc_highlight_box() {
 	vc_map( array(
-		'name' => __( 'Highlight Box', 'mm-visual-composer-add-ons' ),
+		'name' => __( 'Highlight Box', 'mm-add-ons' ),
 		'base' => 'mm_highlight_box',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+		'category' => __( 'Content', 'mm-add-ons' ),
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Heading', 'mm-add-ons' ),
 				'param_name' => 'heading_text',
 				'admin_label' => true,
 			),
 			array(
 				'type' => 'textarea',
-				'heading' => __( 'Paragraph Text', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Paragraph Text', 'mm-add-ons' ),
 				'param_name' => 'paragraph_text',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Link Text', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Link Text', 'mm-add-ons' ),
 				'param_name' => 'link_text',
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Link URL', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Link URL', 'mm-add-ons' ),
 				'param_name' => 'link',
 			),
 		)

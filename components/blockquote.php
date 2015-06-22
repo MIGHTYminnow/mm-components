@@ -1,10 +1,10 @@
 <?php
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Blockquote
  *
- * @package Mm Custom Visual Composer Add-ons
+ * @package mm-add-ons
  * @since   1.0.0
  */
 
@@ -50,20 +50,20 @@ add_action( 'vc_before_init', 'mm_vc_blockquote' );
  */
 function mm_vc_blockquote() {
 	vc_map( array(
-		'name' => __( 'Blockquote', 'mm-visual-composer-add-ons' ),
+		'name' => __( 'Blockquote', 'mm-add-ons' ),
 		'base' => 'mm_blockquote',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+		'category' => __( 'Content', 'mm-add-ons' ),
 		'params' => array(
 			array(
 				'type' => 'textarea',
-				'heading' => __( 'Quote', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Quote', 'mm-add-ons' ),
 				'param_name' => 'quote',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Citation', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Citation', 'mm-add-ons' ),
 				'param_name' => 'citation',
 			),
 		)

@@ -1,10 +1,10 @@
 <?php
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Phone Number Box
  *
- * @package Mm Custom Visual Composer Add-ons
+ * @package mm-add-ons
  * @since   1.0.0
  */
 
@@ -44,11 +44,11 @@ function mm_phone_number_box_shortcode( $atts, $content = null, $tag ) {
 	<div class="<?php echo $mm_classes; ?>">
 		<div class="col-wrap">
 			<div class="col one-half first">
-				<h4><?php esc_html_e( 'Crisis Support Services of Alameda County, CA - 24 Hour Crisis Line', 'mm-visual-composer-add-ons' ); ?>:</h4>
+				<h4><?php esc_html_e( 'Crisis Support Services of Alameda County, CA - 24 Hour Crisis Line', 'mm-add-ons' ); ?>:</h4>
 				<a href="tel:1-800-309-2131">1-800-309-2131</a>
 			</div>
 			<div class="col one-half">
-				<h4><?php esc_html_e( 'National Suicide Prevention Lifeline', 'mm-visual-composer-add-ons' ); ?>:</h4>
+				<h4><?php esc_html_e( 'National Suicide Prevention Lifeline', 'mm-add-ons' ); ?>:</h4>
 				<a href="tel:1-800-273-8255">1-800-273-8255</a>
 			</div>
 		</div>
@@ -69,10 +69,10 @@ add_action( 'vc_before_init', 'mm_vc_phone_number_box' );
  */
 function mm_vc_phone_number_box() {
 	vc_map( array(
-		'name' => __( 'Phone Number Box', 'mm-visual-composer-add-ons' ),
+		'name' => __( 'Phone Number Box', 'mm-add-ons' ),
 		'base' => 'mm_phone_number_box',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+		'category' => __( 'Content', 'mm-add-ons' ),
 		'show_settings_on_create' => false,
 		'params' => array(),
 	) );

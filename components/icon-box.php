@@ -1,10 +1,10 @@
 <?php
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Icon Box
  *
- * @package Mm Custom Visual Composer Add-ons
+ * @package mm-add-ons
  * @since   1.0.0
  */
 
@@ -74,11 +74,11 @@ add_action( 'vc_before_init', 'mm_vc_icon_box' );
  */
 function mm_vc_icon_box() {
 	vc_map( array(
-		'name' => __( 'Icon Box', 'mm-visual-composer-add-ons' ),
+		'name' => __( 'Icon Box', 'mm-add-ons' ),
 		'base' => 'mm_icon_box',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+		'category' => __( 'Content', 'mm-add-ons' ),
 		'params' => array(
 			array(
 				'type' => 'iconpicker',
@@ -95,13 +95,13 @@ function mm_vc_icon_box() {
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Heading', 'mm-add-ons' ),
 				'param_name' => 'heading_text',
 				'admin_label' => true,
 			),
 			array(
 				'type' => 'textarea_html',
-				'heading' => __( 'Paragraph Text', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Paragraph Text', 'mm-add-ons' ),
 				'param_name' => 'content',
 			),
 		)

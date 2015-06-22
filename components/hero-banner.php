@@ -1,11 +1,11 @@
 <?php
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Hero Banner
  *
- * @package Mm Custom Visual Composer Add-ons
- * @since   1.0
+ * @package mm-add-ons
+ * @since   1.0.0
  */
 
 add_shortcode( 'hero-banner', 'mm_hero_banner_shortcode' );
@@ -30,7 +30,7 @@ function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 		'button_type'         => '',
 		'button_link'         => '',
 		'button_video_url'    => '',
-		'button_text'         => __( 'Read More', 'mm-visual-composer-add-ons' ),
+		'button_text'         => __( 'Read More', 'mm-add-ons' ),
 		'button_style'        => '',
 		'button_color'        => '',
 		'secondary_cta'       => '',
@@ -163,39 +163,39 @@ add_action( 'vc_before_init', 'mm_vc_hero_banner' );
 function mm_vc_hero_banner() {
 
 	vc_map( array(
-		'name' => __( 'Hero Banner', 'mm-visual-composer-add-ons' ),
+		'name' => __( 'Hero Banner', 'mm-add-ons' ),
 		'base' => 'hero-banner',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+		'category' => __( 'Content', 'mm-add-ons' ),
 		'params' => array(
 			array(
 				'type' => 'attach_image',
-				'heading' => __( 'Background Image', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Background Image', 'mm-add-ons' ),
 				'param_name' => 'background_image',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Background Position', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Background Position', 'mm-add-ons' ),
 				'param_name' => 'background_position',
 				'description' => sprintf(
-					__( 'CSS background position value (%sread more%s). Defaults to: center center.', 'mm-visual-composer-add-ons' ),
+					__( 'CSS background position value (%sread more%s). Defaults to: center center.', 'mm-add-ons' ),
 					'<a href="http://www.w3schools.com/cssref/pr_background-position.asp" target="_blank">',
 					'</a>'
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Overlay Color', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Overlay Color', 'mm-add-ons' ),
 				'param_name' => 'overlay_color',
 				'value' => array(
-					__( 'None', 'mm-visual-composer-add-ons' ) => '',
-					__( 'Black', 'mm-visual-composer-add-ons' ) => '#000',
-					__( 'White', 'mm-visual-composer-add-ons' ) => '#fff',
+					__( 'None', 'mm-add-ons' ) => '',
+					__( 'Black', 'mm-add-ons' ) => '#000',
+					__( 'White', 'mm-add-ons' ) => '#fff',
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Overlay Opacity', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Overlay Opacity', 'mm-add-ons' ),
 				'param_name' => 'overlay_opacity',
 				'value' => range( 0.1, 1, 0.1 ),
 				'dependency' => array(
@@ -208,37 +208,37 @@ function mm_vc_hero_banner() {
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Heading', 'mm-add-ons' ),
 				'param_name' => 'heading',
 				'admin_label' => true,
 			),
 			array(
 				'type' => 'textarea_html',
-				'heading' => __( 'Paragraph Text', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Paragraph Text', 'mm-add-ons' ),
 				'param_name' => 'content',
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Text Position', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Text Position', 'mm-add-ons' ),
 				'param_name' => 'text_position',
 				'value' => array(
-					__( 'Left', 'mm-visual-composer-add-ons' ) => 'text-left',
-					__( 'Center', 'mm-visual-composer-add-ons' ) => 'text-center',
-					__( 'Right', 'mm-visual-composer-add-ons' ) => 'text-right',
+					__( 'Left', 'mm-add-ons' ) => 'text-left',
+					__( 'Center', 'mm-add-ons' ) => 'text-center',
+					__( 'Right', 'mm-add-ons' ) => 'text-right',
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Button Type', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Button Type', 'mm-add-ons' ),
 				'param_name' => 'button_type',
 				'value' => array(
-					__( 'Standard', 'mm-visual-composer-add-ons ') => 'standard',
-					__( 'Video', 'mm-visual-composer-add-ons ') => 'video',
+					__( 'Standard', 'mm-add-ons ') => 'standard',
+					__( 'Video', 'mm-add-ons ') => 'video',
 				),
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Button URL', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Button URL', 'mm-add-ons' ),
 				'param_name' => 'button_link',
 				'dependency' => array(
 					'element' => 'button_type',
@@ -249,7 +249,7 @@ function mm_vc_hero_banner() {
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Video URL', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Video URL', 'mm-add-ons' ),
 				'param_name' => 'button_video_url',
 				'dependency' => array(
 					'element' => 'button_type',
@@ -260,27 +260,27 @@ function mm_vc_hero_banner() {
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Button Text', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Button Text', 'mm-add-ons' ),
 				'param_name' => 'button_text',
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Button Style', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Button Style', 'mm-add-ons' ),
 				'param_name' => 'button_style',
 				'value' => array(
-					__( 'Default (solid)', 'mm-visual-composer-add-ons ') => 'default',
-					__( 'Ghost (transparent background, white border)', 'mm-visual-composer-add-ons ') => 'ghost',
+					__( 'Default (solid)', 'mm-add-ons ') => 'default',
+					__( 'Ghost (transparent background, white border)', 'mm-add-ons ') => 'ghost',
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Button Color', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Button Color', 'mm-add-ons' ),
 				'param_name' => 'button_color',
 				'value' => array(
-					__( 'Default', 'mm-visual-composer-add-ons ') => 'default',
-					__( 'Pink', 'mm-visual-composer-add-ons ') => 'pink',
-					__( 'White', 'mm-visual-composer-add-ons ') => 'white',
-					__( 'Gray', 'mm-visual-composer-add-ons ') => 'gray',
+					__( 'Default', 'mm-add-ons ') => 'default',
+					__( 'Pink', 'mm-add-ons ') => 'pink',
+					__( 'White', 'mm-add-ons ') => 'white',
+					__( 'Gray', 'mm-add-ons ') => 'gray',
 				),
 				'dependency' => array(
 					'element' => 'button_style',
@@ -291,9 +291,9 @@ function mm_vc_hero_banner() {
 			),
 			array(
 				'type' => 'textarea_raw_html',
-				'heading' => __( 'Secondary Call to Action', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Secondary Call to Action', 'mm-add-ons' ),
 				'param_name' => 'secondary_cta',
-				'description' => __( 'Outputs below the main button, can include HTML markup.', 'mm-visual-composer-add-ons' ),
+				'description' => __( 'Outputs below the main button, can include HTML markup.', 'mm-add-ons' ),
 			),
 		),
 	) );

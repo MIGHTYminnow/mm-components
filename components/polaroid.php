@@ -1,12 +1,11 @@
 <?php
-
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Polaroid
  *
- * @package Mm Custom Visual Composer Add-ons
- * @since   1.0
+ * @package mm-add-ons
+ * @since   1.0.0
  */
 
 add_shortcode( 'polaroid', 'mm_polaroid_shortcode' );
@@ -26,7 +25,7 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
       'image'        => '',
       'author_image' => '',
       'link'         => '',
-      'link_text'    => __( 'Visit campaign', 'mm-visual-composer-add-ons' ),
+      'link_text'    => __( 'Visit campaign', 'mm-add-ons' ),
       'banner_text'  => '',
       'class'        => '',
    ), $atts ) );
@@ -115,49 +114,49 @@ add_action( 'vc_before_init', 'mm_vc_polaroid' );
  */
 function mm_vc_polaroid() {
    vc_map( array(
-      'name' => __( 'Polaroid', 'mm-visual-composer-add-ons' ),
+      'name' => __( 'Polaroid', 'mm-add-ons' ),
       'base' => 'polaroid',
       'class' => '',
       'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-      'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+      'category' => __( 'Content', 'mm-add-ons' ),
       'params' => array(
          array(
             'type' => 'textfield',
-            'heading' => __( 'Title', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Title', 'mm-add-ons' ),
             'param_name' => 'title',
             'admin_label' => true,
             'value' => '',
          ),
          array(
             'type' => 'attach_image',
-            'heading' => __( 'Main Image', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Main Image', 'mm-add-ons' ),
             'param_name' => 'image',
             'value' => '',
             'mm_image_size_for_desc' => 'polaroid',
          ),
          array(
             'type' => 'attach_image',
-            'heading' => __( 'Author Image', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Author Image', 'mm-add-ons' ),
             'param_name' => 'author_image',
             'value' => '',
             'mm_image_size_for_desc' => 'thumbnail',
          ),
          array(
             'type' => 'textfield',
-            'heading' => __( 'Link Text', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Link Text', 'mm-add-ons' ),
             'param_name' => 'link_text',
             'value' => '',
-            'description' => __( 'Defaults to "Visit campaign".', 'mm-visual-composer-add-ons' )
+            'description' => __( 'Defaults to "Visit campaign".', 'mm-add-ons' )
          ),
          array(
             'type' => 'vc_link',
-            'heading' => __( 'Link URL', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Link URL', 'mm-add-ons' ),
             'param_name' => 'link',
             'value' => '',
          ),
          array(
             'type' => 'textarea_html',
-            'heading' => __( 'Text', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Text', 'mm-add-ons' ),
             'param_name' => 'content',
             'value' => '',
          )

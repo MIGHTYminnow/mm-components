@@ -1,12 +1,11 @@
 <?php
-
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Logo Strip
  *
- * @package Mm Custom Visual Composer Add-ons
- * @since   1.0
+ * @package mm-add-ons
+ * @since   1.0.0
  */
 
 add_shortcode( 'logo-strip', 'mm_logo_strip_shortcode' );
@@ -70,22 +69,22 @@ add_action( 'vc_before_init', 'mm_vc_logo_strip' );
  */
 function mm_vc_logo_strip() {
    vc_map( array(
-      'name' => __( 'Logo Strip', 'mm-visual-composer-add-ons' ),
+      'name' => __( 'Logo Strip', 'mm-add-ons' ),
       'base' => 'logo-strip',
       'class' => '',
       'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-      'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+      'category' => __( 'Content', 'mm-add-ons' ),
       'params' => array(
          array(
             'type' => 'textfield',
-            'heading' => __( 'Title', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Title', 'mm-add-ons' ),
             'param_name' => 'title',
             'admin_label' => true,
             'value' => '',
          ),
          array(
             'type' => 'attach_images',
-            'heading' => __( 'Logos', 'mm-visual-composer-add-ons' ),
+            'heading' => __( 'Logos', 'mm-add-ons' ),
             'param_name' => 'images',
             'value' => '',
          ),

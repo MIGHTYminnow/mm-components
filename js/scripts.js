@@ -1,9 +1,9 @@
 /**
- * Mm general Visual Composer jQuery
+ * General scripts.
  *
  * @since 1.0.0
  *
- * @package Mm Visual Composer Add Ons
+ * @package mm-add-ons
  */
 
 // Executes when the document is ready

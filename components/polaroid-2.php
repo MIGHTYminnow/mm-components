@@ -1,12 +1,11 @@
 <?php
-
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Polaroid 2
  *
- * @package Mm Custom Visual Composer Add-ons
- * @since   1.0
+ * @package mm-add-ons
+ * @since   1.0.0
  */
 
 add_shortcode( 'polaroid-2', 'mm_polaroid_2_shortcode' );
@@ -82,44 +81,44 @@ add_action( 'vc_before_init', 'mm_vc_polaroid_2' );
  */
 function mm_vc_polaroid_2() {
 	vc_map( array(
-		'name' => __( 'Polaroid 2', 'mm-visual-composer-add-ons' ),
+		'name' => __( 'Polaroid 2', 'mm-add-ons' ),
 		'base' => 'polaroid-2',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+		'category' => __( 'Content', 'mm-add-ons' ),
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Title', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Title', 'mm-add-ons' ),
 				'param_name' => 'title',
 				'admin_label' => true,
 				'value' => '',
 			),
 			array(
 				'type' => 'attach_image',
-				'heading' => __( 'Main Image', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Main Image', 'mm-add-ons' ),
 				'param_name' => 'image',
 				'value' => '',
 				'mm_image_size_for_desc' => 'polaroid',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Caption', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Caption', 'mm-add-ons' ),
 				'param_name' => 'caption',
 				'value' => '',
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Caption Color', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Caption Color', 'mm-add-ons' ),
 				'param_name' => 'caption_color',
 				'value' => array(
-					__( 'Light', 'mm-visual-composer-add-ons ') => 'light-text',
-					__( 'Dark', 'mm-visual-composer-add-ons ') => 'dark-text',
+					__( 'Light', 'mm-add-ons ') => 'light-text',
+					__( 'Dark', 'mm-add-ons ') => 'dark-text',
 				),
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Link URL', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Link URL', 'mm-add-ons' ),
 				'param_name' => 'link',
 				'value' => '',
 			),

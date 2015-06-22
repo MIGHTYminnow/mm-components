@@ -1,12 +1,11 @@
 <?php
-
 /**
- * Visual Composer Add-ons.
+ * MIGHTYminnow Add-ons
  *
  * Component: Countdown
  *
- * @package Mm Custom Visual Composer Add-ons
- * @since   1.0
+ * @package mm-add-ons
+ * @since   1.0.0
  */
 
 add_action( 'wp_enqueue_scripts', 'mm_countdown_enqueue_scripts' );
@@ -99,33 +98,33 @@ function mm_vc_countdown() {
 	add_shortcode_param( 'timezone', 'mm_timezone_param' );
 
 	vc_map( array(
-		'name' => __( 'Countdown', 'mm-visual-composer-add-ons' ),
+		'name' => __( 'Countdown', 'mm-add-ons' ),
 		'base' => 'countdown',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-visual-composer-add-ons' ),
+		'category' => __( 'Content', 'mm-add-ons' ),
 		'params' => array(
 			array(
 				'type' => 'date',
 				'class' => '',
-				'heading' => __( 'Date', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Date', 'mm-add-ons' ),
 				'param_name' => 'date',
 				'admin_label' => true,
 				'value' => '',
-				'description' => __( 'Must be in the format MM/DD/YYYY. Example: 12/25/2015 would be Christmas of 2015.', 'mm-visual-composer-add-ons' ),
+				'description' => __( 'Must be in the format MM/DD/YYYY. Example: 12/25/2015 would be Christmas of 2015.', 'mm-add-ons' ),
 				),
 			array(
 				'type' => 'textfield',
 				'class' => '',
-				'heading' => __( 'Time', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Time', 'mm-add-ons' ),
 				'param_name' => 'time',
 				'value' => '',
-				'description' => __( 'Must be in the format HH:MM:SS. Example: 18:30:00 would be 6:30 PM.', 'mm-visual-composer-add-ons' ),
+				'description' => __( 'Must be in the format HH:MM:SS. Example: 18:30:00 would be 6:30 PM.', 'mm-add-ons' ),
 				),
 			array(
 				'type' => 'timezone',
 				'class' => '',
-				'heading' => __( 'Time Zone', 'mm-visual-composer-add-ons' ),
+				'heading' => __( 'Time Zone', 'mm-add-ons' ),
 				'param_name' => 'timezone',
 				'value' => '',
 				),
