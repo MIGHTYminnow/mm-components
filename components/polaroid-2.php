@@ -46,7 +46,9 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 			<a href="<?php echo $link_array['url']; ?>" title="<?php echo $link_array['title']; ?>">
 		<?php endif; ?>
 
-		<?php echo ( $title ) ? '<h3>' . $title . '</h3>'; ?>
+		<?php if ( $title ) : ?>
+			<h3><?php echo $title; ?></h3>
+		<?php endif; ?>
 
 		<div class="polaroid-wrap">
 			<?php if ( $image ) : ?>

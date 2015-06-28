@@ -44,7 +44,9 @@ function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
 
 	<div class="<?php echo $mm_classes; ?>">
 
-		<?php echo ( $title ) ?  '<h4>' . $title . '</h4>'; ?>
+		<?php if ( $title ) : ?>
+			<h4><?php echo $title; ?></h4>
+		<?php endif; ?>
 
 		<?php
 			foreach ( $images as $image ) {

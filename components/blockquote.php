@@ -33,13 +33,23 @@ function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 	$quote = ! empty( $atts['quote'] ) ? '<p>' . $atts['quote'] . '</p>' : '';
 	$citation = ! empty( $atts['citation'] ) ? $atts['citation'] : '';
 
-	return do_shortcode(
-		sprintf( '[blockquote citation="%s"]%s[/blockquote]',
-			$citation,
-			$quote
-		)
-	);
+	ob_start() ?>
 
+	<blockquote>
+
+		<?php echo $quote; ?>
+
+		<?php if ( $citation ) : ?>
+			<cite>- <?php echo $citation; ?></cite>
+		<?php endif; ?>
+
+	</blockquote>
+
+	<?php
+
+	$output = ob_get_clean();
+
+	return $output;
 }
 
 add_action( 'vc_before_init', 'mm_vc_blockquote' );

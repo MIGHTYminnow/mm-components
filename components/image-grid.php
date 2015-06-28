@@ -41,9 +41,13 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 
 	<div class="<?php echo $mm_classes; ?>">
 
-		<?php echo ( $title ) ? '<h4>' . $title . '</h4>'; ?>
+		<?php if ( $title ) : ?>
+			<h4><?php echo $title; ?></h4>
+		<?php endif; ?>
 
-		<?php echo ( $content ) ? $content; ?>
+		<?php if ( $content ) : ?>
+			<?php echo $content; ?>
+		<?php endif; ?>
 
 	</div>
 
@@ -105,9 +109,13 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 		<?php endif; ?>
 
 		<div class="caption">
-			<?php echo ( $title ) ? '<div class="title">' . $title . '</div>'; ?>
+			<?php if ( $title ) : ?>
+				<h4><?php echo $title; ?></h4>
+			<?php endif; ?>
 
-			<?php echo ( $subtitle ) ? '<div class="subtitle">' . $subtitle . '</div>'; ?>
+			<?php if ( $content ) : ?>
+				<?php echo $content; ?>
+			<?php endif; ?>
 		</div>
 
 		<?php if ( isset( $link_array['url'] ) && ! empty( $link_array['url'] ) ) : ?>

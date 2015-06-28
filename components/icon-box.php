@@ -42,7 +42,9 @@ function mm_icon_box_shortcode( $atts, $content = null, $tag ) {
 			<h3><?php echo $atts['heading_text']; ?></h3>
 		<?php endif; ?>
 
-		<?php echo ( $content ) ? $content; ?>
+		<?php if ( $content ) : ?>
+			<?php echo $content; ?>
+		<?php endif; ?>
 
 		<?php
 		if ( ! empty( $atts['link_text'] ) && ! empty( $link_array['url'] ) ) {

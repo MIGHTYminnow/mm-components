@@ -127,7 +127,7 @@ function mm_vc_countdown() {
 				'value' => '',
 				),
 			)
-) );
+	) );
 }
 
 /**
@@ -137,10 +137,12 @@ function mm_vc_countdown() {
  */
 function mm_date_param( $settings, $value ) {
 
-	$output = '<input type="date" class="countdown-date wpb_vc_param_value" value="' . $value . '" name="' . esc_attr( $settings['param_name'] ) . '" />';
+	$output = sprintf( '<input type="date" class="countdown-date wpb_vc_param_value" value="%s" name="%s" />',
+		$value,
+		esc_attr( $settings['param_name'] )
+	);
 
 	return $output;
-
 }
 
 /**
@@ -187,6 +189,5 @@ function mm_timezone_param( $settings, $value ) {
 	</select>';
 
 	return $output;
-
 }
 

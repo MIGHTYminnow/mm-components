@@ -42,7 +42,6 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	$class .= ' ' . $atts['style'];
 	$class .= ' ' . $atts['border_style'];
 	$class .= ' ' . $atts['color'];
-	$class .= ' ' . $atts['font_style'];
 	$class .= ' ' . $atts['size'];
 
 	// Get Mm classes.
