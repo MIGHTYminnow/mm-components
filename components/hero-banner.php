@@ -94,12 +94,10 @@ function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 
 		<div class="hero-text-wrapper">
 			<div class="wrapper">
-				<?php if ( $heading ) : ?>
-					<h2><?php echo $heading; ?></h2>
-				<?php endif; ?>
-				<?php if ( $content ) : ?>
-					<p><?php echo $content; ?></p>
-				<?php endif; ?>
+				<?php echo ( $heading ) ? '<h2>' . $heading . '</h2>'; ?>
+
+				<?php echo ( $content ) ? '<p>' . $content . '</p>'; ?>
+
 				<?php
 				if ( 'standard' == $button_type && $button_url ) {
 
