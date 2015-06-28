@@ -49,6 +49,7 @@ add_action( 'vc_before_init', 'mm_vc_blockquote' );
  * @since  1.0.0
  */
 function mm_vc_blockquote() {
+
 	vc_map( array(
 		'name' => __( 'Blockquote', 'mm-add-ons' ),
 		'base' => 'mm_blockquote',
