@@ -52,6 +52,17 @@ function mm_vc_custom_component_atts() {
 		'group' => $custom_group,
 	);
 
+	// Additional Styles
+	$atts[] = array(
+		'type' => 'checkbox',
+		'heading' => __( 'Full height', 'igg-visual-composer-add-ons' ),
+		'param_name' => 'mm_class_full_height',
+		'value' => array(
+			__( 'Size element to full height of the window.', 'mm-add-ons') => 'full-height',
+		),
+		'group' => $custom_group,
+	);
+
 	// Add each param to each VC component
 	foreach ( $atts as $att ) {
 		foreach ( $components as $component ) {
