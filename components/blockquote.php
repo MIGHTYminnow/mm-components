@@ -36,7 +36,7 @@ function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 
 	ob_start() ?>
 
-	<blockquote>
+	<blockquote class="<?php echo $mm_classes; ?>">
 
 		<?php if ( $atts[ 'image_id'] ) : ?>
 			<?php echo wp_get_attachment_image( $atts['image_id'], 'thumbnail' ); ?>
