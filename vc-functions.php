@@ -7,7 +7,7 @@
  * @package mm-add-ons
  */
 
-add_action( 'vc_after_mapping', 'mm_vc_custom_component_atts', 5 );
+add_action( 'init', 'mm_vc_custom_component_atts', 15 );
 /**
  * Add shared Mm parameters/atts to all VC components.
  *
@@ -19,7 +19,7 @@ add_action( 'vc_after_mapping', 'mm_vc_custom_component_atts', 5 );
 function mm_vc_custom_component_atts() {
 
 	// Get all available VC components
-	$components = WPBMap::getSortedUserShortCodes();
+	$components = WPBMap::getShortCodes();
 
 	// Create custom group title.
 	$custom_group = __( 'Mm Custom Settings', 'mm-add-ons' );
