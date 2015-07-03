@@ -45,7 +45,7 @@ function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 		<?php echo $quote; ?>
 
 		<?php if ( $citation ) : ?>
-			<cite>&mdash; <?php echo $citation; ?></cite>
+			<cite><?php echo $citation; ?></cite>
 		<?php endif; ?>
 
 	</blockquote>
