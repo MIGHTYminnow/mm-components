@@ -21,6 +21,7 @@ add_shortcode( 'mm_blockquote', 'mm_blockquote_shortcode' );
 function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 
 	$atts = shortcode_atts( array(
+		'image_id' => '',
 		'quote'    => '',
 		'citation' => '',
 	), $atts );
@@ -37,10 +38,14 @@ function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 
 	<blockquote>
 
+		<?php if ( $atts[ 'image_id'] ) : ?>
+			<?php echo wp_get_attachment_image( $atts['image_id'], 'thumbnail' ); ?>
+		<?php endif; ?>
+
 		<?php echo $quote; ?>
 
 		<?php if ( $citation ) : ?>
-			<cite>- <?php echo $citation; ?></cite>
+			<cite>&mdash; <?php echo $citation; ?></cite>
 		<?php endif; ?>
 
 	</blockquote>
@@ -67,6 +72,12 @@ function mm_vc_blockquote() {
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-add-ons' ),
 		'params' => array(
+			array(
+				'type' => 'attach_image',
+				'heading' => __( 'Image', 'js_composer' ),
+				'param_name' => 'image_id',
+				'description' => __( 'Select an image from the library.', 'js_composer' ),
+			),
 			array(
 				'type' => 'textarea',
 				'heading' => __( 'Quote', 'mm-add-ons' ),
