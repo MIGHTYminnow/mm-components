@@ -30,10 +30,10 @@ function mm_vc_custom_component_atts() {
 		'heading' => __( 'Text Color Scheme', 'mm-add-ons' ),
 		'param_name' => 'mm_class_text_color',
 		'value' => array(
-			__( 'Default', 'mm-add-ons ') => 'text-color-default',
-            __( 'Dark', 'mm-add-ons ') => 'dark-text',
-            __( 'Light', 'mm-add-ons ') => 'light-text',
-            __( 'Medium', 'mm-add-ons ') => 'medium-text',
+			__( 'Default', 'mm-add-ons ') => '',
+            __( 'Dark', 'mm-add-ons ') => 'dark',
+            __( 'Light', 'mm-add-ons ') => 'light',
+            __( 'Medium', 'mm-add-ons ') => 'medium',
 		),
 		'group' => $custom_group,
 	);
@@ -44,10 +44,10 @@ function mm_vc_custom_component_atts() {
 		'heading' => __( 'Text Alignment', 'mm-add-ons' ),
 		'param_name' => 'mm_class_text_align',
 		'value' => array(
-			__( 'Default', 'mm-add-ons ') => 'text-align-default',
-            __( 'Left', 'mm-add-ons ') => 'text-align-left',
-            __( 'Center', 'mm-add-ons ') => 'text-align-center',
-            __( 'Right', 'mm-add-ons ') => 'text-align-right',
+			__( 'Default', 'mm-add-ons ') => '',
+            __( 'Left', 'mm-add-ons ') => 'left',
+            __( 'Center', 'mm-add-ons ') => 'center',
+            __( 'Right', 'mm-add-ons ') => 'right',
 		),
 		'group' => $custom_group,
 	);
@@ -84,9 +84,12 @@ function mm_vc_custom_component_atts() {
 	 */
 	function mm_custom_shortcode_classes( $classes, $tag, $atts ) {
 
+		// Setup empty array for custom classes.
+		$mm_custom_classes = array();
+
 		// Background image
 		if ( isset( $atts['css'] ) && false !== strpos( $atts['css'], 'url(' ) ) {
-			$classes .= ' has-bg-image';
+			$mm_custom_classes[] = 'has-bg-image';
 		}
 
 		// Custom attribute classes (all begin with mm_class_*)
@@ -94,11 +97,17 @@ function mm_vc_custom_component_atts() {
 		foreach ( $atts as $key => $value ) {
 
 			if ( false !== strpos( $key, 'mm_class_' ) ) {
-				$mm_custom_atts[ $key ] = str_replace( ',', ' ', $value );
+				$mm_custom_classes[] = "$key-$value";
 			}
 		}
 
-		$classes .= ' ' . implode( ' ', $mm_custom_atts );
+		// Add custom full-height class to utilize core VC CSS and jQuery.
+		if ( 'full-height' == $atts['mm_class_full_height'] ) {
+			$mm_custom_classes[] = 'vc_row vc_row-fluid vc_row-no-padding vc_row-o-full-height vc_row-o-content-top';
+		}
+
+		// Add space-separated custom classes to main class string.
+		$classes .= ' ' . implode( ' ', $mm_custom_classes );
 
 		return $classes;
 

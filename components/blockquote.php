@@ -20,15 +20,15 @@ add_shortcode( 'mm_blockquote', 'mm_blockquote_shortcode' );
  */
 function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 
+	// Generate base component class.
+	$mm_classes = str_replace( '_', '-', $tag );
+	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+
 	$atts = shortcode_atts( array(
 		'image_id' => '',
 		'quote'    => '',
 		'citation' => '',
 	), $atts );
-
-	// Get Mm classes
-	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
 
 	// Get param values.
 	$quote = ! empty( $atts['quote'] ) ? '<p>' . $atts['quote'] . '</p>' : '';
