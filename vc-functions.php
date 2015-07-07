@@ -188,3 +188,27 @@ function mm_get_image_size_dimensions( $image_size = '' ) {
 	return $image_dimensions;
 
 }
+
+/**
+ * Possibly wrap content in a link.
+ *
+ * @since 1.0.0
+ *
+ * @param mixed $content Content to go in link.
+ * @param array  $link_array Array of link data: url|title|target
+ *
+ * @return string HTML output.
+ */
+function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
+
+	if ( empty( $link_array['url'] ) ) {
+		return $content;
+	}
+
+	return sprintf( '<a href="%s" title="%s" target="%s">%s</a>',
+		$link_array['url'],
+		$link_array['title'],
+		$link_array['target'],
+		$content
+	);
+}
