@@ -1,7 +1,41 @@
 /**
- * General Styles.
+ * Add-On Styles.
  *
  * @since 1.0.0
  *
  * @package mm-add-ons
  */
+ 
+/*
+ * Global Styles
+ */
+ 
+/*
+ * Individual Component Styles
+ */
+  
+/*
+ * Icon Box
+ */
+  
+.mm-icon-box {
+	position: relative;
+	margin-top: 3em;
+	padding: 6em 20px 20px 20px;
+	border: 1px solid #d6dfe8;
+}
+
+.mm-icon-box .mm-icon {
+	position: absolute;
+	top: -1em;
+	left: 50%;
+	width: 2em;
+	height: 2em;
+	margin-left: -1em;
+	background-color: #fff;
+	border: 1px solid #d6dfe8;
+	border-radius: 100%;
+	font-size: 4.2em;
+	text-align: center;
+	line-height: 2em;
+}
