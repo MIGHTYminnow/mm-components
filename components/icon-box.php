@@ -46,36 +46,36 @@ function mm_icon_box_shortcode( $atts, $content = null, $tag ) {
 	// Get icon type.
 	$icon_type = $atts['icon_type'];
 	switch ( $icon_type ) {
-        case 'fontawesome':
-            $icon = ! empty( $atts['icon_fontawesome'] ) ? $atts['icon_fontawesome'] : 'fa fa-adjust';
-            break;
-        case 'openiconic':
-            $icon = $atts['icon_openiconic'];
-            break;
-        case 'typicons':
-            $icon = $atts['icon_typicons'];
-            break;
-        case 'entypo':
-            $icon = $atts['icon_entypo'];
-            break;
-        case 'linecons':
-            $icon = $atts['icon_linecons'];
-            break;
-        case 'pixelicons':
-            $icon = $atts['icon_pixelicons'];
-            break;
-        default:
-            $icon = 'fa fa-adjust';
-    }
+		case 'fontawesome':
+			$icon = ! empty( $atts['icon_fontawesome'] ) ? $atts['icon_fontawesome'] : 'fa fa-adjust';
+			break;
+		case 'openiconic':
+			$icon = $atts['icon_openiconic'];
+			break;
+		case 'typicons':
+			$icon = $atts['icon_typicons'];
+			break;
+		case 'entypo':
+			$icon = $atts['icon_entypo'];
+			break;
+		case 'linecons':
+			$icon = $atts['icon_linecons'];
+			break;
+		case 'pixelicons':
+			$icon = $atts['icon_pixelicons'];
+			break;
+		default:
+			$icon = 'fa fa-adjust';
+	}
 
-    // Enqueue the icon font that we're using.
-    vc_icon_element_fonts_enqueue( $icon_type );
+	// Enqueue the icon font that we're using.
+	vc_icon_element_fonts_enqueue( $icon_type );
 
 	ob_start(); ?>
 
 	<div class="<?php echo $mm_classes; ?>">
 
-		<i class="icon <?php echo $icon; ?>"></i>
+		<i class="mm-icon <?php echo $icon; ?>"></i>
 
 		<?php if ( ! empty( $atts['heading_text'] ) ) : ?>
 			<h3><?php echo $atts['heading_text']; ?></h3>
@@ -114,45 +114,45 @@ add_action( 'vc_before_init', 'mm_vc_icon_box' );
 function mm_vc_icon_box() {
 
 	// $pixel_icons is needed because VC.
-    global $pixel_icons;
-    $pixel_icons = array(
-        array( 'vc_pixel_icon vc_pixel_icon-alert' => 'Alert' ),
-        array( 'vc_pixel_icon vc_pixel_icon-info' => 'Info' ),
-        array( 'vc_pixel_icon vc_pixel_icon-tick' => 'Tick' ),
-        array( 'vc_pixel_icon vc_pixel_icon-explanation' => 'Explanation' ),
-        array( 'vc_pixel_icon vc_pixel_icon-address_book' => 'Address book' ),
-        array( 'vc_pixel_icon vc_pixel_icon-alarm_clock' => 'Alarm clock' ),
-        array( 'vc_pixel_icon vc_pixel_icon-anchor' => 'Anchor' ),
-        array( 'vc_pixel_icon vc_pixel_icon-application_image' => 'Application Image' ),
-        array( 'vc_pixel_icon vc_pixel_icon-arrow' => 'Arrow' ),
-        array( 'vc_pixel_icon vc_pixel_icon-asterisk' => 'Asterisk' ),
-        array( 'vc_pixel_icon vc_pixel_icon-hammer' => 'Hammer' ),
-        array( 'vc_pixel_icon vc_pixel_icon-balloon' => 'Balloon' ),
-        array( 'vc_pixel_icon vc_pixel_icon-balloon_buzz' => 'Balloon Buzz' ),
-        array( 'vc_pixel_icon vc_pixel_icon-balloon_facebook' => 'Balloon Facebook' ),
-        array( 'vc_pixel_icon vc_pixel_icon-balloon_twitter' => 'Balloon Twitter' ),
-        array( 'vc_pixel_icon vc_pixel_icon-battery' => 'Battery' ),
-        array( 'vc_pixel_icon vc_pixel_icon-binocular' => 'Binocular' ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_excel' => 'Document Excel' ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_image' => 'Document Image' ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_music' => 'Document Music' ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_office' => 'Document Office' ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_pdf' => 'Document PDF' ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_powerpoint' => 'Document Powerpoint' ),
-        array( 'vc_pixel_icon vc_pixel_icon-document_word' => 'Document Word' ),
-        array( 'vc_pixel_icon vc_pixel_icon-bookmark' => 'Bookmark' ),
-        array( 'vc_pixel_icon vc_pixel_icon-camcorder' => 'Camcorder' ),
-        array( 'vc_pixel_icon vc_pixel_icon-camera' => 'Camera' ),
-        array( 'vc_pixel_icon vc_pixel_icon-chart' => 'Chart' ),
-        array( 'vc_pixel_icon vc_pixel_icon-chart_pie' => 'Chart pie' ),
-        array( 'vc_pixel_icon vc_pixel_icon-clock' => 'Clock' ),
-        array( 'vc_pixel_icon vc_pixel_icon-fire' => 'Fire' ),
-        array( 'vc_pixel_icon vc_pixel_icon-heart' => 'Heart' ),
-        array( 'vc_pixel_icon vc_pixel_icon-mail' => 'Mail' ),
-        array( 'vc_pixel_icon vc_pixel_icon-play' => 'Play' ),
-        array( 'vc_pixel_icon vc_pixel_icon-shield' => 'Shield' ),
-        array( 'vc_pixel_icon vc_pixel_icon-video' => 'Video' ),
-    );
+	global $pixel_icons;
+	$pixel_icons = array(
+		array( 'vc_pixel_icon vc_pixel_icon-alert' => 'Alert' ),
+		array( 'vc_pixel_icon vc_pixel_icon-info' => 'Info' ),
+		array( 'vc_pixel_icon vc_pixel_icon-tick' => 'Tick' ),
+		array( 'vc_pixel_icon vc_pixel_icon-explanation' => 'Explanation' ),
+		array( 'vc_pixel_icon vc_pixel_icon-address_book' => 'Address book' ),
+		array( 'vc_pixel_icon vc_pixel_icon-alarm_clock' => 'Alarm clock' ),
+		array( 'vc_pixel_icon vc_pixel_icon-anchor' => 'Anchor' ),
+		array( 'vc_pixel_icon vc_pixel_icon-application_image' => 'Application Image' ),
+		array( 'vc_pixel_icon vc_pixel_icon-arrow' => 'Arrow' ),
+		array( 'vc_pixel_icon vc_pixel_icon-asterisk' => 'Asterisk' ),
+		array( 'vc_pixel_icon vc_pixel_icon-hammer' => 'Hammer' ),
+		array( 'vc_pixel_icon vc_pixel_icon-balloon' => 'Balloon' ),
+		array( 'vc_pixel_icon vc_pixel_icon-balloon_buzz' => 'Balloon Buzz' ),
+		array( 'vc_pixel_icon vc_pixel_icon-balloon_facebook' => 'Balloon Facebook' ),
+		array( 'vc_pixel_icon vc_pixel_icon-balloon_twitter' => 'Balloon Twitter' ),
+		array( 'vc_pixel_icon vc_pixel_icon-battery' => 'Battery' ),
+		array( 'vc_pixel_icon vc_pixel_icon-binocular' => 'Binocular' ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_excel' => 'Document Excel' ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_image' => 'Document Image' ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_music' => 'Document Music' ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_office' => 'Document Office' ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_pdf' => 'Document PDF' ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_powerpoint' => 'Document Powerpoint' ),
+		array( 'vc_pixel_icon vc_pixel_icon-document_word' => 'Document Word' ),
+		array( 'vc_pixel_icon vc_pixel_icon-bookmark' => 'Bookmark' ),
+		array( 'vc_pixel_icon vc_pixel_icon-camcorder' => 'Camcorder' ),
+		array( 'vc_pixel_icon vc_pixel_icon-camera' => 'Camera' ),
+		array( 'vc_pixel_icon vc_pixel_icon-chart' => 'Chart' ),
+		array( 'vc_pixel_icon vc_pixel_icon-chart_pie' => 'Chart pie' ),
+		array( 'vc_pixel_icon vc_pixel_icon-clock' => 'Clock' ),
+		array( 'vc_pixel_icon vc_pixel_icon-fire' => 'Fire' ),
+		array( 'vc_pixel_icon vc_pixel_icon-heart' => 'Heart' ),
+		array( 'vc_pixel_icon vc_pixel_icon-mail' => 'Mail' ),
+		array( 'vc_pixel_icon vc_pixel_icon-play' => 'Play' ),
+		array( 'vc_pixel_icon vc_pixel_icon-shield' => 'Shield' ),
+		array( 'vc_pixel_icon vc_pixel_icon-video' => 'Video' ),
+	);
 
 	vc_map( array(
 		'name' => __( 'Icon Box', 'css-visual-composer-add-ons' ),
