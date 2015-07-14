@@ -5,19 +5,51 @@
  *
  * @package mm-add-ons
  */
- 
-/*
+
+/**
  * Global Styles
  */
- 
-/*
+
+.mm-text-align-left {
+	text-align: left;
+}
+
+.mm-text-align-center {
+	text-align: center;
+}
+
+.mm-text-align-justify {
+	text-align: justify;
+}
+
+.mm-text-align-right {
+	text-align: right;
+}
+
+/**
  * Individual Component Styles
  */
-  
-/*
+
+/**
+ * Expandable Content
+ */
+
+.mm-expandable-content-trigger:hover {
+	cursor: pointer;
+}
+
+.mm-expandable-content-target {
+	display: none;
+}
+
+.mm-expandable-content-target.open {
+	display: block;
+}
+
+/**
  * Icon Box
  */
-  
+
 .mm-icon-box {
 	position: relative;
 	margin-top: 3em;

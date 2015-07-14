@@ -34,6 +34,7 @@ function mm_ao_startup() {
 	require_once MM_PLUG_PATH . 'components/button.php';
 	require_once MM_PLUG_PATH . 'components/countdown/countdown.php';
 	require_once MM_PLUG_PATH . 'components/custom-heading.php';
+	require_once MM_PLUG_PATH . 'components/expandable-content.php';
 	require_once MM_PLUG_PATH . 'components/hero-banner.php';
 	require_once MM_PLUG_PATH . 'components/highlight-box.php';
 	require_once MM_PLUG_PATH . 'components/icon-box.php';

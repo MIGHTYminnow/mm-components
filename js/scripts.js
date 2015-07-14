@@ -49,6 +49,25 @@
 		});
 	}
 
+	/**
+	 * Expandable Content.
+	 */
+
+	// Set up the expand/contact functionality.
+	$( document ).ready( function() {
+		$( '.mm-expandable-content' ).each( function() {
+
+			var $trigger = $( this ).find( '.mm-expandable-content-trigger' );
+			var $target = $( this ).find( '.mm-expandable-content-target' );
+
+			$trigger.on( 'click', function() {
+				$trigger.toggleClass( 'open' );
+				$target.toggleClass( 'open' );
+			});
+
+		});
+	});
+
 })( jQuery );
 
 
