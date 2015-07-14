@@ -1,22 +1,25 @@
 <?php
 /**
- * Mm custom Visual Composer functionality
+ * Mm Custom Visual Composer Functionality.
  *
  * @since 1.0.0
  *
  * @package mm-add-ons
  */
 
-add_action( 'vc_after_mapping', 'mm_vc_custom_component_atts' );
+add_action( 'init', 'mm_vc_custom_component_atts', 15 );
 /**
  * Add shared Mm parameters/atts to all VC components.
+ *
+ * Uses priority 5 to ensure params are added before VC auto mapping,
+ * which occurs on priority 10 in VC v4.5.2+.
  *
  * @since  1.0.0
  */
 function mm_vc_custom_component_atts() {
 
 	// Get all available VC components
-	$components = WPBMap::getSortedUserShortCodes();
+	$components = WPBMap::getShortCodes();
 
 	// Create custom group title.
 	$custom_group = __( 'Mm Custom Settings', 'mm-add-ons' );
@@ -184,4 +187,28 @@ function mm_get_image_size_dimensions( $image_size = '' ) {
 
 	return $image_dimensions;
 
+}
+
+/**
+ * Possibly wrap content in a link.
+ *
+ * @since 1.0.0
+ *
+ * @param mixed $content Content to go in link.
+ * @param array  $link_array Array of link data: url|title|target
+ *
+ * @return string HTML output.
+ */
+function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
+
+	if ( empty( $link_array['url'] ) ) {
+		return $content;
+	}
+
+	return sprintf( '<a href="%s" title="%s" target="%s">%s</a>',
+		$link_array['url'],
+		$link_array['title'],
+		$link_array['target'],
+		$content
+	);
 }

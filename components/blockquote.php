@@ -21,6 +21,7 @@ add_shortcode( 'mm_blockquote', 'mm_blockquote_shortcode' );
 function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 
 	$atts = shortcode_atts( array(
+		'image_id' => '',
 		'quote'    => '',
 		'citation' => '',
 	), $atts );
@@ -33,13 +34,27 @@ function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 	$quote = ! empty( $atts['quote'] ) ? '<p>' . $atts['quote'] . '</p>' : '';
 	$citation = ! empty( $atts['citation'] ) ? $atts['citation'] : '';
 
-	return do_shortcode(
-		sprintf( '[blockquote citation="%s"]%s[/blockquote]',
-			$citation,
-			$quote
-		)
-	);
+	ob_start() ?>
 
+	<blockquote class="<?php echo $mm_classes; ?>">
+
+		<?php if ( $atts[ 'image_id'] ) : ?>
+			<?php echo wp_get_attachment_image( $atts['image_id'], 'thumbnail' ); ?>
+		<?php endif; ?>
+
+		<?php echo $quote; ?>
+
+		<?php if ( $citation ) : ?>
+			<cite><?php echo $citation; ?></cite>
+		<?php endif; ?>
+
+	</blockquote>
+
+	<?php
+
+	$output = ob_get_clean();
+
+	return $output;
 }
 
 add_action( 'vc_before_init', 'mm_vc_blockquote' );
@@ -49,6 +64,7 @@ add_action( 'vc_before_init', 'mm_vc_blockquote' );
  * @since  1.0.0
  */
 function mm_vc_blockquote() {
+
 	vc_map( array(
 		'name' => __( 'Blockquote', 'mm-add-ons' ),
 		'base' => 'mm_blockquote',
@@ -56,6 +72,12 @@ function mm_vc_blockquote() {
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-add-ons' ),
 		'params' => array(
+			array(
+				'type' => 'attach_image',
+				'heading' => __( 'Image', 'js_composer' ),
+				'param_name' => 'image_id',
+				'description' => __( 'Select an image from the library.', 'js_composer' ),
+			),
 			array(
 				'type' => 'textarea',
 				'heading' => __( 'Quote', 'mm-add-ons' ),
