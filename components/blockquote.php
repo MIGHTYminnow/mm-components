@@ -20,7 +20,7 @@ add_shortcode( 'mm_blockquote', 'mm_blockquote_shortcode' );
  */
 function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 
-	$atts = shortcode_atts( array(
+	$atts = mm_shortcode_atts( array(
 		'image_id' => '',
 		'quote'    => '',
 		'citation' => '',
@@ -28,7 +28,7 @@ function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	// Get param values.
 	$quote = ! empty( $atts['quote'] ) ? '<p>' . $atts['quote'] . '</p>' : '';

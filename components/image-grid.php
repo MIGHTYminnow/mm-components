@@ -20,7 +20,7 @@ add_shortcode( 'image_grid', 'mm_image_grid_shortcode' );
  */
 function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 
-	extract( shortcode_atts( array(
+	extract( mm_shortcode_atts( array(
 		'title' => '',
 		'style' => 'style-full-image',
 	), $atts ) );
@@ -35,7 +35,7 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 	// Get Mm classes
 	$mm_classes = str_replace( '_', '-', $tag );
 	$mm_classes .= ' ' . $style;
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	ob_start(); ?>
 
@@ -76,7 +76,7 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 	// Global style variable passed from parent Image Grid component
 	global $mm_image_grid_style;
 
-	extract( shortcode_atts( array(
+	extract( mm_shortcode_atts( array(
 		'title'    => '',
 		'subtitle' => '',
 		'image'    => '',
@@ -94,7 +94,7 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	ob_start(); ?>
 

@@ -26,8 +26,8 @@ function mm_ao_startup() {
 	// Set up text domain.
 	load_plugin_textdomain( 'mm-add-ons', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 
-	// Load front-end scripts and styles (priority 20 to load after Trestle).
-	add_action( 'wp_enqueue_scripts', 'mm_ao_scripts_and_styles', 20 );
+	// Include general functionality.
+	require_once MM_PLUG_PATH . 'functions.php';
 
 	// Include the components.
 	require_once MM_PLUG_PATH . 'components/blockquote.php';
@@ -48,6 +48,9 @@ function mm_ao_startup() {
 	if ( defined( 'WPB_VC_VERSION' ) ) {
 		require_once MM_PLUG_PATH . 'vc-functions.php';
 	}
+
+	// Load front-end scripts and styles (priority 20 to load after Trestle).
+	add_action( 'wp_enqueue_scripts', 'mm_ao_scripts_and_styles', 20 );
 
 }
 
