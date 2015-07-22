@@ -11,56 +11,182 @@
  * Domain Path: /languages
  */
 
-define( 'MM_PLUG_PATH', plugin_dir_path( __FILE__ ) );
-define( 'MM_PLUG_INCLUDES_PATH', MM_PLUG_PATH . 'includes/' );
-define( 'MM_PLUG_ASSETS_URL', plugins_url( 'assets/', __FILE__ ) );
-
-add_action( 'plugins_loaded', 'mm_ao_startup' );
-/**
- * Start the plugin.
- *
- * @since    1.0.0
- */
-function mm_ao_startup() {
-
-	// Set up text domain.
-	load_plugin_textdomain( 'mm-add-ons', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
-
-	// Load front-end scripts and styles (priority 20 to load after Trestle).
-	add_action( 'wp_enqueue_scripts', 'mm_ao_scripts_and_styles', 20 );
-
-	// Include the components.
-	require_once MM_PLUG_PATH . 'components/blockquote.php';
-	require_once MM_PLUG_PATH . 'components/button.php';
-	require_once MM_PLUG_PATH . 'components/countdown/countdown.php';
-	require_once MM_PLUG_PATH . 'components/custom-heading.php';
-	require_once MM_PLUG_PATH . 'components/hero-banner.php';
-	require_once MM_PLUG_PATH . 'components/highlight-box.php';
-	require_once MM_PLUG_PATH . 'components/icon-box.php';
-	require_once MM_PLUG_PATH . 'components/image-grid.php';
-	require_once MM_PLUG_PATH . 'components/logo-strip.php';
-	require_once MM_PLUG_PATH . 'components/polaroid.php';
-	require_once MM_PLUG_PATH . 'components/polaroid-2.php';
-	require_once MM_PLUG_PATH . 'components/twitter-feed.php';
-
-	// Include Visual Composer Integration if VC is activated.
-	if ( defined( 'WPB_VC_VERSION' ) ) {
-		require_once MM_PLUG_PATH . 'vc-functions.php';
-	}
-
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
 }
 
 /**
- * Enqueue front-end scripts and styles.
- *
- * @since  1.0.0
+ * The main plugin class.
  */
-function mm_ao_scripts_and_styles() {
+class Mm_Components {
 
-	// General styles
-	wp_enqueue_style( 'mm-add-ons', plugins_url( '/css/style.css', __FILE__ ) );
+	/**
+	 * The version of this plugin.
+	 *
+	 * @since  1.0.0
+	 * @var    string  $version  The current version of this plugin.
+	 */
+	public $version;
 
-	// General scripts
-	wp_enqueue_script( 'mm-add-ons', plugins_url( '/js/scripts.js', __FILE__ ) );
+	/**
+	 * Plugin slug.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 */
+	public $plugin_slug;
+
+	/**
+	 * Plugin display name.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 */
+	public $plugin_display_name;
+
+	/**
+	 * Plugin name.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 */
+	public $plugin_name;
+
+	/**
+	 * Plugin directory URL.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 */
+	public $plugin_url;
+
+	/**
+	 * Plugin assets URL.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 */
+	public $plugin_assets_url;
+
+	/**
+	 * Plugin directory path.
+	 *
+	 * @since  1.0.0
+	 * @var    string
+	 */
+	public $plugin_path;
+
+	/**
+	 * The Constructor.
+	 *
+	 * @since  1.0.0
+	 * @access  private
+	 */
+	private function __construct() {
+
+		// Set up the reference vars.
+		$this->plugin_slug         = 'mm-components';
+		$this->plugin_display_name = __( 'MIGHTYminnow Components', 'mm-components' );
+		$this->plugin_name         = 'mm_components';
+		$this->version             = '1.0.0';
+		$this->plugin_url          = plugin_dir_url( __FILE__ );
+		$this->plugin_assets_url   = $this->plugin_url . 'assets/';
+		$this->plugin_path         = plugin_dir_path( __FILE__ );
+
+		// Load the plugin text domain.
+		add_action( 'init', array( $this, 'load_text_domain' ) );
+
+		// Register the public scripts and styles.
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_public_scripts_and_styles') );
+
+		// Include the components.
+		$this::include_components();
+
+		// Maybe include Visual Composer integration.
+		$this::maybe_include_vc();
+
+	}
+
+	/**
+	 * Load plugin text domain.
+	 *
+	 * @since  1.0.0
+	 */
+	public function load_text_domain() {
+
+		load_plugin_textdomain( $this->plugin_slug, false, $this->plugin_path . 'languages' );
+	}
+
+	/**
+	 * Enqueue front-end scripts and styles.
+	 *
+	 * @since  1.0.0
+	 */
+	public function register_public_scripts_and_styles() {
+
+		// Public styles.
+		wp_register_style(
+			$this->plugin_slug,
+			$this->plugin_url . 'css/mm-components-public.css',
+			array(),
+			$this->version
+		);
+
+		// Public scripts.
+		wp_register_script(
+			$this->plugin_slug,
+			$this->plugin_url . 'js/mm-components-public.js',
+			array( 'jquery' ),
+			$this->version,
+			true
+		);
+
+	}
+
+	/**
+	 * Include the components.
+	 *
+	 * @since  1.0.0
+	 */
+	public function include_components() {
+
+		require_once $this->plugin_path . 'components/blockquote.php';
+		require_once $this->plugin_path . 'components/button.php';
+		require_once $this->plugin_path . 'components/countdown/countdown.php';
+		require_once $this->plugin_path . 'components/custom-heading.php';
+		require_once $this->plugin_path . 'components/hero-banner.php';
+		require_once $this->plugin_path . 'components/highlight-box.php';
+		require_once $this->plugin_path . 'components/icon-box.php';
+		require_once $this->plugin_path . 'components/image-grid.php';
+		require_once $this->plugin_path . 'components/logo-strip.php';
+		require_once $this->plugin_path . 'components/polaroid.php';
+		require_once $this->plugin_path . 'components/polaroid-2.php';
+		require_once $this->plugin_path . 'components/twitter-feed.php';
+	}
+
+	/**
+	 * Maybe include Visual Composer integration.
+	 */
+	public function maybe_include_vc() {
+
+		// Only if VC is activated.
+		if ( self::is_vc_active() ) {
+			require_once $this->plugin_path . 'vc-functions.php';
+		}
+	}
+
+	/**
+	 * Check if Visual Composer is active.
+	 */
+	public static function is_vc_active() {
+
+		if ( defined( 'WPB_VC_VERSION' ) ) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
 
 }
