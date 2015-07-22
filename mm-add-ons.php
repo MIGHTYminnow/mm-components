@@ -101,10 +101,10 @@ class Mm_Components {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_public_scripts_and_styles') );
 
 		// Include the components.
-		$this::include_components();
+		$this->include_components();
 
 		// Maybe include Visual Composer integration.
-		$this::maybe_include_vc();
+		$this->maybe_include_vc();
 
 	}
 
