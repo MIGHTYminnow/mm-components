@@ -11,6 +11,11 @@ add_filter( 'mm_shortcode_custom_classes', 'mm_shortcode_custom_classes', 10, 3 
 /**
  * Add custom shortcode classes.
  *
+ * The following atts are parsed into classes by this function:
+ *
+ * 	1. Atts whose key begins with: mm_class_*.
+ * 	2. The custom class att defined by $custom_class_key below.
+ *
  * @since   1.2.0
  *
  * @param   string  $classes  Initial classes.
@@ -21,12 +26,10 @@ add_filter( 'mm_shortcode_custom_classes', 'mm_shortcode_custom_classes', 10, 3 
  */
 function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
 
-	/**
-	 * Add classes for custom shortcode attributes
-	 *
-	 * These classes are defined, and identifiable, with the following format:
-	 * mm_class_*
-	 */
+	// Define attribute key identifiers.
+	$custom_class_prefix = 'mm_class_';
+	$new_custom_class_prefix = 'mm-';
+	$custom_class_key = 'mm_custom_class';
 
 	// Set up classes array.
 	$class_array = explode( ' ', $classes );
@@ -36,15 +39,18 @@ function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
 
 		// Add class in the following format: $key-$class
 		// Exclude custom class att as this needs to be unprefixed.
-		if ( false !== strpos( $key, 'mm_class_' ) ) {
-			$class_array[] = $key . '-' . str_replace( ',', ' ', $value );
+		if ( false !== strpos( $key, $custom_class_prefix ) ) {
+
+			// Replace full custom class prefix with simpler 'mm-' prefix.
+			$key = str_replace( $custom_class_prefix, $new_custom_class_prefix, $key );
+			$class_array[] = "$key-$value";
 		}
 
 	}
 
 	// Add mm_custom_class att as unprefixed class.
-	if ( ! empty ( $atts['mm_custom_class'] ) ) {
-		$class_array[] = $atts['mm_custom_class'];
+	if ( ! empty ( $atts[ $custom_class_key ] ) ) {
+		$class_array[] = $atts[ $custom_class_key ];
 	}
 
 	// Add custom classes to existing classes.
