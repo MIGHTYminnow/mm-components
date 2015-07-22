@@ -28,7 +28,7 @@ function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
 
 	// Define attribute key identifiers.
 	$custom_class_prefix = 'mm_class_';
-	$new_custom_class_prefix = 'mm-';
+	$new_custom_class_prefix = 'mm_';
 	$custom_class_key = 'mm_custom_class';
 
 	// Set up classes array.
@@ -39,11 +39,11 @@ function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
 
 		// Add class in the following format: $key-$class
 		// Exclude custom class att as this needs to be unprefixed.
-		if ( false !== strpos( $key, $custom_class_prefix ) ) {
+		if ( false !== strpos( $key, $custom_class_prefix ) && $value ) {
 
 			// Replace full custom class prefix with simpler 'mm-' prefix.
 			$key = str_replace( $custom_class_prefix, $new_custom_class_prefix, $key );
-			$class_array[] = "$key-$value";
+			$class_array[] = "{$key}-{$value}";
 		}
 
 	}

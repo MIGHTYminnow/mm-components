@@ -30,7 +30,7 @@ function mm_vc_custom_component_atts() {
 		'heading' => __( 'Text Color Scheme', 'mm-add-ons' ),
 		'param_name' => 'mm_class_text_color',
 		'value' => array(
-			__( 'Default', 'mm-add-ons ') => 'default',
+			__( 'Default', 'mm-add-ons ') => '',
             __( 'Dark', 'mm-add-ons ') => 'dark',
             __( 'Light', 'mm-add-ons ') => 'light',
             __( 'Medium', 'mm-add-ons ') => 'medium',
@@ -44,7 +44,7 @@ function mm_vc_custom_component_atts() {
 		'heading' => __( 'Text Alignment', 'mm-add-ons' ),
 		'param_name' => 'mm_class_text_align',
 		'value' => array(
-			__( 'Default', 'mm-add-ons ') => 'default',
+			__( 'Default', 'mm-add-ons ') => '',
             __( 'Left', 'mm-add-ons ') => 'left',
             __( 'Center', 'mm-add-ons ') => 'center',
             __( 'Right', 'mm-add-ons ') => 'right',
