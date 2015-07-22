@@ -56,9 +56,6 @@ function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
 	// Add custom classes to existing classes.
 	$classes = implode( ' ', $class_array );
 
-	// Apply Visual Composer filter.
-	$classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $classes, $tag, $atts );
-
 	return $classes;
 
 }

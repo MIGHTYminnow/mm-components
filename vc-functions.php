@@ -69,6 +69,11 @@ function mm_vc_custom_component_atts() {
 
 }
 
+/**
+ * Apply custom classes to VC components.
+ */
+add_filter( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'mm_shortcode_custom_classes', 10, 3 );
+
 add_filter( 'vc_single_param_edit', 'mm_filter_vc_field_descriptions', 10, 2 );
 /**
  * Add custom image upload description to VC fields.
