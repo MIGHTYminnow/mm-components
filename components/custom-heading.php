@@ -20,7 +20,7 @@ add_shortcode( 'custom_heading', 'mm_custom_heading_shortcode' );
  */
 function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 
-	extract( shortcode_atts( array(
+	extract( mm_shortcode_atts( array(
 		'heading'			=> 'h2',
 		'font_family'		=> '',
 		'font_size'			=> '',
@@ -48,7 +48,7 @@ function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	// Create heading classes
 	$class = implode( ' ', array(

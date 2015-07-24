@@ -20,7 +20,7 @@ add_shortcode( 'mm_button', 'mm_button_shortcode' );
  */
 function mm_button_shortcode( $atts, $content = null, $tag ) {
 
-	$atts = shortcode_atts( array(
+	$atts = mm_shortcode_atts( array(
 		'link'         => '',
 		'class'        => '',
 		'style'        => 'default',
@@ -46,13 +46,13 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes.
 	$mm_classes = 'button-container';
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	// Build the output.
 	ob_start(); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes . ' ' . $alignment ); ?>">
-		<a class="<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $link_array['url'] ) ?>" title="<?php echo esc_attr( $link_array['title'] ); ?>" target="<?php echo esc_attr( $link_array['target'] ); ?>"><?php do_shortcode( $content ) ?></a>
+		<a class="<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $link_array['url'] ) ?>" title="<?php echo esc_attr( $link_array['title'] ); ?>" target="<?php echo esc_attr( $link_array['target'] ); ?>"><?php echo do_shortcode( $content ) ?></a>
 	</div>
 
 	<?php

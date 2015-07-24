@@ -30,10 +30,10 @@ function mm_vc_custom_component_atts() {
 		'heading' => __( 'Text Color Scheme', 'mm-add-ons' ),
 		'param_name' => 'mm_class_text_color',
 		'value' => array(
-			__( 'Default', 'mm-add-ons ') => 'text-color-default',
-            __( 'Dark', 'mm-add-ons ') => 'dark-text',
-            __( 'Light', 'mm-add-ons ') => 'light-text',
-            __( 'Medium', 'mm-add-ons ') => 'medium-text',
+			__( 'Default', 'mm-add-ons ') => '',
+            __( 'Dark', 'mm-add-ons ') => 'dark',
+            __( 'Light', 'mm-add-ons ') => 'light',
+            __( 'Medium', 'mm-add-ons ') => 'medium',
 		),
 		'group' => $custom_group,
 	);
@@ -44,11 +44,19 @@ function mm_vc_custom_component_atts() {
 		'heading' => __( 'Text Alignment', 'mm-add-ons' ),
 		'param_name' => 'mm_class_text_align',
 		'value' => array(
-			__( 'Default', 'mm-add-ons ') => 'text-align-default',
-            __( 'Left', 'mm-add-ons ') => 'text-align-left',
-            __( 'Center', 'mm-add-ons ') => 'text-align-center',
-            __( 'Right', 'mm-add-ons ') => 'text-align-right',
+			__( 'Default', 'mm-add-ons ') => '',
+            __( 'Left', 'mm-add-ons ') => 'left',
+            __( 'Center', 'mm-add-ons ') => 'center',
+            __( 'Right', 'mm-add-ons ') => 'right',
 		),
+		'group' => $custom_group,
+	);
+
+	// Text alignment
+	$atts[] = array(
+		'type' => 'textfield',
+		'heading' => __( 'Custom Class', 'mm-add-ons' ),
+		'param_name' => 'mm_custom_class',
 		'group' => $custom_group,
 	);
 
@@ -59,41 +67,12 @@ function mm_vc_custom_component_atts() {
 		}
 	}
 
-	add_filter( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'mm_custom_shortcode_classes', 10, 3 );
-	/**
-	 * Add custom shortcode classes.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @param   string  $classes  Mm classes.
-	 * @param   string  $tag      VC component tag (e.g. vc_row).
-	 * @param   array   $atts     VC component attributes.
-	 *
-	 * @return  string            Modified Mm classes.
-	 */
-	function mm_custom_shortcode_classes( $classes, $tag, $atts ) {
-
-		// Background image
-		if ( isset( $atts['css'] ) && false !== strpos( $atts['css'], 'url(' ) ) {
-			$classes .= ' has-bg-image';
-		}
-
-		// Custom attribute classes (all begin with mm_class_*)
-		$mm_custom_atts = array();
-		foreach ( $atts as $key => $value ) {
-
-			if ( false !== strpos( $key, 'mm_class_' ) ) {
-				$mm_custom_atts[ $key ] = str_replace( ',', ' ', $value );
-			}
-		}
-
-		$classes .= ' ' . implode( ' ', $mm_custom_atts );
-
-		return $classes;
-
-	}
-
 }
+
+/**
+ * Apply custom classes to VC components.
+ */
+add_filter( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'mm_shortcode_custom_classes', 10, 3 );
 
 add_filter( 'vc_single_param_edit', 'mm_filter_vc_field_descriptions', 10, 2 );
 /**
@@ -121,94 +100,4 @@ function mm_filter_vc_field_descriptions( $param, $value ) {
 
 	return $param;
 
-}
-
-/**
- * Return custom VC image upload description.
- *
- * @since     1.2.0
- *
- * @param     string    $image_size    Image size slug.
- *
- * @return    string    Image upload description.
- */
-function mm_custom_image_field_description( $image_size = '' ) {
-
-	$default_message = __( 'Upload an image that is large enough to be output without stretching.', 'mm-add-ons' );
-
-	// Do default image message if no specific image_size is passed.
-	if ( ! $image_size ) {
-		return $default_message;
-	}
-
-	// Get dimensions of image.
-	$image_dimensions = mm_get_image_size_dimensions( $image_size );
-
-	// Do default message if the specified image size doesn't exists.
-	if ( ! $image_dimensions ) {
-		return $default_message;
-	}
-
-	$width = $image_dimensions['width'] * 2;
-	$height = $image_dimensions['height'] * 2;
-
-	return sprintf( __( 'Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that it is not stretched.', 'mm-add-ons' ), $width, $height );
-
-}
-
-/**
- * Get the dimensions of WP default and add-on image sizes.
- *
- * @since     1.2.0
- *
- * @param     string    $image_size          Image size slug.
- *
- * @return    array     $image_dimensions    Array of image width/height.
- */
-function mm_get_image_size_dimensions( $image_size = '' ) {
-
-	global $_wp_additional_image_sizes;
-
-	if ( in_array( $image_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
-
-		$image_dimensions['width'] = get_option( $image_size . '_size_w' );
-		$image_dimensions['height'] = get_option( $image_size . '_size_h' );
-
-	} elseif ( isset( $_wp_additional_image_sizes[ $image_size ] ) ) {
-
-		$image_dimensions = array(
-			'width' => $_wp_additional_image_sizes[ $image_size ]['width'],
-			'height' => $_wp_additional_image_sizes[ $image_size ]['height'],
-		);
-
-	} else {
-		return false;
-	}
-
-	return $image_dimensions;
-
-}
-
-/**
- * Possibly wrap content in a link.
- *
- * @since 1.0.0
- *
- * @param mixed $content Content to go in link.
- * @param array  $link_array Array of link data: url|title|target
- *
- * @return string HTML output.
- */
-function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
-
-	if ( empty( $link_array['url'] ) ) {
-		return $content;
-	}
-
-	return sprintf( '<a href="%s" title="%s" target="%s">%s</a>',
-		$link_array['url'],
-		$link_array['title'],
-		$link_array['target'],
-		$content
-	);
 }

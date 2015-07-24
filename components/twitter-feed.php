@@ -25,7 +25,7 @@ function mm_twitter_feed_shortcode( $atts, $content = null, $tag ) {
 		return;
 	}
 
-	extract( shortcode_atts( array(
+	extract( mm_shortcode_atts( array(
 		'heading'    => '',
 		'user_names' => '',
 		'count'      => 10,
@@ -44,7 +44,7 @@ function mm_twitter_feed_shortcode( $atts, $content = null, $tag ) {
 
 	$template_slug = trestle_get_ft_template_slug_from_path( $template );
 	$mm_classes .= " template-{$template_slug}";
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	ob_start(); ?>
 

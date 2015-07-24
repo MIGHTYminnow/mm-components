@@ -22,7 +22,7 @@ add_shortcode( 'mm_expandable_content', 'mm_expandable_content_shortcode' );
  */
 function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag = '' ) {
 
-	$atts = shortcode_atts( array(
+	$atts = mm_shortcode_atts( array(
 		'link_style'     => '',
 		'link_text'      => '',
 		'link_alignment' => '',
@@ -34,7 +34,7 @@ function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag
 
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	// Add our extra classes.
 	$mm_classes .= esc_attr( $atts['class'] );

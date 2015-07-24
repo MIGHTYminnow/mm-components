@@ -20,7 +20,7 @@ add_shortcode( 'hero_banner', 'mm_hero_banner_shortcode' );
  */
 function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 
-	extract( shortcode_atts( array(
+	extract( mm_shortcode_atts( array(
 		'background_image'    => '',
 		'background_position' => 'center center',
 		'overlay_color'       => '',
@@ -51,7 +51,7 @@ function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 	$css_classes = str_replace( '_', '-', $tag );
 	$css_classes .= ' full-width';
 	$css_classes .= ' ' . $text_position;
-	$css_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $css_classes, $tag, $atts );
+	$css_classes = apply_filters( 'mm_shortcode_custom_classes', $css_classes, $tag, $atts );
 
 	/**
 	 * Parse images.

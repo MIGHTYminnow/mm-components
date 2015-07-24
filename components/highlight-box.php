@@ -20,7 +20,7 @@ add_shortcode( 'mm_highlight_box', 'mm_highlight_box_shortcode' );
  */
 function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 
-	$atts = shortcode_atts( array(
+	$atts = mm_shortcode_atts( array(
 		'heading_text'   => '',
 		'paragraph_text' => '',
 		'link_text'      => '',
@@ -37,7 +37,7 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	ob_start(); ?>
 

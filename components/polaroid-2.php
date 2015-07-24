@@ -20,7 +20,7 @@ add_shortcode( 'polaroid_2', 'mm_polaroid_2_shortcode' );
  */
 function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 
-	extract( shortcode_atts( array(
+	extract( mm_shortcode_atts( array(
 		'title'         => '',
 		'image'         => '',
 		'caption'       => '',
@@ -36,7 +36,7 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	ob_start(); ?>
 
