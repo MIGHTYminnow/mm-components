@@ -49,8 +49,8 @@ function mm_ao_startup() {
 		require_once MM_PLUG_PATH . 'vc-functions.php';
 	}
 
-	// Load front-end scripts and styles (priority 20 to load after Trestle).
-	add_action( 'wp_enqueue_scripts', 'mm_ao_scripts_and_styles', 20 );
+	// Load front-end scripts and styles.
+	add_action( 'wp_enqueue_scripts', 'mm_ao_scripts_and_styles');
 
 }
 
