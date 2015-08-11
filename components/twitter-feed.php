@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Twitter Feed
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -95,7 +95,7 @@ function mm_vc_mm_twitter_feed() {
 	$default_template_object = new FetchTweets_Template();
 	$proper_default_template_name = trestle_get_ft_template_name_from_path( $default_template_object->getSlug() );
 	$vc_template_array = array(
-		sprintf( __( 'Default (%s) - set via Fetch Tweets settings', 'mm-add-ons' ), $proper_default_template_name ) => 'default',
+		sprintf( __( 'Default (%s) - set via Fetch Tweets settings', 'mm-components' ), $proper_default_template_name ) => 'default',
 	);
 
 	// Append each template.
@@ -105,38 +105,38 @@ function mm_vc_mm_twitter_feed() {
 	}
 
 	vc_map( array(
-		'name' => __( 'Twitter Feed', 'mm-add-ons' ),
+		'name' => __( 'Twitter Feed', 'mm-components' ),
 		'base' => 'twitter_feed',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading', 'mm-add-ons' ),
+				'heading' => __( 'Heading', 'mm-components' ),
 				'param_name' => 'heading',
 				'value' => '',
-				'description' => __( 'Heading to output above tweets', 'mm-add-ons' ),
+				'description' => __( 'Heading to output above tweets', 'mm-components' ),
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Users', 'mm-add-ons' ),
+				'heading' => __( 'Users', 'mm-components' ),
 				'param_name' => 'user_names',
 				'admin_label' => true,
 				'value' => '',
-				'description' => __( 'Comma separated list of user names (without the @ symbol). E.g. Mm, MmLife', 'mm-add-ons' ),
+				'description' => __( 'Comma separated list of user names (without the @ symbol). E.g. Mm, MmLife', 'mm-components' ),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Output', 'mm-add-ons' ),
+				'heading' => __( 'Output', 'mm-components' ),
 				'param_name' => 'template',
 				'value' => $vc_template_array,
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Number of tweets to show', 'mm-add-ons' ),
+				'heading' => __( 'Number of tweets to show', 'mm-components' ),
 				'param_name' => 'count',
-				'description' => __( 'Defaults to 10', 'mm-add-ons' ),
+				'description' => __( 'Defaults to 10', 'mm-components' ),
 			),
 		)
 	) );

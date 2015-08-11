@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Image Grid
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -141,7 +141,7 @@ function mm_vc_image_grid() {
 
 	// Image Grid Container
 	vc_map( array(
-		'name' => __( 'Image Grid', 'mm-add-ons' ),
+		'name' => __( 'Image Grid', 'mm-components' ),
 		'base' => 'image_grid',
 		'as_parent' => array( 'only' => 'image_grid_image' ), // Use only|except attributes to limit child shortcodes (separate multiple values with comma)
 		'content_element' => true,
@@ -152,22 +152,22 @@ function mm_vc_image_grid() {
 		// add params same as with any other content element
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Title', 'mm-add-ons' ),
+				'heading' => __( 'Title', 'mm-components' ),
 				'param_name' => 'title',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Extra class name', 'mm-add-ons' ),
+				'heading' => __( 'Extra class name', 'mm-components' ),
 				'param_name' => 'el_class',
-				'description' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mm-add-ons'),
+				'description' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mm-components'),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Style', 'mm-add-ons' ),
+				'heading' => __( 'Style', 'mm-components' ),
 				'param_name' => 'style',
 				'value' => array(
-					__( 'Full Image', 'mm-add-ons ') => 'style-full-image',
-					__( 'Thumbnail/Text Card', 'mm-add-ons ') => 'style-thumbnail-text-card',
+					__( 'Full Image', 'mm-components ') => 'style-full-image',
+					__( 'Thumbnail/Text Card', 'mm-components ') => 'style-thumbnail-text-card',
 				),
 			),
 		),
@@ -175,7 +175,7 @@ function mm_vc_image_grid() {
 	) );
 
 	vc_map( array(
-		'name' => __( 'Image Grid Image', 'mm-add-ons' ),
+		'name' => __( 'Image Grid Image', 'mm-components' ),
 		'base' => 'image_grid_image',
 		'content_element' => true,
       	'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
@@ -183,31 +183,31 @@ function mm_vc_image_grid() {
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Caption/Title', 'mm-add-ons' ),
+				'heading' => __( 'Caption/Title', 'mm-components' ),
 				'admin_label' => true,
 				'param_name' => 'title',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Subtitle', 'mm-add-ons' ),
+				'heading' => __( 'Subtitle', 'mm-components' ),
 				'param_name' => 'subtitle',
 			),
 			array(
 				'type' => 'attach_image',
-				'heading' => __( 'Image', 'mm-add-ons' ),
+				'heading' => __( 'Image', 'mm-components' ),
 				'param_name' => 'image',
 				'mm_image_size_for_desc' => 'Image Grid',
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Link', 'mm-add-ons' ),
+				'heading' => __( 'Link', 'mm-components' ),
 				'param_name' => 'link',
 			),
 			array(
 				'type' => '',
-				'heading' => __( 'Style', 'mm-add-ons' ),
+				'heading' => __( 'Style', 'mm-components' ),
 				'param_name' => 'style',
-				'description' => __( 'You cannot set styles for individual Image Grid Images. Instead, set the style for the parent Image Grid container (the Visual Composer component that contains this image).', 'mm-add-ons' ),
+				'description' => __( 'You cannot set styles for individual Image Grid Images. Instead, set the style for the parent Image Grid container (the Visual Composer component that contains this image).', 'mm-components' ),
 			),
 		)
 	) );

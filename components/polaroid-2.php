@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Polaroid 2
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -82,44 +82,44 @@ add_action( 'vc_before_init', 'mm_vc_polaroid_2' );
 function mm_vc_polaroid_2() {
 
 	vc_map( array(
-		'name' => __( 'Polaroid 2', 'mm-add-ons' ),
+		'name' => __( 'Polaroid 2', 'mm-components' ),
 		'base' => 'polaroid_2',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Title', 'mm-add-ons' ),
+				'heading' => __( 'Title', 'mm-components' ),
 				'param_name' => 'title',
 				'admin_label' => true,
 				'value' => '',
 			),
 			array(
 				'type' => 'attach_image',
-				'heading' => __( 'Main Image', 'mm-add-ons' ),
+				'heading' => __( 'Main Image', 'mm-components' ),
 				'param_name' => 'image',
 				'value' => '',
 				'mm_image_size_for_desc' => 'polaroid',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Caption', 'mm-add-ons' ),
+				'heading' => __( 'Caption', 'mm-components' ),
 				'param_name' => 'caption',
 				'value' => '',
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Caption Color', 'mm-add-ons' ),
+				'heading' => __( 'Caption Color', 'mm-components' ),
 				'param_name' => 'caption_color',
 				'value' => array(
-					__( 'Light', 'mm-add-ons ') => 'light-text',
-					__( 'Dark', 'mm-add-ons ') => 'dark-text',
+					__( 'Light', 'mm-components ') => 'light-text',
+					__( 'Dark', 'mm-components ') => 'dark-text',
 				),
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Link URL', 'mm-add-ons' ),
+				'heading' => __( 'Link URL', 'mm-components' ),
 				'param_name' => 'link',
 				'value' => '',
 			),

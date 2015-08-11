@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Logo Strip
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -72,22 +72,22 @@ add_action( 'vc_before_init', 'mm_vc_logo_strip' );
 function mm_vc_logo_strip() {
 
 	vc_map( array(
-		'name' => __( 'Logo Strip', 'mm-add-ons' ),
+		'name' => __( 'Logo Strip', 'mm-components' ),
 		'base' => 'logo_strip',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Title', 'mm-add-ons' ),
+				'heading' => __( 'Title', 'mm-components' ),
 				'param_name' => 'title',
 				'admin_label' => true,
 				'value' => '',
 			),
 			array(
 				'type' => 'attach_images',
-				'heading' => __( 'Logos', 'mm-add-ons' ),
+				'heading' => __( 'Logos', 'mm-components' ),
 				'param_name' => 'images',
 				'value' => '',
 			),

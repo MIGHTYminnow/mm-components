@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Hero Banner
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -30,7 +30,7 @@ function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 		'button_type'         => '',
 		'button_link'         => '',
 		'button_video_url'    => '',
-		'button_text'         => __( 'Read More', 'mm-add-ons' ),
+		'button_text'         => __( 'Read More', 'mm-components' ),
 		'button_style'        => '',
 		'button_color'        => '',
 		'secondary_cta'       => '',
@@ -163,39 +163,39 @@ add_action( 'vc_before_init', 'mm_vc_hero_banner' );
 function mm_vc_hero_banner() {
 
 	vc_map( array(
-		'name' => __( 'Hero Banner', 'mm-add-ons' ),
+		'name' => __( 'Hero Banner', 'mm-components' ),
 		'base' => 'hero_banner',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'attach_image',
-				'heading' => __( 'Background Image', 'mm-add-ons' ),
+				'heading' => __( 'Background Image', 'mm-components' ),
 				'param_name' => 'background_image',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Background Position', 'mm-add-ons' ),
+				'heading' => __( 'Background Position', 'mm-components' ),
 				'param_name' => 'background_position',
 				'description' => sprintf(
-					__( 'CSS background position value (%sread more%s). Defaults to: center center.', 'mm-add-ons' ),
+					__( 'CSS background position value (%sread more%s). Defaults to: center center.', 'mm-components' ),
 					'<a href="http://www.w3schools.com/cssref/pr_background-position.asp" target="_blank">',
 					'</a>'
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Overlay Color', 'mm-add-ons' ),
+				'heading' => __( 'Overlay Color', 'mm-components' ),
 				'param_name' => 'overlay_color',
 				'value' => array(
-					__( 'None', 'mm-add-ons' ) => '',
-					__( 'Black', 'mm-add-ons' ) => '#000',
-					__( 'White', 'mm-add-ons' ) => '#fff',
+					__( 'None', 'mm-components' ) => '',
+					__( 'Black', 'mm-components' ) => '#000',
+					__( 'White', 'mm-components' ) => '#fff',
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Overlay Opacity', 'mm-add-ons' ),
+				'heading' => __( 'Overlay Opacity', 'mm-components' ),
 				'param_name' => 'overlay_opacity',
 				'value' => range( 0.1, 1, 0.1 ),
 				'dependency' => array(
@@ -208,37 +208,37 @@ function mm_vc_hero_banner() {
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading', 'mm-add-ons' ),
+				'heading' => __( 'Heading', 'mm-components' ),
 				'param_name' => 'heading',
 				'admin_label' => true,
 			),
 			array(
 				'type' => 'textarea_html',
-				'heading' => __( 'Paragraph Text', 'mm-add-ons' ),
+				'heading' => __( 'Paragraph Text', 'mm-components' ),
 				'param_name' => 'content',
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Text Position', 'mm-add-ons' ),
+				'heading' => __( 'Text Position', 'mm-components' ),
 				'param_name' => 'text_position',
 				'value' => array(
-					__( 'Left', 'mm-add-ons' ) => 'text-left',
-					__( 'Center', 'mm-add-ons' ) => 'text-center',
-					__( 'Right', 'mm-add-ons' ) => 'text-right',
+					__( 'Left', 'mm-components' ) => 'text-left',
+					__( 'Center', 'mm-components' ) => 'text-center',
+					__( 'Right', 'mm-components' ) => 'text-right',
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Button Type', 'mm-add-ons' ),
+				'heading' => __( 'Button Type', 'mm-components' ),
 				'param_name' => 'button_type',
 				'value' => array(
-					__( 'Standard', 'mm-add-ons ') => 'standard',
-					__( 'Video', 'mm-add-ons ') => 'video',
+					__( 'Standard', 'mm-components ') => 'standard',
+					__( 'Video', 'mm-components ') => 'video',
 				),
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Button URL', 'mm-add-ons' ),
+				'heading' => __( 'Button URL', 'mm-components' ),
 				'param_name' => 'button_link',
 				'dependency' => array(
 					'element' => 'button_type',
@@ -249,7 +249,7 @@ function mm_vc_hero_banner() {
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Video URL', 'mm-add-ons' ),
+				'heading' => __( 'Video URL', 'mm-components' ),
 				'param_name' => 'button_video_url',
 				'dependency' => array(
 					'element' => 'button_type',
@@ -260,27 +260,27 @@ function mm_vc_hero_banner() {
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Button Text', 'mm-add-ons' ),
+				'heading' => __( 'Button Text', 'mm-components' ),
 				'param_name' => 'button_text',
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Button Style', 'mm-add-ons' ),
+				'heading' => __( 'Button Style', 'mm-components' ),
 				'param_name' => 'button_style',
 				'value' => array(
-					__( 'Default (solid)', 'mm-add-ons ') => 'default',
-					__( 'Ghost (transparent background, white border)', 'mm-add-ons ') => 'ghost',
+					__( 'Default (solid)', 'mm-components ') => 'default',
+					__( 'Ghost (transparent background, white border)', 'mm-components ') => 'ghost',
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Button Color', 'mm-add-ons' ),
+				'heading' => __( 'Button Color', 'mm-components' ),
 				'param_name' => 'button_color',
 				'value' => array(
-					__( 'Default', 'mm-add-ons ') => 'default',
-					__( 'Pink', 'mm-add-ons ') => 'pink',
-					__( 'White', 'mm-add-ons ') => 'white',
-					__( 'Gray', 'mm-add-ons ') => 'gray',
+					__( 'Default', 'mm-components ') => 'default',
+					__( 'Pink', 'mm-components ') => 'pink',
+					__( 'White', 'mm-components ') => 'white',
+					__( 'Gray', 'mm-components ') => 'gray',
 				),
 				'dependency' => array(
 					'element' => 'button_style',
@@ -291,9 +291,9 @@ function mm_vc_hero_banner() {
 			),
 			array(
 				'type' => 'textarea_raw_html',
-				'heading' => __( 'Secondary Call to Action', 'mm-add-ons' ),
+				'heading' => __( 'Secondary Call to Action', 'mm-components' ),
 				'param_name' => 'secondary_cta',
-				'description' => __( 'Outputs below the main button, can include HTML markup.', 'mm-add-ons' ),
+				'description' => __( 'Outputs below the main button, can include HTML markup.', 'mm-components' ),
 			),
 		),
 	) );

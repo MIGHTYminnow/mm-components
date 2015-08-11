@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Custom Heading
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -80,97 +80,96 @@ add_action( 'vc_before_init', 'mm_vc_custom_heading' );
 function mm_vc_custom_heading() {
 
 	vc_map( array(
-		'name' => __( 'Custom Heading', 'mm-add-ons' ),
+		'name' => __( 'Custom Heading', 'mm-components' ),
 		'base' => 'custom_heading',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading Text', 'mm-add-ons' ),
+				'heading' => __( 'Heading Text', 'mm-components' ),
 				'param_name' => 'content',
 				'admin_label' => true,
 				'value' => '',
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Heading Level', 'mm-add-ons' ),
+				'heading' => __( 'Heading Level', 'mm-components' ),
 				'param_name' => 'heading',
 				'std' => 'h2', // Default
 				'value' => array(
-					__( 'h1', 'mm-add-ons ') => 'h1',
-					__( 'h2', 'mm-add-ons ') => 'h2',
-					__( 'h3', 'mm-add-ons ') => 'h3',
-					__( 'h4', 'mm-add-ons ') => 'h4',
-					__( 'h5', 'mm-add-ons ') => 'h5',
-					__( 'h6', 'mm-add-ons ') => 'h6',
+					__( 'h1', 'mm-components ') => 'h1',
+					__( 'h2', 'mm-components ') => 'h2',
+					__( 'h3', 'mm-components ') => 'h3',
+					__( 'h4', 'mm-components ') => 'h4',
+					__( 'h5', 'mm-components ') => 'h5',
+					__( 'h6', 'mm-components ') => 'h6',
 				),
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Margin Bottom', 'mm-add-ons' ),
+				'heading' => __( 'Margin Bottom', 'mm-components' ),
 				'param_name' => 'margin_bottom',
 				'value' => '',
-				'description' => __( 'Leave blank for default or use a number value (number of pixels). Example: 16', 'mm-add-ons' ),
+				'description' => __( 'Leave blank for default or use a number value (number of pixels). Example: 16', 'mm-components' ),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Font Family', 'mm-add-ons' ),
+				'heading' => __( 'Font Family', 'mm-components' ),
 				'param_name' => 'font_family',
 				'value' => array(
-					__( 'Default', 'mm-add-ons ') => 'default',
+					__( 'Default', 'mm-components ') => 'default',
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Font Size', 'mm-add-ons' ),
+				'heading' => __( 'Font Size', 'mm-components' ),
 				'param_name' => 'font_size',
 				'value' => array(
-					__( 'Default', 'mm-add-ons ') => 'default',
-					__( '50px', 'mm-add-ons ') => '50px',
-					__( '48px', 'mm-add-ons ') => '48px',
-					__( '40px', 'mm-add-ons ') => '40px',
-					__( '36px', 'mm-add-ons ') => '36px',
-					__( '30px', 'mm-add-ons ') => '30px',
-					__( '24px', 'mm-add-ons ') => '24px',
-					__( '16px', 'mm-add-ons ') => '16px',
-					__( '14px', 'mm-add-ons ') => '14px',
-					__( '12px', 'mm-add-ons ') => '12px',
+					__( 'Default', 'mm-components ') => 'default',
+					__( '50px', 'mm-components ') => '50px',
+					__( '48px', 'mm-components ') => '48px',
+					__( '40px', 'mm-components ') => '40px',
+					__( '36px', 'mm-components ') => '36px',
+					__( '30px', 'mm-components ') => '30px',
+					__( '24px', 'mm-components ') => '24px',
+					__( '16px', 'mm-components ') => '16px',
+					__( '14px', 'mm-components ') => '14px',
+					__( '12px', 'mm-components ') => '12px',
 				),
-			//'description' => __( 'See documentation for more details.', 'mm-add-ons' )
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Color', 'mm-add-ons' ),
+				'heading' => __( 'Color', 'mm-components' ),
 				'param_name' => 'color',
 				'value' => array(
-					__( 'Default', 'mm-add-ons ') => 'default',
+					__( 'Default', 'mm-components ') => 'default',
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Text Transform', 'mm-add-ons' ),
+				'heading' => __( 'Text Transform', 'mm-components' ),
 				'param_name' => 'text_transform',
 				'value' => array(
-					__( 'None', 'mm-add-ons ') => 'none',
-					__( 'Uppercase', 'mm-add-ons ') => 'uppercase',
+					__( 'None', 'mm-components ') => 'none',
+					__( 'Uppercase', 'mm-components ') => 'uppercase',
 				),
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Text Align', 'mm-add-ons' ),
+				'heading' => __( 'Text Align', 'mm-components' ),
 				'param_name' => 'text_align',
 				'value' => array(
-					__( 'Default', 'mm-add-ons ') => 'default',
-					__( 'Left', 'mm-add-ons ') => 'left',
-					__( 'Center', 'mm-add-ons ') => 'center',
-					__( 'Right ', 'mm-add-ons ') => 'right',
+					__( 'Default', 'mm-components ') => 'default',
+					__( 'Left', 'mm-components ') => 'left',
+					__( 'Center', 'mm-components ') => 'center',
+					__( 'Right ', 'mm-components ') => 'right',
 				),
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Heading Link', 'mm-add-ons' ),
+				'heading' => __( 'Heading Link', 'mm-components' ),
 				'param_name' => 'link',
 				'value' => '',
 			),

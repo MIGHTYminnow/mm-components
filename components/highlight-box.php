@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Highlight Box
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -80,31 +80,31 @@ add_action( 'vc_before_init', 'mm_vc_highlight_box' );
 function mm_vc_highlight_box() {
 
 	vc_map( array(
-		'name' => __( 'Highlight Box', 'mm-add-ons' ),
+		'name' => __( 'Highlight Box', 'mm-components' ),
 		'base' => 'mm_highlight_box',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading', 'mm-add-ons' ),
+				'heading' => __( 'Heading', 'mm-components' ),
 				'param_name' => 'heading_text',
 				'admin_label' => true,
 			),
 			array(
 				'type' => 'textarea',
-				'heading' => __( 'Paragraph Text', 'mm-add-ons' ),
+				'heading' => __( 'Paragraph Text', 'mm-components' ),
 				'param_name' => 'paragraph_text',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Link Text', 'mm-add-ons' ),
+				'heading' => __( 'Link Text', 'mm-components' ),
 				'param_name' => 'link_text',
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Link URL', 'mm-add-ons' ),
+				'heading' => __( 'Link URL', 'mm-components' ),
 				'param_name' => 'link',
 			),
 		)

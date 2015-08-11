@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Blockquote
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -66,11 +66,11 @@ add_action( 'vc_before_init', 'mm_vc_blockquote' );
 function mm_vc_blockquote() {
 
 	vc_map( array(
-		'name' => __( 'Blockquote', 'mm-add-ons' ),
+		'name' => __( 'Blockquote', 'mm-components' ),
 		'base' => 'mm_blockquote',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'attach_image',
@@ -80,12 +80,12 @@ function mm_vc_blockquote() {
 			),
 			array(
 				'type' => 'textarea',
-				'heading' => __( 'Quote', 'mm-add-ons' ),
+				'heading' => __( 'Quote', 'mm-components' ),
 				'param_name' => 'quote',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Citation', 'mm-add-ons' ),
+				'heading' => __( 'Citation', 'mm-components' ),
 				'param_name' => 'citation',
 			),
 		)

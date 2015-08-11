@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Polaroid
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -25,7 +25,7 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 		'image'        => '',
 		'author_image' => '',
 		'link'         => '',
-		'link_text'    => __( 'Visit campaign', 'mm-add-ons' ),
+		'link_text'    => __( 'Visit campaign', 'mm-components' ),
 		'banner_text'  => '',
 		'class'        => '',
 	), $atts ) );
@@ -117,49 +117,49 @@ add_action( 'vc_before_init', 'mm_vc_polaroid' );
 function mm_vc_polaroid() {
 
 	vc_map( array(
-		'name' => __( 'Polaroid', 'mm-add-ons' ),
+		'name' => __( 'Polaroid', 'mm-components' ),
 		'base' => 'polaroid',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Title', 'mm-add-ons' ),
+				'heading' => __( 'Title', 'mm-components' ),
 				'param_name' => 'title',
 				'admin_label' => true,
 				'value' => '',
 			),
 			array(
 				'type' => 'attach_image',
-				'heading' => __( 'Main Image', 'mm-add-ons' ),
+				'heading' => __( 'Main Image', 'mm-components' ),
 				'param_name' => 'image',
 				'value' => '',
 				'mm_image_size_for_desc' => 'polaroid',
 			),
 			array(
 				'type' => 'attach_image',
-				'heading' => __( 'Author Image', 'mm-add-ons' ),
+				'heading' => __( 'Author Image', 'mm-components' ),
 				'param_name' => 'author_image',
 				'value' => '',
 				'mm_image_size_for_desc' => 'thumbnail',
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Link Text', 'mm-add-ons' ),
+				'heading' => __( 'Link Text', 'mm-components' ),
 				'param_name' => 'link_text',
 				'value' => '',
-				'description' => __( 'Defaults to "Visit campaign".', 'mm-add-ons' )
+				'description' => __( 'Defaults to "Visit campaign".', 'mm-components' )
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Link URL', 'mm-add-ons' ),
+				'heading' => __( 'Link URL', 'mm-components' ),
 				'param_name' => 'link',
 				'value' => '',
 			),
 			array(
 				'type' => 'textarea_html',
-				'heading' => __( 'Text', 'mm-add-ons' ),
+				'heading' => __( 'Text', 'mm-components' ),
 				'param_name' => 'content',
 				'value' => '',
 			)

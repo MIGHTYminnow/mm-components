@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Mm Button
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -71,67 +71,67 @@ add_action( 'vc_before_init', 'mm_vc_button' );
 function mm_vc_button() {
 
 	vc_map( array(
-		'name' => __( 'Button', 'mm-add-ons' ),
+		'name' => __( 'Button', 'mm-components' ),
 		'base' => 'mm_button',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type'       => 'vc_link',
-				'heading'    => __( 'Button URL', 'mm-add-ons' ),
+				'heading'    => __( 'Button URL', 'mm-components' ),
 				'param_name' => 'link',
 				'value'      => '',
 			),
 			array(
 				'type'       => 'dropdown',
-				'heading'    => __( 'Button Style', 'mm-add-ons' ),
+				'heading'    => __( 'Button Style', 'mm-components' ),
 				'param_name' => 'style',
 				'value'      => array(
-					__( 'Default', 'mm-add-ons ') => 'default',
+					__( 'Default', 'mm-components ') => 'default',
 				),
 			),
 			array(
 				'type'       => 'dropdown',
-				'heading'    => __( 'Border Style', 'mm-add-ons' ),
+				'heading'    => __( 'Border Style', 'mm-components' ),
 				'param_name' => 'border_style',
 				'value'      => array(
-					__( 'None', 'mm-add-ons' )  => 'none',
-					__( 'Thin', 'mm-add-ons ')  => 'thin',
-					__( 'Thick', 'mm-add-ons ') => 'thick',
+					__( 'None', 'mm-components' )  => 'none',
+					__( 'Thin', 'mm-components ')  => 'thin',
+					__( 'Thick', 'mm-components ') => 'thick',
 				),
 			),
 			array(
 				'type'       => 'dropdown',
-				'heading'    => __( 'Color', 'mm-add-ons' ),
+				'heading'    => __( 'Color', 'mm-components' ),
 				'param_name' => 'color',
 				'value'      => array(
-					__( 'Gray', 'mm-add-ons ') => 'gray',
+					__( 'Gray', 'mm-components ') => 'gray',
 				),
 			),
 			array(
 				'type'       => 'dropdown',
-				'heading'    => __( 'Button Size', 'mm-add-ons' ),
+				'heading'    => __( 'Button Size', 'mm-components' ),
 				'param_name' => 'size',
 				'value'      => array(
-					__( 'Normal', 'mm-add-ons ') => 'normal-size',
-					__( 'Large', 'mm-add-ons ')  => 'large',
+					__( 'Normal', 'mm-components ') => 'normal-size',
+					__( 'Large', 'mm-components ')  => 'large',
 				),
 			),
 			array(
 				'type'       => 'dropdown',
-				'heading'    => __( 'Button Alignment', 'mm-add-ons' ),
+				'heading'    => __( 'Button Alignment', 'mm-components' ),
 				'param_name' => 'alignment',
 				'value'      => array(
-					__( 'Default', 'mm-add-ons ') => 'default',
-					__( 'Left', 'mm-add-ons ')    => 'left',
-					__( 'Center', 'mm-add-ons ')  => 'center',
-					__( 'Right ', 'mm-add-ons ')  => 'right',
+					__( 'Default', 'mm-components ') => 'default',
+					__( 'Left', 'mm-components ')    => 'left',
+					__( 'Center', 'mm-components ')  => 'center',
+					__( 'Right ', 'mm-components ')  => 'right',
 				),
 			),
 			array(
 				'type'        => 'textarea_html',
-				'heading'     => __( 'Button Text', 'mm-add-ons' ),
+				'heading'     => __( 'Button Text', 'mm-components' ),
 				'param_name'  => 'content',
 				'admin_label' => true,
 				'value'       => '',

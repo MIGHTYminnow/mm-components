@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Expandable Content
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -74,7 +74,7 @@ function mm_vc_expandable_content() {
 	 * Expandable Content.
 	 */
 	vc_map( array(
-		'name' => __( 'Expandable Content', 'mm-add-ons' ),
+		'name' => __( 'Expandable Content', 'mm-components' ),
 		'base' => 'mm_expandable_content',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'as_parent' => array( 'except' => '' ),
@@ -82,39 +82,39 @@ function mm_vc_expandable_content() {
 		'params' => array(
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Button or Link?', 'mm-add-ons' ),
+				'heading' => __( 'Button or Link?', 'mm-components' ),
 				'param_name' => 'link_style',
-				'description' => __( 'Should the trigger be a button or a link?', 'mm-add-ons' ),
+				'description' => __( 'Should the trigger be a button or a link?', 'mm-components' ),
 				'value' => array(
 					'Select Button or Link', // This is here to avoid a bug in VC 4.6 where the first value doesn't get added to the shortcode.
-					__( 'Button', 'mm-add-ons' ) => 'button',
-					__( 'Link', 'mm-add-ons' ) => 'link',
+					__( 'Button', 'mm-components' ) => 'button',
+					__( 'Link', 'mm-components' ) => 'link',
 				),
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Button/Link Text', 'mm-add-ons' ),
+				'heading' => __( 'Button/Link Text', 'mm-components' ),
 				'param_name' => 'link_text',
-				'description' => __( 'The text for the button/link', 'mm-add-ons' ),
+				'description' => __( 'The text for the button/link', 'mm-components' ),
 				'default' => '',
 				'value' => '',
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Button/Link Alignment', 'mm-add-ons' ),
+				'heading' => __( 'Button/Link Alignment', 'mm-components' ),
 				'param_name' => 'link_alignment',
 				'value' => array(
-					__( 'Select Left, Center, or Right', 'mm-add-ons' ), // This is here to avoid a bug in VC 4.6 where the first value doesn't get added to the shortcode.
-					__( 'Left', 'mm-add-ons' ) => 'left',
-					__( 'Center', 'mm-add-ons' ) => 'center',
-					__( 'Right', 'mm-add-ons' ) => 'right',
+					__( 'Select Left, Center, or Right', 'mm-components' ), // This is here to avoid a bug in VC 4.6 where the first value doesn't get added to the shortcode.
+					__( 'Left', 'mm-components' ) => 'left',
+					__( 'Center', 'mm-components' ) => 'center',
+					__( 'Right', 'mm-components' ) => 'right',
 				),
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Extra class name', 'mm-add-ons' ),
+				'heading' => __( 'Extra class name', 'mm-components' ),
 				'param_name' => 'class',
-				'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'mm-add-ons' )
+				'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'mm-components' )
 			),
 		),
 		'js_view' => 'VcColumnView'

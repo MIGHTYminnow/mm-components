@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Countdown
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -96,33 +96,33 @@ function mm_vc_countdown() {
 	add_shortcode_param( 'timezone', 'mm_timezone_param' );
 
 	vc_map( array(
-		'name' => __( 'Countdown', 'mm-add-ons' ),
+		'name' => __( 'Countdown', 'mm-components' ),
 		'base' => 'countdown',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'mm-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'date',
 				'class' => '',
-				'heading' => __( 'Date', 'mm-add-ons' ),
+				'heading' => __( 'Date', 'mm-components' ),
 				'param_name' => 'date',
 				'admin_label' => true,
 				'value' => '',
-				'description' => __( 'Must be in the format MM/DD/YYYY. Example: 12/25/2015 would be Christmas of 2015.', 'mm-add-ons' ),
+				'description' => __( 'Must be in the format MM/DD/YYYY. Example: 12/25/2015 would be Christmas of 2015.', 'mm-components' ),
 				),
 			array(
 				'type' => 'textfield',
 				'class' => '',
-				'heading' => __( 'Time', 'mm-add-ons' ),
+				'heading' => __( 'Time', 'mm-components' ),
 				'param_name' => 'time',
 				'value' => '',
-				'description' => __( 'Must be in the format HH:MM:SS. Example: 18:30:00 would be 6:30 PM.', 'mm-add-ons' ),
+				'description' => __( 'Must be in the format HH:MM:SS. Example: 18:30:00 would be 6:30 PM.', 'mm-components' ),
 				),
 			array(
 				'type' => 'timezone',
 				'class' => '',
-				'heading' => __( 'Time Zone', 'mm-add-ons' ),
+				'heading' => __( 'Time Zone', 'mm-components' ),
 				'param_name' => 'timezone',
 				'value' => '',
 				),

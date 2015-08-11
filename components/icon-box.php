@@ -1,10 +1,10 @@
 <?php
 /**
- * MIGHTYminnow Add-ons
+ * MIGHTYminnow Components
  *
  * Component: Icon Box
  *
- * @package mm-add-ons
+ * @package mm-components
  * @since   1.0.0
  */
 
@@ -30,7 +30,7 @@ function mm_icon_box_shortcode( $atts, $content = null, $tag ) {
 		'icon_pixelicons'  => '',
 		'heading_text'     => '',
 		'link'             => '',
-		'link_text'        => __( 'Read more', 'mm-add-ons' ),
+		'link_text'        => __( 'Read more', 'mm-components' ),
 	), $atts );
 
 	// Clean up content - this is necessary
@@ -276,7 +276,7 @@ function mm_vc_icon_box() {
 			),
 			array(
 				'type' => 'vc_link',
-				'heading' => __( 'Link URL', 'mm-add-ons' ),
+				'heading' => __( 'Link URL', 'mm-components' ),
 				'param_name' => 'link',
 			),
 		)
