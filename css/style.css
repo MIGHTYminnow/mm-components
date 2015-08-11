@@ -1,9 +1,9 @@
 /**
- * Add-On Styles.
+ * Component Styles.
  *
  * @since 1.0.0
  *
- * @package mm-add-ons
+ * @package mm-components
  */
 
 /**
@@ -33,7 +33,6 @@
 /**
  * Expandable Content
  */
-
 .mm-expandable-content-trigger:hover {
 	cursor: pointer;
 }
@@ -49,7 +48,6 @@
 /**
  * Icon Box
  */
-
 .mm-icon-box {
 	position: relative;
 	margin-top: 3em;

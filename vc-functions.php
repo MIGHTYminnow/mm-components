@@ -4,7 +4,7 @@
  *
  * @since 1.0.0
  *
- * @package mm-add-ons
+ * @package mm-components
  */
 
 add_action( 'init', 'mm_vc_custom_component_atts', 15 );
@@ -22,18 +22,18 @@ function mm_vc_custom_component_atts() {
 	$components = WPBMap::getShortCodes();
 
 	// Create custom group title.
-	$custom_group = __( 'Mm Custom Settings', 'mm-add-ons' );
+	$custom_group = __( 'Mm Custom Settings', 'mm-components' );
 
 	// Text color
 	$atts[] = array(
 		'type' => 'dropdown',
-		'heading' => __( 'Text Color Scheme', 'mm-add-ons' ),
+		'heading' => __( 'Text Color Scheme', 'mm-components' ),
 		'param_name' => 'mm_class_text_color',
 		'value' => array(
-			__( 'Default', 'mm-add-ons ') => '',
-            __( 'Dark', 'mm-add-ons ') => 'dark',
-            __( 'Light', 'mm-add-ons ') => 'light',
-            __( 'Medium', 'mm-add-ons ') => 'medium',
+			__( 'Default', 'mm-components ') => '',
+            __( 'Dark', 'mm-components ') => 'dark',
+            __( 'Light', 'mm-components ') => 'light',
+            __( 'Medium', 'mm-components ') => 'medium',
 		),
 		'group' => $custom_group,
 	);
@@ -41,13 +41,13 @@ function mm_vc_custom_component_atts() {
 	// Text alignment
 	$atts[] = array(
 		'type' => 'dropdown',
-		'heading' => __( 'Text Alignment', 'mm-add-ons' ),
+		'heading' => __( 'Text Alignment', 'mm-components' ),
 		'param_name' => 'mm_class_text_align',
 		'value' => array(
-			__( 'Default', 'mm-add-ons ') => '',
-            __( 'Left', 'mm-add-ons ') => 'left',
-            __( 'Center', 'mm-add-ons ') => 'center',
-            __( 'Right', 'mm-add-ons ') => 'right',
+			__( 'Default', 'mm-components ') => '',
+            __( 'Left', 'mm-components ') => 'left',
+            __( 'Center', 'mm-components ') => 'center',
+            __( 'Right', 'mm-components ') => 'right',
 		),
 		'group' => $custom_group,
 	);
@@ -55,7 +55,7 @@ function mm_vc_custom_component_atts() {
 	// Text alignment
 	$atts[] = array(
 		'type' => 'textfield',
-		'heading' => __( 'Custom Class', 'mm-add-ons' ),
+		'heading' => __( 'Custom Class', 'mm-components' ),
 		'param_name' => 'mm_custom_class',
 		'group' => $custom_group,
 	);
@@ -82,7 +82,7 @@ add_filter( 'vc_single_param_edit', 'mm_filter_vc_field_descriptions', 10, 2 );
  * fields, attempting to calculate 2x the image size being used and output
  * this in the field's description.
  *
- * @since     1.2.0
+ * @since     1.0.0
  *
  * @param     array    $param    Visual composer field array.
  * @param     mixed    $value    Field value.

@@ -3,7 +3,7 @@
  *
  * @since 1.0.0
  *
- * @package mm-add-ons
+ * @package mm-components
  */
 
 ( function( $ ) {

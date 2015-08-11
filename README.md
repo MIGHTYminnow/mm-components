@@ -1,2 +1,2 @@
-# MIGHTYminnow Add-ons
-[WordPress] Custom components and functionality for WordPress sites.
+# MIGHTYminnow Components
+[WordPress] Custom components and functionality for WordPress.

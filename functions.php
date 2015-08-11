@@ -1,10 +1,10 @@
 <?php
 /**
- * Mm Custom Add-ons General Functionality.
+ * Mm Components General Functionality.
  *
- * @since 1.2.0
+ * @since 1.0.0
  *
- * @package mm-add-ons
+ * @package mm-components
  */
 
 add_filter( 'mm_shortcode_custom_classes', 'mm_shortcode_custom_classes', 10, 3 );
@@ -13,10 +13,10 @@ add_filter( 'mm_shortcode_custom_classes', 'mm_shortcode_custom_classes', 10, 3 
  *
  * The following atts are parsed into classes by this function:
  *
- * 	1. Atts whose key begins with: mm_class_*.
- * 	2. The custom class att defined by $custom_class_key below.
+ * 1. Atts whose key begins with: mm_class_*.
+ * 2. The custom class att defined by $custom_class_key below.
  *
- * @since   1.2.0
+ * @since   1.0.0
  *
  * @param   string  $classes  Initial classes.
  * @param   string  $tag      Shortcode tag.
@@ -58,18 +58,17 @@ function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
 	$classes = implode( ' ', $class_array );
 
 	return $classes;
-
 }
 
 /**
  * Parse args with defaults, allowing for unexpected args.
  *
- * @since 1.2.0
+ * @since 1.0.0
  *
  * @param array $defaults Default values.
  * @param array $atts     Atts to be parsed.
  *
-* @return array Updated atts
+ * @return array Updated atts
  */
 function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
 	return wp_parse_args( $atts, $defaults );
@@ -78,7 +77,7 @@ function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
 /**
  * Return custom VC image upload description.
  *
- * @since     1.2.0
+ * @since     1.0.0
  *
  * @param     string    $image_size    Image size slug.
  *
@@ -86,7 +85,7 @@ function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
  */
 function mm_custom_image_field_description( $image_size = '' ) {
 
-	$default_message = __( 'Upload an image that is large enough to be output without stretching.', 'mm-add-ons' );
+	$default_message = __( 'Upload an image that is large enough to be output without stretching.', 'mm-components' );
 
 	// Do default image message if no specific image_size is passed.
 	if ( ! $image_size ) {
@@ -104,14 +103,13 @@ function mm_custom_image_field_description( $image_size = '' ) {
 	$width = $image_dimensions['width'] * 2;
 	$height = $image_dimensions['height'] * 2;
 
-	return sprintf( __( 'Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that it is not stretched.', 'mm-add-ons' ), $width, $height );
-
+	return sprintf( __( 'Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that it is not stretched.', 'mm-components' ), $width, $height );
 }
 
 /**
  * Get the dimensions of WP default and add-on image sizes.
  *
- * @since     1.2.0
+ * @since     1.0.0
  *
  * @param     string    $image_size          Image size slug.
  *
@@ -138,7 +136,6 @@ function mm_get_image_size_dimensions( $image_size = '' ) {
 	}
 
 	return $image_dimensions;
-
 }
 
 /**

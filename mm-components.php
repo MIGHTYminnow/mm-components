@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: MIGHTYminnow Add-ons
+ * Plugin Name: MIGHTYminnow Components
  * Plugin URI: http://mightyminnow.com
  * Description: Custom components and functionality for WordPress.
  * Version: 1.0.0
  * Author: MIGHTYminnow Web Studio
  * Author URI: http://mightyminnow.com
  * License: GPL2+
- * Text Domain: mm-add-ons
+ * Text Domain: mm-components
  * Domain Path: /languages
  */
 
@@ -15,16 +15,16 @@ define( 'MM_PLUG_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MM_PLUG_INCLUDES_PATH', MM_PLUG_PATH . 'includes/' );
 define( 'MM_PLUG_ASSETS_URL', plugins_url( 'assets/', __FILE__ ) );
 
-add_action( 'plugins_loaded', 'mm_ao_startup' );
+add_action( 'plugins_loaded', 'mm_components_startup' );
 /**
  * Start the plugin.
  *
  * @since    1.0.0
  */
-function mm_ao_startup() {
+function mm_components_startup() {
 
 	// Set up text domain.
-	load_plugin_textdomain( 'mm-add-ons', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'mm-components', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 	// Include general functionality.
 	require_once MM_PLUG_PATH . 'functions.php';
@@ -50,7 +50,7 @@ function mm_ao_startup() {
 	}
 
 	// Load front-end scripts and styles.
-	add_action( 'wp_enqueue_scripts', 'mm_ao_scripts_and_styles');
+	add_action( 'wp_enqueue_scripts', 'mm_components_scripts_and_styles');
 
 }
 
@@ -59,12 +59,12 @@ function mm_ao_startup() {
  *
  * @since  1.0.0
  */
-function mm_ao_scripts_and_styles() {
+function mm_components_scripts_and_styles() {
 
-	// General styles
-	wp_enqueue_style( 'mm-add-ons', plugins_url( '/css/style.css', __FILE__ ) );
+	// General styles.
+	wp_enqueue_style( 'mm-components', plugins_url( '/css/style.css', __FILE__ ) );
 
-	// General scripts
-	wp_enqueue_script( 'mm-add-ons', plugins_url( '/js/scripts.js', __FILE__ ) );
+	// General scripts.
+	wp_enqueue_script( 'mm-components', plugins_url( '/js/scripts.js', __FILE__ ) );
 
 }
