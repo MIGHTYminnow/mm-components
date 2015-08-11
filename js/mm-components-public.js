@@ -17,7 +17,7 @@
 
 	// Trigger function for the countdowns.
 	function MmStartCountdowns() {
-		var $targets = $( '.countdown' );
+		var $targets = $( '.mm-countdown' );
 
 		$targets.each( function() {
 
