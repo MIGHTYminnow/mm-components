@@ -8,7 +8,7 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'polaroid_2', 'mm_polaroid_2_shortcode' );
+add_shortcode( 'mm_polaroid_2', 'mm_polaroid_2_shortcode' );
 /**
  * Output Polaroid 2.
  *
@@ -83,7 +83,7 @@ function mm_vc_polaroid_2() {
 
 	vc_map( array(
 		'name' => __( 'Polaroid 2', 'mm-components' ),
-		'base' => 'polaroid_2',
+		'base' => 'mm_polaroid_2',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),

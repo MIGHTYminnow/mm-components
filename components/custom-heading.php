@@ -8,7 +8,7 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'custom_heading', 'mm_custom_heading_shortcode' );
+add_shortcode( 'mm_custom_heading', 'mm_custom_heading_shortcode' );
 /**
  * Output Custom Heading.
  *
@@ -81,7 +81,7 @@ function mm_vc_custom_heading() {
 
 	vc_map( array(
 		'name' => __( 'Custom Heading', 'mm-components' ),
-		'base' => 'custom_heading',
+		'base' => 'mm_custom_heading',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),

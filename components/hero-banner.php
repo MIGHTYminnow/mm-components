@@ -8,7 +8,7 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'hero_banner', 'mm_hero_banner_shortcode' );
+add_shortcode( 'mm_hero_banner', 'mm_hero_banner_shortcode' );
 /**
  * Output Hero Banner.
  *
@@ -164,7 +164,7 @@ function mm_vc_hero_banner() {
 
 	vc_map( array(
 		'name' => __( 'Hero Banner', 'mm-components' ),
-		'base' => 'hero_banner',
+		'base' => 'mm_hero_banner',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(

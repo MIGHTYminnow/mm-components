@@ -23,7 +23,7 @@ function mm_countdown_enqueue_scripts() {
 
 }
 
-add_shortcode( 'countdown', 'mm_countdown_shortcode' );
+add_shortcode( 'mm_countdown', 'mm_countdown_shortcode' );
 /**
  * Output Countdown.
  *
@@ -97,7 +97,7 @@ function mm_vc_countdown() {
 
 	vc_map( array(
 		'name' => __( 'Countdown', 'mm-components' ),
-		'base' => 'countdown',
+		'base' => 'mm_countdown',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),

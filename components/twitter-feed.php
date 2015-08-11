@@ -8,7 +8,7 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'twitter_feed', 'mm_twitter_feed_shortcode' );
+add_shortcode( 'mm_twitter_feed', 'mm_twitter_feed_shortcode' );
 /**
  * Output Twitter Feed.
  *
@@ -106,7 +106,7 @@ function mm_vc_mm_twitter_feed() {
 
 	vc_map( array(
 		'name' => __( 'Twitter Feed', 'mm-components' ),
-		'base' => 'twitter_feed',
+		'base' => 'mm_twitter_feed',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),

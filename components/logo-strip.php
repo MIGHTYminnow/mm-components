@@ -8,7 +8,7 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'logo_strip', 'mm_logo_strip_shortcode' );
+add_shortcode( 'mm_logo_strip', 'mm_logo_strip_shortcode' );
 /**
  * Output Logo Strip.
  *
@@ -73,7 +73,7 @@ function mm_vc_logo_strip() {
 
 	vc_map( array(
 		'name' => __( 'Logo Strip', 'mm-components' ),
-		'base' => 'logo_strip',
+		'base' => 'mm_logo_strip',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),

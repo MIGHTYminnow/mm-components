@@ -8,7 +8,7 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'image_grid', 'mm_image_grid_shortcode' );
+add_shortcode( 'mm_image_grid', 'mm_image_grid_shortcode' );
 /**
  * Output Image Grid.
  *
@@ -61,9 +61,9 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 	return $output;
 }
 
-add_shortcode( 'image_grid_image', 'mm_image_grid_image_shortcode' );
+add_shortcode( 'mm_image_grid_image', 'mm_image_grid_image_shortcode' );
 /**
- * [image_grid_image title="" image="" text="" link="" author_img=""]
+ * [mm_image_grid_image title="" image="" text="" link="" author_img=""]
  *
  * @since  1.0.0
  *
@@ -142,14 +142,14 @@ function mm_vc_image_grid() {
 	// Image Grid Container
 	vc_map( array(
 		'name' => __( 'Image Grid', 'mm-components' ),
-		'base' => 'image_grid',
+		'base' => 'mm_image_grid',
 		'as_parent' => array( 'only' => 'image_grid_image' ), // Use only|except attributes to limit child shortcodes (separate multiple values with comma)
 		'content_element' => true,
 		'class' => 'image-grid',
       	'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'show_settings_on_create' => false,
 		'params' => array(
-		// add params same as with any other content element
+			// Add params same as with any other content element.
 			array(
 				'type' => 'textfield',
 				'heading' => __( 'Title', 'mm-components' ),
@@ -176,7 +176,7 @@ function mm_vc_image_grid() {
 
 	vc_map( array(
 		'name' => __( 'Image Grid Image', 'mm-components' ),
-		'base' => 'image_grid_image',
+		'base' => 'mm_image_grid_image',
 		'content_element' => true,
       	'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
 		'as_child' => array( 'only' => 'image_grid' ), // Use only|except attributes to limit parent (separate multiple values with comma)
