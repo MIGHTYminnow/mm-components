@@ -62,9 +62,9 @@ function mm_components_startup() {
 function mm_components_scripts_and_styles() {
 
 	// General styles.
-	wp_enqueue_style( 'mm-components', plugins_url( '/css/style.css', __FILE__ ) );
+	wp_enqueue_style( 'mm-components', plugins_url( '/css/mm-components-public.css', __FILE__ ) );
 
 	// General scripts.
-	wp_enqueue_script( 'mm-components', plugins_url( '/js/scripts.js', __FILE__ ) );
+	wp_enqueue_script( 'mm-components', plugins_url( '/js/mm-components-public.js', __FILE__ ) );
 
 }
