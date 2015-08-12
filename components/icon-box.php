@@ -155,29 +155,29 @@ function mm_vc_icon_box() {
 	);
 
 	vc_map( array(
-		'name' => __( 'Icon Box', 'css-visual-composer-add-ons' ),
+		'name' => __( 'Icon Box', 'mm-components' ),
 		'base' => 'mm_icon_box',
 		'class' => '',
 		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'category' => __( 'Content', 'css-visual-composer-add-ons' ),
+		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Icon library', 'js_composer' ),
+				'heading' => __( 'Icon library', 'mm-components' ),
 				'value' => array(
-					__( 'Font Awesome', 'js_composer' ) => 'fontawesome',
-					__( 'Open Iconic', 'js_composer' ) => 'openiconic',
-					__( 'Typicons', 'js_composer' ) => 'typicons',
-					__( 'Entypo', 'js_composer' ) => 'entypo',
-					__( 'Linecons', 'js_composer' ) => 'linecons',
-					__( 'Pixel', 'js_composer' ) => 'pixelicons',
+					__( 'Font Awesome', 'mm-components' ) => 'fontawesome',
+					__( 'Open Iconic', 'mm-components' ) => 'openiconic',
+					__( 'Typicons', 'mm-components' ) => 'typicons',
+					__( 'Entypo', 'mm-components' ) => 'entypo',
+					__( 'Linecons', 'mm-components' ) => 'linecons',
+					__( 'Pixel', 'mm-components' ) => 'pixelicons',
 				),
 				'param_name' => 'icon_type',
-				'description' => __( 'Select icon library.', 'js_composer' ),
+				'description' => __( 'Select icon library.', 'mm-components' ),
 			),
 			array(
 				'type' => 'iconpicker',
-				'heading' => __( 'Icon', 'js_composer' ),
+				'heading' => __( 'Icon', 'mm-components' ),
 				'param_name' => 'icon_fontawesome',
 				'settings' => array(
 					'emptyIcon' => false, // default true, display an "EMPTY" icon?
@@ -187,11 +187,11 @@ function mm_vc_icon_box() {
 					'element' => 'icon_type',
 					'value' => 'fontawesome',
 				),
-				'description' => __( 'Select icon from library.', 'js_composer' ),
+				'description' => __( 'Select icon from library.', 'mm-components' ),
 			),
 			array(
 				'type' => 'iconpicker',
-				'heading' => __( 'Icon', 'js_composer' ),
+				'heading' => __( 'Icon', 'mm-components' ),
 				'param_name' => 'icon_openiconic',
 				'settings' => array(
 					'emptyIcon' => false, // default true, display an "EMPTY" icon?
@@ -202,11 +202,11 @@ function mm_vc_icon_box() {
 					'element' => 'icon_type',
 					'value' => 'openiconic',
 				),
-				'description' => __( 'Select icon from library.', 'js_composer' ),
+				'description' => __( 'Select icon from library.', 'mm-components' ),
 			),
 			array(
 				'type' => 'iconpicker',
-				'heading' => __( 'Icon', 'js_composer' ),
+				'heading' => __( 'Icon', 'mm-components' ),
 				'param_name' => 'icon_typicons',
 				'settings' => array(
 					'emptyIcon' => false, // default true, display an "EMPTY" icon?
@@ -217,11 +217,11 @@ function mm_vc_icon_box() {
 					'element' => 'icon_type',
 					'value' => 'typicons',
 				),
-				'description' => __( 'Select icon from library.', 'js_composer' ),
+				'description' => __( 'Select icon from library.', 'mm-components' ),
 			),
 			array(
 				'type' => 'iconpicker',
-				'heading' => __( 'Icon', 'js_composer' ),
+				'heading' => __( 'Icon', 'mm-components' ),
 				'param_name' => 'icon_entypo',
 				'settings' => array(
 					'emptyIcon' => false, // default true, display an "EMPTY" icon?
@@ -235,7 +235,7 @@ function mm_vc_icon_box() {
 			),
 			array(
 				'type' => 'iconpicker',
-				'heading' => __( 'Icon', 'js_composer' ),
+				'heading' => __( 'Icon', 'mm-components' ),
 				'param_name' => 'icon_linecons',
 				'settings' => array(
 					'emptyIcon' => false, // default true, display an "EMPTY" icon?
@@ -246,11 +246,11 @@ function mm_vc_icon_box() {
 					'element' => 'icon_type',
 					'value' => 'linecons',
 				),
-				'description' => __( 'Select icon from library.', 'js_composer' ),
+				'description' => __( 'Select icon from library.', 'mm-components' ),
 			),
 			array(
 				'type' => 'iconpicker',
-				'heading' => __( 'Icon', 'js_composer' ),
+				'heading' => __( 'Icon', 'mm-components' ),
 				'param_name' => 'icon_pixelicons',
 				'settings' => array(
 					'emptyIcon' => false, // default true, display an "EMPTY" icon?
@@ -261,23 +261,28 @@ function mm_vc_icon_box() {
 					'element' => 'icon_type',
 					'value' => 'pixelicons',
 				),
-				'description' => __( 'Select icon from library.', 'js_composer' ),
+				'description' => __( 'Select icon from library.', 'mm-components' ),
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading', 'css-visual-composer-add-ons' ),
+				'heading' => __( 'Heading', 'mm-components' ),
 				'param_name' => 'heading_text',
 				'admin_label' => true,
 			),
 			array(
 				'type' => 'textarea_html',
-				'heading' => __( 'Paragraph Text', 'css-visual-composer-add-ons' ),
+				'heading' => __( 'Paragraph Text', 'mm-components' ),
 				'param_name' => 'content',
 			),
 			array(
 				'type' => 'vc_link',
 				'heading' => __( 'Link URL', 'mm-components' ),
 				'param_name' => 'link',
+			),
+			array(
+				'type' => 'textfield',
+				'heading' => __( 'Link Text', 'mm-components' ),
+				'param_name' => 'link_text',
 			),
 		)
 	) );
