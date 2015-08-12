@@ -143,7 +143,7 @@ function mm_vc_image_grid() {
 	vc_map( array(
 		'name' => __( 'Image Grid', 'mm-components' ),
 		'base' => 'mm_image_grid',
-		'as_parent' => array( 'only' => 'image_grid_image' ), // Use only|except attributes to limit child shortcodes (separate multiple values with comma)
+		'as_parent' => array( 'only' => 'mm_image_grid_image' ), // Use only|except attributes to limit child shortcodes (separate multiple values with comma)
 		'content_element' => true,
 		'class' => 'image-grid',
       	'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
@@ -179,7 +179,7 @@ function mm_vc_image_grid() {
 		'base' => 'mm_image_grid_image',
 		'content_element' => true,
       	'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
-		'as_child' => array( 'only' => 'image_grid' ), // Use only|except attributes to limit parent (separate multiple values with comma)
+		'as_child' => array( 'only' => 'mm_image_grid' ), // Use only|except attributes to limit parent (separate multiple values with comma)
 		'params' => array(
 			array(
 				'type' => 'textfield',
@@ -214,12 +214,12 @@ function mm_vc_image_grid() {
 
  	// Your 'container' content element should extend WPBakeryShortCodesContainer class to inherit all required functionality
 	if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
-		class WPBakeryShortCode_Image_Grid extends WPBakeryShortCodesContainer {
+		class WPBakeryShortCode_Mm_Image_Grid extends WPBakeryShortCodesContainer {
 		}
 	}
 
 	if ( class_exists( 'WPBakeryShortCode' ) ) {
-		class WPBakeryShortCode_Image_Grid_Image extends WPBakeryShortCode {
+		class WPBakeryShortCode_Mm_Image_Grid_Image extends WPBakeryShortCode {
 		}
 	}
 
