@@ -20,10 +20,13 @@ add_shortcode( 'mm_image_grid', 'mm_image_grid_shortcode' );
  */
 function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 
-	extract( mm_shortcode_atts( array(
+	$atts = mm_shortcode_atts( array(
 		'title' => '',
 		'style' => 'style-full-image',
-	), $atts ) );
+	), $atts );
+
+	$title = wp_kses_post( $atts['title'] );
+	$style = esc_attr( $atts['style'] );
 
 	// Set global style variable to pass to nest Image Grid Image components
 	global $mm_image_grid_style;
@@ -76,12 +79,17 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 	// Global style variable passed from parent Image Grid component
 	global $mm_image_grid_style;
 
-	extract( mm_shortcode_atts( array(
+	$atts = mm_shortcode_atts( array(
 		'title'    => '',
 		'subtitle' => '',
 		'image'    => '',
 		'link'     => '',
-	), $atts ) );
+	), $atts );
+
+	$title = wp_kses_post( $atts['title'] );
+	$subtitle = wp_kses_post( $atts['subtitle'] );
+	$image = (int)$atts['image'];
+	$link = $atts['link'];
 
    	// Clean up content - this is necessary
 	$content = wpb_js_remove_wpautop( $content, true );
