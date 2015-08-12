@@ -74,7 +74,7 @@ function mm_vc_button() {
 		'name' => __( 'Button', 'mm-components' ),
 		'base' => 'mm_button',
 		'class' => '',
-		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(

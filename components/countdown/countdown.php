@@ -20,7 +20,6 @@ function mm_countdown_enqueue_scripts() {
 	 * @see  http://hilios.github.io/jQuery.countdown/
 	 */
 	wp_register_script( 'mm-countdown', plugins_url( '/js/jquery.countdown.js', __FILE__ ), array( 'jquery' ), null, true );
-
 }
 
 add_shortcode( 'mm_countdown', 'mm_countdown_shortcode' );
@@ -99,7 +98,7 @@ function mm_vc_countdown() {
 		'name' => __( 'Countdown', 'mm-components' ),
 		'base' => 'mm_countdown',
 		'class' => '',
-		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(

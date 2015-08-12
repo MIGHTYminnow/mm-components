@@ -76,7 +76,7 @@ function mm_vc_expandable_content() {
 	vc_map( array(
 		'name' => __( 'Expandable Content', 'mm-components' ),
 		'base' => 'mm_expandable_content',
-		'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'as_parent' => array( 'except' => '' ),
 		'is_container' => true,
 		'params' => array(

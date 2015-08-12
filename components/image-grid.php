@@ -154,7 +154,7 @@ function mm_vc_image_grid() {
 		'as_parent' => array( 'only' => 'mm_image_grid_image' ), // Use only|except attributes to limit child shortcodes (separate multiple values with comma)
 		'content_element' => true,
 		'class' => 'image-grid',
-      	'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
+      	'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'show_settings_on_create' => false,
 		'params' => array(
 			// Add params same as with any other content element.
@@ -186,7 +186,7 @@ function mm_vc_image_grid() {
 		'name' => __( 'Image Grid Image', 'mm-components' ),
 		'base' => 'mm_image_grid_image',
 		'content_element' => true,
-      	'icon' => MM_PLUG_ASSETS_URL . 'component_icon.png',
+      	'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'as_child' => array( 'only' => 'mm_image_grid' ), // Use only|except attributes to limit parent (separate multiple values with comma)
 		'params' => array(
 			array(
