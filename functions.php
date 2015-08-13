@@ -227,7 +227,5 @@ function mm_get_taxonomies_for_vc() {
 		$taxonomies[ $formatted_taxonomy ] = $taxonomy;
 	}
 
-	trestle_log( $taxonomies );
-
 	return $taxonomies;
 }
