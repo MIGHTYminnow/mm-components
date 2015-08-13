@@ -80,6 +80,9 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 		}
 	}
 
+	// Allow the query to be filtered.
+	$query_args = apply_filters( 'mm_components_posts_query_args', $query_args, $atts );
+
 	// Do the query.
 	$query = new WP_Query( $query_args );
 
