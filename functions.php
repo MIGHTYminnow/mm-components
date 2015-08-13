@@ -161,3 +161,73 @@ function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
 		$content
 	);
 }
+
+/**
+ * Return an array of post types for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  $post_types  The array of formatted post types.
+ */
+function mm_get_post_types_for_vc() {
+
+	$post_type_args = array(
+		'public' => true,
+		'_builtin' => false
+	);
+
+	$custom_post_types = get_post_types( $post_type_args, 'names', 'and' );
+
+	$formatted_cpts = array();
+
+	foreach( $custom_post_types as $post_type ) {
+
+		$formatted_cpt = ucwords( str_replace( '_', ' ', $post_type ) );
+
+		$formatted_cpts[ $formatted_cpt ] = $post_type;
+	}
+
+	// Manually add 'post' and an empty option.
+	$default_post_types = array(
+		__( 'Select a Post Type', 'mm-components' ) => '',
+		__( 'Post', 'mm-components' ) => 'post',
+	);
+
+	$post_types = array_merge( $default_post_types, $formatted_cpts );
+
+	return $post_types;
+}
+
+/**
+ * Return an array of registered taxonomies for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  $taxonomies  The array of formatted taxonomies.
+ */
+function mm_get_taxonomies_for_vc() {
+
+	$taxonomy_args = array(
+		'public'   => true,
+		'_builtin' => false
+	);
+
+	$custom_taxonomies = get_taxonomies( $taxonomy_args, 'names', 'and' );
+
+	// Manually add 'category', 'tag', and an empty option.
+	$taxonomies = array(
+		__( 'Select a Taxonomy', 'mm-components' ) => '',
+		__( 'Category', 'mm-components' ) => 'category',
+		__( 'Tag', 'mm-components' ) => 'post_tag',
+	);
+
+	// Format the taxonomies.
+	foreach ( $custom_taxonomies as $taxonomy ) {
+		$formatted_taxonomy = ucwords( str_replace( '_', ' ', $taxonomy ) );
+		$taxonomies[ $formatted_taxonomy ] = $taxonomy;
+	}
+
+	trestle_log( $taxonomies );
+
+	return $taxonomies;
+}
