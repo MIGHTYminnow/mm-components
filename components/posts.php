@@ -91,6 +91,8 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 	ob_start(); ?>
 
+	<?php do_action( 'mm_posts_register_hooks' ); ?>
+
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
@@ -109,12 +111,38 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 	</div>
 
+	<?php do_action( 'mm_posts_reset_hooks' ); ?>
+
 	<?php $output = ob_get_clean();
 
 	return $output;
 }
 
-add_action( 'mm_posts_top', 'mm_posts_output_post_title', 10, 2 );
+add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks' );
+/**
+ * Set up our default hooks.
+ *
+ * @since  1.0.0
+ */
+function mm_posts_register_default_hooks() {
+
+	add_action( 'mm_posts_top', 'mm_posts_output_post_title', 10, 2 );	
+	add_action( 'mm_posts_middle', 'mm_posts_output_post_content', 10, 2 );
+}
+
+add_action( 'mm_posts_reset_hooks', 'mm_posts_reset_default_hooks' );
+/**
+ * Reset all the hooks.
+ *
+ * @since  1.0.0
+ */
+function mm_posts_reset_default_hooks() {
+
+	remove_all_actions( 'mm_posts_top' );
+	remove_all_actions( 'mm_posts_middle' );
+	remove_all_actions( 'mm_posts_bottom' );
+}
+
 /**
  * Default post title output.
  *
@@ -133,7 +161,6 @@ function mm_posts_output_post_title( $post, $context ) {
 	);
 }
 
-add_action( 'mm_posts_middle', 'mm_posts_output_post_content', 10, 2 );
 /**
  * Default post content output.
  *
