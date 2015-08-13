@@ -74,9 +74,9 @@ function mm_vc_blockquote() {
 		'params' => array(
 			array(
 				'type' => 'attach_image',
-				'heading' => __( 'Image', 'js_composer' ),
+				'heading' => __( 'Image', 'mm-components' ),
 				'param_name' => 'image_id',
-				'description' => __( 'Select an image from the library.', 'js_composer' ),
+				'description' => __( 'Select an image from the library.', 'mm-components' ),
 			),
 			array(
 				'type' => 'textarea',
