@@ -91,7 +91,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 	ob_start(); ?>
 
-	<?php do_action( 'mm_posts_register_hooks' ); ?>
+	<?php do_action( 'mm_posts_register_hooks', $atts ); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
@@ -110,6 +110,8 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 		<?php endwhile; ?>
 
 	</div>
+
+	<?php wp_reset_postdata(); ?>
 
 	<?php do_action( 'mm_posts_reset_hooks' ); ?>
 
