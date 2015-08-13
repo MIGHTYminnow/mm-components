@@ -92,7 +92,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-			<div id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm_post' ); ?>>
+			<div id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?>>
 
 				<?php do_action( 'mm_posts_top', $query->post, $context, $atts ); ?>
 
@@ -152,7 +152,7 @@ add_action( 'init', 'mm_vc_posts', 12 );
 /**
  * Visual Composer component.
  *
- * We're firing a bit later than usual because we want to fire after all
+ * We're firing a bit later than usual because we want to come after all
  * custom post types and taxonomies have been registered.
  *
  * @since  1.0.0
