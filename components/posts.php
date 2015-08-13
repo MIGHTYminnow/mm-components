@@ -94,11 +94,11 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 			<div id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm_post' ); ?>>
 
-				<?php do_action( 'mm_posts_top', $query->post, $context ); ?>
+				<?php do_action( 'mm_posts_top', $query->post, $context, $atts ); ?>
 
-				<?php do_action( 'mm_posts_middle', $query->post, $context ); ?>
+				<?php do_action( 'mm_posts_middle', $query->post, $context, $atts ); ?>
 
-				<?php do_action( 'mm_posts_bottom', $query->post, $context ); ?>
+				<?php do_action( 'mm_posts_bottom', $query->post, $context, $atts ); ?>
 
 			</div>
 
