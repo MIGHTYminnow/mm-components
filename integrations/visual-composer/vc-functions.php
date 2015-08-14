@@ -1,6 +1,6 @@
 <?php
 /**
- * Mm Custom Visual Composer Functionality.
+ * Mm Components Visual Composer Functionality.
  *
  * @since 1.0.0
  *
@@ -18,49 +18,49 @@ add_action( 'init', 'mm_vc_custom_component_atts', 15 );
  */
 function mm_vc_custom_component_atts() {
 
-	// Get all available VC components
+	// Get all available VC components.
 	$components = WPBMap::getShortCodes();
 
 	// Create custom group title.
 	$custom_group = __( 'Mm Custom Settings', 'mm-components' );
 
-	// Text color
+	// Text color.
 	$atts[] = array(
-		'type' => 'dropdown',
-		'heading' => __( 'Text Color Scheme', 'mm-components' ),
+		'type'       => 'dropdown',
+		'heading'    => __( 'Text Color Scheme', 'mm-components' ),
 		'param_name' => 'mm_class_text_color',
+		'group' => $custom_group,
 		'value' => array(
 			__( 'Default', 'mm-components ') => '',
-            __( 'Dark', 'mm-components ') => 'dark',
-            __( 'Light', 'mm-components ') => 'light',
-            __( 'Medium', 'mm-components ') => 'medium',
+            __( 'Dark', 'mm-components ')    => 'dark',
+            __( 'Light', 'mm-components ')   => 'light',
+            __( 'Medium', 'mm-components ')  => 'medium',
 		),
-		'group' => $custom_group,
 	);
 
-	// Text alignment
+	// Text alignment.
 	$atts[] = array(
-		'type' => 'dropdown',
-		'heading' => __( 'Text Alignment', 'mm-components' ),
+		'type'       => 'dropdown',
+		'heading'    => __( 'Text Alignment', 'mm-components' ),
 		'param_name' => 'mm_class_text_align',
+		'group'      => $custom_group,
 		'value' => array(
 			__( 'Default', 'mm-components ') => '',
-            __( 'Left', 'mm-components ') => 'left',
-            __( 'Center', 'mm-components ') => 'center',
-            __( 'Right', 'mm-components ') => 'right',
+            __( 'Left', 'mm-components ')    => 'left',
+            __( 'Center', 'mm-components ')  => 'center',
+            __( 'Right', 'mm-components ')   => 'right',
 		),
-		'group' => $custom_group,
 	);
 
-	// Text alignment
+	// Custom Class.
 	$atts[] = array(
-		'type' => 'textfield',
-		'heading' => __( 'Custom Class', 'mm-components' ),
+		'type'       => 'textfield',
+		'heading'    => __( 'Custom Class', 'mm-components' ),
 		'param_name' => 'mm_custom_class',
-		'group' => $custom_group,
+		'group'      => $custom_group,
 	);
 
-	// Add each param to each VC component
+	// Add each param to each VC component.
 	foreach ( $atts as $att ) {
 		foreach ( $components as $component ) {
 			vc_add_param( $component['base'], $att );
