@@ -98,7 +98,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-			<div id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?>>
+			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?>>
 
 				<?php do_action( 'mm_posts_top', $query->post, $context, $atts ); ?>
 
@@ -106,7 +106,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 				<?php do_action( 'mm_posts_bottom', $query->post, $context, $atts ); ?>
 
-			</div>
+			</article>
 
 		<?php endwhile; ?>
 
