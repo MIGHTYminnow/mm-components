@@ -49,16 +49,17 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 		'posts_per_page' => $limit,
 	);
 
-	// Exclude the post being displayed from the query to prevent an infinite loop.
+	// Exclude the page we're on from the query to prevent an infinite loop.
 	$query_args['post__not_in'] = array(
 		$current_post_id
 	);
 
 	// Add to our query if additional params have been passed.
 	if ( '' !== $post_id ) {
+	
 		$query_args['p'] = $post_id;
-	}
-	if ( '' !== $taxonomy && '' !== $term ) {
+	
+	} elseif ( '' !== $taxonomy && '' !== $term ) {
 
 		// First try the term by ID, then try by slug.
 		if ( is_int( $term ) ) {
