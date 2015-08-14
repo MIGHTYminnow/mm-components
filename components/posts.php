@@ -100,11 +100,11 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
 
-				<?php do_action( 'mm_posts_top', $query->post, $context, $atts ); ?>
+				<?php do_action( 'mm_posts_header', $query->post, $context, $atts ); ?>
 
-				<?php do_action( 'mm_posts_middle', $query->post, $context, $atts ); ?>
+				<?php do_action( 'mm_posts_content', $query->post, $context, $atts ); ?>
 
-				<?php do_action( 'mm_posts_bottom', $query->post, $context, $atts ); ?>
+				<?php do_action( 'mm_posts_footer', $query->post, $context, $atts ); ?>
 
 			</article>
 
@@ -129,8 +129,8 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks' );
  */
 function mm_posts_register_default_hooks() {
 
-	add_action( 'mm_posts_top', 'mm_posts_output_post_header', 10, 3 );
-	add_action( 'mm_posts_middle', 'mm_posts_output_post_content', 10, 3 );
+	add_action( 'mm_posts_header', 'mm_posts_output_post_header', 10, 3 );
+	add_action( 'mm_posts_content', 'mm_posts_output_post_content', 10, 3 );
 }
 
 add_action( 'mm_posts_reset_hooks', 'mm_posts_reset_default_hooks' );
@@ -141,9 +141,9 @@ add_action( 'mm_posts_reset_hooks', 'mm_posts_reset_default_hooks' );
  */
 function mm_posts_reset_default_hooks() {
 
-	remove_all_actions( 'mm_posts_top' );
-	remove_all_actions( 'mm_posts_middle' );
-	remove_all_actions( 'mm_posts_bottom' );
+	remove_all_actions( 'mm_posts_header' );
+	remove_all_actions( 'mm_posts_content' );
+	remove_all_actions( 'mm_posts_footer' );
 }
 
 /**
