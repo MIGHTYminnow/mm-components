@@ -129,7 +129,7 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks' );
  */
 function mm_posts_register_default_hooks() {
 
-	add_action( 'mm_posts_top', 'mm_posts_output_post_title', 10, 2 );
+	add_action( 'mm_posts_top', 'mm_posts_output_post_header', 10, 2 );
 	add_action( 'mm_posts_middle', 'mm_posts_output_post_content', 10, 2 );
 }
 
@@ -144,6 +144,23 @@ function mm_posts_reset_default_hooks() {
 	remove_all_actions( 'mm_posts_top' );
 	remove_all_actions( 'mm_posts_middle' );
 	remove_all_actions( 'mm_posts_bottom' );
+}
+
+/**
+ * Default post header output.
+ *
+ * @since  1.0.0
+ *
+ * @param  object  $post     The current post object.
+ * @param  object  $context  The global post object.
+ */
+function mm_posts_output_post_header( $post, $context ) {
+
+	echo '<header class="entry-header">';
+
+	mm_posts_output_post_title( $post, $context );
+
+	echo '</header>';
 }
 
 /**
