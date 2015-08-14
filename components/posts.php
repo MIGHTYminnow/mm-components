@@ -20,11 +20,13 @@ add_shortcode( 'mm_posts', 'mm_posts_shortcode' );
 function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 	$atts = mm_shortcode_atts( array(
-		'post_id'   => '',
-		'post_type' => '',
-		'taxonomy'  => '',
-		'term'      => '',
-		'limit'     => '',
+		'post_id'             => '',
+		'post_type'           => '',
+		'taxonomy'            => '',
+		'term'                => '',
+		'limit'               => '',
+		'show_featured_image' => '',
+		'featured_image_size' => '',
 	), $atts );
 
 	// Set up our defaults.
@@ -121,16 +123,20 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 	return $output;
 }
 
-add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks' );
+add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 10, 1 );
 /**
  * Set up our default hooks.
  *
  * @since  1.0.0
  */
-function mm_posts_register_default_hooks() {
+function mm_posts_register_default_hooks( $atts ) {
 
 	add_action( 'mm_posts_header', 'mm_posts_output_post_header', 10, 3 );
 	add_action( 'mm_posts_content', 'mm_posts_output_post_content', 10, 3 );
+
+	if ( 1 === $atts['show_featured_image'] || '1' === $atts['show_featured_image'] ) {
+		add_action( 'mm_posts_content', 'mm_posts_output_post_image', 12, 3 );
+	}
 }
 
 add_action( 'mm_posts_reset_hooks', 'mm_posts_reset_default_hooks' );
@@ -198,6 +204,40 @@ function mm_posts_output_post_title( $post, $context, $atts ) {
 }
 
 /**
+ * Default featured image output.
+ *
+ * @since  1.0.0
+ *
+ * @param  object  $post     The current post object.
+ * @param  object  $context  The global post object.
+ * @param  array   $atts     The array of shortcode atts.
+ */
+function mm_posts_output_post_image( $post, $context, $atts ) {
+
+	$custom_output = apply_filters( 'mm_posts_post_image', '', $post, $context, $atts );
+
+	if ( '' !== $custom_output ) {
+		echo $custom_output;
+		return;
+	}
+
+	// Default to using the 'post-thumbnail' size.
+	if ( '' !== $atts['featured_image_size'] ) {
+		$image_size = esc_attr( $atts['featured_image_size'] );
+	} else {
+		$image_size = 'post-thumbnail';
+	}
+
+	if ( has_post_thumbnail( $post->ID ) ) {
+		
+		printf(
+			'<div class="entry-image">%s</div>',
+			get_the_post_thumbnail( $post->ID, $image_size )
+		);
+	}
+}
+
+/**
  * Default post content output.
  *
  * @since  1.0.0
@@ -235,6 +275,7 @@ function mm_vc_posts() {
 
 	$post_types = mm_get_post_types_for_vc();
 	$taxonomies = mm_get_taxonomies_for_vc();
+	$image_sizes = mm_get_image_sizes_for_vc();
 
 	vc_map( array(
 		'name' => __( 'Posts', 'mm-components' ),
@@ -277,6 +318,24 @@ function mm_vc_posts() {
 				'param_name'  => 'limit',
 				'description' => __( 'Specify the number of posts to show', 'mm-components' ),
 				'value'       => '10',
+			),
+			array(
+				'type'        => 'checkbox',
+				'heading'     => __( 'Show the Featured Image', 'mm-components' ),
+				'param_name'  => 'show_featured_image',
+				'value'       => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Featured Image Size', 'mm-components' ),
+				'param_name' => 'featured_image_size',
+				'dependency' => array(
+					'element'   => 'show_featured_image',
+					'not_empty' => true,
+				),
+				'value' => $image_sizes,
 			),
 		)
 	) );

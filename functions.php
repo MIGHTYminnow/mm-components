@@ -182,7 +182,6 @@ function mm_get_post_types_for_vc() {
 	foreach( $custom_post_types as $post_type ) {
 
 		$formatted_cpt = ucwords( str_replace( '_', ' ', $post_type ) );
-
 		$formatted_cpts[ $formatted_cpt ] = $post_type;
 	}
 
@@ -222,9 +221,39 @@ function mm_get_taxonomies_for_vc() {
 
 	// Format the taxonomies.
 	foreach ( $custom_taxonomies as $taxonomy ) {
+
 		$formatted_taxonomy = ucwords( str_replace( '_', ' ', $taxonomy ) );
 		$taxonomies[ $formatted_taxonomy ] = $taxonomy;
 	}
 
 	return $taxonomies;
+}
+
+/**
+ * Return an array of registered image sizes for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  $taxonomies  The array of formatted image sizes.
+ */
+function mm_get_image_sizes_for_vc() {
+
+	$image_sizes = get_intermediate_image_sizes();
+
+	// Add the empty first option.
+	$formatted_image_sizes = array(
+		__( 'Default', 'mm-components' ) => '',
+	);
+
+	foreach ( $image_sizes as $image_size ) {
+
+		$formatted_image_size = ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $image_size ) ) );
+		$formatted_image_sizes[ $formatted_image_size ] = $image_size;
+	}
+
+	// Manually add in the 'Full' size.
+	$full_size = __( 'Full', 'mm-components' );
+	$formatted_image_sizes[ $full_size ] = 'full';
+
+	return $formatted_image_sizes;
 }
