@@ -129,8 +129,8 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks' );
  */
 function mm_posts_register_default_hooks() {
 
-	add_action( 'mm_posts_top', 'mm_posts_output_post_header', 10, 2 );
-	add_action( 'mm_posts_middle', 'mm_posts_output_post_content', 10, 2 );
+	add_action( 'mm_posts_top', 'mm_posts_output_post_header', 10, 3 );
+	add_action( 'mm_posts_middle', 'mm_posts_output_post_content', 10, 3 );
 }
 
 add_action( 'mm_posts_reset_hooks', 'mm_posts_reset_default_hooks' );
@@ -153,8 +153,16 @@ function mm_posts_reset_default_hooks() {
  *
  * @param  object  $post     The current post object.
  * @param  object  $context  The global post object.
+ * @param  array   $atts     The array of shortcode atts.
  */
-function mm_posts_output_post_header( $post, $context ) {
+function mm_posts_output_post_header( $post, $context, $atts ) {
+
+	$custom_output = apply_filters( 'mm_posts_post_header', '', $post, $context, $atts );
+
+	if ( '' !== $custom_output ) {
+		echo $custom_output;
+		return;
+	}
 
 	echo '<header class="entry-header">';
 
@@ -170,8 +178,16 @@ function mm_posts_output_post_header( $post, $context ) {
  *
  * @param  object  $post     The current post object.
  * @param  object  $context  The global post object.
+ * @param  array   $atts     The array of shortcode atts.
  */
-function mm_posts_output_post_title( $post, $context ) {
+function mm_posts_output_post_title( $post, $context, $atts ) {
+
+	$custom_output = apply_filters( 'mm_posts_post_title', '', $post, $context, $atts );
+
+	if ( '' !== $custom_output ) {
+		echo $custom_output;
+		return;
+	}
 
 	printf(
 		'<h1 class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></h1>',
@@ -188,8 +204,16 @@ function mm_posts_output_post_title( $post, $context ) {
  *
  * @param  object  $post     The current post object.
  * @param  object  $context  The global post object.
+ * @param  array   $atts     The array of shortcode atts.
  */
-function mm_posts_output_post_content( $post, $context ) {
+function mm_posts_output_post_content( $post, $context, $atts ) {
+
+	$custom_output = apply_filters( 'mm_posts_post_content', '', $post, $context, $atts );
+
+	if ( '' !== $custom_output ) {
+		echo $custom_output;
+		return;
+	}
 
 	echo '<div class="entry-content" itemprop="text">';
 
