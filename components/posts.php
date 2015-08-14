@@ -98,7 +98,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?>>
+			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
 
 				<?php do_action( 'mm_posts_top', $query->post, $context, $atts ); ?>
 
@@ -129,7 +129,7 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks' );
  */
 function mm_posts_register_default_hooks() {
 
-	add_action( 'mm_posts_top', 'mm_posts_output_post_title', 10, 2 );	
+	add_action( 'mm_posts_top', 'mm_posts_output_post_title', 10, 2 );
 	add_action( 'mm_posts_middle', 'mm_posts_output_post_content', 10, 2 );
 }
 
@@ -157,7 +157,7 @@ function mm_posts_reset_default_hooks() {
 function mm_posts_output_post_title( $post, $context ) {
 
 	printf(
-		'<h2 class="entry-title"><a href="%s" title="%s">%s</a></h2>',
+		'<h1 class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></h1>',
 		get_permalink( $post->ID ),
 		get_the_title( $post->ID ),
 		get_the_title( $post->ID )
@@ -174,7 +174,7 @@ function mm_posts_output_post_title( $post, $context ) {
  */
 function mm_posts_output_post_content( $post, $context ) {
 
-	echo '<div class="entry-content">';
+	echo '<div class="entry-content" itemprop="text">';
 
 	the_content( $post->ID );
 
