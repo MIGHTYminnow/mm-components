@@ -255,11 +255,15 @@ function mm_posts_output_post_content( $post, $context, $atts ) {
 		return;
 	}
 
+	setup_postdata( $post );
+
 	echo '<div class="entry-content" itemprop="text">';
 
-	the_content( $post->ID );
+	the_excerpt();
 
 	echo '</div>';
+	
+	wp_reset_postdata();
 }
 
 add_action( 'init', 'mm_vc_posts', 12 );
