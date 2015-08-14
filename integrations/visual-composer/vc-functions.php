@@ -66,7 +66,6 @@ function mm_vc_custom_component_atts() {
 			vc_add_param( $component['base'], $att );
 		}
 	}
-
 }
 
 /**
@@ -99,5 +98,4 @@ function mm_filter_vc_field_descriptions( $param, $value ) {
 	}
 
 	return $param;
-
 }
