@@ -7,6 +7,13 @@
  * @package mm-components
  */
 
+/**
+ * Apply custom classes to VC components.
+ *
+ * @since  1.0.0
+ */
+add_filter( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'mm_shortcode_custom_classes', 10, 3 );
+
 add_action( 'init', 'mm_vc_custom_component_atts', 15 );
 /**
  * Add shared Mm parameters/atts to all VC components.
@@ -32,9 +39,9 @@ function mm_vc_custom_component_atts() {
 		'group' => $custom_group,
 		'value' => array(
 			__( 'Default', 'mm-components ') => '',
-            __( 'Dark', 'mm-components ')    => 'dark',
-            __( 'Light', 'mm-components ')   => 'light',
-            __( 'Medium', 'mm-components ')  => 'medium',
+			__( 'Dark', 'mm-components ')    => 'dark',
+			__( 'Light', 'mm-components ')   => 'light',
+			__( 'Medium', 'mm-components ')  => 'medium',
 		),
 	);
 
@@ -46,9 +53,9 @@ function mm_vc_custom_component_atts() {
 		'group'      => $custom_group,
 		'value' => array(
 			__( 'Default', 'mm-components ') => '',
-            __( 'Left', 'mm-components ')    => 'left',
-            __( 'Center', 'mm-components ')  => 'center',
-            __( 'Right', 'mm-components ')   => 'right',
+			__( 'Left', 'mm-components ')    => 'left',
+			__( 'Center', 'mm-components ')  => 'center',
+			__( 'Right', 'mm-components ')   => 'right',
 		),
 	);
 
@@ -67,11 +74,6 @@ function mm_vc_custom_component_atts() {
 		}
 	}
 }
-
-/**
- * Apply custom classes to VC components.
- */
-add_filter( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'mm_shortcode_custom_classes', 10, 3 );
 
 add_filter( 'vc_single_param_edit', 'mm_filter_vc_field_descriptions', 10, 2 );
 /**
@@ -98,4 +100,24 @@ function mm_filter_vc_field_descriptions( $param, $value ) {
 	}
 
 	return $param;
+}
+
+add_action( 'vc_load_default_templates_action', 'mm_vc_register_demo_template' );
+/**
+ * Register a demo template that will include all of our Mm VC elements.
+ *
+ * @since  1.0.0
+ */
+function mm_vc_register_demo_template() {
+
+	$data                 = array();
+	$data['name']         = __( 'Mm Components Demo', 'mm-components' );
+	$data['weight']       = 99;
+  	$data['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
+	$data['custom_class'] = 'mm_components_demo_template';
+	$data['content']      = <<<CONTENT
+		[vc_row][vc_column][vc_text_separator title="Blockquote"][mm_blockquote quote="This is a blockquote. This is the quote portion of the blockquote." citation="MIGHTYminnow"][mm_blockquote quote="This is a really long blockquote. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula tristique purus, sollicitudin accumsan libero congue nec. Donec in sapien elit. Ut tincidunt in risus sit amet elementum. Aliquam ullamcorper neque quis rhoncus interdum. Quisque convallis vel orci sit amet tincidunt." citation="This is a really long citation lorem ipsum dolor sit amet consectetur adipiscing elit"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Button"][mm_button alignment="center"]Button Text[/mm_button][/vc_column][/vc_row]
+CONTENT;
+  
+	vc_add_default_templates( $data );
 }
