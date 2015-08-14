@@ -46,7 +46,6 @@ function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
 			$key = str_replace( '_', '-', $key );
 			$class_array[] = "{$key}-{$value}";
 		}
-
 	}
 
 	// Add mm_custom_class att as unprefixed class.
