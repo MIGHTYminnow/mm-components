@@ -11,6 +11,7 @@
  * Domain Path: /languages
  */
 
+define( 'MM_COMPONENTS_VERSION', '1.0.0' );
 define( 'MM_COMPONENTS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MM_COMPONENTS_URL', plugin_dir_url( __FILE__ ) );
 define( 'MM_COMPONENTS_ASSETS_URL', MM_COMPONENTS_URL . 'assets/' );
@@ -114,8 +115,19 @@ function mm_components_startup() {
 function mm_components_scripts_and_styles() {
 
 	// General styles.
-	wp_enqueue_style( 'mm-components', MM_COMPONENTS_URL . 'css/mm-components-public.css' );
+	wp_enqueue_style(
+		'mm-components-css',
+		MM_COMPONENTS_URL . 'css/mm-components-public.css',
+		array(),
+		MM_COMPONENTS_VERSION
+	);
 
 	// General scripts.
-	wp_enqueue_script( 'mm-components', MM_COMPONENTS_URL . 'js/mm-components-public.js' );
+	wp_enqueue_script(
+		'mm-components-js',
+		MM_COMPONENTS_URL . 'js/mm-components-public.js',
+		array( 'jquery' ),
+		MM_COMPONENTS_VERSION,
+		true
+	);
 }
