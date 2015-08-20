@@ -104,7 +104,7 @@ function prefix_output_post_phone( $post, $context, $atts ) {
 
 Not bad. This would be a great way to add custom content where you need specific control over the markup, but we can see that our two functions that output the `address` and `phone_number` postmeta values are basically the same, so in this situation we can turn to a handy included helper function:
 
-```
+```php
 /**
  * Output a specific postmeta value in a standard format.
  *
@@ -129,7 +129,7 @@ function mm_posts_output_postmeta( $post_id, $key ) {
 
 Using this our functions to output the address and phone number from the `store` example become: 
 
-```
+```php
 /**
  * Output the address for the passed in post if it's there.
  */
@@ -151,10 +151,12 @@ That's much better. In many cases using more semantic markup for the extra conte
 
 What if we want to get crazy specific? Let's target only the post type `event` and only if the event has the term `concert` in the taxonomy `event_type`, and just for fun, only if the shortcode is being displayed on a page that has page `18` set as it's parent. If we actually get a post that matches, we'll output a link to a concert venue stored with postmeta keys `venue_name` and `venue_link`:
 
-```
+```php
 add_action( 'mm_posts_register_hooks', 'prefix_mm_posts_custom_concert_output', 10, 2 );
 /**
- * Customize the output of [mm_posts] to include a concert venue link for events that have the term 'concert' in the taxonomy 'event_type', but only if we're on a page that has a specific parent.
+ * Customize the output of [mm_posts] to include a concert venue link for events
+ * that have the term 'concert' in the taxonomy 'event_type', but only if we're
+ * on a page that has a specific parent.
  */
 function prefix_mm_posts_custom_concert_output( $context, $atts ) {
 
@@ -164,7 +166,8 @@ function prefix_mm_posts_custom_concert_output( $context, $atts ) {
 }
 
 /**
- * Maybe output a concert venue link if the event has the term 'concert' in the taxonomy 'event_type'.
+ * Maybe output a concert venue link if the event has the term 'concert'
+ * in the taxonomy 'event_type'.
  */
 function prefix_maybe_output_concert_venue( $post, $context, $atts ) {
 
