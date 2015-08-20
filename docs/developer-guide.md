@@ -113,7 +113,7 @@ Not bad. This would be a great way to add custom content where you need specific
  * @param  int     $post_id  The post ID.
  * @param  string  $key      The postmeta key.
  */
-function mm_posts_output_postmeta( $post_id, $key ) {
+function mm_posts_output_postmeta_value( $post_id, $key ) {
 
 	$value = get_post_meta( $post_id, $key, true );
 
@@ -135,7 +135,7 @@ Using this our functions to output the address and phone number from the `store`
  */
 function prefix_output_post_address( $post, $context, $atts ) {
 
-	mm_posts_output_postmeta( $post->ID, 'address' );
+	mm_posts_output_postmeta_value( $post->ID, 'address' );
 }
 
 /**
@@ -143,7 +143,7 @@ function prefix_output_post_address( $post, $context, $atts ) {
  */
 function prefix_output_post_phone( $post, $context, $atts ) {
 
-	mm_posts_output_postmeta( $post->ID, 'phone_number' );
+	mm_posts_output_postmeta_value( $post->ID, 'phone_number' );
 }
 ```
 

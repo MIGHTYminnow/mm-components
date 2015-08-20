@@ -27,6 +27,8 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 		'limit'               => '',
 		'show_featured_image' => '',
 		'featured_image_size' => '',
+		'show_post_info'      => '',
+		'show_post_meta'      => '',
 	), $atts );
 
 	// Set up our defaults.
@@ -139,10 +141,15 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 )
 function mm_posts_register_default_hooks( $context, $atts ) {
 
 	add_action( 'mm_posts_header', 'mm_posts_output_post_header', 10, 3 );
+	
+	if ( 1 === (int)$atts['show_featured_image'] ) {
+		add_action( 'mm_posts_content', 'mm_posts_output_post_image', 8, 3 );
+	}
+
 	add_action( 'mm_posts_content', 'mm_posts_output_post_content', 10, 3 );
 
-	if ( 1 === $atts['show_featured_image'] || '1' === $atts['show_featured_image'] ) {
-		add_action( 'mm_posts_content', 'mm_posts_output_post_image', 12, 3 );
+	if ( 1 === (int)$atts['show_post_meta'] ) {
+		add_action( 'mm_posts_footer', 'mm_posts_output_post_meta', 10, 3 );
 	}
 }
 
@@ -183,6 +190,10 @@ function mm_posts_output_post_header( $post, $context, $atts ) {
 
 	mm_posts_output_post_title( $post, $context, $atts );
 
+	if ( 1 === (int)$atts['show_post_info'] ) {
+		mm_posts_output_post_info( $post, $context, $atts );
+	}
+
 	echo '</header>';
 }
 
@@ -209,6 +220,31 @@ function mm_posts_output_post_title( $post, $context, $atts ) {
 		get_permalink( $post->ID ),
 		get_the_title( $post->ID ),
 		get_the_title( $post->ID )
+	);
+}
+
+/**
+ * Default post info output.
+ *
+ * @since  1.0.0
+ *
+ * @param  object  $post     The current post object.
+ * @param  object  $context  The global post object.
+ * @param  array   $atts     The array of shortcode atts.
+ */
+function mm_posts_output_post_info( $post, $context, $atts ) {
+
+	$custom_output = apply_filters( 'mm_posts_post_info', '', $post, $context, $atts );
+
+	if ( '' !== $custom_output ) {
+		echo $custom_output;
+		return;
+	}
+
+	// Fill this in.
+	printf(
+		'<p class="entry-meta">%s</p>',
+		''
 	);
 }
 
@@ -276,6 +312,31 @@ function mm_posts_output_post_content( $post, $context, $atts ) {
 }
 
 /**
+ * Default post meta output.
+ *
+ * @since  1.0.0
+ *
+ * @param  object  $post     The current post object.
+ * @param  object  $context  The global post object.
+ * @param  array   $atts     The array of shortcode atts.
+ */
+function mm_posts_output_post_meta( $post, $context, $atts ) {
+
+	$custom_output = apply_filters( 'mm_posts_post_meta', '', $post, $context, $atts );
+
+	if ( '' !== $custom_output ) {
+		echo $custom_output;
+		return;
+	}
+
+	// Fill this in.
+	printf(
+		'<div class="entry-meta">%s</div>',
+		''
+	);
+}
+
+/**
  * Output a specific postmeta value in a standard format.
  *
  * @since  1.0.0
@@ -283,7 +344,7 @@ function mm_posts_output_post_content( $post, $context, $atts ) {
  * @param  int     $post_id  The post ID.
  * @param  string  $key      The postmeta key.
  */
-function mm_posts_output_postmeta( $post_id, $key ) {
+function mm_posts_output_postmeta_value( $post_id, $key ) {
 
 	$value = get_post_meta( $post_id, $key, true );
 
@@ -370,6 +431,24 @@ function mm_vc_posts() {
 					'not_empty' => true,
 				),
 				'value' => $image_sizes,
+			),
+			array(
+				'type'        => 'checkbox',
+				'heading'     => __( 'Show post info', 'mm-components' ),
+				'param_name'  => 'show_post_info',
+				'description' => __( '', 'mm-components' ),
+				'value'       => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
+			),
+			array(
+				'type'        => 'checkbox',
+				'heading'     => __( 'Show post meta', 'mm-components' ),
+				'param_name'  => 'show_post_meta',
+				'description' => __( '', 'mm-components' ),
+				'value'       => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
 			),
 		)
 	) );
