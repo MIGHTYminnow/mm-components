@@ -16,7 +16,7 @@ define( 'MM_COMPONENTS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MM_COMPONENTS_URL', plugin_dir_url( __FILE__ ) );
 define( 'MM_COMPONENTS_ASSETS_URL', MM_COMPONENTS_URL . 'assets/' );
 
-add_action( 'plugins_loaded', 'mm_components_startup' );
+add_action( 'init', 'mm_components_startup', 0 );
 /**
  * Start the plugin.
  *
