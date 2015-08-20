@@ -127,7 +127,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 	return $output;
 }
 
-add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 1 );
+add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 );
 /**
  * Set up our default hooks.
  *
