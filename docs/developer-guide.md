@@ -147,3 +147,49 @@ function prefix_output_post_phone( $post, $context, $atts ) {
 
 That's much better. In many cases using more semantic markup for the extra content you want to include is ideal, but for quickly outputting a specific custom field value the `mm_posts_output_postmeta` function definitely comes in handy.
 
+What if we want to get crazy specific? Let's target only the post type `event` and only if the event has the term `concert` in the taxonomy `event_type`, and just for fun, only if the shortcode is being displayed on a page that has page `18` set as it's parent. If we actually get a post that matches, we'll output a link to a concert venue stored with postmeta keys `venue_name` and `venue_link`:
+
+```
+add_action( 'mm_posts_register_hooks', 'prefix_mm_posts_custom_concert_output', 10, 2 );
+/**
+ * Customize the output of [mm_posts] to include a concert venue link for events that have the term 'concert' in the taxonomy 'event_type', but only if we're on a page that has a specific parent.
+ */
+function prefix_mm_posts_custom_concert_output( $context, $atts ) {
+
+	if ( 18 == $context->post_parent && 'event' == $atts['post_type'] ) {
+		add_action( 'mm_posts_content', 'prefix_maybe_output_concert_venue', 15, 3 );
+	}
+}
+
+/**
+ * Maybe output a concert venue link if the event has the term 'concert' in the taxonomy 'event_type'.
+ */
+function prefix_maybe_output_concert_venue( $post, $context, $atts ) {
+
+	if ( ! has_term( 'concert', 'event_type', $post->ID ) ) {
+		return;
+	}
+
+	$venue_name = get_post_meta( $post->ID, 'venue_name', true );
+	$venue_link = get_post_meta( $post->ID, 'venue_link', true );
+
+	if ( $venue_name && $venue_link ) {
+		printf(
+			'<a href="%s" class="%s">%s</a>',
+			esc_url( $venue_link ),
+			'concert-venue-link',
+			esc_html( $venue_name )
+		);
+	}
+}
+```
+
+Bam! You can really see how using the combination of `$context` and `$atts` when registering a hook and then testing against the `$post` object inside our output function makes it possible to create conditional output based on just about anything.
+
+We could have also put the logic to test the parent page and post type inside our `prefix_maybe_output_concert_venue` function, as both `$context` and `$atts` are available to us inside that function, but this would be slower because extra tests would be run. Since we know the parent page and post type being displayed are unique to the shortcode instance rather than the post being looped over, we only need to test for them once during shortcode execution, and putting them inside our `mm_posts_register_hooks` callback let's us do this.
+
+## The End
+
+Any questions or ideas for improving this documentation?
+
+Open an issue, and good things will happen.
