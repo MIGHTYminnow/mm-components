@@ -275,6 +275,27 @@ function mm_posts_output_post_content( $post, $context, $atts ) {
 	wp_reset_postdata();
 }
 
+/**
+ * Output a specific postmeta value in a standard format.
+ *
+ * @since  1.0.0
+ *
+ * @param  int     $post_id  The post ID.
+ * @param  string  $key      The postmeta key.
+ */
+function mm_posts_output_postmeta( $post_id, $key ) {
+
+	$value = get_post_meta( $post_id, $key, true );
+
+	if ( $value ) {
+		printf(
+			'<div class="%s">%s</div>',
+			'entry-' . esc_attr( $key ),
+			esc_html( $value )
+		);
+	}
+}
+
 add_action( 'init', 'mm_vc_posts', 12 );
 /**
  * Visual Composer component.

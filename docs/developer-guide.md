@@ -99,3 +99,51 @@ function prefix_output_post_phone( $post, $context, $atts ) {
 	}
 }
 ```
+
+Not bad. This would be a great way to add custom content where you need specific control over the markup, but we can see that our two functions that output the `address` and `phone_number` postmeta values are basically the same, so in this situation we can turn to a handy included helper function:
+
+```
+/**
+ * Output a specific postmeta value in a standard format.
+ *
+ * @since  1.0.0
+ *
+ * @param  int     $post_id  The post ID.
+ * @param  string  $key      The postmeta key.
+ */
+function mm_posts_output_postmeta( $post_id, $key ) {
+
+	$value = get_post_meta( $post_id, $key, true );
+
+	if ( $value ) {
+		printf(
+			'<div class="%s">%s</div>',
+			'entry-' . esc_attr( $key ),
+			esc_html( $value )
+		);
+	}
+}
+```
+
+Using this our functions to output the address and phone number from the 'store' example become: 
+
+```
+/**
+ * Output the address for the passed in post if it's there.
+ */
+function prefix_output_post_address( $post, $context, $atts ) {
+
+	mm_posts_output_postmeta( $post->ID, 'address' );
+}
+
+/**
+ * Output the phone number for the passed in post if it's there.
+ */
+function prefix_output_post_phone( $post, $context, $atts ) {
+
+	mm_posts_output_postmeta( $post->ID, 'phone_number' );
+}
+```
+
+That's much better. In many cases using more semantic markup for the extra content you want to include is ideal, but for quickly outputting a specific custom field value the `mm_posts_output_postmeta` function definitely comes in handy.
+
