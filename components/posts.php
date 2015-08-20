@@ -172,7 +172,7 @@ function mm_posts_output_post_header( $post, $context, $atts ) {
 
 	echo '<header class="entry-header">';
 
-	mm_posts_output_post_title( $post, $context );
+	mm_posts_output_post_title( $post, $context, $atts );
 
 	echo '</header>';
 }
