@@ -4,7 +4,7 @@ This guide contains information on extending and customizing Mm Components.
 
 ## General
 
-### Enabling Specific Components
+#### Enabling Specific Components
 
 Not every site needs every component. We can easily enable only specific components like this:
 
@@ -26,7 +26,7 @@ function prefix_enable_specific_components( $components ) {
 
 ## Components
 
-### Posts
+#### Posts
 
 This component is all about making a query and displaying the results.
 
@@ -34,5 +34,4 @@ The approach taken is inspired by the Genesis framework and consists of several 
 
 It all starts with the `mm_posts_register_hooks` action. This is where all hooks that will output custom content and any modifications to the order and on/off status of the default output should be registered. It's important to register these things _only_ on this hook, as every time one full run through of the shortcode happens the primary hooks are reset to allow for multiple [mm_posts] shortcodes on the same page.
 
-By default only the *post title* and *excerpt* are included in the output, but there are params on the shortcode that optionally include in the *featured image*, *post info*, and *post meta*. All of the markup that is output is designed to match a standard WordPress archive page, so any CSS that applies to entries should also apply to the output of [mm_posts].
-
+By default only the **post title** and **excerpt** are included in the output, but there are params on the shortcode that optionally include in the **featured image**, **post info**, and **post meta**. All of the markup that is output is designed to match a standard WordPress archive page, so any CSS that applies to entries should also apply to the output of [mm_posts].
