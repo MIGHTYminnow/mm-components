@@ -276,7 +276,8 @@ function mm_posts_output_post_image( $post, $context, $atts ) {
 	if ( has_post_thumbnail( $post->ID ) ) {
 		
 		printf(
-			'<div class="entry-image">%s</div>',
+			'<div class="entry-image"><a href="%s">%s</a></div>',
+			get_the_permalink( $post->ID ),
 			get_the_post_thumbnail( $post->ID, $image_size )
 		);
 	}
