@@ -154,9 +154,11 @@ add_action( 'mm_posts_reset_hooks', 'mm_posts_reset_default_hooks' );
  */
 function mm_posts_reset_default_hooks() {
 
+	remove_all_actions( 'mm_posts_before' );
 	remove_all_actions( 'mm_posts_header' );
 	remove_all_actions( 'mm_posts_content' );
 	remove_all_actions( 'mm_posts_footer' );
+	remove_all_actions( 'mm_posts_after' );
 }
 
 /**
