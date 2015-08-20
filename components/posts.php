@@ -94,9 +94,11 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 	ob_start(); ?>
 
-	<?php do_action( 'mm_posts_register_hooks', $atts ); ?>
+	<?php do_action( 'mm_posts_register_hooks', $context, $atts ); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
+
+		<?php do_action( 'mm_posts_before', $context, $atts ); ?>
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
@@ -111,6 +113,8 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 			</article>
 
 		<?php endwhile; ?>
+
+		<?php do_action( 'mm_posts_after', $context, $atts ); ?>
 
 	</div>
 
@@ -128,8 +132,11 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 1 )
  * Set up our default hooks.
  *
  * @since  1.0.0
+ *
+ * @param  object  $context  The global post object for the current page.
+ * @param  array   $atts     The params passed to the shortcode.
  */
-function mm_posts_register_default_hooks( $atts ) {
+function mm_posts_register_default_hooks( $context, $atts ) {
 
 	add_action( 'mm_posts_header', 'mm_posts_output_post_header', 10, 3 );
 	add_action( 'mm_posts_content', 'mm_posts_output_post_content', 10, 3 );

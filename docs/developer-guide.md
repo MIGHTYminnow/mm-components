@@ -6,7 +6,7 @@ This guide contains information on extending and customizing Mm Components.
 
 #### Enabling Specific Components
 
-Not every site needs every component. We can easily enable only specific components like this:
+Not every site needs every component. We can easily enable only specific components using the `mm_components_active_components` filter:
 
 ```
 add_filter( 'mm_components_active_components', 'prefix_enable_specific_components' );
