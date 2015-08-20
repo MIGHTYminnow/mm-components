@@ -8,7 +8,7 @@ This guide contains information on extending and customizing Mm Components.
 
 Not every site needs every component. We can easily enable only specific components using the `mm_components_active_components` filter:
 
-```
+```php
 add_filter( 'mm_components_active_components', 'prefix_enable_specific_components' );
 /**
  * Only enable specific components.
@@ -40,7 +40,7 @@ All of the hooks you can use for output including `mm_posts_register_hooks` get 
 
 Let's take a look at a quick example:
 
-```
+```php
 add_action( 'mm_posts_register_hooks', 'prefix_mm_posts_customize_hooks', 10, 2 );
 /**
  * Customize the output of [mm_posts].
@@ -62,7 +62,7 @@ function prefix_mm_posts_customize_hooks( $context, $atts ) {
 
 Neat, but with the default output being so minimal it's more likely that we want to include some custom output. Let's say we've got a custom post type 'store' and we've saved custom fields for 'address' and 'phone_number', and we want to display the address below the excerpt and the phone number below the address. First we'll define reusable functions to output the fields we want, then we'll attach these to the appropriate hooks:
 
-```
+```php
 add_action( 'mm_posts_register_hooks', 'prefix_mm_posts_custom_store_output', 10, 2 );
 /**
  * Customize the output of [mm_posts] to include an address and phone number if the post type is 'store'.
