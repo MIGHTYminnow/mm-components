@@ -69,3 +69,21 @@
 	text-align: center;
 	line-height: 2em;
 }
+
+/**
+ * Posts
+ */
+.mm-posts .entry-image {
+	max-width: 150px;
+	float: left;
+	margin: 0 15px 12px 0;
+}
+
+.mm-posts .entry-image a,
+.mm-posts .entry-image a img {
+	display: block;
+}
+
+.mm-posts .entry-meta-wrap {
+	clear: both;
+}
