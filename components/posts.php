@@ -29,6 +29,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 		'featured_image_size' => '',
 		'show_post_info'      => '',
 		'show_post_meta'      => '',
+		'use_post_content'    => '',
 	), $atts );
 
 	// Set up our defaults.
@@ -333,7 +334,14 @@ function mm_posts_output_post_content( $post, $context, $atts ) {
 
 	echo '<div class="entry-content" itemprop="text">';
 
-	the_excerpt();
+	if ( 1 === (int)$atts['use_post_content'] ) {
+
+		the_content();
+
+	} else {
+
+		the_excerpt();
+	}
 
 	echo '</div>';
 }
@@ -484,7 +492,7 @@ function mm_vc_posts() {
 				'type'        => 'checkbox',
 				'heading'     => __( 'Show post info', 'mm-components' ),
 				'param_name'  => 'show_post_info',
-				'description' => __( '', 'mm-components' ),
+				'description' => __( 'Default post info output includes post date and author.', 'mm-components' ),
 				'value'       => array(
 					__( 'Yes', 'mm-components' ) => 1,
 				),
@@ -493,7 +501,16 @@ function mm_vc_posts() {
 				'type'        => 'checkbox',
 				'heading'     => __( 'Show post meta', 'mm-components' ),
 				'param_name'  => 'show_post_meta',
-				'description' => __( '', 'mm-components' ),
+				'description' => __( 'Default post meta output includes category and tag links.', 'mm-components' ),
+				'value'       => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
+			),
+			array(
+				'type'        => 'checkbox',
+				'heading'     => __( 'Use full post content.', 'mm-components' ),
+				'param_name'  => 'use_post_content',
+				'description' => __( 'By default the excerpt will be used. Check this to output the full post content.', 'mm-components' ),
 				'value'       => array(
 					__( 'Yes', 'mm-components' ) => 1,
 				),
