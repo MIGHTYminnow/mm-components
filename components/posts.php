@@ -60,9 +60,9 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 	// Add to our query if additional params have been passed.
 	if ( '' !== $post_id ) {
-	
+
 		$query_args['p'] = $post_id;
-	
+
 	} elseif ( '' !== $taxonomy && '' !== $term ) {
 
 		// First try the term by ID, then try by slug.
@@ -104,6 +104,8 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
+			<?php setup_postdata( $query->post ); ?>
+
 			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
 
 				<?php do_action( 'mm_posts_header', $query->post, $context, $atts ); ?>
@@ -141,7 +143,7 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 )
 function mm_posts_register_default_hooks( $context, $atts ) {
 
 	add_action( 'mm_posts_header', 'mm_posts_output_post_header', 10, 3 );
-	
+
 	if ( 1 === (int)$atts['show_featured_image'] ) {
 		add_action( 'mm_posts_content', 'mm_posts_output_post_image', 8, 3 );
 	}
@@ -241,11 +243,19 @@ function mm_posts_output_post_info( $post, $context, $atts ) {
 		return;
 	}
 
-	// Fill this in.
-	printf(
-		'<p class="entry-meta">%s</p>',
-		''
-	);
+	// If the site is running Genesis, use the Genesis post info.
+	if ( function_exists( 'genesis_post_info' ) ) {
+
+		genesis_post_info();
+
+	} else {
+
+		// Fill this in.
+		printf(
+			'<div class="entry-meta">%s</div>',
+			''
+		);
+	}
 }
 
 /**
@@ -274,7 +284,7 @@ function mm_posts_output_post_image( $post, $context, $atts ) {
 	}
 
 	if ( has_post_thumbnail( $post->ID ) ) {
-		
+
 		printf(
 			'<div class="entry-image"><a href="%s">%s</a></div>',
 			get_the_permalink( $post->ID ),
@@ -301,15 +311,11 @@ function mm_posts_output_post_content( $post, $context, $atts ) {
 		return;
 	}
 
-	setup_postdata( $post );
-
 	echo '<div class="entry-content" itemprop="text">';
 
 	the_excerpt();
 
 	echo '</div>';
-	
-	wp_reset_postdata();
 }
 
 /**
@@ -330,11 +336,19 @@ function mm_posts_output_post_meta( $post, $context, $atts ) {
 		return;
 	}
 
-	// Fill this in.
-	printf(
-		'<div class="entry-meta">%s</div>',
-		''
-	);
+	// If the site is running Genesis, use the Genesis post meta.
+	if ( function_exists( 'genesis_post_meta' ) ) {
+
+		genesis_post_meta();
+
+	} else {
+
+		// Fill this in.
+		printf(
+			'<div class="entry-meta">%s</div>',
+			''
+		);
+	}
 }
 
 /**
