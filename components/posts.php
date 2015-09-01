@@ -243,19 +243,39 @@ function mm_posts_output_post_info( $post, $context, $atts ) {
 		return;
 	}
 
-	// If the site is running Genesis, use the Genesis post info.
-	if ( function_exists( 'genesis_post_info' ) ) {
+	echo '<span class="entry-info-wrap">';
 
-		genesis_post_info();
+		// If the site is running Genesis, use the Genesis post info.
+		if ( function_exists( 'genesis_post_info' ) ) {
 
-	} else {
+			genesis_post_info();
 
-		// Fill this in.
-		printf(
-			'<div class="entry-meta">%s</div>',
-			''
-		);
-	}
+		} else {
+
+			echo '<span class="entry-info">';
+
+			$format = get_option( 'date_format' );
+			$time   = get_the_modified_date( $format );
+
+			printf(
+				'<time class="%s" itemprop="datePublished">%s</time>',
+				'entry-time',
+				$time
+			);
+
+			echo ' by ';
+
+			printf(
+				'<a class="%s" href="%s">%s</a>',
+				'entry-author',
+				get_author_posts_url( get_the_author_meta( 'ID' ) ),
+				get_the_author()
+			);
+
+			echo '</span>';
+		}
+
+	echo '</span>';
 }
 
 /**
@@ -336,6 +356,8 @@ function mm_posts_output_post_meta( $post, $context, $atts ) {
 		return;
 	}
 
+	echo '<div class="entry-meta-wrap">';
+
 	// If the site is running Genesis, use the Genesis post meta.
 	if ( function_exists( 'genesis_post_meta' ) ) {
 
@@ -343,12 +365,23 @@ function mm_posts_output_post_meta( $post, $context, $atts ) {
 
 	} else {
 
-		// Fill this in.
-		printf(
-			'<div class="entry-meta">%s</div>',
-			''
-		);
+		$cats = get_the_category_list();
+		$tags = get_the_tag_list( '<ul class="post-tags"><li>', '</li><li>', '</li></ul>' );
+
+		echo '<div class="entry-meta">';
+
+		if ( $cats ) {
+			echo $cats;
+		}
+
+		if ( $tags ) {
+			echo $tags;
+		}
+
+		echo '</div>';
 	}
+
+	echo '</div>';
 }
 
 /**
