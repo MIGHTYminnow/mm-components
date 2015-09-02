@@ -21,14 +21,18 @@ add_shortcode( 'mm_image_grid', 'mm_image_grid_shortcode' );
 function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 
 	$atts = mm_shortcode_atts( array(
-		'title' => '',
-		'style' => 'style-full-image',
+		'title'      => '',
+		'style'      => '',
+		'max_in_row' => '',
+		'el_class'   => '',
 	), $atts );
 
 	$title = wp_kses_post( $atts['title'] );
-	$style = esc_attr( $atts['style'] );
+	$style = ( '' !== $atts['style'] ) ? esc_attr( $atts['style'] ) : 'style-full-image';
+	$max_in_row = ( '' !== $atts['max_in_row'] ) ? (int) $atts['max_in_row'] : 3;
+	$class = ( '' !== $atts['el_class'] ) ? (string)$atts['el_class'] : '';
 
-	// Set global style variable to pass to nest Image Grid Image components.
+	// Set a global style variable to pass to the nested Image Grid Image components.
 	global $mm_image_grid_style;
 
 	$mm_image_grid_style = $style;
@@ -39,6 +43,8 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
 	$mm_classes .= ' ' . $style;
+	$mm_classes .= ( 0 !== $max_in_row ) ? ' max-in-row-' . $max_in_row : '';
+	$mm_classes .= ( '' !== $class ) ? ' ' . $class : '';
 	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	ob_start(); ?>
@@ -164,12 +170,6 @@ function mm_vc_image_grid() {
 				'param_name' => 'title',
 			),
 			array(
-				'type'        => 'textfield',
-				'heading'     => __( 'Extra class name', 'mm-components' ),
-				'param_name'  => 'el_class',
-				'description' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mm-components'),
-			),
-			array(
 				'type'       => 'dropdown',
 				'heading'    => __( 'Style', 'mm-components' ),
 				'param_name' => 'style',
@@ -178,6 +178,21 @@ function mm_vc_image_grid() {
 					__( 'Full Image', 'mm-components ')            => 'style-full-image',
 					__( 'Thumbnail/Text Card', 'mm-components ')   => 'style-thumbnail-text-card',
 				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Max in Row', 'mm-components' ),
+				'param_name' => 'max_in_row',
+				'description' => __( 'Select the max number of images that should show in a single row', 'mm-components' ),
+				'value'      => array(
+					__( 'Select an Number', 'mm-components' ), '1', '2', '3', '4', '5', '6',
+				),
+			),
+			array(
+				'type'        => 'textfield',
+				'heading'     => __( 'Extra class name', 'mm-components' ),
+				'param_name'  => 'el_class',
+				'description' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mm-components'),
 			),
 		),
 		'js_view' => 'VcColumnView'
