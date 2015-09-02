@@ -20,37 +20,54 @@ add_shortcode( 'mm_logo_strip', 'mm_logo_strip_shortcode' );
  */
 function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
 
-	extract( mm_shortcode_atts( array(
-		'title'      => '',
-		'images'      => '',
-	), $atts ) );
+	$atts = mm_shortcode_atts( array(
+		'title'           => '',
+		'title_alignment' => '',
+		'images'          => '',
+	), $atts );
 
-	// Clean up content - this is necessary
+	$title = $atts['title'];
+	$title_alignment = $atts['title_alignment'];
+	$images = $atts['images'];
+
+	// Clean up content - this is necessary.
 	$content = wpb_js_remove_wpautop( $content, true );
 
-	// Quit if no images are specified
+	// Quit if no images are specified.
 	if ( ! $images ) {
 		return;
 	}
 
-	// Create array from comma-separated image list
+	// Create array from comma-separated image list.
 	$images = explode( ',', ltrim( $images ) );
 
-	// Get Mm classes
+	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
 	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+
+	// Set up the title alignment.
+	if ( '' === $title_alignment || 'center' === $title_alignment ) {
+		$title_class = 'mm-text-align-center';
+	} elseif( 'right' === $title_alignment ) {
+		$title_class = 'mm-text-align-right';
+	} else {
+		$title_class = 'mm-text-align-left';
+	}
 
 	ob_start(); ?>
 
 	<div class="<?php echo $mm_classes; ?>">
 
 		<?php if ( $title ) : ?>
-			<h4><?php echo $title; ?></h4>
+			<h4 class="<?php echo $title_class; ?>"><?php echo $title; ?></h4>
 		<?php endif; ?>
 
 		<?php
 			foreach ( $images as $image ) {
-				echo wp_get_attachment_image( $image, 'full' );
+				printf(
+					'<div class="logo">%s</div>',
+					wp_get_attachment_image( $image, 'full' )
+				);
 			}
 		?>
 
@@ -86,9 +103,21 @@ function mm_vc_logo_strip() {
 				'value' => '',
 			),
 			array(
+				'type' => 'dropdown',
+				'heading' => __( 'Title Alignment', 'mm-components' ),
+				'param_name' => 'title_alignment',
+				'value' => array(
+					__( 'Select a Title Alignment', 'mm-components' ) => '',
+					__( 'Left', 'mm-components' ) => 'left',
+					__( 'Center', 'mm-components' ) => 'center',
+					__( 'Right', 'mm-components' ) => 'right',
+				),
+			),
+			array(
 				'type' => 'attach_images',
 				'heading' => __( 'Logos', 'mm-components' ),
 				'param_name' => 'images',
+				'description' => __( 'The bigger the image size, the better', 'mm-components' ),
 				'value' => '',
 			),
 		)
