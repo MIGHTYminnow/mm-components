@@ -28,14 +28,15 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 	$title = wp_kses_post( $atts['title'] );
 	$style = esc_attr( $atts['style'] );
 
-	// Set global style variable to pass to nest Image Grid Image components
+	// Set global style variable to pass to nest Image Grid Image components.
 	global $mm_image_grid_style;
+
 	$mm_image_grid_style = $style;
 
-	// Clean up content - this is necessary
+	// Clean up content - this is necessary.
 	$content = wpb_js_remove_wpautop( $content, true );
 
-	// Get Mm classes
+	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
 	$mm_classes .= ' ' . $style;
 	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
@@ -58,7 +59,7 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 
 	$output = ob_get_clean();
 
-	// Reset global style variable in case of multiple Image Grids on page
+	// Reset global style variable in case of multiple Image Grids on a single page.
 	$mm_image_grid_style = '';
 
 	return $output;
@@ -76,7 +77,7 @@ add_shortcode( 'mm_image_grid_image', 'mm_image_grid_image_shortcode' );
  */
 function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 
-	// Global style variable passed from parent Image Grid component
+	// Global style variable passed from parent Image Grid component.
 	global $mm_image_grid_style;
 
 	$atts = mm_shortcode_atts( array(
@@ -86,21 +87,21 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 		'link'     => '',
 	), $atts );
 
-	$title = wp_kses_post( $atts['title'] );
+	$title    = wp_kses_post( $atts['title'] );
 	$subtitle = wp_kses_post( $atts['subtitle'] );
-	$image = (int)$atts['image'];
-	$link = $atts['link'];
+	$image    = (int)$atts['image'];
+	$link     = $atts['link'];
 
-   	// Clean up content - this is necessary
+   	// Clean up content - this is necessary.
 	$content = wpb_js_remove_wpautop( $content, true );
 
-   	// Get link array [url, title, target]
+   	// Get link array [url, title, target].
 	$link_array = vc_build_link( $link );
 
-	// Get image size based on style of parent Image Grid component
+	// Get image size based on style of parent Image Grid component.
 	$image_size = ( 'style-thumbnail-text-card' == $mm_image_grid_style ) ? '300 Cropped' : 'Image Grid';
 
-	// Get Mm classes
+	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
 	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
@@ -147,81 +148,82 @@ add_action( 'vc_before_init', 'mm_vc_image_grid' );
  */
 function mm_vc_image_grid() {
 
-	// Image Grid Container
+	// Image grid container.
 	vc_map( array(
-		'name' => __( 'Image Grid', 'mm-components' ),
-		'base' => 'mm_image_grid',
-		'as_parent' => array( 'only' => 'mm_image_grid_image' ), // Use only|except attributes to limit child shortcodes (separate multiple values with comma)
-		'content_element' => true,
-		'class' => 'image-grid',
-      	'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'name'                    => __( 'Image Grid', 'mm-components' ),
+		'base'                    => 'mm_image_grid',
+		'as_parent'               => array( 'only' => 'mm_image_grid_image' ),
+		'content_element'         => true,
+		'class'                   => 'image-grid',
+      	'icon'                    => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'show_settings_on_create' => false,
 		'params' => array(
-			// Add params same as with any other content element.
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Title', 'mm-components' ),
+				'type'       => 'textfield',
+				'heading'    => __( 'Title', 'mm-components' ),
 				'param_name' => 'title',
 			),
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Extra class name', 'mm-components' ),
-				'param_name' => 'el_class',
+				'type'        => 'textfield',
+				'heading'     => __( 'Extra class name', 'mm-components' ),
+				'param_name'  => 'el_class',
 				'description' => __('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'mm-components'),
 			),
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Style', 'mm-components' ),
+				'type'       => 'dropdown',
+				'heading'    => __( 'Style', 'mm-components' ),
 				'param_name' => 'style',
-				'value' => array(
-					__( 'Full Image', 'mm-components ') => 'style-full-image',
-					__( 'Thumbnail/Text Card', 'mm-components ') => 'style-thumbnail-text-card',
+				'value'      => array(
+					__( 'Select an Image Style', 'mm-components' ) => '',
+					__( 'Full Image', 'mm-components ')            => 'style-full-image',
+					__( 'Thumbnail/Text Card', 'mm-components ')   => 'style-thumbnail-text-card',
 				),
 			),
 		),
 		'js_view' => 'VcColumnView'
 	) );
 
+	// Image grid image.
 	vc_map( array(
-		'name' => __( 'Image Grid Image', 'mm-components' ),
-		'base' => 'mm_image_grid_image',
+		'name'            => __( 'Image Grid Image', 'mm-components' ),
+		'base'            => 'mm_image_grid_image',
 		'content_element' => true,
-      	'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
-		'as_child' => array( 'only' => 'mm_image_grid' ), // Use only|except attributes to limit parent (separate multiple values with comma)
-		'params' => array(
+      	'icon'            => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'as_child'        => array( 'only' => 'mm_image_grid' ),
+		'params'          => array(
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Caption/Title', 'mm-components' ),
+				'type'        => 'textfield',
+				'heading'     => __( 'Caption/Title', 'mm-components' ),
 				'admin_label' => true,
-				'param_name' => 'title',
+				'param_name'  => 'title',
 			),
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Subtitle', 'mm-components' ),
+				'type'       => 'textfield',
+				'heading'    => __( 'Subtitle', 'mm-components' ),
 				'param_name' => 'subtitle',
 			),
 			array(
-				'type' => 'attach_image',
-				'heading' => __( 'Image', 'mm-components' ),
-				'param_name' => 'image',
+				'type'                   => 'attach_image',
+				'heading'                => __( 'Image', 'mm-components' ),
+				'param_name'             => 'image',
 				'mm_image_size_for_desc' => 'Image Grid',
 			),
 			array(
-				'type' => 'vc_link',
-				'heading' => __( 'Link', 'mm-components' ),
+				'type'       => 'vc_link',
+				'heading'    => __( 'Link', 'mm-components' ),
 				'param_name' => 'link',
 			),
 			array(
-				'type' => '',
-				'heading' => __( 'Style', 'mm-components' ),
-				'param_name' => 'style',
+				'type'        => '',
+				'heading'     => __( 'Style', 'mm-components' ),
+				'param_name'  => 'style',
 				'description' => __( 'You cannot set styles for individual Image Grid Images. Instead, set the style for the parent Image Grid container (the Visual Composer component that contains this image).', 'mm-components' ),
 			),
 		)
 	) );
 
- 	// Your 'container' content element should extend WPBakeryShortCodesContainer class to inherit all required functionality
-	if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+	// These are necessary to get the element nesting to work.
+ 	if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
 		class WPBakeryShortCode_Mm_Image_Grid extends WPBakeryShortCodesContainer {
 		}
 	}
