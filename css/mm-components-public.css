@@ -71,6 +71,17 @@
 }
 
 /**
+ * Logo Strip
+ */
+.mm-logo-strip {
+	text-align: center;
+}
+
+.mm-logo-strip .logo {
+	display: inline-block;
+}
+
+/**
  * Posts
  */
 .mm-posts .entry-image {
