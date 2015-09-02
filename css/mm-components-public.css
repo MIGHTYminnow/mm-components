@@ -79,6 +79,11 @@
 
 .mm-logo-strip .logo {
 	display: inline-block;
+	padding: 0 15px 15px;
+}
+
+.mm-logo-strip .logo img {
+	display: block;
 }
 
 /**
