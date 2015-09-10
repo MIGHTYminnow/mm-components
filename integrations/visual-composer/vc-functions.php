@@ -118,6 +118,6 @@ function mm_vc_register_demo_template() {
 	$data['content']      = <<<CONTENT
 		[vc_row][vc_column][vc_text_separator title="Blockquote"][mm_blockquote quote="This is a blockquote. This is the quote portion of the blockquote." citation="MIGHTYminnow"][mm_blockquote quote="This is a really long blockquote. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula tristique purus, sollicitudin accumsan libero congue nec. Donec in sapien elit. Ut tincidunt in risus sit amet elementum. Aliquam ullamcorper neque quis rhoncus interdum. Quisque convallis vel orci sit amet tincidunt." citation="This is a really long citation lorem ipsum dolor sit amet consectetur adipiscing elit"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Button"][mm_button alignment="center"]Button Text[/mm_button][/vc_column][/vc_row]
 CONTENT;
-  
+
 	vc_add_default_templates( $data );
 }
