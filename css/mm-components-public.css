@@ -31,6 +31,33 @@
  */
 
 /**
+ * Countdown
+ */
+.mm-countdown .unit {
+	display: inline-block;
+	margin-right: 1em;
+	margin-bottom: 0;
+	text-align: center;
+}
+
+.mm-countdown .count,
+.mm-countdown .label {
+	display: block;
+}
+
+.mm-countdown .count {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+@media (min-width: 350px) {
+
+	.mm-countdown .unit:last-child {
+		margin-right: 0;
+	}
+}
+
+/**
  * Expandable Content
  */
 .mm-expandable-content-trigger:hover {
