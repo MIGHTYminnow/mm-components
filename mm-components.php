@@ -54,6 +54,9 @@ function mm_components_startup() {
 	// Include general functionality.
 	require_once MM_COMPONENTS_PATH . 'functions.php';
 
+	// Include our widget sub-class.
+	require_once MM_COMPONENTS_PATH . 'classes/class-mm-components-widget.php';
+
 	// Include active components.
 	if ( array_key_exists( 'blockquote', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/blockquote.php';
