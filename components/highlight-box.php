@@ -47,7 +47,7 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 		}
 
 	} else {
-	
+
 		$link_url    = '';
 		$link_title  = '';
 		$link_target = '';

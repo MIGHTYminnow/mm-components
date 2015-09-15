@@ -54,7 +54,7 @@ function mm_components_startup() {
 	// Include general functionality.
 	require_once MM_COMPONENTS_PATH . 'functions.php';
 
-	// Include our widget sub-class.
+	// Include widget base class.
 	require_once MM_COMPONENTS_PATH . 'classes/class-mm-components-widget.php';
 
 	// Include active components.
