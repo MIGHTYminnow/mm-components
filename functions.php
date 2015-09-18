@@ -230,6 +230,29 @@ function mm_get_taxonomies_for_vc() {
 }
 
 /**
+ * Return an array of registered image sizes.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  $taxonomies  The array of formatted image sizes.
+ */
+function mm_get_image_sizes() {
+
+	$image_sizes = get_intermediate_image_sizes();
+
+	foreach ( $image_sizes as $image_size ) {
+
+		$formatted_image_size = ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $image_size ) ) );
+		$formatted_image_sizes[ $image_size ] = $formatted_image_size;
+	}
+
+	// Manually add in the 'Full' size.
+	$formatted_image_sizes['full'] = __( 'Full', 'mm-components' );
+
+	return $formatted_image_sizes;
+}
+
+/**
  * Return an array of registered image sizes for use in a Visual Composer dropdown param.
  *
  * @since   1.0.0
