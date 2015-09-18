@@ -79,7 +79,7 @@ class Mm_Components_Widget extends WP_Widget {
 			$this->get_field_name( $key )
 		);
 
-		foreach( $options as $option_value => $option_display_name ) {
+		foreach ( $options as $option_value => $option_display_name ) {
 
 			printf(
 				'<option value="%s" %s>%s</option>',
