@@ -79,14 +79,32 @@ class Mm_Components_Widget extends WP_Widget {
 			$this->get_field_name( $key )
 		);
 
-		foreach ( $options as $option_value => $option_display_name ) {
+		// Test whether we have an associative or indexed array.
+		if ( array_values( $options ) === $options ) {
 
-			printf(
-				'<option value="%s" %s>%s</option>',
-				$option_value,
-				selected( $value, $option_value, false ),
-				$option_display_name
-			);
+			// We have an indexed array.
+			foreach ( $options as $option ) {
+
+				printf(
+					'<option value="%s" %s>%s</option>',
+					$option,
+					selected( $value, $option, false ),
+					$option
+				);
+			}
+
+		} else {
+
+			// We have an associative array.
+			foreach ( $options as $option_value => $option_display_name ) {
+
+				printf(
+					'<option value="%s" %s>%s</option>',
+					$option_value,
+					selected( $value, $option_value, false ),
+					$option_display_name
+				);
+			}
 		}
 
 		echo '</select>';
