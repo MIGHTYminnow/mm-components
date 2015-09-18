@@ -148,7 +148,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	public function widget( $args, $instance ) {
 
 		// At this point all instance options have been sanitized.
-		$title          = apply_filters( 'widget_title', $instance['title'] );		
+		$title          = apply_filters( 'widget_title', $instance['title'] );
 		$image_id       = $instance['image_id'];
 		$quote			= $instance['quote'];
 		$citation		= $instance['citation'];
@@ -243,9 +243,9 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	public function update( $new_instance, $old_instance ) {
 
 		$instance = $old_instance;
-		$instance['title']          = wp_kses_post( $new_instance['title'] );
-		$instance['image_id']   	= sanitize_text_field( $new_instance['image_id'] );
-		$instance['quote'] 			= wp_kses_post( $new_instance['quote'] );
+		$instance['title']			= wp_kses_post( $new_instance['title'] );
+		$instance['image_id']		= sanitize_text_field( $new_instance['image_id'] );
+		$instance['quote']			= wp_kses_post( $new_instance['quote'] );
 		$instance['citation']		= sanitize_text_field( $new_instance['citation'] );
 
 		return $instance;
