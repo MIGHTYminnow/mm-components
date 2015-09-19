@@ -119,6 +119,8 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_radio( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
 
+		echo '<fieldset><legend class="screen-reader-text"><span>input type="radio"</span></legend>';
+
 		echo '<p><label>' . esc_html( $label ) . '</label>';
 
 		// Test whether we have an associative or indexed array.
@@ -135,6 +137,8 @@ class Mm_Components_Widget extends WP_Widget {
 					checked( $value, $option, false ),
 					$option
 				);
+
+				echo '<span>Radio description #2 with legend class .screen-reader-text</span>';
 			}
 
 		} else {
@@ -150,8 +154,12 @@ class Mm_Components_Widget extends WP_Widget {
 					checked( $value, $option_value, false ),
 					$option_display_name
 				);
+
+				echo '<span>Radio description #2 with legend class .screen-reader-text</span>';
 			}
 		}
+
+		echo '</fieldset>';
 
 	}
 
