@@ -162,6 +162,40 @@ function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
 }
 
 /**
+ * Return an array of all public post types.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  $post_types  The array of formatted post types.
+ */
+function mm_get_post_types() {
+
+	$post_type_args = array(
+		'public' => true,
+		'_builtin' => false
+	);
+
+	$custom_post_types = get_post_types( $post_type_args, 'names', 'and' );
+
+	$formatted_cpts = array();
+
+	foreach( $custom_post_types as $post_type ) {
+
+		$formatted_cpt = ucwords( str_replace( '_', ' ', $post_type ) );
+		$formatted_cpts[ $post_type ] = $formatted_cpt;
+	}
+
+	// Manually add 'post' and an empty option.
+	$default_post_types = array(
+		'post' => __( 'Post', 'mm-components' ),
+	);
+
+	$post_types = array_merge( $default_post_types, $formatted_cpts );
+
+	return $post_types;
+}
+
+/**
  * Return an array of post types for use in a Visual Composer dropdown param.
  *
  * @since   1.0.0
