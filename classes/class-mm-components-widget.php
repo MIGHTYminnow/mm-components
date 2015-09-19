@@ -30,7 +30,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 * @since  1.0.0
 	 */
 	public function field_text( $label = '', $classes = '', $key = '', $value = '' ) {
-		
+
 		echo '<p><label>' . esc_html( $label ) . '</label>';
 
 		printf(
@@ -49,7 +49,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 * @since  1.0.0
 	 */
 	public function field_textarea( $label = '', $classes = '', $key = '', $value = '', $rows = '4', $cols = '4' ) {
-		
+
 		echo '<p><label>' . esc_html( $label ) . '</label>';
 
 		printf(
@@ -60,6 +60,54 @@ class Mm_Components_Widget extends WP_Widget {
 			$cols,
 			$value
 		);
+
+		echo '</p>';
+	}
+
+	/**
+	 * Output a select dropdown.
+	 *
+	 * @since  1.0.0
+	 */
+	public function field_select( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
+
+		echo '<p><label>' . esc_html( $label ) . '</label>';
+
+		printf(
+			'<select class="%s" name="%s">',
+			$classes,
+			$this->get_field_name( $key )
+		);
+
+		// Test whether we have an associative or indexed array.
+		if ( array_values( $options ) === $options ) {
+
+			// We have an indexed array.
+			foreach ( $options as $option ) {
+
+				printf(
+					'<option value="%s" %s>%s</option>',
+					$option,
+					selected( $value, $option, false ),
+					$option
+				);
+			}
+
+		} else {
+
+			// We have an associative array.
+			foreach ( $options as $option_value => $option_display_name ) {
+
+				printf(
+					'<option value="%s" %s>%s</option>',
+					$option_value,
+					selected( $value, $option_value, false ),
+					$option_display_name
+				);
+			}
+		}
+
+		echo '</select>';
 
 		echo '</p>';
 	}
