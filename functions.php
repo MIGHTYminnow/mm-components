@@ -162,6 +162,23 @@ function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
 }
 
 /**
+ * Return true or false based on the passed in value.
+ *
+ * @since  1.0.0
+ *
+ * @param   mixed  $value  The value to be tested.
+ * @return  bool
+ */
+function mm_true_or_false( $value ) {
+
+	if ( true === $value || 'true' === $value || 1 === $value || '1' === $value || 'yes' === $value || 'on' === $value ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/**
  * Return an array of all public post types.
  *
  * @since   1.0.0
