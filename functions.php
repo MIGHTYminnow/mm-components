@@ -171,6 +171,10 @@ function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
  */
 function mm_true_or_false( $value ) {
 
+	if ( ! isset( $value ) ) {
+		return false;
+	}
+
 	if ( true === $value || 'true' === $value || 1 === $value || '1' === $value || 'yes' === $value || 'on' === $value ) {
 		return true;
 	} else {
