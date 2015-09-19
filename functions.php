@@ -239,6 +239,7 @@ function mm_get_taxonomies_for_vc() {
 function mm_get_image_sizes() {
 
 	$image_sizes = get_intermediate_image_sizes();
+	$formatted_image_sizes = array();
 
 	foreach ( $image_sizes as $image_size ) {
 
