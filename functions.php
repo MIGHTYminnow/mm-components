@@ -175,14 +175,13 @@ function mm_get_post_types() {
 		'_builtin' => false
 	);
 
-	$custom_post_types = get_post_types( $post_type_args, 'names', 'and' );
+	$custom_post_types = get_post_types( $post_type_args, 'objects', 'and' );
 
 	$formatted_cpts = array();
 
 	foreach( $custom_post_types as $post_type ) {
 
-		$formatted_cpt = ucwords( str_replace( '_', ' ', $post_type ) );
-		$formatted_cpts[ $post_type ] = $formatted_cpt;
+		$formatted_cpts[ $post_type->name ] = $post_type->labels->singular_name;
 	}
 
 	// Manually add 'post' and an empty option.
@@ -209,14 +208,13 @@ function mm_get_post_types_for_vc() {
 		'_builtin' => false
 	);
 
-	$custom_post_types = get_post_types( $post_type_args, 'names', 'and' );
+	$custom_post_types = get_post_types( $post_type_args, 'objects', 'and' );
 
 	$formatted_cpts = array();
 
 	foreach( $custom_post_types as $post_type ) {
 
-		$formatted_cpt = ucwords( str_replace( '_', ' ', $post_type ) );
-		$formatted_cpts[ $formatted_cpt ] = $post_type;
+		$formatted_cpts[ $post_type->labels->singular_name ] = $post_type->name;
 	}
 
 	// Manually add 'post' and an empty option.
@@ -244,7 +242,7 @@ function mm_get_taxonomies() {
 		'_builtin' => false
 	);
 
-	$custom_taxonomies = get_taxonomies( $taxonomy_args, 'names', 'and' );
+	$custom_taxonomies = get_taxonomies( $taxonomy_args, 'objects', 'and' );
 
 	// Manually add 'category' and 'tag'.
 	$taxonomies = array(
@@ -255,8 +253,7 @@ function mm_get_taxonomies() {
 	// Format the taxonomies.
 	foreach ( $custom_taxonomies as $taxonomy ) {
 
-		$formatted_taxonomy = ucwords( str_replace( '_', ' ', $taxonomy ) );
-		$taxonomies[ $taxonomy ] = $formatted_taxonomy;
+		$taxonomies[ $taxonomy->name ] = $taxonomy->labels->singular_name;
 	}
 
 	return $taxonomies;
@@ -276,7 +273,7 @@ function mm_get_taxonomies_for_vc() {
 		'_builtin' => false
 	);
 
-	$custom_taxonomies = get_taxonomies( $taxonomy_args, 'names', 'and' );
+	$custom_taxonomies = get_taxonomies( $taxonomy_args, 'objects', 'and' );
 
 	// Manually add 'category', 'tag', and an empty option.
 	$taxonomies = array(
@@ -288,8 +285,7 @@ function mm_get_taxonomies_for_vc() {
 	// Format the taxonomies.
 	foreach ( $custom_taxonomies as $taxonomy ) {
 
-		$formatted_taxonomy = ucwords( str_replace( '_', ' ', $taxonomy ) );
-		$taxonomies[ $formatted_taxonomy ] = $taxonomy;
+		$taxonomies[ $taxonomy->labels->singular_name ] = $taxonomy->name;
 	}
 
 	return $taxonomies;
