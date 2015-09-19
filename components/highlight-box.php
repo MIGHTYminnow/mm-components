@@ -34,7 +34,7 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
 
 			$link_array = vc_build_link( $atts['link'] );
-			
+
 			$link_url    = $link_array['url'];
 			$link_title  = $link_array['title'];
 			$link_target = $link_array['target'];
@@ -79,7 +79,7 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 		} ?>
 
 	</div>
-	
+
 	<?php
 
 	$output = ob_get_clean();
@@ -181,14 +181,14 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 	 * @param  array  $instance  The options for the widget instance.
 	 */
 	public function widget( $args, $instance ) {
-	
+
 		// At this point all instance options have been sanitized.
 		$title          = apply_filters( 'widget_title', $instance['title'] );
 		$heading_text   = $instance['heading_text'];
 		$paragraph_text = $instance['paragraph_text'];
 		$link_text      = $instance['link_text'];
 		$link           = $instance['link'];
-		
+
 		$shortcode = sprintf(
 			'[mm_highlight_box heading_text="%s" paragraph_text="%s" link_text="%s" link="%s"]',
 			$heading_text,
@@ -207,7 +207,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 
 		echo $args['after_widget'];
 	}
-	
+
 	/**
 	 * Output the Widget settings form.
 	 *
