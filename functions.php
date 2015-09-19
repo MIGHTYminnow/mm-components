@@ -197,6 +197,38 @@ function mm_get_post_types_for_vc() {
 }
 
 /**
+ * Return an array of registered taxonomies.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  $taxonomies  The array of formatted taxonomies.
+ */
+function mm_get_taxonomies() {
+
+	$taxonomy_args = array(
+		'public'   => true,
+		'_builtin' => false
+	);
+
+	$custom_taxonomies = get_taxonomies( $taxonomy_args, 'names', 'and' );
+
+	// Manually add 'category' and 'tag'.
+	$taxonomies = array(
+		'category' => __( 'Category', 'mm-components' ),
+		'post_tag' => __( 'Tag', 'mm-components' ),
+	);
+
+	// Format the taxonomies.
+	foreach ( $custom_taxonomies as $taxonomy ) {
+
+		$formatted_taxonomy = ucwords( str_replace( '_', ' ', $taxonomy ) );
+		$taxonomies[ $taxonomy ] = $formatted_taxonomy;
+	}
+
+	return $taxonomies;
+}
+
+/**
  * Return an array of registered taxonomies for use in a Visual Composer dropdown param.
  *
  * @since   1.0.0
