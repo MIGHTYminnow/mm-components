@@ -112,4 +112,48 @@ class Mm_Components_Widget extends WP_Widget {
 		echo '</p>';
 	}
 
+	/**
+	 * Output a radio button selector.
+	 *
+	 * @since  1.0.0
+	 */
+
+	public function field_radio( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
+
+		echo '<p><label>' . esc_html( $label ) . '</label>';
+
+		// Test whether we have an associative or indexed array.
+		if ( array_values( $options ) === $options ) {
+
+			// We have an indexed array.
+			foreach ( $options as $option ) {
+
+				printf(
+					'<br><input type="radio" class="%s" name="%s" value="%s" %s /> %s',
+					$classes,
+					$this->get_field_name( $key ),
+					$option,
+					checked( $value, $option, false ),
+					$option
+				);
+			}
+
+		} else {
+
+			// We have an associative array.
+			foreach ( $options as $option_value => $option_display_name ) {
+
+				printf(
+					'<br><input type="radio" class="%s" name="%s" value="%s" %s /> %s',
+					$classes,
+					$this->get_field_name( $key ),
+					$option_value,
+					checked( $value, $option_value, false ),
+					$option_display_name
+				);
+			}
+		}
+
+	}
+
 }
