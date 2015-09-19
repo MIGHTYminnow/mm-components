@@ -113,11 +113,10 @@ class Mm_Components_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Output a radio button selector.
+	 * Output a group of radio button input elements.
 	 *
 	 * @since  1.0.0
 	 */
-
 	public function field_radio( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
 
 		echo '<p><label>' . esc_html( $label ) . '</label>';
