@@ -425,12 +425,16 @@ add_action( 'init', 'mm_vc_posts', 12 );
 function mm_vc_posts() {
 
 	// Only proceed if we're in the admin and Visual Composer is active.
-	if ( ! is_admin() && ! function_exists( 'vc_map' ) ) {
+	if ( ! is_admin() ) {
 		return;
 	}
 
-	$post_types = mm_get_post_types_for_vc();
-	$taxonomies = mm_get_taxonomies_for_vc();
+	if ( ! function_exists( 'vc_map' ) ) {
+		return;
+	}
+
+	$post_types  = mm_get_post_types_for_vc();
+	$taxonomies  = mm_get_taxonomies_for_vc();
 	$image_sizes = mm_get_image_sizes_for_vc();
 
 	vc_map( array(
