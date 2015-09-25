@@ -137,3 +137,166 @@ function mm_vc_logo_strip() {
 		)
 	) );
 }
+
+
+add_action( 'widgets_init', 'mm_components_register_logo_strip_widget' );
+/**
+ * Register the widget.
+ *
+ * @since  1.0.0
+ */
+function mm_components_register_logo_strip_widget() {
+
+	register_widget( 'mm_logo_strip_widget' );
+}
+
+/**
+ * Highlight box widget.
+ *
+ * @since  1.0.0
+ */
+class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
+
+	/**
+	 * Global options for this widget.
+	 *
+	 * @since  1.0.0
+	 */
+	protected $options;
+
+	/**
+	 * Initialize an instance of the widget.
+	 *
+	 * @since  1.0.0
+	 */
+	public function __construct() {
+
+		// Set up the options to pass to the WP_Widget constructor.
+		$this->options = array(
+			'classname'   => 'mm-logo-strip',
+			'description' => __( 'A Logo Strip', 'mm-components' ),
+		);
+
+		parent::__construct(
+			'mm_logo_strip_widget',
+			__( 'Mm Logo Strip', 'mm-components' ),
+			$this->options
+		);
+	}
+
+	/**
+	 * Output the widget.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  array  $args      The global options for the widget.
+	 * @param  array  $instance  The options for the widget instance.
+	 */
+	public function widget( $args, $instance ) {
+
+		// At this point all instance options have been sanitized.
+		$title           = apply_filters( 'widget_title', $instance['title'] );
+		$title_alignment = $instance['title_alignment'];
+		$images          = $instance['images'];
+		$image_size      = $instance['image_size'];
+
+		$shortcode = sprintf(
+			'[mm_logo_strip title="%s" title_alignment="%s" images="%s" image_size="%s"]',
+			$title,
+			$title_alignment,
+			$images,
+			$image_size
+		);
+
+		echo $args['before_widget'];
+
+		echo do_shortcode( $shortcode );
+
+		echo $args['after_widget'];
+	}
+
+	/**
+	 * Output the Widget settings form.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  array  $instance  The options for the widget instance.
+	 */
+	public function form( $instance ) {
+
+		$defaults = array(
+			'title'           => '',
+			'title_alignment' => '',
+			'images'          => '',
+			'image_size'      => '',
+		);
+
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
+
+		$title             = $instance['title'];
+		$title_alignment   = $instance['title_alignment'];
+		$images            = $instance['images'];
+		$image_size        = $instance['image_size'];
+		$classname         = $this->options['classname'];
+
+		// Title.
+		$this->field_text(
+			__( 'Title', 'mm-components' ),
+			$classname . '-title widefat',
+			'title',
+			$title
+		);
+
+		// Title Alignment.
+		$this->field_select(
+			__( 'Title Alignment', 'mm-components' ),
+			$classname . '-title-alignment widefat',
+			'title_alignment',
+			$title_alignment,
+			array(
+				'left'   => __( 'Left', 'mm-components' ),
+				'center' => __( 'Center', 'mm-components' ),
+				'right'  => __( 'Right', 'mm-components' ),
+			)
+		);
+
+		// Images.
+		$this->field_textarea(
+			__( 'Images', 'mm-components' ),
+			$classname . '-images widefat',
+			'images',
+			$images
+		);
+
+		// Image Size.
+		$this->field_text(
+			__( 'Image', 'mm-components' ),
+			$classname . '-image-size widefat',
+			'image_size',
+			$image_size
+		);
+
+	}
+
+	/**
+	 * Update the widget settings.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param   array  $new_instance  The new settings for the widget instance.
+	 * @param   array  $old_instance  The old settings for the widget instance.
+	 *
+	 * @return  array  The sanitized settings.
+	 */
+	public function update( $new_instance, $old_instance ) {
+
+		$instance = $old_instance;
+		$instance['title']             = wp_kses_post( $new_instance['title'] );
+		$instance['title_alignment']   = sanitize_text_field( $new_instance['title_alignment'] );
+		$instance['images']            = wp_kses_post( $new_instance['images'] );
+		$instance['image_size']        = sanitize_text_field( $new_instance['image_size'] );
+
+		return $instance;
+	}
+}
