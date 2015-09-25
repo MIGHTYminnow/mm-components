@@ -112,4 +112,51 @@ class Mm_Components_Widget extends WP_Widget {
 		echo '</p>';
 	}
 
+	/**
+	 * Output a group of radio button input elements.
+	 *
+	 * @since  1.0.0
+	 */
+	public function field_radio( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
+
+		echo '<p><label class="radio-group-label">' . esc_html( $label ) . '</label><br />';
+
+		// Test whether we have an associative or indexed array.
+		if ( array_values( $options ) === $options ) {
+
+			// We have an indexed array.
+			foreach ( $options as $option ) {
+
+				printf(
+					'<input type="radio" class="%s" name="%s" value="%s" %s /> <label class="%s">%s</label><br />',
+					$classes,
+					$this->get_field_name( $key ),
+					$option,
+					checked( $value, $option, false ),
+					'radio-option-label',
+					$option
+				);
+			}
+
+		} else {
+
+			// We have an associative array.
+			foreach ( $options as $option_value => $option_display_name ) {
+
+				printf(
+					'<input type="radio" class="%s" name="%s" value="%s" %s /> <label class="%s">%s</label><br />',
+					$classes,
+					$this->get_field_name( $key ),
+					$option_value,
+					checked( $value, $option_value, false ),
+					'radio-option-label',
+					$option_display_name
+				);
+			}
+		}
+
+		echo '</p>';
+
+	}
+
 }
