@@ -31,15 +31,16 @@ function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	// Get param values.
-	$quote = ! empty( $atts['quote'] ) ? '<p>' . $atts['quote'] . '</p>' : '';
-	$citation = ! empty( $atts['citation'] ) ? $atts['citation'] : '';
+	$image_id = (int)$atts['image_id'];
+	$quote    = ( ! empty( $atts['quote'] ) ) ? '<p>' . esc_html( $atts['quote'] ) . '</p>' : '';
+	$citation = ( ! empty( $atts['citation'] ) ) ? esc_html( $atts['citation'] ) : '';
 
 	ob_start() ?>
 
 	<blockquote class="<?php echo $mm_classes; ?>">
 
-		<?php if ( $atts[ 'image_id'] ) : ?>
-			<?php echo wp_get_attachment_image( $atts['image_id'], 'thumbnail' ); ?>
+		<?php if ( 0 !== $image_id ) : ?>
+			<?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?>
 		<?php endif; ?>
 
 		<?php echo $quote; ?>
@@ -66,26 +67,26 @@ add_action( 'vc_before_init', 'mm_vc_blockquote' );
 function mm_vc_blockquote() {
 
 	vc_map( array(
-		'name' => __( 'Blockquote', 'mm-components' ),
-		'base' => 'mm_blockquote',
-		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'name'     => __( 'Blockquote', 'mm-components' ),
+		'base'     => 'mm_blockquote',
+		'class'    => '',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),
-		'params' => array(
+		'params'   => array(
 			array(
-				'type' => 'attach_image',
-				'heading' => __( 'Image', 'mm-components' ),
-				'param_name' => 'image_id',
+				'type'        => 'attach_image',
+				'heading'     => __( 'Image', 'mm-components' ),
+				'param_name'  => 'image_id',
 				'description' => __( 'Select an image from the library.', 'mm-components' ),
 			),
 			array(
-				'type' => 'textarea',
-				'heading' => __( 'Quote', 'mm-components' ),
+				'type'       => 'textarea',
+				'heading'    => __( 'Quote', 'mm-components' ),
 				'param_name' => 'quote',
 			),
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Citation', 'mm-components' ),
+				'type'       => 'textfield',
+				'heading'    => __( 'Citation', 'mm-components' ),
 				'param_name' => 'citation',
 			),
 		)
@@ -126,14 +127,14 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 
 		// Set up the options to pass to the WP_Widget constructor.
 		$this->options = array(
-				'classname'   => 'mm-blockquote',
-				'description' => __( 'A Blockquote', 'mm-components' ),
+			'classname'   => 'mm-blockquote',
+			'description' => __( 'A Blockquote', 'mm-components' ),
 		);
 
 		parent::__construct(
-				'mm_blockquote_widget',
-				__( 'Mm Blockquote', 'mm-components' ),
-				$this->options
+			'mm_blockquote_widget',
+			__( 'Mm Blockquote', 'mm-components' ),
+			$this->options
 		);
 	}
 
@@ -148,16 +149,16 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	public function widget( $args, $instance ) {
 
 		// At this point all instance options have been sanitized.
-		$title          = apply_filters( 'widget_title', $instance['title'] );
-		$image_id       = $instance['image_id'];
-		$quote			= $instance['quote'];
-		$citation		= $instance['citation'];
+		$title    = apply_filters( 'widget_title', $instance['title'] );
+		$image_id = $instance['image_id'];
+		$quote    = $instance['quote'];
+		$citation = $instance['citation'];
 
 		$shortcode = sprintf(
-				'[mm_blockquote image_id="%s" quote="%s" citation="%s"]',
-				$image_id,
-				$quote,
-				$citation
+			'[mm_blockquote image_id="%s" quote="%s" citation="%s"]',
+			$image_id,
+			$quote,
+			$citation
 		);
 
 		echo $args['before_widget'];
@@ -181,53 +182,52 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	public function form( $instance ) {
 
 		$defaults = array(
-				'title'		=> '',
-				'image_id'  => '',
-				'quote' 	=> '',
-				'citation'  => '',
+			'title'    => '',
+			'image_id' => '',
+			'quote'    => '',
+			'citation' => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		$title          = $instance['title'];
-		$image_id		= $instance['image_id'];
-		$quote			= $instance['quote'];
-		$citation		= $instance['citation'];
-		$classname      = $this->options['classname'];
+		$title     = $instance['title'];
+		$image_id  = $instance['image_id'];
+		$quote     = $instance['quote'];
+		$citation  = $instance['citation'];
+		$classname = $this->options['classname'];
 
 		// Title.
 		$this->field_text(
-				__( 'Title', 'mm-components' ),
-				$classname . '-title widefat',
-				'title',
-				$title
+			__( 'Title', 'mm-components' ),
+			$classname . '-title widefat',
+			'title',
+			$title
 		);
 
 		// Image.
 		$this->field_text(
-				__( 'Image ID', 'mm-components' ),
-				$classname . '-image widefat',
-				'image_id',
-				$image_id
+			__( 'Image ID', 'mm-components' ),
+			$classname . '-image widefat',
+			'image_id',
+			$image_id
 		);
 
 		// Quote.
 		$this->field_textarea(
-				__( 'Quote', 'mm-components' ),
-				$classname . '-quote widefat',
-				'quote',
-				$quote
+			__( 'Quote', 'mm-components' ),
+			$classname . '-quote widefat',
+			'quote',
+			$quote
 		);
 
 		// Citation.
 		$this->field_text(
-				__( 'Citation', 'mm-components' ),
-				$classname . '-citation widefat',
-				'citation',
-				$citation
+			__( 'Citation', 'mm-components' ),
+			$classname . '-citation widefat',
+			'citation',
+			$citation
 		);
-
 	}
 
 	/**
@@ -242,11 +242,11 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance = $old_instance;
-		$instance['title']			= wp_kses_post( $new_instance['title'] );
-		$instance['image_id']		= sanitize_text_field( $new_instance['image_id'] );
-		$instance['quote']			= wp_kses_post( $new_instance['quote'] );
-		$instance['citation']		= sanitize_text_field( $new_instance['citation'] );
+		$instance             = $old_instance;
+		$instance['title']    = wp_kses_post( $new_instance['title'] );
+		$instance['image_id'] = intval( $new_instance['image_id'] );
+		$instance['quote']    = wp_kses_post( $new_instance['quote'] );
+		$instance['citation'] = sanitize_text_field( $new_instance['citation'] );
 
 		return $instance;
 	}
