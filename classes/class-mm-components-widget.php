@@ -119,9 +119,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_radio( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
 
-		echo '<fieldset><legend class="screen-reader-text"><span>input type="radio"</span></legend>';
-
-		echo '<p><label>' . esc_html( $label ) . '</label>';
+		echo '<p><label class="radio-group-label">' . esc_html( $label ) . '</label><br />';
 
 		// Test whether we have an associative or indexed array.
 		if ( array_values( $options ) === $options ) {
@@ -130,15 +128,14 @@ class Mm_Components_Widget extends WP_Widget {
 			foreach ( $options as $option ) {
 
 				printf(
-					'<br><input type="radio" class="%s" name="%s" value="%s" %s /> %s',
+					'<input type="radio" class="%s" name="%s" value="%s" %s /> <label class="%s">%s</label><br />',
 					$classes,
 					$this->get_field_name( $key ),
 					$option,
 					checked( $value, $option, false ),
+					'radio-option-label',
 					$option
 				);
-
-				echo '<span>Radio description #2 with legend class .screen-reader-text</span>';
 			}
 
 		} else {
@@ -147,19 +144,18 @@ class Mm_Components_Widget extends WP_Widget {
 			foreach ( $options as $option_value => $option_display_name ) {
 
 				printf(
-					'<br><input type="radio" class="%s" name="%s" value="%s" %s /> %s',
+					'<input type="radio" class="%s" name="%s" value="%s" %s /> <label class="%s">%s</label><br />',
 					$classes,
 					$this->get_field_name( $key ),
 					$option_value,
 					checked( $value, $option_value, false ),
+					'radio-option-label',
 					$option_display_name
 				);
-
-				echo '<span>Radio description #2 with legend class .screen-reader-text</span>';
 			}
 		}
 
-		echo '</fieldset>';
+		echo '</p>';
 
 	}
 
