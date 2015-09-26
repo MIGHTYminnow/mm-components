@@ -195,8 +195,8 @@ Now we can pass an array of post meta keys and specify a custom nested HTML stru
 ```php
 $keys = array(
 	'movie_title',
-	'movie_director,
-	'movie_year,
+	'movie_director',
+	'movie_year',
 	'movie_rating',
 );
 
