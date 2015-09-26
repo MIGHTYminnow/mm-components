@@ -27,15 +27,12 @@ function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
 		'image_size'      => '',
 	), $atts );
 
-	$title = $atts['title'];
+	$title           = $atts['title'];
 	$title_alignment = $atts['title_alignment'];
-	$images = $atts['images'];
-	$image_size = ( '' !== $atts['image_size'] ) ? (string)$atts['image_size'] : 'full';
+	$images          = $atts['images'];
+	$image_size      = ( '' !== $atts['image_size'] ) ? (string)$atts['image_size'] : 'full';
 
-	// Clean up content - this is necessary.
-	$content = wpb_js_remove_wpautop( $content, true );
-
-	// Quit if no images are specified.
+	// Bail if no images are specified.
 	if ( ! $images ) {
 		return;
 	}
@@ -60,7 +57,9 @@ function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
 		$title_class = 'mm-text-align-left';
 	}
 
-	ob_start(); ?>
+	ob_start();
+
+	?>
 
 	<div class="<?php echo $mm_classes; ?> <?php echo $image_count ?>">
 
@@ -97,42 +96,42 @@ function mm_vc_logo_strip() {
 	$image_sizes = mm_get_image_sizes_for_vc();
 
 	vc_map( array(
-		'name' => __( 'Logo Strip', 'mm-components' ),
-		'base' => 'mm_logo_strip',
-		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'name'     => __( 'Logo Strip', 'mm-components' ),
+		'base'     => 'mm_logo_strip',
+		'class'    => '',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),
-		'params' => array(
+		'params'   => array(
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Title', 'mm-components' ),
-				'param_name' => 'title',
+				'type'        => 'textfield',
+				'heading'     => __( 'Title', 'mm-components' ),
+				'param_name'  => 'title',
 				'admin_label' => true,
-				'value' => '',
+				'value'       => '',
 			),
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Title Alignment', 'mm-components' ),
+				'type'       => 'dropdown',
+				'heading'    => __( 'Title Alignment', 'mm-components' ),
 				'param_name' => 'title_alignment',
-				'value' => array(
+				'value'      => array(
 					__( 'Select a Title Alignment', 'mm-components' ) => '',
-					__( 'Left', 'mm-components' ) => 'left',
-					__( 'Center', 'mm-components' ) => 'center',
-					__( 'Right', 'mm-components' ) => 'right',
+					__( 'Left', 'mm-components' )                     => 'left',
+					__( 'Center', 'mm-components' )                   => 'center',
+					__( 'Right', 'mm-components' )                    => 'right',
 				),
 			),
 			array(
-				'type' => 'attach_images',
-				'heading' => __( 'Logos', 'mm-components' ),
-				'param_name' => 'images',
+				'type'        => 'attach_images',
+				'heading'     => __( 'Logos', 'mm-components' ),
+				'param_name'  => 'images',
 				'description' => __( 'The bigger the image size, the better', 'mm-components' ),
-				'value' => '',
+				'value'       => '',
 			),
 			array(
 				'type'       => 'dropdown',
 				'heading'    => __( 'Logo Image Size', 'mm-components' ),
 				'param_name' => 'image_size',
-				'value' => $image_sizes,
+				'value'      => $image_sizes,
 			),
 		)
 	) );
@@ -234,11 +233,11 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		$title             = $instance['title'];
-		$title_alignment   = $instance['title_alignment'];
-		$images            = $instance['images'];
-		$image_size        = $instance['image_size'];
-		$classname         = $this->options['classname'];
+		$title           = $instance['title'];
+		$title_alignment = $instance['title_alignment'];
+		$images          = $instance['images'];
+		$image_size      = $instance['image_size'];
+		$classname       = $this->options['classname'];
 
 		// Title.
 		$this->field_text(
@@ -291,11 +290,11 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance = $old_instance;
-		$instance['title']             = wp_kses_post( $new_instance['title'] );
-		$instance['title_alignment']   = sanitize_text_field( $new_instance['title_alignment'] );
-		$instance['images']            = wp_kses_post( $new_instance['images'] );
-		$instance['image_size']        = sanitize_text_field( $new_instance['image_size'] );
+		$instance                    = $old_instance;
+		$instance['title']           = wp_kses_post( $new_instance['title'] );
+		$instance['title_alignment'] = sanitize_text_field( $new_instance['title_alignment'] );
+		$instance['images']          = wp_kses_post( $new_instance['images'] );
+		$instance['image_size']      = sanitize_text_field( $new_instance['image_size'] );
 
 		return $instance;
 	}
