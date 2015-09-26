@@ -448,6 +448,40 @@ function mm_posts_output_postmeta_value( $post_id, $key, $element = 'div' ) {
 	}
 }
 
+add_filter( 'mm_posts_query_args', 'mm_posts_filter_from_query_args' );
+/**
+ * Use specific query args present in the URL to alter the mm_posts query args.
+ *
+ * @since   1.0.0
+ *
+ * @param   array  $query_args  The original query args.
+ * @return  array  $query_args  The updated query args.
+ */
+function mm_posts_filter_from_query_args( $query_args ) {
+
+	if ( isset( $_GET['posts_per_page'] ) ) {
+		$query_args['posts_per_page'] = (int)$_GET['posts_per_page'];
+	}
+
+	if ( isset( $_GET['author'] ) ) {
+		$query_args['author'] = (int)$_GET['author'];
+	}
+
+	if ( isset( $_GET['cat'] ) ) {
+		$query_args['cat'] = (int)$_GET['cat'];
+	}
+
+	if ( isset( $_GET['tag'] ) ) {
+		$query_args['tag'] = sanitize_title_for_query( $_GET['tag'] );
+	}
+
+	if ( isset( $_GET['tag_id'] ) ) {
+		$query_args['tag_id'] = (int)$_GET['tag_id'];
+	}
+
+	return $query_args;
+}
+
 add_action( 'init', 'mm_vc_posts', 12 );
 /**
  * Visual Composer component.
