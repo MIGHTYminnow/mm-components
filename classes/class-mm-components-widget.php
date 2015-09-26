@@ -112,6 +112,29 @@ class Mm_Components_Widget extends WP_Widget {
 		echo '</p>';
 	}
 
+	public function field_checkbox( $label = '', $classes = '', $key = '', $value = '' ) {
+
+		if ( mm_true_or_false( $value ) ) {
+			$val = 1;
+		} else {
+			$val = 0;
+		}
+
+		echo '<p>';
+
+			printf(
+				'<input type="checkbox" class="%s" name="%s" value="1" %s /> <label class="%s">%s</label><br />',
+				$classes,
+				$this->get_field_name( $key ),
+				checked( $val, 1, false ),
+				'radio-label',
+				$label
+			);
+
+		echo '</p>';
+
+	}
+
 	/**
 	 * Output a group of radio button input elements.
 	 *
@@ -160,3 +183,5 @@ class Mm_Components_Widget extends WP_Widget {
 	}
 
 }
+
+
