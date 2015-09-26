@@ -393,22 +393,57 @@ function mm_posts_output_post_meta( $post, $context, $atts ) {
 }
 
 /**
+ * Output multiple postmeta values in a standard format.
+ *
+ * @since  1.0.0
+ *
+ * @param  int     $post_id   The post ID.
+ * @param  array   $keys      The postmeta keys.
+ * @param  string  $outer_el  The outer wrapper element.
+ * @param  string  $inner_el  The inner wrapper element.
+ */
+function mm_posts_output_postmeta_values( $post_id, $keys, $outer_el = 'ul', $inner_el = 'li' ) {
+
+	if ( ! is_array( $keys ) || empty( $keys ) ) {
+		return;
+	}
+
+	printf(
+		'<%s class="%s">',
+		$outer_el,
+		'entry-meta-wrap'
+	);
+
+	foreach ( $keys as $key ) {
+		mm_posts_output_postmeta_value( $post_id, $key, $inner_el );
+	}
+
+	printf(
+		'</%s>',
+		$outer_el
+	);
+}
+
+/**
  * Output a specific postmeta value in a standard format.
  *
  * @since  1.0.0
  *
  * @param  int     $post_id  The post ID.
  * @param  string  $key      The postmeta key.
+ * @param  string  $element  The wrapper element.
  */
-function mm_posts_output_postmeta_value( $post_id, $key ) {
+function mm_posts_output_postmeta_value( $post_id, $key, $element = 'div' ) {
 
 	$value = get_post_meta( $post_id, $key, true );
 
 	if ( $value ) {
 		printf(
-			'<div class="%s">%s</div>',
+			'<%s class="%s">%s</%s>',
+			$element,
 			'entry-' . esc_attr( $key ),
-			esc_html( $value )
+			esc_html( $value ),
+			$element
 		);
 	}
 }
