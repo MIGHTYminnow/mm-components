@@ -11,12 +11,7 @@
 	/**
 	 * Countdown Component.
 	 */
-	$( document ).ready( function() {
-		MmStartCountdowns();
-	});
-
-	// Trigger function for the countdowns.
-	function MmStartCountdowns() {
+	function mmStartCountdowns() {
 		var $targets = $( '.mm-countdown' );
 
 		$targets.each( function() {
@@ -52,20 +47,32 @@
 	/**
 	 * Expandable Content.
 	 */
-
-	// Set up the expand/contact functionality.
-	$( document ).ready( function() {
+	function mmSetupExpandableContent() {
 		$( '.mm-expandable-content' ).each( function() {
 
 			var $trigger = $( this ).find( '.mm-expandable-content-trigger' );
 			var $target = $( this ).find( '.mm-expandable-content-target' );
 
 			$trigger.on( 'click', function() {
+
 				$trigger.toggleClass( 'open' );
-				$target.toggleClass( 'open' );
+
+				if ( $trigger.hasClass( 'fade' ) ) {
+					$target.toggleClass( 'open' ).fadeToggle();
+				} else {
+					$target.toggleClass( 'open' ).toggle();
+				}
 			});
 
 		});
+	};
+
+	/**
+	 * Start the party.
+	 */
+	$( document ).ready( function() {
+		mmSetupExpandableContent();
+		mmStartCountdowns();
 	});
 
 })( jQuery );

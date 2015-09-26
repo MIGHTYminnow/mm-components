@@ -26,6 +26,7 @@ function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag
 		'link_style'     => '',
 		'link_text'      => '',
 		'link_alignment' => '',
+		'fade'           => '',
 		'class'          => '',
 	), $atts );
 
@@ -43,10 +44,12 @@ function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag
 
 	$link_style = ( 'button' == $atts['link_style'] || 'link' == $atts['link_style'] ) ? $atts['link_style'] : '';
 
+	$fade = ( mm_true_or_false( $atts['fade'] ) ) ? 'fade': '';
+
 	ob_start(); ?>
 
 	<div class="<?php echo $mm_classes; ?>">
-		<div class="mm-expandable-content-trigger <?php echo $link_alignment; ?>">
+		<div class="mm-expandable-content-trigger <?php echo $link_alignment . ' ' . $fade; ?>">
 			<a class="mm-expandable-content-trigger-link <?php echo $link_style; ?>" title="<?php echo esc_attr( $atts['link_text'] ); ?>"><?php echo esc_html( $atts['link_text'] ); ?></a>
 		</div>
 		<div class="mm-expandable-content-target">
@@ -74,46 +77,54 @@ function mm_vc_expandable_content() {
 	 * Expandable Content.
 	 */
 	vc_map( array(
-		'name' => __( 'Expandable Content', 'mm-components' ),
-		'base' => 'mm_expandable_content',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
-		'as_parent' => array( 'except' => '' ),
+		'name'         => __( 'Expandable Content', 'mm-components' ),
+		'base'         => 'mm_expandable_content',
+		'icon'         => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'as_parent'    => array( 'except' => '' ),
 		'is_container' => true,
 		'params' => array(
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Button or Link?', 'mm-components' ),
-				'param_name' => 'link_style',
+				'type'        => 'dropdown',
+				'heading'     => __( 'Button or Link?', 'mm-components' ),
+				'param_name'  => 'link_style',
 				'description' => __( 'Should the trigger be a button or a link?', 'mm-components' ),
 				'value' => array(
-					'Select Button or Link', // This is here to avoid a bug in VC 4.6 where the first value doesn't get added to the shortcode.
+					__( 'Select Button or Link', 'mm-components' ),
 					__( 'Button', 'mm-components' ) => 'button',
-					__( 'Link', 'mm-components' ) => 'link',
+					__( 'Link', 'mm-components' )   => 'link',
 				),
 			),
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Button/Link Text', 'mm-components' ),
-				'param_name' => 'link_text',
+				'type'        => 'textfield',
+				'heading'     => __( 'Button/Link Text', 'mm-components' ),
+				'param_name'  => 'link_text',
 				'description' => __( 'The text for the button/link', 'mm-components' ),
-				'default' => '',
-				'value' => '',
+				'default'     => '',
+				'value'       => '',
 			),
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Button/Link Alignment', 'mm-components' ),
+				'type'       => 'dropdown',
+				'heading'    => __( 'Button/Link Alignment', 'mm-components' ),
 				'param_name' => 'link_alignment',
 				'value' => array(
-					__( 'Select Left, Center, or Right', 'mm-components' ), // This is here to avoid a bug in VC 4.6 where the first value doesn't get added to the shortcode.
-					__( 'Left', 'mm-components' ) => 'left',
+					__( 'Select Left, Center, or Right', 'mm-components' ),
+					__( 'Left', 'mm-components' )   => 'left',
 					__( 'Center', 'mm-components' ) => 'center',
-					__( 'Right', 'mm-components' ) => 'right',
+					__( 'Right', 'mm-components' )  => 'right',
 				),
 			),
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Extra class name', 'mm-components' ),
-				'param_name' => 'class',
+				'type'       => 'checkbox',
+				'heading'    => __( 'Fade in?', 'mm-components' ),
+				'param_name' => 'fade',
+				'value' => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
+			),
+			array(
+				'type'        => 'textfield',
+				'heading'     => __( 'Extra class name', 'mm-components' ),
+				'param_name'  => 'class',
 				'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'mm-components' )
 			),
 		),
@@ -122,7 +133,7 @@ function mm_vc_expandable_content() {
 
 }
 
-// This is necessary to make our elements that wrap other elements work.
+// This is necessary to make any element that wraps other elements work.
 if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
     class WPBakeryShortCode_MM_Expandable_Content extends WPBakeryShortCodesContainer {
     }
