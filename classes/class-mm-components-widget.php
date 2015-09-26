@@ -111,7 +111,12 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '</p>';
 	}
-
+	
+	/**
+	 * Outputs a checkbox input element.
+	 *
+	 * @since  1.0.0
+	 */
 	public function field_checkbox( $label = '', $classes = '', $key = '', $value = '' ) {
 
 		if ( mm_true_or_false( $value ) ) {
