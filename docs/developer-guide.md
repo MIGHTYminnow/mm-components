@@ -158,7 +158,7 @@ mm_posts_output_postmeta_value( $post->ID, 'tagline', 'h3' );
 mm_posts_output_postmeta_value( $post->ID, 'address', 'address' );
 ```
 
-Naturally we've also got a helper function to output multiple field values, and it uses the first helper function:
+Naturally we also have a helper function to output multiple field values, and it uses the first helper function:
 
 ```php
 /**
