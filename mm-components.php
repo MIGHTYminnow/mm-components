@@ -146,8 +146,6 @@ add_action( 'admin_enqueue_scripts', 'mm_components_admin_scripts_and_styles' );
  */
 function mm_components_admin_scripts_and_styles( $hook ) {
 
-	error_log( $hook );
-
 	// Alpha Color Picker CSS.
 	wp_register_style(
 		'alpha-color-picker',
