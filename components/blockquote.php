@@ -148,6 +148,16 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
+		$defaults = array(
+			'title'    => '',
+			'image_id' => '',
+			'quote'    => '',
+			'citation' => '',
+		);
+
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
+
 		// At this point all instance options have been sanitized.
 		$title    = apply_filters( 'widget_title', $instance['title'] );
 		$image_id = $instance['image_id'];
@@ -244,7 +254,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 
 		$instance             = $old_instance;
 		$instance['title']    = wp_kses_post( $new_instance['title'] );
-		$instance['image_id'] = intval( $new_instance['image_id'] );
+		$instance['image_id'] = ( isset( $new_instance['image_id'] ) && '' !== $new_instance['image_id'] ) ? intval( $new_instance['image_id'] ) : '';
 		$instance['quote']    = wp_kses_post( $new_instance['quote'] );
 		$instance['citation'] = sanitize_text_field( $new_instance['citation'] );
 
