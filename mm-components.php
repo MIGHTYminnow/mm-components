@@ -16,13 +16,13 @@ define( 'MM_COMPONENTS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MM_COMPONENTS_URL', plugin_dir_url( __FILE__ ) );
 define( 'MM_COMPONENTS_ASSETS_URL', MM_COMPONENTS_URL . 'assets/' );
 
-add_action( 'init', 'mm_components_startup', 0 );
+add_action( 'init', 'mm_components_start', 0 );
 /**
  * Start the plugin.
  *
  * @since    1.0.0
  */
-function mm_components_startup() {
+function mm_components_start() {
 
 	// Set up text domain.
 	load_plugin_textdomain( 'mm-components', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
@@ -106,10 +106,13 @@ function mm_components_startup() {
 		require_once MM_COMPONENTS_PATH . 'integrations/visual-composer/vc-functions.php';
 	}
 
-	// Load front-end scripts and styles.
-	add_action( 'wp_enqueue_scripts', 'mm_components_scripts_and_styles' );
+	// Maybe include our demo component.
+	if ( true === WP_DEBUG ) {
+		require_once MM_COMPONENTS_PATH . 'components/demo.php';
+	}
 }
 
+add_action( 'wp_enqueue_scripts', 'mm_components_scripts_and_styles' );
 /**
  * Enqueue front-end scripts and styles.
  *
@@ -119,7 +122,7 @@ function mm_components_scripts_and_styles() {
 
 	// General styles.
 	wp_enqueue_style(
-		'mm-components-css',
+		'mm-components',
 		MM_COMPONENTS_URL . 'css/mm-components-public.css',
 		array(),
 		MM_COMPONENTS_VERSION
@@ -127,10 +130,54 @@ function mm_components_scripts_and_styles() {
 
 	// General scripts.
 	wp_enqueue_script(
-		'mm-components-js',
+		'mm-components',
 		MM_COMPONENTS_URL . 'js/mm-components-public.js',
 		array( 'jquery' ),
 		MM_COMPONENTS_VERSION,
 		true
 	);
+}
+
+add_action( 'admin_enqueue_scripts', 'mm_components_admin_scripts_and_styles' );
+/**
+ * Enqueue admin scripts and styles.
+ *
+ * @since  1.0.0
+ */
+function mm_components_admin_scripts_and_styles( $hook ) {
+
+	error_log( $hook );
+
+	// Alpha Color Picker CSS.
+	wp_register_style(
+		'alpha-color-picker',
+		MM_COMPONENTS_URL . 'lib/alpha-color-picker/alpha-color-picker.css',
+		array( 'wp-color-picker' ),
+		MM_COMPONENTS_VERSION
+	);
+
+	// Alpha Color Picker JS.
+	wp_register_script(
+		'alpha-color-picker',
+		MM_COMPONENTS_URL . 'lib/alpha-color-picker/alpha-color-picker.js',
+		array( 'jquery', 'wp-color-picker' ),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
+	// Mm Components Admin JS.
+	wp_register_script(
+		'mm-components-admin',
+		MM_COMPONENTS_URL . 'js/mm-components-admin.js',
+		array(),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
+	// Only enqueue on specific admin pages.
+	if ( 'widgets.php' === $hook ) {
+		wp_enqueue_style( 'alpha-color-picker' );
+		wp_enqueue_script( 'alpha-color-picker' );
+		wp_enqueue_script( 'mm-components-admin' );
+	}
 }

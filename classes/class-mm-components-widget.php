@@ -111,7 +111,7 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '</p>';
 	}
-	
+
 	/**
 	 * Outputs a checkbox input element.
 	 *
@@ -137,7 +137,6 @@ class Mm_Components_Widget extends WP_Widget {
 			);
 
 		echo '</p>';
-
 	}
 
 	/**
@@ -184,7 +183,37 @@ class Mm_Components_Widget extends WP_Widget {
 		}
 
 		echo '</p>';
+	}
 
+	/**
+	 * Output an alpha color picker.
+	 *
+	 * @since  1.0.0
+	 */
+	public function field_alpha_color_picker( $label = '', $classes = '', $key = '', $value = '', $palette = true, $default = '#222', $show_opacity = true ) {
+
+		// Process the palette.
+		if ( is_array( $palette ) ) {
+			$palette = implode( '|', $palette );
+		} else {
+			$palette = ( mm_true_or_false( $palette ) ) ? 'true' : 'false';
+		}
+
+		$show_opacity = ( mm_true_or_false( $show_opacity ) ) ? 'true' : 'false';
+
+		echo '<p><label>' . esc_html( $label ) . '</label><br />';
+
+		printf(
+			'<input class="%s" type="text" name="%s" value="%s" data-palette="%s" data-show-opacity="%s" data-default-color="%s" />',
+			esc_attr( $classes ) . ' alpha-color-picker',
+			$this->get_field_name( $key ),
+			esc_attr( $value ),
+			esc_attr( $palette ),
+			esc_attr( $show_opacity ),
+			esc_attr( $default )
+		);
+
+		echo '</p>';
 	}
 
 }
