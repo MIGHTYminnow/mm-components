@@ -44,6 +44,9 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	$class .= ' ' . $atts['color'];
 	$class .= ' ' . $atts['size'];
 
+	// Remove any paragraphs and extra whitespace in the button text.
+	$content = wp_kses( trim( $content ), '<p>' );
+
 	// Get Mm classes.
 	$mm_classes = 'button-container';
 	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
