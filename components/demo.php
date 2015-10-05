@@ -25,12 +25,14 @@ function mm_demo_shortcode( $atts, $content = null, $tag ) {
 		'text_field'         => '',
 		'alpha_color_field'  => '',
 		'single_media_field' => '',
+		'multi_media_field'  => '',
 	), $atts );
 
 	// Do any additional validation here.
 	$text_field         = wp_kses_post( $atts['text_field'] );
 	$alpha_color_field  = esc_html( $atts['alpha_color_field'] );
 	$single_media_field = ( is_int( $atts['single_media_field'] ) ) ? wp_get_attachment_image_src( $atts['single_media_field'], 'large' ) : '';
+	$multi_media_field  = $atts['multi_media_field'];
 
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
@@ -46,6 +48,7 @@ function mm_demo_shortcode( $atts, $content = null, $tag ) {
 			<li><?php echo __( 'Text Field:', 'mm-components' ) . ' ' . $text_field; ?></li>
 			<li><?php echo __( 'Alpha Color Field:', 'mm-components' ) . ' ' . $alpha_color_field; ?></li>
 			<li><?php echo __( 'Single Media Field:', 'mm-components' ) . ' ' . $single_media_field; ?></li>
+			<li><?php echo __( 'Multi Media Field:', 'mm-components' ) . ' ' . $multi_media_field; ?></li>
  		</ul>
 
 	</div>
@@ -142,6 +145,7 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 			'text_field'         => '',
 			'alpha_color_field'  => '',
 			'single_media_field' => '',
+			'multi_media_field'  => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
@@ -152,12 +156,14 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 		$text_field         = $instance['text_field'];
 		$alpha_color_field  = $instance['alpha_color_field'];
 		$single_media_field = $instance['single_media_field'];
+		$multi_media_field  = $instance['multi_media_field'];
 
 		$shortcode = sprintf(
-			'[mm_demo text_field="%s" alpha_color_field="%s" single_media_field="%s"]',
+			'[mm_demo text_field="%s" alpha_color_field="%s" single_media_field="%s" multi_media_field="%s"]',
 			$text_field,
 			$alpha_color_field,
-			$single_media_field
+			$single_media_field,
+			$multi_media_field
 		);
 
 		echo $args['before_widget'];
@@ -185,6 +191,7 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 			'text_field'         => '',
 			'alpha_color_field'  => '',
 			'single_media_field' => '',
+			'multi_media_field'  => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
@@ -194,6 +201,7 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 		$text_field         = $instance['text_field'];
 		$alpha_color_field  = $instance['alpha_color_field'];
 		$single_media_field = $instance['single_media_field'];
+		$multi_media_field  = $instance['multi_media_field'];
 		$classname          = $this->options['classname'];
 
 		// Text.
@@ -228,6 +236,14 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 			'single_media_field',
 			$single_media_field
 		);
+
+		// Multi Media Upload.
+		$this->field_multi_media(
+			__( 'Multi Media Field', 'mm-components' ),
+			$classname . '-multi-media-field',
+			'multi_media_field',
+			$multi_media_field
+		);
 	}
 
 	/**
@@ -246,7 +262,8 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 		$instance['title']              = wp_kses_post( $new_instance['title'] );
 		$instance['text_field']         = sanitize_text_field( $new_instance['text_field'] );
 		$instance['alpha_color_field']  = sanitize_text_field( $new_instance['alpha_color_field'] );
-		$instance['single_media_field'] = ( isset( $new_instance['single_media_field'] ) ) ? (int)$new_instance['single_media_field'] : '';
+		$instance['single_media_field'] = ( ! empty( $new_instance['single_media_field'] ) ) ? (int)$new_instance['single_media_field'] : '';
+		$instance['multi_media_field']  = $new_instance['multi_media_field'];
 
 		return $instance;
 	}

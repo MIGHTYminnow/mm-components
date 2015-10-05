@@ -217,7 +217,7 @@ class Mm_Components_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Output a single media field.
+	 * Output a single media item upload field.
 	 *
 	 * @since  1.0.0
 	 */
@@ -239,6 +239,53 @@ class Mm_Components_Widget extends WP_Widget {
 			</span>
 			<input type="hidden" name="<?php echo $this->get_field_name( $key ); ?>" class="mm-single-media-image" class="regular-text" value="<?php echo esc_attr( $value ); ?>" />
 			<input type="button" name="upload-btn" class="upload-btn button-secondary" value="<?php _e( 'Select Image', 'mm-components' ); ?>" />
+			<input type="button" name="clear-btn" class="clear-btn button-secondary" value="<?php _e( 'Clear', 'mm-components' ); ?>" />
+		</span>
+		<?php
+
+		echo '</p>';
+	}
+
+	/**
+	 * Output a multiple media items upload field.
+	 *
+	 * @since  1.0.0
+	 */
+	public function field_multi_media( $label = '', $classes = '', $key = '', $value = '' ) {
+
+		if ( ! empty( $value ) ) {
+			$image_ids = explode( ',', $value );
+			$images    = array();
+			foreach ( $image_ids as $image_id ) {
+				$images[ $image_id ] = wp_get_attachment_image_src( $image_id, 'thumbnail' )[0];
+			}
+		} else {
+			$images = array();
+		}
+
+		echo '<p><label>' . esc_html( $label ) . '</label><br />';
+
+		?>
+		<span class="mm-multi-media-wrap">
+			<span class="mm-multi-media-images-preview-wrap <?php echo ( empty( $value ) ) ? 'no-images' : ''; ?>">
+				<span class="mm-multi-media-no-images"><?php _e( 'No Files Selected', 'mm-components' ); ?></span>
+				<?php
+				if ( ! empty( $images ) ) {
+
+					foreach ( $images as $image_id => $image_url ) {
+						printf(
+							'<img src="%s" class="%s" title="%s" alt="%s" />',
+							esc_url( $image_url ),
+							'mm-multi-media-images-preview',
+							__( 'Media Items', 'mm-components' ),
+							__( 'Media Items', 'mm-components' )
+						);
+					}
+				}
+				?>
+			</span>
+			<input type="hidden" name="<?php echo $this->get_field_name( $key ); ?>" class="mm-multi-media-images" class="regular-text" value="<?php echo esc_attr( $value ); ?>" />
+			<input type="button" name="upload-btn" class="upload-btn button-secondary" value="<?php _e( 'Select Images', 'mm-components' ); ?>" />
 			<input type="button" name="clear-btn" class="clear-btn button-secondary" value="<?php _e( 'Clear', 'mm-components' ); ?>" />
 		</span>
 		<?php
