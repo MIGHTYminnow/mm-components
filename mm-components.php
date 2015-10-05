@@ -163,6 +163,14 @@ function mm_components_admin_scripts_and_styles( $hook ) {
 		true
 	);
 
+	// Mm Components Admin CSS.
+	wp_register_style(
+		'mm-components-admin',
+		MM_COMPONENTS_URL . 'css/mm-components-admin.css',
+		array(),
+		MM_COMPONENTS_VERSION
+	);
+
 	// Mm Components Admin JS.
 	wp_register_script(
 		'mm-components-admin',
@@ -174,8 +182,10 @@ function mm_components_admin_scripts_and_styles( $hook ) {
 
 	// Only enqueue on specific admin pages.
 	if ( 'widgets.php' === $hook ) {
+		wp_enqueue_media();
 		wp_enqueue_style( 'alpha-color-picker' );
 		wp_enqueue_script( 'alpha-color-picker' );
+		wp_enqueue_style( 'mm-components-admin' );
 		wp_enqueue_script( 'mm-components-admin' );
 	}
 }

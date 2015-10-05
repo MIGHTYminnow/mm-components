@@ -216,6 +216,34 @@ class Mm_Components_Widget extends WP_Widget {
 		echo '</p>';
 	}
 
+	/**
+	 * Output a single media field.
+	 *
+	 * @since  1.0.0
+	 */
+	public function field_single_media( $label = '', $classes = '', $key = '', $value = '' ) {
+
+		if ( is_int( $value ) ) {
+			$image = wp_get_attachment_image_src( $value, 'large' )[0];
+		} else {
+			$image = '';
+		}
+
+		echo '<p><label>' . esc_html( $label ) . '</label><br />';
+
+		?>
+		<span class="mm-single-media-wrap">
+			<span class="mm-single-media-image-preview-wrap <?php echo ( empty( $value ) ) ? 'no-image' : ''; ?>">
+				<span class="mm-single-media-no-image"><?php _e( 'No File Selected', 'mm-components' ); ?></span>
+				<img class="mm-single-media-image-preview" src="<?php echo esc_url( $image ); ?>" title="<?php _e( 'Media Item', 'mm-components' ); ?>" alt="<?php _e( 'Media Item', 'mm-components' ); ?>" />
+			</span>
+			<input type="hidden" name="<?php echo $this->get_field_name( $key ); ?>" class="mm-single-media-image" class="regular-text" value="<?php echo esc_attr( $value ); ?>" />
+			<input type="button" name="upload-btn" class="upload-btn button-secondary" value="<?php _e( 'Select Image', 'mm-components' ); ?>" />
+			<input type="button" name="clear-btn" class="clear-btn button-secondary" value="<?php _e( 'Clear', 'mm-components' ); ?>" />
+		</span>
+		<?php
+
+		echo '</p>';
+	}
+
 }
-
-

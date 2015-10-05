@@ -22,13 +22,15 @@ function mm_demo_shortcode( $atts, $content = null, $tag ) {
 
 	// Specify defaults here.
 	$atts = mm_shortcode_atts( array(
-		'text_field'        => '',
-		'alpha_color_field' => '',
+		'text_field'         => '',
+		'alpha_color_field'  => '',
+		'single_media_field' => '',
 	), $atts );
 
 	// Do any additional validation here.
-	$text_field        = wp_kses_post( $atts['text_field'] );
-	$alpha_color_field = esc_html( $atts['alpha_color_field'] );
+	$text_field         = wp_kses_post( $atts['text_field'] );
+	$alpha_color_field  = esc_html( $atts['alpha_color_field'] );
+	$single_media_field = ( is_int( $atts['single_media_field'] ) ) ? wp_get_attachment_image_src( $atts['single_media_field'], 'large' ) : '';
 
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
@@ -43,7 +45,8 @@ function mm_demo_shortcode( $atts, $content = null, $tag ) {
 		<ul>
 			<li><?php echo __( 'Text Field:', 'mm-components' ) . ' ' . $text_field; ?></li>
 			<li><?php echo __( 'Alpha Color Field:', 'mm-components' ) . ' ' . $alpha_color_field; ?></li>
-		</ul>
+			<li><?php echo __( 'Single Media Field:', 'mm-components' ) . ' ' . $single_media_field; ?></li>
+ 		</ul>
 
 	</div>
 
@@ -135,23 +138,26 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 	public function widget( $args, $instance ) {
 
 		$defaults = array(
-			'title'             => '',
-			'text_field'        => '',
-			'alpha_color_field' => '',
+			'title'              => '',
+			'text_field'         => '',
+			'alpha_color_field'  => '',
+			'single_media_field' => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
 		// At this point all instance options have been sanitized.
-		$title             = apply_filters( 'widget_title', $instance['title'] );
-		$text_field        = $instance['text_field'];
-		$alpha_color_field = $instance['alpha_color_field'];
+		$title              = apply_filters( 'widget_title', $instance['title'] );
+		$text_field         = $instance['text_field'];
+		$alpha_color_field  = $instance['alpha_color_field'];
+		$single_media_field = $instance['single_media_field'];
 
 		$shortcode = sprintf(
-			'[mm_demo text_field="" alpha_color_field=""]',
+			'[mm_demo text_field="%s" alpha_color_field="%s" single_media_field="%s"]',
 			$text_field,
-			$alpha_color_field
+			$alpha_color_field,
+			$single_media_field
 		);
 
 		echo $args['before_widget'];
@@ -175,18 +181,20 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 	public function form( $instance ) {
 
 		$defaults = array(
-			'title'             => '',
-			'text_field'        => '',
-			'alpha_color_field' => '',
+			'title'              => '',
+			'text_field'         => '',
+			'alpha_color_field'  => '',
+			'single_media_field' => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		$title             = $instance['title'];
-		$text_field        = $instance['text_field'];
-		$alpha_color_field = $instance['alpha_color_field'];
-		$classname         = $this->options['classname'];
+		$title              = $instance['title'];
+		$text_field         = $instance['text_field'];
+		$alpha_color_field  = $instance['alpha_color_field'];
+		$single_media_field = $instance['single_media_field'];
+		$classname          = $this->options['classname'];
 
 		// Text.
 		$this->field_text(
@@ -212,6 +220,14 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 			'#00CC99',
 			true
 		);
+
+		// Single Media Upload.
+		$this->field_single_media(
+			__( 'Single Media Field', 'mm-components' ),
+			$classname . '-single-media-field',
+			'single_media_field',
+			$single_media_field
+		);
 	}
 
 	/**
@@ -226,10 +242,11 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance                      = $old_instance;
-		$instance['title']             = wp_kses_post( $new_instance['title'] );
-		$instance['text_field']        = sanitize_text_field( $new_instance['text_field'] );
-		$instance['alpha_color_field'] = sanitize_text_field( $new_instance['alpha_color_field'] );
+		$instance                       = $old_instance;
+		$instance['title']              = wp_kses_post( $new_instance['title'] );
+		$instance['text_field']         = sanitize_text_field( $new_instance['text_field'] );
+		$instance['alpha_color_field']  = sanitize_text_field( $new_instance['alpha_color_field'] );
+		$instance['single_media_field'] = ( isset( $new_instance['single_media_field'] ) ) ? (int)$new_instance['single_media_field'] : '';
 
 		return $instance;
 	}

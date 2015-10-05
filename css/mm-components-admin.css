@@ -1,0 +1,56 @@
+/**
+ * Mm Components Admin CSS
+ *
+ * @since  1.0.0
+ */
+
+.mm-single-media-wrap {
+	display: block;
+}
+
+.mm-single-media-wrap .mm-single-media-image-preview-wrap {
+	max-width: 100%;
+	padding: 0;
+	display: block;
+}
+
+.mm-single-media-wrap .mm-single-media-no-image {
+	display: none;
+	border: 1px solid #eee;
+	line-height: 20px;
+	text-align: center;
+	padding: 12px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	-webkit-transition: border-color 0.3s;
+	transition: border-color 0.3s;
+}
+
+.mm-single-media-wrap .mm-single-media-no-image:hover {
+	border-color: #999;
+}
+
+.mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-image-preview {
+	display: none;
+}
+
+.mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-no-image {
+	display: block;
+}
+
+.mm-single-media-wrap .mm-single-media-image-preview {
+	display: block;
+	max-width: 100%;
+	width: auto;
+	height: auto;
+	cursor: pointer;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
+	margin-bottom: 10px;
+	border-radius: 2px;
+	border: 1px solid #eee;
+}
+
+.mm-single-media-wrap .mm-single-media-image-preview:hover {
+	border-color: #999;
+}
