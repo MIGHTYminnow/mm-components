@@ -33,6 +33,10 @@
 /**
  * Countdown
  */
+.mm-countdown {
+	text-align: center;
+}
+
 .mm-countdown .unit {
 	display: inline-block;
 	margin-right: 1em;

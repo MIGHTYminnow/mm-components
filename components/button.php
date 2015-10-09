@@ -34,7 +34,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	$link_array = vc_build_link( $atts['link'] );
 
 	// Build the alignment class.
-	$alignment = 'text-align-' . $atts['alignment'];
+	$alignment = 'mm-text-align-' . $atts['alignment'];
 
 	// Setup button classes.
 	$class = 'button';
