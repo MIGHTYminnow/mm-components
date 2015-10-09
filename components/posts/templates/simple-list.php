@@ -5,6 +5,19 @@
  * @since  1.0.0
  */
 
+add_filter( 'mm_posts_templates', 'mm_posts_simple_list_template', 0 );
+/**
+ * Register this template with Mm Posts.
+ */
+function mm_posts_simple_list_template( $templates ) {
+
+	$template_name = __( 'Simple List', 'mm-components' );
+
+	$templates[ $template_name ] = 'simple-list';
+
+	return $templates;
+}
+
 add_action( 'mm_posts_register_hooks', 'mm_posts_simple_list_hooks', 10, 2 );
 /**
  * Modify the default hooks.

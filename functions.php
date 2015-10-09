@@ -372,15 +372,14 @@ function mm_get_image_sizes_for_vc() {
  *
  * @return  array  The array of template names.
  */
-function mm_get_mm_posts_templates() {
+function mm_get_mm_posts_templates_for_vc() {
 
 	$templates = array(
 		__( 'Select a template', 'mm-components' ) => '',
-		__( 'Simple List', 'mm-components' ) => 'simple-list',
-		__( 'Image Grid', 'mm-components' ) => 'image-grid',
 	);
 
-	$templates = apply_filters( 'mm_components_mm_posts_templates', $templates );
+	// All core and custom templates should be registered using this filter.
+	$templates = apply_filters( 'mm_posts_templates', $templates );
 
 	return $templates;
 }
