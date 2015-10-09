@@ -376,8 +376,8 @@ function mm_get_mm_posts_templates() {
 
 	$templates = array(
 		__( 'Select a template', 'mm-components' ) => '',
-		__( 'Image Grid', 'mm-components' ) => 'image-grid',
 		__( 'Simple List', 'mm-components' ) => 'simple-list',
+		__( 'Image Grid', 'mm-components' ) => 'image-grid',
 	);
 
 	$templates = apply_filters( 'mm_components_mm_posts_templates', $templates );
