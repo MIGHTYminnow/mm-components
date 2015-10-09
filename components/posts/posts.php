@@ -176,6 +176,13 @@ function mm_posts_reset_default_hooks() {
 	remove_all_actions( 'mm_posts_content' );
 	remove_all_actions( 'mm_posts_footer' );
 	remove_all_actions( 'mm_posts_after' );
+
+	remove_all_filters( 'mm_posts_post_header' );
+	remove_all_filters( 'mm_posts_post_title' );
+	remove_all_filters( 'mm_posts_post_info' );
+	remove_all_filters( 'mm_posts_post_image' );
+	remove_all_filters( 'mm_posts_post_content' );
+	remove_all_filters( 'mm_posts_post_meta' );
 }
 
 /**
@@ -318,7 +325,7 @@ function mm_posts_output_post_image( $post, $context, $atts ) {
 
 		printf(
 			'<div class="entry-image"><a href="%s">%s</a></div>',
-			get_the_permalink( $post->ID ),
+			get_permalink( $post->ID ),
 			get_the_post_thumbnail( $post->ID, $image_size )
 		);
 	}

@@ -168,6 +168,16 @@
 	display: block;
 }
 
+.mm-posts .entry-image a {
+	opacity: 1;
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+}
+
+.mm-posts .entry-image a:hover {
+	opacity: 0.85;
+}
+
 .mm-posts .entry-meta-wrap {
 	clear: both;
 }
@@ -201,3 +211,65 @@
 .mm-posts.simple-list .post-edit-link {
 	display: none;
 }
+
+/* Image Grid */
+.mm-posts.image-grid::after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+.mm-posts.image-grid .mm-post {
+	float: left;
+	width: 100%;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.mm-posts.image-grid .entry-image {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 10px;
+	margin-right: 0;
+}
+
+.mm-posts.image-grid .entry-title {
+	line-height: 1.2;
+	font-size: 20px;
+	float: left;
+}
+
+.mm-posts.image-grid.titles-inside .mm-post {
+	margin-bottom: 0;
+}
+
+.mm-posts.image-grid.titles-inside .entry-image {
+	margin-bottom: 18px;
+}
+
+.mm-posts.image-grid.titles-inside .entry-title {
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 18px;
+	padding: 16px 10px;
+	pointer-events: none;
+}
+
+.mm-posts.image-grid.titles-inside .entry-title a {
+	color: #fff;
+}
+
+@media (min-width: 768px) {
+
+	.mm-posts.image-grid .mm-post {
+		width: 49%;
+		margin-right: 2%;
+		margin-bottom: 0px;
+	}
+
+	.mm-posts.image-grid .mm-post:nth-child( 2n ) {
+		margin-right: 0;
+	}
+}
+
+
