@@ -264,6 +264,16 @@
 	color: #fff;
 }
 
+.mm-posts.image-grid.no-gutter .mm-post,
+.mm-posts.image-grid.no-gutter .entry-image {
+	margin: 0;
+	padding: 0;
+}
+
+.mm-posts.image-grid.no-gutter .entry-title {
+	margin: 0;
+}
+
 @media (min-width: 768px) {
 
 	.mm-posts.image-grid .mm-post {
