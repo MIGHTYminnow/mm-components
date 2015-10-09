@@ -18,9 +18,6 @@ add_action( 'init', 'mm_vc_custom_component_atts', 15 );
 /**
  * Add shared Mm parameters/atts to all VC components.
  *
- * Uses priority 5 to ensure params are added before VC auto mapping,
- * which occurs on priority 10 in VC v4.5.2+.
- *
  * @since  1.0.0
  */
 function mm_vc_custom_component_atts() {

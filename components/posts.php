@@ -25,6 +25,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 		'taxonomy'            => '',
 		'term'                => '',
 		'limit'               => '',
+		'template'            => '',
 		'show_featured_image' => '',
 		'featured_image_size' => '',
 		'show_post_info'      => '',
@@ -32,16 +33,22 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 		'use_post_content'    => '',
 	), $atts );
 
-	// Set up our defaults.
+	// Sanitize passed in values and set up defaults.
 	$post_id   = ( 0 !== (int)$atts['post_id'] ) ? (int)$atts['post_id'] : '';
-	$post_type = ( '' !== $atts['post_type'] ) ? $atts['post_type'] : 'post';
-	$taxonomy  = ( '' !== $atts['taxonomy'] ) ? $atts['taxonomy'] : '';
-	$term      = ( '' !== $atts['term'] ) ? $atts['term'] : '';
-	$limit     = ( '' !== $atts['limit'] ) ? (int)$atts['limit'] : 10;
+	$post_type = ( ! empty( $atts['post_type'] ) ) ? sanitize_text_field( $atts['post_type'] ) : 'post';
+	$taxonomy  = ( ! empty( $atts['taxonomy'] ) ) ? sanitize_text_field( $atts['taxonomy'] ) : '';
+	$template  = ( ! empty( $atts['template'] ) ) ? sanitize_text_field( $atts['template'] ) : '';
+	$term      = ( ! empty( $atts['term'] ) ) ? sanitize_text_field( $atts['term'] ) : '';
+	$limit     = ( ! empty( $atts['limit'] ) ) ? (int)$atts['limit'] : 10;
 
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
 	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+
+	// Maybe add template class.
+	if ( $template ) {
+		$mm_classes = "$mm_classes $template";
+	}
 
 	// Set up the context we're in.
 	global $post;
@@ -264,7 +271,10 @@ function mm_posts_output_post_info( $post, $context, $atts ) {
 				$time
 			);
 
-			echo ' by ';
+			printf(
+				' %s ',
+				__( 'by', 'mm-components' )
+			);
 
 			printf(
 				'<a class="%s" href="%s">%s</a>',
@@ -450,7 +460,7 @@ function mm_posts_output_postmeta_value( $post_id, $key, $element = 'div' ) {
 
 add_filter( 'mm_posts_query_args', 'mm_posts_filter_from_query_args' );
 /**
- * Use specific query args present in the URL to alter the mm_posts query args.
+ * Use specific query args present in the URL to alter the mm_posts query.
  *
  * @since   1.0.0
  *
@@ -486,7 +496,7 @@ add_action( 'init', 'mm_vc_posts', 12 );
 /**
  * Visual Composer component.
  *
- * We're firing a bit later than usual because we want to come after all
+ * We're firing a bit late because we want to come after all
  * custom post types and taxonomies have been registered.
  *
  * @since  1.0.0
@@ -505,6 +515,7 @@ function mm_vc_posts() {
 	$post_types  = mm_get_post_types_for_vc();
 	$taxonomies  = mm_get_taxonomies_for_vc();
 	$image_sizes = mm_get_image_sizes_for_vc();
+	$templates   = mm_get_mm_posts_templates();
 
 	vc_map( array(
 		'name' => __( 'Posts', 'mm-components' ),
@@ -549,10 +560,17 @@ function mm_vc_posts() {
 				'value'       => '10',
 			),
 			array(
-				'type'        => 'checkbox',
-				'heading'     => __( 'Show the Featured Image', 'mm-components' ),
-				'param_name'  => 'show_featured_image',
-				'value'       => array(
+				'type'        => 'dropdown',
+				'heading'     => __( 'Template', 'mm-components' ),
+				'param_name'  => 'template',
+				'description' => __( 'Select a custom template for custom output', 'mm-components' ),
+				'value'       => $templates,
+			),
+			array(
+				'type'       => 'checkbox',
+				'heading'    => __( 'Show the Featured Image', 'mm-components' ),
+				'param_name' => 'show_featured_image',
+				'value'      => array(
 					__( 'Yes', 'mm-components' ) => 1,
 				),
 			),
@@ -560,11 +578,11 @@ function mm_vc_posts() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Featured Image Size', 'mm-components' ),
 				'param_name' => 'featured_image_size',
+				'value'      => $image_sizes,
 				'dependency' => array(
 					'element'   => 'show_featured_image',
 					'not_empty' => true,
 				),
-				'value' => $image_sizes,
 			),
 			array(
 				'type'        => 'checkbox',

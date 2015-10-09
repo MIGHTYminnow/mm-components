@@ -187,7 +187,7 @@ function mm_true_or_false( $value ) {
  *
  * @since   1.0.0
  *
- * @return  array  $post_types  The array of formatted post types.
+ * @return  array  The array of formatted post types.
  */
 function mm_get_post_types() {
 
@@ -220,7 +220,7 @@ function mm_get_post_types() {
  *
  * @since   1.0.0
  *
- * @return  array  $post_types  The array of formatted post types.
+ * @return  array  The array of formatted post types.
  */
 function mm_get_post_types_for_vc() {
 
@@ -254,7 +254,7 @@ function mm_get_post_types_for_vc() {
  *
  * @since   1.0.0
  *
- * @return  array  $taxonomies  The array of formatted taxonomies.
+ * @return  array  The array of formatted taxonomies.
  */
 function mm_get_taxonomies() {
 
@@ -285,7 +285,7 @@ function mm_get_taxonomies() {
  *
  * @since   1.0.0
  *
- * @return  array  $taxonomies  The array of formatted taxonomies.
+ * @return  array  The array of formatted taxonomies.
  */
 function mm_get_taxonomies_for_vc() {
 
@@ -317,7 +317,7 @@ function mm_get_taxonomies_for_vc() {
  *
  * @since   1.0.0
  *
- * @return  array  $taxonomies  The array of formatted image sizes.
+ * @return  array  The array of formatted image sizes.
  */
 function mm_get_image_sizes() {
 
@@ -341,7 +341,7 @@ function mm_get_image_sizes() {
  *
  * @since   1.0.0
  *
- * @return  array  $taxonomies  The array of formatted image sizes.
+ * @return  array  The array of formatted image sizes.
  */
 function mm_get_image_sizes_for_vc() {
 
@@ -363,4 +363,24 @@ function mm_get_image_sizes_for_vc() {
 	$formatted_image_sizes[ $full_size ] = 'full';
 
 	return $formatted_image_sizes;
+}
+
+/**
+ * Return an array of Mm Posts templates for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of template names.
+ */
+function mm_get_mm_posts_templates() {
+
+	$templates = array(
+		__( 'Select a template', 'mm-components' ) => '',
+		__( 'Image Grid', 'mm-components' ) => 'image-grid',
+		__( 'Simple List', 'mm-components' ) => 'simple-list',
+	);
+
+	$templates = apply_filters( 'mm_components_mm_posts_templates', $templates );
+
+	return $templates;
 }
