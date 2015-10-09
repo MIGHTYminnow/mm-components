@@ -29,7 +29,7 @@ function mm_posts_image_grid_hooks( $context, $atts ) {
 		return;
 	}
 
-	// Turn off some default output.
+	// Turn off all default output.
 	remove_action( 'mm_posts_header', 'mm_posts_output_post_header', 10 );
 	remove_action( 'mm_posts_content', 'mm_posts_output_post_image', 8 );
 	remove_action( 'mm_posts_content', 'mm_posts_output_post_content', 10 );
