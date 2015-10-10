@@ -252,7 +252,8 @@
 	margin-bottom: 18px;
 }
 
-.mm-posts.image-grid.titles-inside .entry-title {
+.mm-posts.image-grid.titles-inside .entry-title,
+.mm-posts.image-grid.titles-inside.mm-masonry .entry-title {
 	position: absolute;
 	bottom: 0;
 	margin-bottom: 18px;
@@ -263,6 +264,11 @@
 
 .mm-posts.image-grid.titles-inside .entry-title a {
 	color: #fff;
+}
+
+
+.mm-posts.image-grid.titles-inside.no-gutter.mm-masonry .entry-title {
+	margin-bottom: 0;
 }
 
 .mm-posts.image-grid.no-gutter .mm-post,
