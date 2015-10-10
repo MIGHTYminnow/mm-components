@@ -275,6 +275,13 @@
 	margin: 0;
 }
 
+@media (min-width: 480px) {
+
+	.mm-posts.image-grid .entry-title {
+		font-size: 24px;
+	}
+}
+
 @media (min-width: 768px) {
 
 	.mm-posts.image-grid .mm-post {
