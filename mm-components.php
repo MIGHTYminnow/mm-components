@@ -16,16 +16,38 @@ define( 'MM_COMPONENTS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MM_COMPONENTS_URL', plugin_dir_url( __FILE__ ) );
 define( 'MM_COMPONENTS_ASSETS_URL', MM_COMPONENTS_URL . 'assets/' );
 
-add_action( 'init', 'mm_components_start', 0 );
+// Include general functionality.
+require_once MM_COMPONENTS_PATH . 'functions.php';
+
+// Include widget base class.
+require_once MM_COMPONENTS_PATH . 'classes/class-mm-components-widget.php';
+
+// Maybe include admin class.
+if ( is_admin() ) {
+
+	require_once MM_COMPONENTS_PATH . 'classes/class-mm-components-admin.php';
+
+	new Mm_Components_Admin();
+}
+
+add_action( 'plugins_loaded', 'mm_components_load_textdomain' );
 /**
- * Start the plugin.
+ * Load the plugin textdomain.
+ *
+ * @since  1.0.0
+ */
+function mm_components_load_textdomain() {
+
+	load_plugin_textdomain( 'mm-components', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+
+add_action( 'init', 'mm_components_init_components', 0 );
+/**
+ * Initialize the components.
  *
  * @since    1.0.0
  */
-function mm_components_start() {
-
-	// Set up text domain.
-	load_plugin_textdomain( 'mm-components', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+function mm_components_init_components() {
 
 	// Set up array of all the components.
 	$mm_components = array(
@@ -50,12 +72,6 @@ function mm_components_start() {
 
 	// Store array of active components as a global.
 	$GLOBALS['mm_active_components'] = $mm_active_components;
-
-	// Include general functionality.
-	require_once MM_COMPONENTS_PATH . 'functions.php';
-
-	// Include widget base class.
-	require_once MM_COMPONENTS_PATH . 'classes/class-mm-components-widget.php';
 
 	// Include active components.
 	if ( array_key_exists( 'blockquote', $mm_active_components ) ) {
@@ -138,56 +154,4 @@ function mm_components_scripts_and_styles() {
 		MM_COMPONENTS_VERSION,
 		true
 	);
-}
-
-add_action( 'admin_enqueue_scripts', 'mm_components_admin_scripts_and_styles' );
-/**
- * Enqueue admin scripts and styles.
- *
- * @since  1.0.0
- */
-function mm_components_admin_scripts_and_styles( $hook ) {
-
-	// Alpha Color Picker CSS.
-	wp_register_style(
-		'alpha-color-picker',
-		MM_COMPONENTS_URL . 'lib/alpha-color-picker/alpha-color-picker.css',
-		array( 'wp-color-picker' ),
-		MM_COMPONENTS_VERSION
-	);
-
-	// Alpha Color Picker JS.
-	wp_register_script(
-		'alpha-color-picker',
-		MM_COMPONENTS_URL . 'lib/alpha-color-picker/alpha-color-picker.js',
-		array( 'jquery', 'wp-color-picker' ),
-		MM_COMPONENTS_VERSION,
-		true
-	);
-
-	// Mm Components Admin CSS.
-	wp_register_style(
-		'mm-components-admin',
-		MM_COMPONENTS_URL . 'css/mm-components-admin.css',
-		array(),
-		MM_COMPONENTS_VERSION
-	);
-
-	// Mm Components Admin JS.
-	wp_register_script(
-		'mm-components-admin',
-		MM_COMPONENTS_URL . 'js/mm-components-admin.js',
-		array(),
-		MM_COMPONENTS_VERSION,
-		true
-	);
-
-	// Only enqueue on specific admin pages.
-	if ( 'widgets.php' === $hook ) {
-		wp_enqueue_media();
-		wp_enqueue_style( 'alpha-color-picker' );
-		wp_enqueue_script( 'alpha-color-picker' );
-		wp_enqueue_style( 'mm-components-admin' );
-		wp_enqueue_script( 'mm-components-admin' );
-	}
 }
