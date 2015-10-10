@@ -158,15 +158,19 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 )
  */
 function mm_posts_register_default_hooks( $context, $atts ) {
 
+	if ( mm_true_or_false( $atts['masonry'] ) ) {
+		add_action( 'mm_posts_before', 'mm_posts_output_masonry_sizers', 10, 3 );
+	}
+
 	add_action( 'mm_posts_header', 'mm_posts_output_post_header', 10, 3 );
 
-	if ( 1 === (int)$atts['show_featured_image'] ) {
+	if ( mm_true_or_false( $atts['show_featured_image'] ) ) {
 		add_action( 'mm_posts_content', 'mm_posts_output_post_image', 8, 3 );
 	}
 
 	add_action( 'mm_posts_content', 'mm_posts_output_post_content', 10, 3 );
 
-	if ( 1 === (int)$atts['show_post_meta'] ) {
+	if ( mm_true_or_false( $atts['show_post_meta'] ) ) {
 		add_action( 'mm_posts_footer', 'mm_posts_output_post_meta', 10, 3 );
 	}
 }
@@ -191,6 +195,16 @@ function mm_posts_reset_default_hooks() {
 	remove_all_filters( 'mm_posts_post_image' );
 	remove_all_filters( 'mm_posts_post_content' );
 	remove_all_filters( 'mm_posts_post_meta' );
+}
+
+/**
+ * Output masonry sizers.
+ *
+ * @since  1.0.0
+ */
+function mm_posts_output_masonry_sizers() {
+
+	echo '<div class="mm-posts-masonry-gutter"></div>';
 }
 
 /**

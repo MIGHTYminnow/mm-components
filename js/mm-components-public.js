@@ -78,15 +78,20 @@
 
 	 	$( '.mm-posts.mm-masonry' ).each( function() {
 
-			var $this = $( this ).imagesLoaded( function() {
+	 		var options = {
+				itemSelector: '.mm-post',
+				percentPosition: true,
+				masonry: {
+					columnWidth: '.mm-post'
+				}
+			};
 
-				$this.isotope({
-					itemSelector: '.mm-post',
-					percentPosition: true,
-					masonry: {
-						columnWidth: '.mm-post'
-					}
-				});
+			if ( ! $( this ).hasClass( 'no-gutter' ) ) {
+				options.masonry.gutter = '.mm-posts-masonry-gutter';
+			}
+
+			var $this = $( this ).imagesLoaded( function() {
+				$this.isotope( options );
 			});
 	 	});
 	 }
