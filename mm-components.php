@@ -138,6 +138,24 @@ add_action( 'wp_enqueue_scripts', 'mm_components_scripts_and_styles' );
  */
 function mm_components_scripts_and_styles() {
 
+	// Register imagesLoaded
+	wp_register_script(
+		'mm-images-loaded',
+		MM_COMPONENTS_URL . 'lib/images-loaded/imagesloaded.pkgd.min.js',
+		array(),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
+	// Register isotope.
+	wp_register_script(
+		'mm-isotope',
+		MM_COMPONENTS_URL . 'lib/isotope/isotope.pkgd.min.js',
+		array( 'mm-images-loaded' ),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
 	// General styles.
 	wp_enqueue_style(
 		'mm-components',

@@ -68,11 +68,36 @@
 	};
 
 	/**
+	 * Masonry layouts for Mm Posts.
+	 */
+	 function mmPostsInitMasonry() {
+
+	 	if ( typeof $().isotope !== 'function' ) {
+	 		return;
+	 	}
+
+	 	$( '.mm-posts.mm-masonry' ).each( function() {
+
+			var $this = $( this ).imagesLoaded( function() {
+
+				$this.isotope({
+					itemSelector: '.mm-post',
+					percentPosition: true,
+					masonry: {
+						columnWidth: '.mm-post'
+					}
+				});
+			});
+	 	});
+	 }
+
+	/**
 	 * Start the party.
 	 */
 	$( document ).ready( function() {
 		mmSetupExpandableContent();
 		mmStartCountdowns();
+		mmPostsInitMasonry();
 	});
 
 })( jQuery );

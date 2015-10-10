@@ -31,6 +31,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 		'show_post_info'      => '',
 		'show_post_meta'      => '',
 		'use_post_content'    => '',
+		'masonry'             => '',
 	), $atts );
 
 	// Sanitize passed in values and set up defaults.
@@ -40,6 +41,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 	$template  = ( ! empty( $atts['template'] ) ) ? sanitize_text_field( $atts['template'] ) : '';
 	$term      = ( ! empty( $atts['term'] ) ) ? sanitize_text_field( $atts['term'] ) : '';
 	$limit     = ( ! empty( $atts['limit'] ) ) ? (int)$atts['limit'] : 10;
+	$masonry   = mm_true_or_false( $atts['masonry'] );
 
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
@@ -48,6 +50,12 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 	// Maybe add template class.
 	if ( $template ) {
 		$mm_classes = "$mm_classes $template";
+	}
+
+	// Maybe set up masonry.
+	if ( $masonry ) {
+		wp_enqueue_script( 'mm-isotope' );
+		$mm_classes = $mm_classes . ' mm-masonry';
 	}
 
 	// Set up the context we're in.
@@ -572,6 +580,14 @@ function mm_vc_posts() {
 				'param_name'  => 'template',
 				'description' => __( 'Select a custom template for custom output', 'mm-components' ),
 				'value'       => $templates,
+			),
+			array(
+				'type'       => 'checkbox',
+				'heading'    => __( 'Use Masonry', 'mm-components' ),
+				'param_name' => 'masonry',
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
 			),
 			array(
 				'type'       => 'checkbox',
