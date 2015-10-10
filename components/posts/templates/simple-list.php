@@ -36,16 +36,8 @@ function mm_posts_simple_list_hooks( $context, $atts ) {
 	remove_action( 'mm_posts_footer', 'mm_posts_output_post_meta', 10 );
 
 	// Include our custom output.
-	add_action( 'mm_posts_content', 'mm_posts_simple_list_title', 10, 3 );
+	add_action( 'mm_posts_content', 'mm_posts_output_post_title', 10, 3 );
 	add_action( 'mm_posts_content', 'mm_posts_simple_list_info', 11, 3 );
-}
-
-/**
- * Output the post title.
- */
-function mm_posts_simple_list_title( $post, $context, $atts ) {
-
-	mm_posts_output_post_title( $post, $context, $atts );
 }
 
 /**
