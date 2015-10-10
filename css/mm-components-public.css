@@ -285,6 +285,11 @@
 	.mm-posts.image-grid .mm-post:nth-child( 2n ) {
 		margin-right: 0;
 	}
+
+	.mm-posts.image-grid.no-gutter .mm-post {
+		width: 50%;
+		margin: 0;
+	}
 }
 
 
