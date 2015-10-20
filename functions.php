@@ -183,6 +183,29 @@ function mm_true_or_false( $value ) {
 }
 
 /**
+ * Utility function to check if a user has a specific role.
+ *
+ * @since  1.0.0
+ *
+ * @param  string  $role     The role we want to check.
+ * @param  int     $user_id  The current user's ID.
+ */
+function mm_check_user_role( $role, $user_id = null ) {
+
+    if ( is_numeric( $user_id ) ) {
+        $user = get_userdata( $user_id );
+    } else {
+        $user = wp_get_current_user();
+    }
+
+    if ( empty( $user ) ) {
+        return false;
+    }
+
+    return in_array( $role, (array)$user->roles );
+}
+
+/**
  * Return an array of all public post types.
  *
  * @since   1.0.0
@@ -382,4 +405,27 @@ function mm_get_mm_posts_templates_for_vc() {
 	$templates = apply_filters( 'mm_posts_templates', $templates );
 
 	return $templates;
+}
+
+/**
+ * Return an array of registered user roles for use in a Visual Composer checkbox param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of user roles.
+ */
+function mm_get_user_roles_for_vc() {
+
+	global $wp_roles;
+
+	$user_roles = array();
+
+	foreach ( $wp_roles->roles as $role => $role_params ) {
+
+		$role_name = ( isset( $role_params['name'] ) ) ? $role_params['name'] : $role;
+
+		$user_roles[ $role_name ] = $role;
+	}
+
+	return $user_roles;
 }
