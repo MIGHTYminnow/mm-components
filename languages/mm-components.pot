@@ -1,0 +1,940 @@
+# Copyright (C) 2015 MIGHTYminnow Web Studio
+# This file is distributed under the GPL2+.
+msgid ""
+msgstr ""
+"Project-Id-Version: MIGHTYminnow Components 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mm-components\n"
+"POT-Creation-Date: 2015-10-20 05:56:15+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 0.5.3\n"
+
+#: classes/class-mm-components-widget.php:237
+msgid "No File Selected"
+msgstr ""
+
+#: classes/class-mm-components-widget.php:238
+msgid "Media Item"
+msgstr ""
+
+#: classes/class-mm-components-widget.php:241
+msgid "Select Image"
+msgstr ""
+
+#: classes/class-mm-components-widget.php:242
+#: classes/class-mm-components-widget.php:289
+msgid "Clear"
+msgstr ""
+
+#: classes/class-mm-components-widget.php:271
+msgid "No Files Selected"
+msgstr ""
+
+#: classes/class-mm-components-widget.php:280
+#: classes/class-mm-components-widget.php:281
+msgid "Media Items"
+msgstr ""
+
+#: classes/class-mm-components-widget.php:288
+msgid "Select Images"
+msgstr ""
+
+#: components/blockquote.php:70 mm-components.php:54
+msgid "Blockquote"
+msgstr ""
+
+#: components/blockquote.php:74 components/button.php:81
+#: components/countdown/countdown.php:102 components/custom-heading.php:118
+#: components/demo.php:76 components/hero-banner.php:169
+#: components/highlight-box.php:103 components/icon-box.php:162
+#: components/logo-strip.php:103 components/polaroid-2.php:89
+#: components/polaroid.php:124 components/posts/posts.php:554
+#: components/twitter-feed.php:112
+msgid "Content"
+msgstr ""
+
+#: components/blockquote.php:78 components/image-grid.php:222
+#: components/logo-strip.php:273
+msgid "Image"
+msgstr ""
+
+#: components/blockquote.php:80
+msgid "Select an image from the library."
+msgstr ""
+
+#: components/blockquote.php:84 components/blockquote.php:228
+msgid "Quote"
+msgstr ""
+
+#: components/blockquote.php:89 components/blockquote.php:236
+msgid "Citation"
+msgstr ""
+
+#: components/blockquote.php:131
+msgid "A Blockquote"
+msgstr ""
+
+#: components/blockquote.php:136
+msgid "Mm Blockquote"
+msgstr ""
+
+#: components/blockquote.php:212 components/highlight-box.php:240
+#: components/image-grid.php:169 components/logo-strip.php:107
+#: components/logo-strip.php:244 components/polaroid-2.php:93
+#: components/polaroid.php:128
+msgid "Title"
+msgstr ""
+
+#: components/blockquote.php:220
+msgid "Image ID"
+msgstr ""
+
+#: components/button.php:77 components/expandable-content.php:93
+#: mm-components.php:55
+msgid "Button"
+msgstr ""
+
+#: components/button.php:85 components/hero-banner.php:241
+msgid "Button URL"
+msgstr ""
+
+#: components/button.php:91 components/hero-banner.php:268
+msgid "Button Style"
+msgstr ""
+
+#: components/button.php:94 components/button.php:129
+#: components/custom-heading.php:153 components/custom-heading.php:161
+#: components/custom-heading.php:178 components/custom-heading.php:195
+#: components/hero-banner.php:280 functions.php:352
+#: integrations/visual-composer/vc-functions.php:38
+#: integrations/visual-composer/vc-functions.php:52
+msgid "Default"
+msgstr ""
+
+#: components/button.php:99
+msgid "Border Style"
+msgstr ""
+
+#: components/button.php:102 components/custom-heading.php:186
+#: components/hero-banner.php:191
+msgid "None"
+msgstr ""
+
+#: components/button.php:103
+msgid "Thin"
+msgstr ""
+
+#: components/button.php:104
+msgid "Thick"
+msgstr ""
+
+#: components/button.php:109 components/custom-heading.php:175
+msgid "Color"
+msgstr ""
+
+#: components/button.php:112 components/hero-banner.php:283
+msgid "Gray"
+msgstr ""
+
+#: components/button.php:117
+msgid "Button Size"
+msgstr ""
+
+#: components/button.php:120
+msgid "Normal"
+msgstr ""
+
+#: components/button.php:121
+msgid "Large"
+msgstr ""
+
+#: components/button.php:126
+msgid "Button Alignment"
+msgstr ""
+
+#: components/button.php:130 components/custom-heading.php:196
+#: components/expandable-content.php:111 components/hero-banner.php:225
+#: components/logo-strip.php:118 components/logo-strip.php:257
+#: integrations/visual-composer/vc-functions.php:53
+msgid "Left"
+msgstr ""
+
+#: components/button.php:131 components/custom-heading.php:197
+#: components/expandable-content.php:112 components/hero-banner.php:226
+#: components/logo-strip.php:119 components/logo-strip.php:258
+#: integrations/visual-composer/vc-functions.php:54
+msgid "Center"
+msgstr ""
+
+#: components/button.php:132 components/custom-heading.php:198
+msgid "Right "
+msgstr ""
+
+#: components/button.php:137 components/hero-banner.php:263
+msgid "Button Text"
+msgstr ""
+
+#: components/countdown/countdown.php:98 mm-components.php:56
+msgid "Countdown"
+msgstr ""
+
+#: components/countdown/countdown.php:107
+msgid "Date"
+msgstr ""
+
+#: components/countdown/countdown.php:111
+msgid ""
+"Must be in the format MM/DD/YYYY. Example: 12/25/2015 would be Christmas of "
+"2015."
+msgstr ""
+
+#: components/countdown/countdown.php:116
+msgid "Time"
+msgstr ""
+
+#: components/countdown/countdown.php:119
+msgid "Must be in the format HH:MM:SS. Example: 18:30:00 would be 6:30 PM."
+msgstr ""
+
+#: components/countdown/countdown.php:124
+msgid "Time Zone"
+msgstr ""
+
+#: components/custom-heading.php:114 mm-components.php:57
+msgid "Custom Heading"
+msgstr ""
+
+#: components/custom-heading.php:122 components/highlight-box.php:248
+msgid "Heading Text"
+msgstr ""
+
+#: components/custom-heading.php:129
+msgid "Heading Level"
+msgstr ""
+
+#: components/custom-heading.php:133
+msgid "h1"
+msgstr ""
+
+#: components/custom-heading.php:134
+msgid "h2"
+msgstr ""
+
+#: components/custom-heading.php:135
+msgid "h3"
+msgstr ""
+
+#: components/custom-heading.php:136
+msgid "h4"
+msgstr ""
+
+#: components/custom-heading.php:137
+msgid "h5"
+msgstr ""
+
+#: components/custom-heading.php:138
+msgid "h6"
+msgstr ""
+
+#: components/custom-heading.php:143
+msgid "Margin Bottom"
+msgstr ""
+
+#: components/custom-heading.php:146
+msgid ""
+"Leave blank for default or use a number value (number of pixels). Example: "
+"16"
+msgstr ""
+
+#: components/custom-heading.php:150
+msgid "Font Family"
+msgstr ""
+
+#: components/custom-heading.php:158
+msgid "Font Size"
+msgstr ""
+
+#: components/custom-heading.php:162
+msgid "50px"
+msgstr ""
+
+#: components/custom-heading.php:163
+msgid "48px"
+msgstr ""
+
+#: components/custom-heading.php:164
+msgid "40px"
+msgstr ""
+
+#: components/custom-heading.php:165
+msgid "36px"
+msgstr ""
+
+#: components/custom-heading.php:166
+msgid "30px"
+msgstr ""
+
+#: components/custom-heading.php:167
+msgid "24px"
+msgstr ""
+
+#: components/custom-heading.php:168
+msgid "16px"
+msgstr ""
+
+#: components/custom-heading.php:169
+msgid "14px"
+msgstr ""
+
+#: components/custom-heading.php:170
+msgid "12px"
+msgstr ""
+
+#: components/custom-heading.php:183
+msgid "Text Transform"
+msgstr ""
+
+#: components/custom-heading.php:187
+msgid "Uppercase"
+msgstr ""
+
+#: components/custom-heading.php:192
+msgid "Text Align"
+msgstr ""
+
+#: components/custom-heading.php:203
+msgid "Heading Link"
+msgstr ""
+
+#: components/demo.php:48
+msgid "Text Field:"
+msgstr ""
+
+#: components/demo.php:49
+msgid "Alpha Color Field:"
+msgstr ""
+
+#: components/demo.php:50
+msgid "Single Media Field:"
+msgstr ""
+
+#: components/demo.php:51
+msgid "Multi Media Field:"
+msgstr ""
+
+#: components/demo.php:72
+msgid "Demo"
+msgstr ""
+
+#: components/demo.php:80 components/demo.php:209
+msgid "Text Field"
+msgstr ""
+
+#: components/demo.php:123
+msgid "A Demo"
+msgstr ""
+
+#: components/demo.php:128
+msgid "Mm Demo"
+msgstr ""
+
+#: components/demo.php:217
+msgid "Alpha Color Field"
+msgstr ""
+
+#: components/demo.php:234
+msgid "Single Media Field"
+msgstr ""
+
+#: components/demo.php:242
+msgid "Multi Media Field"
+msgstr ""
+
+#: components/expandable-content.php:80 mm-components.php:58
+msgid "Expandable Content"
+msgstr ""
+
+#: components/expandable-content.php:88
+msgid "Button or Link?"
+msgstr ""
+
+#: components/expandable-content.php:90
+msgid "Should the trigger be a button or a link?"
+msgstr ""
+
+#: components/expandable-content.php:92
+msgid "Select Button or Link"
+msgstr ""
+
+#: components/expandable-content.php:94 components/highlight-box.php:272
+#: components/image-grid.php:228
+msgid "Link"
+msgstr ""
+
+#: components/expandable-content.php:99
+msgid "Button/Link Text"
+msgstr ""
+
+#: components/expandable-content.php:101
+msgid "The text for the button/link"
+msgstr ""
+
+#: components/expandable-content.php:107
+msgid "Button/Link Alignment"
+msgstr ""
+
+#: components/expandable-content.php:110
+msgid "Select Left, Center, or Right"
+msgstr ""
+
+#: components/expandable-content.php:113 components/hero-banner.php:227
+#: components/logo-strip.php:120 components/logo-strip.php:259
+#: integrations/visual-composer/vc-functions.php:55
+msgid "Right"
+msgstr ""
+
+#: components/expandable-content.php:118
+msgid "Fade in?"
+msgstr ""
+
+#: components/expandable-content.php:121 components/posts/posts.php:603
+#: components/posts/posts.php:611 components/posts/posts.php:630
+#: components/posts/posts.php:639 components/posts/posts.php:648
+msgid "Yes"
+msgstr ""
+
+#: components/expandable-content.php:126 components/image-grid.php:193
+msgid "Extra class name"
+msgstr ""
+
+#: components/expandable-content.php:128
+msgid ""
+"Style particular content element differently - add a class name and refer "
+"to it in custom CSS."
+msgstr ""
+
+#: components/hero-banner.php:33
+msgid "Read More"
+msgstr ""
+
+#: components/hero-banner.php:166 mm-components.php:59
+msgid "Hero Banner"
+msgstr ""
+
+#: components/hero-banner.php:173
+msgid "Background Image"
+msgstr ""
+
+#: components/hero-banner.php:178
+msgid "Background Position"
+msgstr ""
+
+#: components/hero-banner.php:181
+msgid "CSS background position value (%sread more%s). Defaults to: center center."
+msgstr ""
+
+#: components/hero-banner.php:188
+msgid "Overlay Color"
+msgstr ""
+
+#: components/hero-banner.php:192
+msgid "Black"
+msgstr ""
+
+#: components/hero-banner.php:193 components/hero-banner.php:282
+msgid "White"
+msgstr ""
+
+#: components/hero-banner.php:198
+msgid "Overlay Opacity"
+msgstr ""
+
+#: components/hero-banner.php:211 components/highlight-box.php:107
+#: components/icon-box.php:268 components/twitter-feed.php:116
+msgid "Heading"
+msgstr ""
+
+#: components/hero-banner.php:217 components/highlight-box.php:113
+#: components/highlight-box.php:256 components/icon-box.php:274
+msgid "Paragraph Text"
+msgstr ""
+
+#: components/hero-banner.php:222
+msgid "Text Position"
+msgstr ""
+
+#: components/hero-banner.php:232
+msgid "Button Type"
+msgstr ""
+
+#: components/hero-banner.php:235
+msgid "Standard"
+msgstr ""
+
+#: components/hero-banner.php:236
+msgid "Video"
+msgstr ""
+
+#: components/hero-banner.php:252
+msgid "Video URL"
+msgstr ""
+
+#: components/hero-banner.php:271
+msgid "Default (solid)"
+msgstr ""
+
+#: components/hero-banner.php:272
+msgid "Ghost (transparent background, white border)"
+msgstr ""
+
+#: components/hero-banner.php:277
+msgid "Button Color"
+msgstr ""
+
+#: components/hero-banner.php:281
+msgid "Pink"
+msgstr ""
+
+#: components/hero-banner.php:294
+msgid "Secondary Call to Action"
+msgstr ""
+
+#: components/hero-banner.php:296
+msgid "Outputs below the main button, can include HTML markup."
+msgstr ""
+
+#: components/highlight-box.php:99 mm-components.php:60
+msgid "Highlight Box"
+msgstr ""
+
+#: components/highlight-box.php:118 components/highlight-box.php:264
+#: components/icon-box.php:284 components/polaroid.php:149
+msgid "Link Text"
+msgstr ""
+
+#: components/highlight-box.php:123 components/icon-box.php:279
+#: components/polaroid-2.php:122 components/polaroid.php:156
+msgid "Link URL"
+msgstr ""
+
+#: components/highlight-box.php:165
+msgid "A Highlight Box"
+msgstr ""
+
+#: components/highlight-box.php:170
+msgid "Mm Highlight Box"
+msgstr ""
+
+#: components/icon-box.php:33
+msgid "Read more"
+msgstr ""
+
+#: components/icon-box.php:158 mm-components.php:61
+msgid "Icon Box"
+msgstr ""
+
+#: components/icon-box.php:166
+msgid "Icon library"
+msgstr ""
+
+#: components/icon-box.php:168
+msgid "Font Awesome"
+msgstr ""
+
+#: components/icon-box.php:169
+msgid "Open Iconic"
+msgstr ""
+
+#: components/icon-box.php:170
+msgid "Typicons"
+msgstr ""
+
+#: components/icon-box.php:171
+msgid "Entypo"
+msgstr ""
+
+#: components/icon-box.php:172
+msgid "Linecons"
+msgstr ""
+
+#: components/icon-box.php:173
+msgid "Pixel"
+msgstr ""
+
+#: components/icon-box.php:176
+msgid "Select icon library."
+msgstr ""
+
+#: components/icon-box.php:180 components/icon-box.php:194
+#: components/icon-box.php:209 components/icon-box.php:224
+#: components/icon-box.php:238 components/icon-box.php:253
+msgid "Icon"
+msgstr ""
+
+#: components/icon-box.php:190 components/icon-box.php:205
+#: components/icon-box.php:220 components/icon-box.php:249
+#: components/icon-box.php:264
+msgid "Select icon from library."
+msgstr ""
+
+#: components/image-grid.php:159 components/posts/templates/image-grid.php:14
+#: mm-components.php:62
+msgid "Image Grid"
+msgstr ""
+
+#: components/image-grid.php:174 components/image-grid.php:233
+msgid "Style"
+msgstr ""
+
+#: components/image-grid.php:177
+msgid "Select an Image Style"
+msgstr ""
+
+#: components/image-grid.php:178
+msgid "Full Image"
+msgstr ""
+
+#: components/image-grid.php:179
+msgid "Thumbnail/Text Card"
+msgstr ""
+
+#: components/image-grid.php:184
+msgid "Max in Row"
+msgstr ""
+
+#: components/image-grid.php:186
+msgid "Select the max number of images that should show in a single row"
+msgstr ""
+
+#: components/image-grid.php:188
+msgid "Select an Number"
+msgstr ""
+
+#: components/image-grid.php:195
+msgid ""
+"If you wish to style particular content element differently, then use this "
+"field to add a class name and then refer to it in your css file."
+msgstr ""
+
+#: components/image-grid.php:203
+msgid "Image Grid Image"
+msgstr ""
+
+#: components/image-grid.php:211
+msgid "Caption/Title"
+msgstr ""
+
+#: components/image-grid.php:217
+msgid "Subtitle"
+msgstr ""
+
+#: components/image-grid.php:235
+msgid ""
+"You cannot set styles for individual Image Grid Images. Instead, set the "
+"style for the parent Image Grid container (the Visual Composer component "
+"that contains this image)."
+msgstr ""
+
+#: components/logo-strip.php:99 mm-components.php:63
+msgid "Logo Strip"
+msgstr ""
+
+#: components/logo-strip.php:114 components/logo-strip.php:252
+msgid "Title Alignment"
+msgstr ""
+
+#: components/logo-strip.php:117
+msgid "Select a Title Alignment"
+msgstr ""
+
+#: components/logo-strip.php:125
+msgid "Logos"
+msgstr ""
+
+#: components/logo-strip.php:127
+msgid "The bigger the image size, the better"
+msgstr ""
+
+#: components/logo-strip.php:132
+msgid "Logo Image Size"
+msgstr ""
+
+#: components/logo-strip.php:176
+msgid "A Logo Strip"
+msgstr ""
+
+#: components/logo-strip.php:181
+msgid "Mm Logo Strip"
+msgstr ""
+
+#: components/logo-strip.php:265
+msgid "Images"
+msgstr ""
+
+#: components/polaroid-2.php:85 mm-components.php:65
+msgid "Polaroid 2"
+msgstr ""
+
+#: components/polaroid-2.php:100 components/polaroid.php:135
+msgid "Main Image"
+msgstr ""
+
+#: components/polaroid-2.php:107
+msgid "Caption"
+msgstr ""
+
+#: components/polaroid-2.php:113
+msgid "Caption Color"
+msgstr ""
+
+#: components/polaroid-2.php:116
+#: integrations/visual-composer/vc-functions.php:40
+msgid "Light"
+msgstr ""
+
+#: components/polaroid-2.php:117
+#: integrations/visual-composer/vc-functions.php:39
+msgid "Dark"
+msgstr ""
+
+#: components/polaroid.php:28
+msgid "Visit campaign"
+msgstr ""
+
+#: components/polaroid.php:76
+msgid "Campaign image"
+msgstr ""
+
+#: components/polaroid.php:84
+msgid "Campaign author image"
+msgstr ""
+
+#: components/polaroid.php:120 mm-components.php:64
+msgid "Polaroid"
+msgstr ""
+
+#: components/polaroid.php:142
+msgid "Author Image"
+msgstr ""
+
+#: components/polaroid.php:152
+msgid "Defaults to \"Visit campaign\"."
+msgstr ""
+
+#: components/polaroid.php:162
+msgid "Text"
+msgstr ""
+
+#: components/posts/posts.php:305
+msgid "by"
+msgstr ""
+
+#: components/posts/posts.php:550 mm-components.php:66
+msgid "Posts"
+msgstr ""
+
+#: components/posts/posts.php:558
+msgid "Post ID"
+msgstr ""
+
+#: components/posts/posts.php:560
+msgid "Enter a post ID to display a single post"
+msgstr ""
+
+#: components/posts/posts.php:565
+msgid "Post Type"
+msgstr ""
+
+#: components/posts/posts.php:567
+msgid "Select a post type to display multiple posts"
+msgstr ""
+
+#: components/posts/posts.php:572
+msgid "Taxonomy"
+msgstr ""
+
+#: components/posts/posts.php:574
+msgid "Select a taxonomy and term to only include posts that have the term"
+msgstr ""
+
+#: components/posts/posts.php:579
+msgid "Term"
+msgstr ""
+
+#: components/posts/posts.php:581
+msgid ""
+"Specify a term in the selected taxonomy to only include posts that have the "
+"term"
+msgstr ""
+
+#: components/posts/posts.php:586
+msgid "Number of Posts"
+msgstr ""
+
+#: components/posts/posts.php:588
+msgid "Specify the number of posts to show"
+msgstr ""
+
+#: components/posts/posts.php:593
+msgid "Template"
+msgstr ""
+
+#: components/posts/posts.php:595
+msgid "Select a custom template for custom output"
+msgstr ""
+
+#: components/posts/posts.php:600
+msgid "Use Masonry"
+msgstr ""
+
+#: components/posts/posts.php:608
+msgid "Show the Featured Image"
+msgstr ""
+
+#: components/posts/posts.php:616
+msgid "Featured Image Size"
+msgstr ""
+
+#: components/posts/posts.php:626
+msgid "Show post info"
+msgstr ""
+
+#: components/posts/posts.php:628
+msgid "Default post info output includes post date and author."
+msgstr ""
+
+#: components/posts/posts.php:635
+msgid "Show post meta"
+msgstr ""
+
+#: components/posts/posts.php:637
+msgid "Default post meta output includes category and tag links."
+msgstr ""
+
+#: components/posts/posts.php:644
+msgid "Use full post content."
+msgstr ""
+
+#: components/posts/posts.php:646
+msgid ""
+"By default the excerpt will be used. Check this to output the full post "
+"content."
+msgstr ""
+
+#: components/posts/templates/simple-list.php:14
+msgid "Simple List"
+msgstr ""
+
+#: components/twitter-feed.php:98
+msgid "Default (%s) - set via Fetch Tweets settings"
+msgstr ""
+
+#: components/twitter-feed.php:108 mm-components.php:67
+msgid "Twitter Feed"
+msgstr ""
+
+#: components/twitter-feed.php:119
+msgid "Heading to output above tweets"
+msgstr ""
+
+#: components/twitter-feed.php:123
+msgid "Users"
+msgstr ""
+
+#: components/twitter-feed.php:127
+msgid "Comma separated list of user names (without the @ symbol). E.g. Mm, MmLife"
+msgstr ""
+
+#: components/twitter-feed.php:131
+msgid "Output"
+msgstr ""
+
+#: components/twitter-feed.php:137
+msgid "Number of tweets to show"
+msgstr ""
+
+#: components/twitter-feed.php:139
+msgid "Defaults to 10"
+msgstr ""
+
+#: functions.php:87
+msgid "Upload an image that is large enough to be output without stretching."
+msgstr ""
+
+#: functions.php:105
+msgid ""
+"Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that "
+"it is not stretched."
+msgstr ""
+
+#: functions.php:210 functions.php:244
+msgid "Post"
+msgstr ""
+
+#: functions.php:243
+msgid "Select a Post Type"
+msgstr ""
+
+#: functions.php:270 functions.php:302
+msgid "Category"
+msgstr ""
+
+#: functions.php:271 functions.php:303
+msgid "Tag"
+msgstr ""
+
+#: functions.php:301
+msgid "Select a Taxonomy"
+msgstr ""
+
+#: functions.php:334 functions.php:362
+msgid "Full"
+msgstr ""
+
+#: functions.php:378
+msgid "Select a template"
+msgstr ""
+
+#: integrations/visual-composer/vc-functions.php:29
+msgid "Mm Custom Settings"
+msgstr ""
+
+#: integrations/visual-composer/vc-functions.php:34
+msgid "Text Color Scheme"
+msgstr ""
+
+#: integrations/visual-composer/vc-functions.php:41
+msgid "Medium"
+msgstr ""
+
+#: integrations/visual-composer/vc-functions.php:48
+msgid "Text Alignment"
+msgstr ""
+
+#: integrations/visual-composer/vc-functions.php:62
+msgid "Custom Class"
+msgstr ""
+
+#: integrations/visual-composer/vc-functions.php:111
+msgid "Mm Components Demo"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "MIGHTYminnow Components"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://mightyminnow.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Custom components and functionality for WordPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "MIGHTYminnow Web Studio"
+msgstr ""
