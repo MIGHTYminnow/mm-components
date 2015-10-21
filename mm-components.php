@@ -176,29 +176,34 @@ function mm_components_scripts_and_styles() {
 
 add_filter( 'mm_components_custom_classes', 'mm_components_custom_classes', 10, 3 );
 /**
- * Add custom shortcode classes.
+ * Add custom component classes.
  *
- * The following atts are parsed into classes by this function:
+ * The following things are parsed into classes by this function:
  *
- * 1. Atts whose key begins with: mm_class_*.
- * 2. The custom class att defined by $custom_class_key below.
+ * 1. The component name.
+ * 2. Atts whose key begins with: mm_class_*.
+ * 3. The custom class att defined by $custom_class_key below.
  *
  * @since   1.0.0
  *
- * @param   string  $classes  Initial classes.
- * @param   string  $tag      Shortcode tag.
- * @param   array   $atts     Shortcoder atts.
+ * @param   string  $classes    Initial classes.
+ * @param   string  $component  The component name.
+ * @param   array   $atts       The component atts.
  *
- * @return  string            Modified classes.
+ * @return  string              The custom classes.
  */
-function mm_components_custom_classes( $classes, $tag, $atts ) {
+function mm_components_custom_classes( $classes, $component, $atts ) {
+
+	// Add the component name class.
+	$component_class = str_replace( ' ', '-', str_replace( '_', '-', $component ) );
+	$classes = ( $classes ) ? "{$component_class} {$classes}" : "{$component_class}";
 
 	// Define attribute key identifiers.
 	$custom_class_prefix = 'mm_class_';
 	$new_custom_class_prefix = 'mm-';
 	$custom_class_key = 'mm_custom_class';
 
-	// Set up classes array.
+	// Set up the classes array.
 	$class_array = explode( ' ', $classes );
 
 	// Loop through each att and add class as needed.
@@ -215,7 +220,7 @@ function mm_components_custom_classes( $classes, $tag, $atts ) {
 		}
 	}
 
-	// Add mm_custom_class att as unprefixed class.
+	// Add mm_custom_class att as an unprefixed class.
 	if ( ! empty ( $atts[ $custom_class_key ] ) ) {
 		$class_array[] = $atts[ $custom_class_key ];
 	}
