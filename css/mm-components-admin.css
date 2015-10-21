@@ -17,6 +17,14 @@
   display: block;
 }
 
+.mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-image-preview {
+  display: none;
+}
+
+.mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-no-image {
+  display: block;
+}
+
 .mm-single-media-wrap .mm-single-media-no-image {
   display: none;
   border: 1px solid #eee;
@@ -32,34 +40,16 @@
   border-color: #999;
 }
 
-.mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-image-preview {
-  display: none;
-}
-
-.mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-no-image {
-  display: block;
-}
-
-.mm-single-media-wrap .mm-single-media-image-preview {
-  display: block;
-  max-width: 100%;
-  width: auto;
-  height: auto;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-bottom: 10px;
-  border-radius: 2px;
-  border: 0;
-}
-
-.mm-single-media-wrap .mm-single-media-image-preview:hover {
-  border-color: #999;
-}
-
 /* Multi media upload field
 --------------------------------------------- */
 .mm-multi-media-wrap {
   display: block;
+}
+
+.mm-multi-media-wrap::after {
+  content: '';
+  display: table;
+  width: 100%;
 }
 
 .mm-multi-media-wrap .mm-multi-media-images-preview-wrap {
@@ -68,11 +58,18 @@
   display: block;
 }
 
-.mm-multi-media-wrap::after,
 .mm-multi-media-wrap .mm-multi-media-images-preview-wrap::after {
   content: '';
   display: table;
   width: 100%;
+}
+
+.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .multi-media-images-preview {
+  display: none;
+}
+
+.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .mm-multi-media-no-images {
+  display: block;
 }
 
 .mm-multi-media-wrap .mm-multi-media-no-images {
@@ -88,14 +85,6 @@
 
 .mm-multi-media-wrap .mm-multi-media-no-images:hover {
   border-color: #999;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .mm-multi-media-images-preview {
-  display: none;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .mm-multi-media-no-images {
-  display: block;
 }
 
 .mm-multi-media-wrap .mm-multi-media-images-preview {
@@ -116,6 +105,8 @@
   border-color: #999;
 }
 
-.mm-multi-media-wrap .mm-multi-media-images-preview:nth-child(2n + 1) {
+.mm-multi-media-wrap .mm-multi-media-images-preview:nth-child(2n+1) {
   margin-right: 0;
 }
+
+/*# sourceMappingURL=mm-components-admin.css.map */

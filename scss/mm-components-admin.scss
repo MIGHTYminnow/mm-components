@@ -4,6 +4,25 @@
  * @since  1.0.0
  */
 
+
+// Mixins
+@mixin clearfix {
+	content: '';
+	display: table;
+	width: 100%;
+}
+
+@mixin media-wrap {
+	display: none;
+	border: 1px solid #eee;
+	line-height: 20px;
+	text-align: center;
+	padding: 12px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	transition: border-color 0.3s;
+}
+
 /* Widget fields
 ---------------------------------------------------------------------------------------------------- */
 
@@ -12,53 +31,25 @@
 
 .mm-single-media-wrap {
 	display: block;
-}
-
-.mm-single-media-wrap .mm-single-media-image-preview-wrap {
-	max-width: 100%;
-	padding: 0;
-	display: block;
-}
-
-.mm-single-media-wrap .mm-single-media-no-image {
-	display: none;
-	border: 1px solid #eee;
-	line-height: 20px;
-	text-align: center;
-	padding: 12px;
-	margin-bottom: 10px;
-	cursor: pointer;
-	-webkit-transition: border-color 0.3s;
-	transition: border-color 0.3s;
-}
-
-.mm-single-media-wrap .mm-single-media-no-image:hover {
-	border-color: #999;
-}
-
-.mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-image-preview {
-	display: none;
-}
-
-.mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-no-image {
-	display: block;
-}
-
-.mm-single-media-wrap .mm-single-media-image-preview {
-	display: block;
-	max-width: 100%;
-	width: auto;
-	height: auto;
-	cursor: pointer;
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
-	margin-bottom: 10px;
-	border-radius: 2px;
-	border: 0;
-}
-
-.mm-single-media-wrap .mm-single-media-image-preview:hover {
-	border-color: #999;
+	.mm-single-media-image-preview-wrap {
+		max-width: 100%;
+		padding: 0;
+		display: block;
+		&.no-image {
+			.mm-single-media-image-preview {
+				display: none;
+			}
+			.mm-single-media-no-image {
+				display: block;
+			}
+		}
+	}
+	.mm-single-media-no-image {
+		@include media-wrap;
+		&:hover {
+			border-color: #999;
+		}
+	}
 }
 
 /* Multi media upload field
@@ -66,64 +57,48 @@
 
 .mm-multi-media-wrap {
 	display: block;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview-wrap {
-	max-width: 100%;
-	padding: 0;
-	display: block;
-}
-
-.mm-multi-media-wrap::after,
-.mm-multi-media-wrap .mm-multi-media-images-preview-wrap::after {
-	content: '';
-	display: table;
-	width: 100%;
-}
-
-.mm-multi-media-wrap .mm-multi-media-no-images {
-	display: none;
-	border: 1px solid #eee;
-	line-height: 20px;
-	text-align: center;
-	padding: 12px;
-	margin-bottom: 10px;
-	cursor: pointer;
-	-webkit-transition: border-color 0.3s;
-	transition: border-color 0.3s;
-}
-
-.mm-multi-media-wrap .mm-multi-media-no-images:hover {
-	border-color: #999;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .mm-multi-media-images-preview {
-	display: none;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .mm-multi-media-no-images {
-	display: block;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview {
-	display: block;
-	max-width: 100%;
-	width: 49%;
-	margin-right: 2%;
-	float: left;
-	height: auto;
-	cursor: pointer;
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
-	margin-bottom: 10px;
-	border-radius: 2px;
-	border: 0;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview:hover {
-	border-color: #999;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview:nth-child( 2n + 1 ) {
-	margin-right: 0;
+	&::after {
+		@include clearfix;
+	}
+	.mm-multi-media-images-preview-wrap {
+		max-width: 100%;
+		padding: 0;
+		display: block;
+		&::after {
+			@include clearfix;
+		}
+		&.no-images {
+			.multi-media-images-preview {
+				display: none;
+			}
+			.mm-multi-media-no-images {
+				display: block;
+			}
+		}
+	}
+	.mm-multi-media-no-images {
+		@include media-wrap;
+		&:hover {
+			border-color: #999;
+		}
+	}
+	.mm-multi-media-images-preview {
+		display: block;
+		max-width: 100%;
+		width: 49%;
+		margin-right: 2%;
+		float: left;
+		height: auto;
+		cursor: pointer;
+		transition: all 0.3s;
+		margin-bottom: 10px;
+		border-radius: 2px;
+		border: 0;
+		&:hover {
+			border-color: #999;
+		}
+		&:nth-child(2n+1) {
+			margin-right: 0;
+		}
+	}
 }
