@@ -30,8 +30,10 @@ function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag
 		'class'          => '',
 	), $atts );
 
-	// Clean up content - this is necessary.
-	$content = wpb_js_remove_wpautop( $content, true );
+	// Fix wpautop issues in $content.
+	if ( function_exists( 'wpb_js_remove_wpautop' ) ) {
+		$content = wpb_js_remove_wpautop( $content, true );
+	}
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );

@@ -29,6 +29,7 @@ function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 		'text_position'       => 'left',
 		'button_type'         => '',
 		'button_link'         => '',
+		'button_link_target'  => '',
 		'button_video_url'    => '',
 		'button_text'         => __( 'Read More', 'mm-components' ),
 		'button_style'        => '',
@@ -36,11 +37,38 @@ function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 		'secondary_cta'       => '',
 	), $atts ) );
 
-	// Get link array [url, title, target].
-	$button_link_array = vc_build_link( $button_link );
-	$button_url = ( isset( $button_link_array['url'] ) && ! empty( $button_link_array['url'] ) ) ? $button_link_array['url'] : '';
-	$button_title = ( isset( $button_link_array['title'] ) && ! empty( $button_link_array['title'] ) ) ? $button_link_array['title'] : '';
-	$button_target = ( isset( $button_link_array['target'] ) && ! empty( $button_link_array['target'] ) ) ? $button_link_array['target'] : '';
+	// Handle a raw link or a VC link array.
+	if ( ! empty( $atts['button_link'] ) ) {
+
+		if ( 'url' === substr( $atts['button_link'], 0, 3 ) ) {
+
+			if ( function_exists( 'vc_build_link' ) ) {
+
+				$link_array  = vc_build_link( $atts['button_link'] );
+				$button_url    = $link_array['url'];
+				$button_title  = $link_array['title'];
+				$button_target = $link_array['target'];
+
+			} else {
+
+				$button_url    = '';
+				$button_title  = '';
+				$button_target = '';
+			}
+
+		} else {
+
+			$button_url    = $atts['button_link'];
+			$button_title  = $atts['button_text'];
+			$button_target = $atts['button_link_target'];
+		}
+
+	} else {
+
+		$button_url    = '';
+		$button_title  = '';
+		$button_target = '';
+	}
 
 	// Get button classes.
 	$button_classes = '';

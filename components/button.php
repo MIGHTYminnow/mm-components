@@ -22,6 +22,8 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 
 	$atts = mm_shortcode_atts( array(
 		'link'         => '',
+		'link_title'   => '',
+		'link_target'  => '',
 		'class'        => '',
 		'style'        => 'default',
 		'border_style' => '',
@@ -30,19 +32,52 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 		'alignment'    => 'left',
 	), $atts );
 
-	// Get link array [url, title, target].
-	$link_array = vc_build_link( $atts['link'] );
+	// Handle a raw link or a VC link array.
+	if ( ! empty( $atts['link'] ) ) {
+
+		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
+
+			if ( function_exists( 'vc_build_link' ) ) {
+
+				$link_array  = vc_build_link( $atts['link'] );
+				$link_url    = $link_array['url'];
+				$link_title  = $link_array['title'];
+				$link_target = $link_array['target'];
+
+			} else {
+
+				$link_url    = '';
+				$link_title  = '';
+				$link_target = '';
+			}
+
+		} else {
+
+			$link_url    = $atts['link'];
+			$link_title  = $atts['link_title'];
+			$link_target = $atts['link_target'];
+		}
+
+	} else {
+
+		$link_url    = '';
+		$link_title  = '';
+		$link_target = '';
+	}
 
 	// Build the alignment class.
 	$alignment = 'mm-text-align-' . $atts['alignment'];
 
 	// Setup button classes.
-	$class = 'button';
-	$class .= ' ' . $atts['class'];
-	$class .= ' ' . $atts['style'];
-	$class .= ' ' . $atts['border_style'];
-	$class .= ' ' . $atts['color'];
-	$class .= ' ' . $atts['size'];
+	$classes = array();
+	$classes[] = 'button';
+	$classes[] = $atts['class'];
+	$classes[] = $atts['style'];
+	$classes[] = $atts['border_style'];
+	$classes[] = $atts['color'];
+	$classes[] = $atts['size'];
+
+	$classes = implode( ' ', $classes );
 
 	// Remove any paragraphs and extra whitespace in the button text.
 	$content = wp_kses( trim( $content ), '<p>' );
@@ -54,7 +89,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	ob_start(); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes . ' button-wrap ' . $alignment ); ?>">
-		<a class="<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $link_array['url'] ) ?>" title="<?php echo esc_attr( $link_array['title'] ); ?>" target="<?php echo esc_attr( $link_array['target'] ); ?>"><?php echo do_shortcode( $content ) ?></a>
+		<a class="<?php echo esc_attr( $classes ); ?>" href="<?php echo esc_url( $link_url ) ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo do_shortcode( $content ) ?></a>
 	</div>
 
 	<?php

@@ -33,11 +33,19 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 
 		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
 
-			$link_array = vc_build_link( $atts['link'] );
+			if ( function_exists( 'vc_build_link' ) ) {
 
-			$link_url    = $link_array['url'];
-			$link_title  = $link_array['title'];
-			$link_target = $link_array['target'];
+				$link_array  = vc_build_link( $atts['link'] );
+				$link_url    = $link_array['url'];
+				$link_title  = $link_array['title'];
+				$link_target = $link_array['target'];
+
+			} else {
+
+				$link_url    = '';
+				$link_title  = '';
+				$link_target = '';
+			}
 
 		} else {
 

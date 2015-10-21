@@ -37,8 +37,10 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 
 	$mm_image_grid_style = $style;
 
-	// Clean up content - this is necessary.
-	$content = wpb_js_remove_wpautop( $content, true );
+	// Fix wpautop issues in $content.
+	if ( function_exists( 'wpb_js_remove_wpautop' ) ) {
+		$content = wpb_js_remove_wpautop( $content, true );
+	}
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
@@ -51,11 +53,11 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 	<div class="<?php echo $mm_classes; ?>">
 
 		<?php if ( $title ) : ?>
-			<h4><?php echo $title; ?></h4>
+			<h4><?php echo esc_html( $title ); ?></h4>
 		<?php endif; ?>
 
 		<?php if ( $content ) : ?>
-			<?php echo $content; ?>
+			<?php echo wp_kses_post( do_shortcode( $content ) ); ?>
 		<?php endif; ?>
 
 	</div>
@@ -86,22 +88,56 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 	global $mm_image_grid_style;
 
 	$atts = mm_shortcode_atts( array(
-		'title'    => '',
-		'subtitle' => '',
-		'image'    => '',
-		'link'     => '',
+		'title'       => '',
+		'subtitle'    => '',
+		'image'       => '',
+		'link'        => '',
+		'link_title'  => '',
+		'link_target' => '',
 	), $atts );
 
-	$title    = wp_kses_post( $atts['title'] );
-	$subtitle = wp_kses_post( $atts['subtitle'] );
+	$title    = $atts['title'];
+	$subtitle = $atts['subtitle'];
 	$image    = (int)$atts['image'];
 	$link     = $atts['link'];
 
-   	// Clean up content - this is necessary.
-	$content = wpb_js_remove_wpautop( $content, true );
+	// Fix wpautop issues in $content.
+	if ( function_exists( 'wpb_js_remove_wpautop' ) ) {
+		$content = wpb_js_remove_wpautop( $content, true );
+	}
 
-   	// Get link array [url, title, target].
-	$link_array = vc_build_link( $link );
+	// Handle a raw link or a VC link array.
+	if ( ! empty( $atts['link'] ) ) {
+
+		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
+
+			if ( function_exists( 'vc_build_link' ) ) {
+
+				$link_array  = vc_build_link( $atts['link'] );
+				$link_url    = $link_array['url'];
+				$link_title  = $link_array['title'];
+				$link_target = $link_array['target'];
+
+			} else {
+
+				$link_url    = '';
+				$link_title  = '';
+				$link_target = '';
+			}
+
+		} else {
+
+			$link_url    = $atts['link'];
+			$link_title  = $atts['link_title'];
+			$link_target = $atts['link_target'];
+		}
+
+	} else {
+
+		$link_url    = '';
+		$link_title  = '';
+		$link_target = '';
+	}
 
 	// Get image size based on style of parent Image Grid component.
 	$image_size = ( 'style-thumbnail-text-card' == $mm_image_grid_style ) ? '300 Cropped' : 'Image Grid';
@@ -113,8 +149,8 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 
 	<div class="<?php echo $mm_classes; ?>">
 
-		<?php if ( isset( $link_array['url'] ) && ! empty( $link_array['url'] ) ) : ?>
-			<a href="<?php echo $link_array['url']; ?>" title="<?php echo $link_array['title']; ?>">
+		<?php if ( ! empty( $link_url ) ) : ?>
+			<a href="<?php echo esc_attr( $link_url ); ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>">
 		<?php endif; ?>
 
 		<?php if ( $image ) : ?>
@@ -123,15 +159,19 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 
 		<div class="caption">
 			<?php if ( $title ) : ?>
-				<h4><?php echo $title; ?></h4>
+				<h4><?php echo esc_html( $title ); ?></h4>
+			<?php endif; ?>
+
+			<?php if ( $subtitle ) : ?>
+				<h5><?php echo esc_html( $subtitle ); ?></h5>
 			<?php endif; ?>
 
 			<?php if ( $content ) : ?>
-				<?php echo $content; ?>
+				<?php echo wp_kses_post( $content ); ?>
 			<?php endif; ?>
 		</div>
 
-		<?php if ( isset( $link_array['url'] ) && ! empty( $link_array['url'] ) ) : ?>
+		<?php if ( ! empty( $link_url ) ) : ?>
 			</a>
 		<?php endif; ?>
 

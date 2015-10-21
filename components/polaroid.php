@@ -20,25 +20,61 @@ add_shortcode( 'mm_polaroid', 'mm_polaroid_shortcode' );
  */
 function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 
-	extract( mm_shortcode_atts( array(
+	$atts = mm_shortcode_atts( array(
 		'title'        => '',
 		'image'        => '',
 		'author_image' => '',
 		'link'         => '',
 		'link_text'    => __( 'Visit campaign', 'mm-components' ),
+		'link_target'  => '',
 		'banner_text'  => '',
 		'class'        => '',
-	), $atts ) );
+	), $atts );
 
-	// Clean up content - this is necessary.
-	$content = wpb_js_remove_wpautop( $content, true );
+	// Fix wpautop issues in $content.
+	if ( function_exists( 'wpb_js_remove_wpautop' ) ) {
+		$content = wpb_js_remove_wpautop( $content, true );
+	}
 
-	// Get link array [url, title, target].
-	$link_array = vc_build_link( $link );
+	// Handle a raw link or a VC link array.
+	if ( ! empty( $atts['link'] ) ) {
 
-	// Get Mm classes.
-	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
-	$mm_classes .= ' ' . $class;
+		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
+
+			if ( function_exists( 'vc_build_link' ) ) {
+
+				$link_array  = vc_build_link( $atts['link'] );
+				$link_url    = $link_array['url'];
+				$link_title  = $link_array['title'];
+				$link_target = $link_array['target'];
+
+			} else {
+
+				$link_url    = '';
+				$link_title  = '';
+				$link_target = '';
+			}
+
+		} else {
+
+			$link_url    = $atts['link'];
+			$link_title  = $atts['link_text'];
+			$link_target = $atts['link_target'];
+		}
+
+	} else {
+
+		$link_url    = '';
+		$link_title  = '';
+		$link_target = '';
+	}
+
+	// Get clean params.
+	$title = $atts['title'];
+	$image = $atts['image'];
+	$author_image = $atts['author_image'];
+	$banner_text = $atts['banner_text'];
+	$class = $atts['class'];
 
 	/**
 	 * Parse images.
@@ -59,43 +95,50 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 		$author_image = $author_image_array[0];
 	}
 
+	// Get Mm classes.
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
+	$mm_classes .= ' ' . $class;
+
 	ob_start(); ?>
 
 	<div class="<?php echo $mm_classes; ?>">
 
 		<?php if ( $title ) : ?>
-			<h4><?php echo $title; ?></h4>
+			<h4><?php echo esc_html( $title ); ?></h4>
 		<?php endif; ?>
 
 		<div class="polaroid-wrap">
 			<?php if ( $image ) : ?>
-				<?php if ( isset( $link_array['url'] ) && ! empty( $link_array['url'] ) ) : ?>
-					<a href="<?php echo $link_array['url']; ?>" title="<?php echo $link_array['title']; ?>">
+				<?php if ( ! empty( $link_url ) ) : ?>
+					<a href="<?php echo esc_url( $link_url ); ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>">
 				<?php endif; ?>
-				<img src="<?php echo $image; ?>" class="main-image" alt="<?php _e( 'Campaign image'); ?>"/>
-				<?php if ( isset( $link_array['url'] ) && ! empty( $link_array['url'] ) ) : ?>
+				<img src="<?php echo esc_url( $image ); ?>" class="main-image" />
+				<?php if ( ! empty( $link_url ) ) : ?>
 					</a>
 				<?php endif; ?>
 			<?php endif; ?>
 
 			<div class="text-wrap">
 				<?php if ( $author_image ) : ?>
-					<img src="<?php echo $author_image; ?>" class="author-image" alt="<?php _e( 'Campaign author image'); ?>"/>
+					<img src="<?php echo esc_url( $author_image ); ?>" class="author-image" />
 				<?php endif; ?>
 
 				<?php if ( $content ) : ?>
-					<?php echo $content; ?>
+					<?php echo wp_kses_post( $content ); ?>
 				<?php endif; ?>
 
-				<?php if ( isset( $link_array['url'] ) && ! empty( $link_array['url'] ) ) : ?>
-					<a class="more-link" href="<?php echo $link_array['url']; ?>" title="<?php echo $link_array['title']; ?>"><?php echo $link_text; ?></a>
+				<?php if ( ! empty( $link_url ) ) : ?>
+					<a class="more-link" href="<?php echo esc_url( $link_url ); ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_text ); ?></a>
 				<?php endif; ?>
 			</div>
 		</div>
 
 		<?php if ( $banner_text ) : ?>
-			<div class="banner-front"><?php echo $banner_text; ?></div>
-			<div class="banner-back"><div class="banner-back-left"></div><div class="banner-back-right"></div></div>
+			<div class="banner-front"><?php echo wp_kses_post( $banner_text ); ?></div>
+			<div class="banner-back">
+				<div class="banner-back-left"></div>
+				<div class="banner-back-right"></div>
+			</div>
 		<?php endif; ?>
 
 	</div>

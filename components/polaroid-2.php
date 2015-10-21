@@ -20,16 +20,54 @@ add_shortcode( 'mm_polaroid_2', 'mm_polaroid_2_shortcode' );
  */
 function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 
-	extract( mm_shortcode_atts( array(
+	$atts = mm_shortcode_atts( array(
 		'title'         => '',
 		'image'         => '',
 		'caption'       => '',
-		'caption_color' =>'',
+		'caption_color' => '',
 		'link'          => '',
-	), $atts ) );
+		'link_title'    => '',
+		'link_target'   => '',
+	), $atts );
 
-	// Get link array [url, title, target]
-	$link_array = vc_build_link( $link );
+	// Handle a raw link or a VC link array.
+	if ( ! empty( $atts['link'] ) ) {
+
+		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
+
+			if ( function_exists( 'vc_build_link' ) ) {
+
+				$link_array  = vc_build_link( $atts['link'] );
+				$link_url    = $link_array['url'];
+				$link_title  = $link_array['title'];
+				$link_target = $link_array['target'];
+
+			} else {
+
+				$link_url    = '';
+				$link_title  = '';
+				$link_target = '';
+			}
+
+		} else {
+
+			$link_url    = $atts['link'];
+			$link_title  = $atts['link_title'];
+			$link_target = $atts['link_target'];
+		}
+
+	} else {
+
+		$link_url    = '';
+		$link_title  = '';
+		$link_target = '';
+	}
+
+	// Get clean params.
+	$title = $atts['title'];
+	$image = $atts['image'];
+	$caption = $atts['caption'];
+	$caption_color = $atts['caption_color'];
 
 	// Get Mm classes
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
@@ -38,8 +76,8 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 
 	<div class="<?php echo $mm_classes; ?>">
 
-		<?php if ( isset( $link_array['url'] ) && ! empty( $link_array['url'] ) ) : ?>
-			<a href="<?php echo $link_array['url']; ?>" title="<?php echo $link_array['title']; ?>">
+		<?php if ( ! empty( $link_url ) ) : ?>
+			<a href="<?php echo esc_url( $link_url ); ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>">
 		<?php endif; ?>
 
 		<?php if ( $title ) : ?>
@@ -52,11 +90,13 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 			<?php endif; ?>
 
 			<?php if ( $caption ) : ?>
-				<div class="caption <?php echo $caption_color; ?>"><?php echo $caption; ?></h3></div>
+				<div class="caption <?php echo esc_attr( $caption_color ); ?>">
+					<h3><?php echo esc_html( $caption ); ?></h3>
+				</div>
 			<?php endif; ?>
 		</div>
 
-		<?php if ( isset( $link_array['url'] ) && ! empty( $link_array['url'] ) ) : ?>
+		<?php if ( ! empty( $link_url ) ) : ?>
 			</a>
 		<?php endif; ?>
 

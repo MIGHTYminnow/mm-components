@@ -31,19 +31,54 @@ function mm_icon_box_shortcode( $atts, $content = null, $tag ) {
 		'heading_text'     => '',
 		'link'             => '',
 		'link_text'        => __( 'Read more', 'mm-components' ),
+		'link_title'       => '',
+		'link_target'      => '',
 	), $atts );
 
-	// Clean up content - this is necessary.
-	$content = wpb_js_remove_wpautop( $content, true );
+	// Fix wpautop issues in $content.
+	if ( function_exists( 'wpb_js_remove_wpautop' ) ) {
+		$content = wpb_js_remove_wpautop( $content, true );
+	}
 
-	// Get link array [url, title, target].
-	$link_array = vc_build_link( $atts['link'] );
+	// Handle a raw link or a VC link array.
+	if ( ! empty( $atts['link'] ) ) {
+
+		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
+
+			if ( function_exists( 'vc_build_link' ) ) {
+
+				$link_array  = vc_build_link( $atts['link'] );
+				$link_url    = $link_array['url'];
+				$link_title  = $link_array['title'];
+				$link_target = $link_array['target'];
+
+			} else {
+
+				$link_url    = '';
+				$link_title  = '';
+				$link_target = '';
+			}
+
+		} else {
+
+			$link_url    = $atts['link'];
+			$link_title  = $atts['link_title'];
+			$link_target = $atts['link_target'];
+		}
+
+	} else {
+
+		$link_url    = '';
+		$link_title  = '';
+		$link_target = '';
+	}
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	// Get icon type.
 	$icon_type = $atts['icon_type'];
+
 	switch ( $icon_type ) {
 		case 'fontawesome':
 			$icon = ! empty( $atts['icon_fontawesome'] ) ? $atts['icon_fontawesome'] : 'fa fa-adjust';
@@ -68,7 +103,9 @@ function mm_icon_box_shortcode( $atts, $content = null, $tag ) {
 	}
 
 	// Enqueue the icon font that we're using.
-	vc_icon_element_fonts_enqueue( $icon_type );
+	if ( function_exists( 'vc_icon_element_fonts_enqueue' ) ) {
+		vc_icon_element_fonts_enqueue( $icon_type );
+	}
 
 	ob_start(); ?>
 
@@ -85,11 +122,11 @@ function mm_icon_box_shortcode( $atts, $content = null, $tag ) {
 		<?php endif; ?>
 
 		<?php
-		if ( ! empty( $atts['link_text'] ) && ! empty( $link_array['url'] ) ) {
+		if ( ! empty( $link_text ) && ! empty( $link_url ) ) {
 			printf( '<a href="%s" title="%s" target="%s" class="more-link">%s</a>',
-				$link_array['url'],
-				$link_array['title'],
-				$link_array['target'],
+				$link_url,
+				$link_title,
+				$link_target,
 				$atts['link_text']
 			);
 		}

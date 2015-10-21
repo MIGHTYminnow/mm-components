@@ -29,6 +29,8 @@ function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 		'text_transform'	=> '',
 		'text_align'		=> '',
 		'link'				=> '',
+		'link_title'        => '',
+		'link_target'       => '',
 	), $atts );
 
 	$heading = ( '' !== $atts['heading'] ) ? (string)$atts['heading'] : 'h2';
@@ -40,12 +42,48 @@ function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 	$text_align = ( '' !== $atts['text_align'] ) ? (string)$atts['text_align'] : '';
 	$link = ( '' !== $atts['link'] ) ? (string)$atts['link'] : '';
 
-	// Get link array [url, title, target]
-	$link_array = vc_build_link( $link );
+	// Handle a raw link or a VC link array.
+	if ( ! empty( $atts['link'] ) ) {
+
+		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
+
+			if ( function_exists( 'vc_build_link' ) ) {
+
+				$link_array  = vc_build_link( $atts['link'] );
+				$link_url    = $link_array['url'];
+				$link_title  = $link_array['title'];
+				$link_target = $link_array['target'];
+
+			} else {
+
+				$link_url    = '';
+				$link_title  = '';
+				$link_target = '';
+			}
+
+		} else {
+
+			$link_url    = $atts['link'];
+			$link_title  = $atts['link_title'];
+			$link_target = $atts['link_target'];
+		}
+
+	} else {
+
+		$link_url    = '';
+		$link_title  = '';
+		$link_target = '';
+	}
 
 	// Wrap the heading in a link if one was passed in.
-	if ( isset( $link_array['url'] ) && ! empty( $link_array['url'] ) ) {
-		$content = '<a href="' . $link_array['url'] . '" title="' . $link_array['title'] . '">' . $content . '</a>';
+	if ( ! empty( $link_url ) ) {
+		$content = sprintf(
+			'<a href="%s" title="%s" target="%s">%s</a>',
+			esc_url( $link_url ),
+			esc_attr( $link_title ),
+			esc_attr( $link_target ),
+			wp_kses_post( $content )
+		);
 	}
 
 	// Get Mm classes.
@@ -54,9 +92,6 @@ function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 	// Set up our classes array.
 	$classes = array();
 
-	if ( '' !== $font_family ) {
-		$classes[] = 'font-family-' . $font_family;
-	}
 	if ( '' !== $font_family ) {
 		$classes[] = 'font-family-' . $font_family;
 	}
