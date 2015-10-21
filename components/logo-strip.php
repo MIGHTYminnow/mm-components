@@ -12,7 +12,7 @@ add_shortcode( 'mm_logo_strip', 'mm_logo_strip_shortcode' );
 /**
  * Output Logo Strip.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
  * @param   array  $atts  Shortcode attributes.
  *
@@ -46,7 +46,7 @@ function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 
 	// Set up the title alignment.
 	if ( '' === $title_alignment || 'center' === $title_alignment ) {
@@ -136,7 +136,6 @@ function mm_vc_logo_strip() {
 		)
 	) );
 }
-
 
 add_action( 'widgets_init', 'mm_components_register_logo_strip_widget' );
 /**

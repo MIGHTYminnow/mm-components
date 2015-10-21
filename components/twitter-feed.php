@@ -44,7 +44,7 @@ function mm_twitter_feed_shortcode( $atts, $content = null, $tag ) {
 
 	$template_slug = trestle_get_ft_template_slug_from_path( $template );
 	$mm_classes .= " template-{$template_slug}";
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 
 	ob_start(); ?>
 

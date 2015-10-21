@@ -51,7 +51,7 @@ function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 	$css_classes = str_replace( '_', '-', $tag );
 	$css_classes .= ' full-width';
 	$css_classes .= ' ' . $text_position;
-	$css_classes = apply_filters( 'mm_shortcode_custom_classes', $css_classes, $tag, $atts );
+	$css_classes = apply_filters( 'mm_components_custom_classes', $css_classes, $tag, $atts );
 
 	/**
 	 * Parse images.

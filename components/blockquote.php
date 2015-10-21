@@ -28,7 +28,7 @@ function mm_blockquote_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 
 	// Get param values.
 	$image_id = (int)$atts['image_id'];

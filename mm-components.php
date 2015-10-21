@@ -174,7 +174,7 @@ function mm_components_scripts_and_styles() {
 	);
 }
 
-add_filter( 'mm_shortcode_custom_classes', 'mm_shortcode_custom_classes', 10, 3 );
+add_filter( 'mm_components_custom_classes', 'mm_components_custom_classes', 10, 3 );
 /**
  * Add custom shortcode classes.
  *
@@ -191,7 +191,7 @@ add_filter( 'mm_shortcode_custom_classes', 'mm_shortcode_custom_classes', 10, 3 
  *
  * @return  string            Modified classes.
  */
-function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
+function mm_components_custom_classes( $classes, $tag, $atts ) {
 
 	// Define attribute key identifiers.
 	$custom_class_prefix = 'mm_class_';

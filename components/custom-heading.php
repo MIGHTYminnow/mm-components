@@ -40,9 +40,6 @@ function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 	$text_align = ( '' !== $atts['text_align'] ) ? (string)$atts['text_align'] : '';
 	$link = ( '' !== $atts['link'] ) ? (string)$atts['link'] : '';
 
-	// Clean up content - this is necessary.
-	//$content = wpb_js_remove_wpautop( $content, true );
-
 	// Get link array [url, title, target]
 	$link_array = vc_build_link( $link );
 
@@ -53,7 +50,7 @@ function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 
 	// Set up our classes array.
 	$classes = array();

@@ -49,7 +49,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes.
 	$mm_classes = 'button-container';
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 
 	// Build the output.
 	ob_start(); ?>
