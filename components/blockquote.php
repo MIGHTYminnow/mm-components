@@ -19,6 +19,8 @@
  */
 function mm_blockquote( $args ) {
 
+	$component  = 'mm-blockquote';
+
 	// Set our defaults and use them as needed.
 	$defaults = array(
 		'quote'    => '',
@@ -28,12 +30,11 @@ function mm_blockquote( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$quote    = ( ! empty( $args['quote'] ) ) ? '<p>' . esc_html( $args['quote'] ) . '</p>' : '';
-	$citation = ( ! empty( $args['citation'] ) ) ? esc_html( $args['citation'] ) : '';
+	$quote    = (string)$args['quote'];
+	$citation = (string)$args['citation'];
 	$image_id = (int)$args['image_id'];
 
 	// Get Mm classes.
-	$component  = 'mm-blockquote';
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
 	ob_start() ?>
@@ -44,7 +45,7 @@ function mm_blockquote( $args ) {
 			<?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?>
 		<?php endif; ?>
 
-		<?php echo wp_kses_post( $quote ); ?>
+		<?php echo wp_kses_post( '<p>' . $quote . '</p>' ); ?>
 
 		<?php if ( ! empty( $citation ) ) : ?>
 			<cite><?php echo wp_kses_post( $citation ); ?></cite>
