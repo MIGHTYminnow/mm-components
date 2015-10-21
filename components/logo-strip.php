@@ -245,6 +245,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		$images          = $instance['images'];
 		$image_size      = $instance['image_size'];
 		$classname       = $this->options['classname'];
+		$image_sizes     = mm_get_image_sizes();
 
 		// Title.
 		$this->field_text(
@@ -268,7 +269,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		);
 
 		// Images.
-		$this->field_textarea(
+		$this->field_multi_media(
 			__( 'Images', 'mm-components' ),
 			$classname . '-images widefat',
 			'images',
@@ -276,13 +277,13 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		);
 
 		// Image Size.
-		$this->field_text(
-			__( 'Image', 'mm-components' ),
+		$this->field_select(
+			__( 'Image Size', 'mm-components' ),
 			$classname . '-image-size widefat',
 			'image_size',
-			$image_size
+			$image_size,
+			$image_sizes
 		);
-
 	}
 
 	/**
