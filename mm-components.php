@@ -122,6 +122,7 @@ function mm_components_init_components() {
 	// Include Visual Composer Integration if VC is activated.
 	if ( defined( 'WPB_VC_VERSION' ) ) {
 		require_once MM_COMPONENTS_PATH . 'integrations/visual-composer/vc-functions.php';
+		require_once MM_COMPONENTS_PATH . 'integrations/visual-composer/vc-params.php';
 	}
 
 	// Maybe include our demo component.
