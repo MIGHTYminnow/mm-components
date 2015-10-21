@@ -22,29 +22,28 @@ function mm_countdown_enqueue_scripts() {
 	wp_register_script( 'mm-countdown', plugins_url( '/js/jquery.countdown.js', __FILE__ ), array( 'jquery' ), null, true );
 }
 
-add_shortcode( 'mm_countdown', 'mm_countdown_shortcode' );
-/**
- * Output Countdown.
- *
- * @since  1.0.0
- *
- * @param   array  $atts  Shortcode attributes.
- *
- * @return  string        Shortcode output.
- */
-function mm_countdown_shortcode( $atts, $content = null, $tag ) {
+function mm_countdown( $args ) {
 
-	extract( mm_shortcode_atts( array(
-		'date' => '',
-		'time' => '',
-		'timezone' => ''
-	), $atts ) );
+	$component = 'mm-countdown';
+
+	// Set our defaults and use them as needed.
+	$defaults = array(
+		'date'     => '',
+		'time'     => '',
+		'timezone' => '',
+	);
+	$args = wp_parse_args( (array)$args, $defaults );
+
+	// Get clean param values.
+	$date     = $args['date'];
+	$time     = $args['time'];
+	$timezone = $args['timezone'];
 
 	// Enqueue pre-registerd 3rd party countdown script.
 	wp_enqueue_script( 'mm-countdown' );
 
 	// Get Mm classes.
-	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
 	// Create new date object.
 	$date_obj = new DateTime( $date . ' ' . $time . ' ' . $timezone );
@@ -61,9 +60,7 @@ function mm_countdown_shortcode( $atts, $content = null, $tag ) {
 	$minute = $date_obj->format( 'i' );
 	$second = $date_obj->format( 's' );
 
-	ob_start();
-
-	printf( '<div class="%s" data-year="%s" data-month="%s" data-day="%s" data-hour="%s" data-minute="%s" data-second="%s" data-timezone-offset="%s"></div>',
+	$output = sprintf( '<div class="%s" data-year="%s" data-month="%s" data-day="%s" data-hour="%s" data-minute="%s" data-second="%s" data-timezone-offset="%s"></div>',
 		$mm_classes,
 		$year,
 		$month,
@@ -74,9 +71,22 @@ function mm_countdown_shortcode( $atts, $content = null, $tag ) {
 		$timezone_offset
 	);
 
-	$output = ob_get_clean();
-
 	return $output;
+}
+
+add_shortcode( 'mm_countdown', 'mm_countdown_shortcode' );
+/**
+ * Output Countdown.
+ *
+ * @since  1.0.0
+ *
+ * @param   array  $atts  Shortcode attributes.
+ *
+ * @return  string        Shortcode output.
+ */
+function mm_countdown_shortcode( $atts ) {
+
+	return mm_countdown( $atts );
 }
 
 add_action( 'vc_before_init', 'mm_vc_countdown' );
@@ -94,37 +104,33 @@ function mm_vc_countdown() {
 	add_shortcode_param( 'timezone', 'mm_timezone_param' );
 
 	vc_map( array(
-		'name' => __( 'Countdown', 'mm-components' ),
-		'base' => 'mm_countdown',
-		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'name'     => __( 'Countdown', 'mm-components' ),
+		'base'     => 'mm_countdown',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),
-		'params' => array(
+		'params'   => array(
 			array(
-				'type' => 'date',
-				'class' => '',
-				'heading' => __( 'Date', 'mm-components' ),
-				'param_name' => 'date',
+				'type'        => 'date',
+				'heading'     => __( 'Date', 'mm-components' ),
+				'param_name'  => 'date',
 				'admin_label' => true,
-				'value' => '',
+				'value'       => '',
 				'description' => __( 'Must be in the format MM/DD/YYYY. Example: 12/25/2015 would be Christmas of 2015.', 'mm-components' ),
-				),
+			),
 			array(
-				'type' => 'textfield',
-				'class' => '',
-				'heading' => __( 'Time', 'mm-components' ),
-				'param_name' => 'time',
-				'value' => '',
+				'type'        => 'textfield',
+				'heading'     => __( 'Time', 'mm-components' ),
+				'param_name'  => 'time',
+				'value'       => '',
 				'description' => __( 'Must be in the format HH:MM:SS. Example: 18:30:00 would be 6:30 PM.', 'mm-components' ),
-				),
+			),
 			array(
-				'type' => 'timezone',
-				'class' => '',
-				'heading' => __( 'Time Zone', 'mm-components' ),
+				'type'       => 'timezone',
+				'heading'    => __( 'Time Zone', 'mm-components' ),
 				'param_name' => 'timezone',
-				'value' => '',
-				),
-			)
+				'value'      => '',
+			),
+		)
 	) );
 }
 
