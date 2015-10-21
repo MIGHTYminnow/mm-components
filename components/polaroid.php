@@ -73,6 +73,7 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 	$title = $atts['title'];
 	$image = $atts['image'];
 	$author_image = $atts['author_image'];
+	$link_text = $atts['link_text'];
 	$banner_text = $atts['banner_text'];
 	$class = $atts['class'];
 
