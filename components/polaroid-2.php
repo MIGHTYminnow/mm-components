@@ -32,8 +32,7 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 	$link_array = vc_build_link( $link );
 
 	// Get Mm classes
-	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	ob_start(); ?>
 

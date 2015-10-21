@@ -48,13 +48,12 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	$content = wp_kses( trim( $content ), '<p>' );
 
 	// Get Mm classes.
-	$mm_classes = 'button-container';
-	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	// Build the output.
 	ob_start(); ?>
 
-	<div class="<?php echo esc_attr( $mm_classes . ' ' . $alignment ); ?>">
+	<div class="<?php echo esc_attr( $mm_classes . ' button-wrap ' . $alignment ); ?>">
 		<a class="<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $link_array['url'] ) ?>" title="<?php echo esc_attr( $link_array['title'] ); ?>" target="<?php echo esc_attr( $link_array['target'] ); ?>"><?php echo do_shortcode( $content ) ?></a>
 	</div>
 

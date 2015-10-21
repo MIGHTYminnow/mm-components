@@ -33,15 +33,14 @@ function mm_icon_box_shortcode( $atts, $content = null, $tag ) {
 		'link_text'        => __( 'Read more', 'mm-components' ),
 	), $atts );
 
-	// Clean up content - this is necessary
+	// Clean up content - this is necessary.
 	$content = wpb_js_remove_wpautop( $content, true );
 
-	// Get link array [url, title, target]
+	// Get link array [url, title, target].
 	$link_array = vc_build_link( $atts['link'] );
 
-	// Get Mm classes
-	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
+	// Get Mm classes.
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	// Get icon type.
 	$icon_type = $atts['icon_type'];

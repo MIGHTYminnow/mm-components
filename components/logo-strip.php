@@ -45,8 +45,7 @@ function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
 	$image_count = 'logo-count-' . (int)$image_count;
 
 	// Get Mm classes.
-	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	// Set up the title alignment.
 	if ( '' === $title_alignment || 'center' === $title_alignment ) {

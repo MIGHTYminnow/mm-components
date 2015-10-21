@@ -49,8 +49,7 @@ function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 	}
 
 	// Get Mm classes.
-	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	// Set up our classes array.
 	$classes = array();

@@ -44,8 +44,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 	$masonry   = mm_true_or_false( $atts['masonry'] );
 
 	// Get Mm classes.
-	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	// Maybe add template class.
 	if ( $template ) {

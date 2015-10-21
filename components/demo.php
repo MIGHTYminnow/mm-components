@@ -35,8 +35,7 @@ function mm_demo_shortcode( $atts, $content = null, $tag ) {
 	$multi_media_field  = $atts['multi_media_field'];
 
 	// Get Mm classes.
-	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	ob_start(); ?>
 

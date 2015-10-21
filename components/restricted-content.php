@@ -32,8 +32,7 @@ function mm_restricted_content_shortcode( $atts = array(), $content = null, $tag
 	$invalid = $atts['invalid_message'];
 
 	// Get Mm classes.
-	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	foreach ( $roles as $role ) {
 		if ( mm_check_user_role_for_vc( $role ) ) {
@@ -105,7 +104,6 @@ function mm_vc_restricted_content() {
 		),
 		'js_view' => 'VcColumnView'
 	) );
-
 }
 
 // This is necessary to make any element that wraps other elements work.

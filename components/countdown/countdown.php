@@ -43,9 +43,8 @@ function mm_countdown_shortcode( $atts, $content = null, $tag ) {
 	// Enqueue pre-registerd 3rd party countdown script.
 	wp_enqueue_script( 'mm-countdown' );
 
-	// Get Mm classes
-	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
+	// Get Mm classes.
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	// Create new date object.
 	$date_obj = new DateTime( $date . ' ' . $time . ' ' . $timezone );
