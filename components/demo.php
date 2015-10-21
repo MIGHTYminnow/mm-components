@@ -8,9 +8,56 @@
  * @since   1.0.0
  */
 
+/**
+ * Build and return the Demo component.
+ *
+ * @since   1.0.0
+ *
+ * @param   array  $args  The args.
+ *
+ * @return  string        The HTML.
+ */
+function mm_demo( $args ) {
+
+	$component  = 'mm-demo';
+
+	// Set our defaults and use them as needed.
+	$defaults = array(
+		'text_field'         => '',
+		'alpha_color_field'  => '',
+		'single_media_field' => '',
+		'multi_media_field'  => '',
+	);
+	$args = wp_parse_args( (array)$args, $defaults );
+
+	// Get clean param values.
+	$text_field         = $args['text_field'];
+	$alpha_color_field  = $args['alpha_color_field'];
+	$single_media_field = $args['single_media_field'];
+	$multi_media_field  = $args['multi_media_field'];
+
+	// Get Mm classes.
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
+
+	ob_start(); ?>
+
+	<div class="<?php echo $mm_classes; ?>">
+		<ul>
+			<li><?php echo __( 'Text Field:', 'mm-components' ) . ' ' . esc_html( $text_field ); ?></li>
+			<li><?php echo __( 'Alpha Color Field:', 'mm-components' ) . ' ' . esc_html( $alpha_color_field ); ?></li>
+			<li><?php echo __( 'Single Media Field:', 'mm-components' ) . ' ' . esc_html( $single_media_field ); ?></li>
+			<li><?php echo __( 'Multi Media Field:', 'mm-components' ) . ' ' . esc_html( $multi_media_field ); ?></li>
+ 		</ul>
+	</div>
+
+	<?php
+
+	return ob_get_clean();
+}
+
 add_shortcode( 'mm_demo', 'mm_demo_shortcode' );
 /**
- * Output Demo.
+ * Demo shortcode.
  *
  * @since  1.0.0
  *
@@ -18,45 +65,9 @@ add_shortcode( 'mm_demo', 'mm_demo_shortcode' );
  *
  * @return  string        Shortcode output.
  */
-function mm_demo_shortcode( $atts, $content = null, $tag ) {
+function mm_demo_shortcode( $atts ) {
 
-	// Specify defaults here.
-	$atts = mm_shortcode_atts( array(
-		'text_field'         => '',
-		'alpha_color_field'  => '',
-		'single_media_field' => '',
-		'multi_media_field'  => '',
-	), $atts );
-
-	// Do any additional validation here.
-	$text_field         = wp_kses_post( $atts['text_field'] );
-	$alpha_color_field  = esc_html( $atts['alpha_color_field'] );
-	$single_media_field = ( is_int( $atts['single_media_field'] ) ) ? wp_get_attachment_image_src( $atts['single_media_field'], 'large' ) : '';
-	$multi_media_field  = $atts['multi_media_field'];
-
-	// Get Mm classes.
-	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
-
-	ob_start(); ?>
-
-	<div class="<?php echo $mm_classes; ?>">
-
-		<?php // Output goes here... ?>
-
-		<ul>
-			<li><?php echo __( 'Text Field:', 'mm-components' ) . ' ' . $text_field; ?></li>
-			<li><?php echo __( 'Alpha Color Field:', 'mm-components' ) . ' ' . $alpha_color_field; ?></li>
-			<li><?php echo __( 'Single Media Field:', 'mm-components' ) . ' ' . $single_media_field; ?></li>
-			<li><?php echo __( 'Multi Media Field:', 'mm-components' ) . ' ' . $multi_media_field; ?></li>
- 		</ul>
-
-	</div>
-
-	<?php
-
-	$output = ob_get_clean();
-
-	return $output;
+	return mm_demo( $atts );
 }
 
 add_action( 'vc_before_init', 'mm_vc_demo' );
@@ -157,21 +168,13 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 		$single_media_field = $instance['single_media_field'];
 		$multi_media_field  = $instance['multi_media_field'];
 
-		$shortcode = sprintf(
-			'[mm_demo text_field="%s" alpha_color_field="%s" single_media_field="%s" multi_media_field="%s"]',
-			$text_field,
-			$alpha_color_field,
-			$single_media_field,
-			$multi_media_field
-		);
-
 		echo $args['before_widget'];
 
 		if ( ! empty( $title ) ) {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
-		echo do_shortcode( $shortcode );
+		echo mm_demo( $instance );
 
 		echo $args['after_widget'];
 	}
