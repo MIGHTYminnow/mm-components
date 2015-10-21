@@ -1,6 +1,6 @@
 <?php
 /**
- * Mm Components General Functionality.
+ * Mm Components Functions.
  *
  * @since 1.0.0
  *
@@ -62,12 +62,12 @@ function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
 /**
  * Parse args with defaults, allowing for unexpected args.
  *
- * @since 1.0.0
+ * @since   1.0.0
  *
- * @param array $defaults Default values.
- * @param array $atts     Atts to be parsed.
+ * @param   array  $defaults  Default values.
+ * @param   array  $atts      Args to be parsed.
  *
- * @return array Updated atts
+ * @return  array             Updated atts
  */
 function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
 	return wp_parse_args( $atts, $defaults );
@@ -76,11 +76,11 @@ function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
 /**
  * Return custom VC image upload description.
  *
- * @since     1.0.0
+ * @since   1.0.0
  *
- * @param     string    $image_size    Image size slug.
+ * @param   string  $image_size  Image size slug.
  *
- * @return    string    Image upload description.
+ * @return  string               Image upload description.
  */
 function mm_custom_image_field_description( $image_size = '' ) {
 
@@ -108,11 +108,11 @@ function mm_custom_image_field_description( $image_size = '' ) {
 /**
  * Get the dimensions of WP default and add-on image sizes.
  *
- * @since     1.0.0
+ * @since   1.0.0
  *
- * @param     string    $image_size          Image size slug.
+ * @param   string  $image_size  Image size slug.
  *
- * @return    array     $image_dimensions    Array of image width/height.
+ * @return  array                Array of image width/height.
  */
 function mm_get_image_size_dimensions( $image_size = '' ) {
 
@@ -140,12 +140,12 @@ function mm_get_image_size_dimensions( $image_size = '' ) {
 /**
  * Possibly wrap content in a link.
  *
- * @since 1.0.0
+ * @since   1.0.0
  *
- * @param mixed $content Content to go in link.
- * @param array  $link_array Array of link data: url|title|target
+ * @param   mixed   $content     Content to go in link.
+ * @param   array   $link_array  Array of link data: url|title|target
  *
- * @return string HTML output.
+ * @return  string               HTML output.
  */
 function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
 
@@ -164,7 +164,7 @@ function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
 /**
  * Return true or false based on the passed in value.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
  * @param   mixed  $value  The value to be tested.
  * @return  bool
