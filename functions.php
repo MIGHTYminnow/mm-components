@@ -1,73 +1,21 @@
 <?php
 /**
- * Mm Components General Functionality.
+ * Mm Components Functions.
  *
  * @since 1.0.0
  *
  * @package mm-components
  */
 
-add_filter( 'mm_shortcode_custom_classes', 'mm_shortcode_custom_classes', 10, 3 );
-/**
- * Add custom shortcode classes.
- *
- * The following atts are parsed into classes by this function:
- *
- * 1. Atts whose key begins with: mm_class_*.
- * 2. The custom class att defined by $custom_class_key below.
- *
- * @since   1.0.0
- *
- * @param   string  $classes  Initial classes.
- * @param   string  $tag      Shortcode tag.
- * @param   array   $atts     Shortcoder atts.
- *
- * @return  string            Modified classes.
- */
-function mm_shortcode_custom_classes( $classes, $tag, $atts ) {
-
-	// Define attribute key identifiers.
-	$custom_class_prefix = 'mm_class_';
-	$new_custom_class_prefix = 'mm-';
-	$custom_class_key = 'mm_custom_class';
-
-	// Set up classes array.
-	$class_array = explode( ' ', $classes );
-
-	// Loop through each att and add class as needed.
-	foreach ( $atts as $key => $value ) {
-
-		// Add class in the following format: $key-$class
-		// Exclude custom class att as this needs to be unprefixed.
-		if ( false !== strpos( $key, $custom_class_prefix ) && $value ) {
-
-			// Replace custom class prefix with simpler 'mm-' prefix and format appropriately.
-			$key = str_replace( $custom_class_prefix, $new_custom_class_prefix, $key );
-			$key = str_replace( '_', '-', $key );
-			$class_array[] = "{$key}-{$value}";
-		}
-	}
-
-	// Add mm_custom_class att as unprefixed class.
-	if ( ! empty ( $atts[ $custom_class_key ] ) ) {
-		$class_array[] = $atts[ $custom_class_key ];
-	}
-
-	// Add custom classes to existing classes.
-	$classes = implode( ' ', $class_array );
-
-	return $classes;
-}
-
 /**
  * Parse args with defaults, allowing for unexpected args.
  *
- * @since 1.0.0
+ * @since   1.0.0
  *
- * @param array $defaults Default values.
- * @param array $atts     Atts to be parsed.
+ * @param   array  $defaults  Default values.
+ * @param   array  $atts      Args to be parsed.
  *
- * @return array Updated atts
+ * @return  array             Updated atts
  */
 function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
 	return wp_parse_args( $atts, $defaults );
@@ -76,11 +24,11 @@ function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
 /**
  * Return custom VC image upload description.
  *
- * @since     1.0.0
+ * @since   1.0.0
  *
- * @param     string    $image_size    Image size slug.
+ * @param   string  $image_size  Image size slug.
  *
- * @return    string    Image upload description.
+ * @return  string               Image upload description.
  */
 function mm_custom_image_field_description( $image_size = '' ) {
 
@@ -108,11 +56,11 @@ function mm_custom_image_field_description( $image_size = '' ) {
 /**
  * Get the dimensions of WP default and add-on image sizes.
  *
- * @since     1.0.0
+ * @since   1.0.0
  *
- * @param     string    $image_size          Image size slug.
+ * @param   string  $image_size  Image size slug.
  *
- * @return    array     $image_dimensions    Array of image width/height.
+ * @return  array                Array of image width/height.
  */
 function mm_get_image_size_dimensions( $image_size = '' ) {
 
@@ -140,12 +88,12 @@ function mm_get_image_size_dimensions( $image_size = '' ) {
 /**
  * Possibly wrap content in a link.
  *
- * @since 1.0.0
+ * @since   1.0.0
  *
- * @param mixed $content Content to go in link.
- * @param array  $link_array Array of link data: url|title|target
+ * @param   mixed   $content     Content to go in link.
+ * @param   array   $link_array  Array of link data: url|title|target
  *
- * @return string HTML output.
+ * @return  string               HTML output.
  */
 function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
 
@@ -164,7 +112,7 @@ function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
 /**
  * Return true or false based on the passed in value.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
  * @param   mixed  $value  The value to be tested.
  * @return  bool
@@ -180,6 +128,29 @@ function mm_true_or_false( $value ) {
 	} else {
 		return false;
 	}
+}
+
+/**
+ * Utility function to check if a user has a specific role.
+ *
+ * @since  1.0.0
+ *
+ * @param  string  $role     The role we want to check.
+ * @param  int     $user_id  The current user's ID.
+ */
+function mm_check_user_role( $role, $user_id = null ) {
+
+    if ( is_numeric( $user_id ) ) {
+        $user = get_userdata( $user_id );
+    } else {
+        $user = wp_get_current_user();
+    }
+
+    if ( empty( $user ) ) {
+        return false;
+    }
+
+    return in_array( $role, (array)$user->roles );
 }
 
 /**
@@ -382,4 +353,27 @@ function mm_get_mm_posts_templates_for_vc() {
 	$templates = apply_filters( 'mm_posts_templates', $templates );
 
 	return $templates;
+}
+
+/**
+ * Return an array of registered user roles for use in a Visual Composer checkbox param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of user roles.
+ */
+function mm_get_user_roles_for_vc() {
+
+	global $wp_roles;
+
+	$user_roles = array();
+
+	foreach ( $wp_roles->roles as $role => $role_params ) {
+
+		$role_name = ( isset( $role_params['name'] ) ) ? $role_params['name'] : $role;
+
+		$user_roles[ $role_name ] = $role;
+	}
+
+	return $user_roles;
 }

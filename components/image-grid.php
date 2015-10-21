@@ -45,7 +45,7 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 	$mm_classes .= ' ' . $style;
 	$mm_classes .= ( 0 !== $max_in_row ) ? ' max-in-row-' . $max_in_row : '';
 	$mm_classes .= ( '' !== $class ) ? ' ' . $class : '';
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 
 	ob_start(); ?>
 
@@ -109,7 +109,7 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 
 	ob_start(); ?>
 

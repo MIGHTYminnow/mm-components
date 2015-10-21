@@ -41,7 +41,7 @@ function mm_icon_box_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 
 	// Get icon type.
 	$icon_type = $atts['icon_type'];

@@ -45,7 +45,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 	// Get Mm classes.
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 
 	// Maybe add template class.
 	if ( $template ) {

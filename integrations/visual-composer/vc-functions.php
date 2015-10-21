@@ -12,7 +12,7 @@
  *
  * @since  1.0.0
  */
-add_filter( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'mm_shortcode_custom_classes', 10, 3 );
+add_filter( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'mm_components_custom_classes', 10, 3 );
 
 add_action( 'init', 'mm_vc_custom_component_atts', 15 );
 /**
@@ -80,12 +80,12 @@ add_filter( 'vc_single_param_edit', 'mm_filter_vc_field_descriptions', 10, 2 );
  * fields, attempting to calculate 2x the image size being used and output
  * this in the field's description.
  *
- * @since     1.0.0
+ * @since   1.0.0
  *
- * @param     array    $param    Visual composer field array.
- * @param     mixed    $value    Field value.
+ * @param   array  $param  Visual composer field array.
+ * @param   mixed  $value  Field value.
  *
- * @return    array    $param    Updated field.
+ * @return  array          Updated field.
  */
 function mm_filter_vc_field_descriptions( $param, $value ) {
 

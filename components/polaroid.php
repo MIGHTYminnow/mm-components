@@ -12,7 +12,7 @@ add_shortcode( 'mm_polaroid', 'mm_polaroid_shortcode' );
 /**
  * Output Polaroid.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
  * @param   array  $atts  Shortcode attributes.
  *
@@ -38,7 +38,7 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 
 	// Get Mm classes
 	$mm_classes = str_replace( '_', '-', $tag );
-	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', $mm_classes, $tag, $atts );
 	$mm_classes .= ' ' . $class;
 
 	/**
