@@ -71,7 +71,7 @@ function mm_countdown( $args ) {
 
 add_shortcode( 'mm_countdown', 'mm_countdown_shortcode' );
 /**
- * Output Countdown.
+ * Countdown shortcode.
  *
  * @since  1.0.0
  *
