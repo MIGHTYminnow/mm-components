@@ -21,16 +21,16 @@ add_shortcode( 'mm_custom_heading', 'mm_custom_heading_shortcode' );
 function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 
 	$atts = mm_shortcode_atts( array(
-		'heading'			=> '',
-		'font_family'		=> '',
-		'font_size'			=> '',
-		'margin_bottom'		=> '',
-		'color'				=> '',
-		'text_transform'	=> '',
-		'text_align'		=> '',
-		'link'				=> '',
-		'link_title'        => '',
-		'link_target'       => '',
+		'heading'        => '',
+		'font_family'    => '',
+		'font_size'      => '',
+		'margin_bottom'  => '',
+		'color'          => '',
+		'text_transform' => '',
+		'text_align'     => '',
+		'link'           => '',
+		'link_title'     => '',
+		'link_target'    => '',
 	), $atts );
 
 	$heading = ( '' !== $atts['heading'] ) ? (string)$atts['heading'] : 'h2';
