@@ -8,29 +8,33 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'mm_logo_strip', 'mm_logo_strip_shortcode' );
 /**
- * Output Logo Strip.
+ * Build and return the Logo Strip component.
  *
  * @since   1.0.0
  *
- * @param   array  $atts  Shortcode attributes.
+ * @param   array  $args  The args.
  *
- * @return  string        Shortcode output.
+ * @return  string        The HTML.
  */
-function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
+function mm_logo_strip( $args ) {
 
-	$atts = mm_shortcode_atts( array(
+	$component = 'mm-logo-strip';
+
+	// Set our defaults and use them as needed.
+	$defaults = array(
 		'title'           => '',
 		'title_alignment' => '',
 		'images'          => '',
-		'image_size'      => '',
-	), $atts );
+		'image_size'      => 'full',
+	);
+	$args = wp_parse_args( (array)$args, $defaults );
 
-	$title           = $atts['title'];
-	$title_alignment = $atts['title_alignment'];
-	$images          = $atts['images'];
-	$image_size      = ( '' !== $atts['image_size'] ) ? (string)$atts['image_size'] : 'full';
+	// Get clean param values.
+	$title           = $args['title'];
+	$title_alignment = $args['title_alignment'];
+	$images          = $args['images'];
+	$image_size      = $args['image_size'];
 
 	// Bail if no images are specified.
 	if ( ! $images ) {
@@ -45,7 +49,7 @@ function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
 	$image_count = 'logo-count-' . (int)$image_count;
 
 	// Get Mm classes.
-	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
 	// Set up the title alignment.
 	if ( '' === $title_alignment || 'center' === $title_alignment ) {
@@ -63,14 +67,14 @@ function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
 	<div class="<?php echo $mm_classes; ?> <?php echo $image_count ?>">
 
 		<?php if ( $title ) : ?>
-			<h4 class="<?php echo $title_class; ?>"><?php echo $title; ?></h4>
+			<h4 class="<?php echo $title_class; ?>"><?php echo esc_html( $title ); ?></h4>
 		<?php endif; ?>
 
 		<?php
 			foreach ( $images as $image ) {
 				printf(
 					'<div class="logo">%s</div>',
-					wp_get_attachment_image( $image, $image_size )
+					wp_get_attachment_image( (int)$image, $image_size )
 				);
 			}
 		?>
@@ -79,9 +83,22 @@ function mm_logo_strip_shortcode( $atts, $content = null, $tag ) {
 
 	<?php
 
-	$output = ob_get_clean();
+	return ob_get_clean();
+}
 
-	return $output;
+add_shortcode( 'mm_logo_strip', 'mm_logo_strip_shortcode' );
+/**
+ * Logo Strip shortcode.
+ *
+ * @since   1.0.0
+ *
+ * @param   array  $atts  Shortcode attributes.
+ *
+ * @return  string        Shortcode output.
+ */
+function mm_logo_strip_shortcode( $atts ) {
+
+	return mm_logo_strip( $atts );
 }
 
 add_action( 'vc_before_init', 'mm_vc_logo_strip' );
@@ -197,17 +214,9 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		$images          = $instance['images'];
 		$image_size      = $instance['image_size'];
 
-		$shortcode = sprintf(
-			'[mm_logo_strip title="%s" title_alignment="%s" images="%s" image_size="%s"]',
-			$title,
-			$title_alignment,
-			$images,
-			$image_size
-		);
-
 		echo $args['before_widget'];
 
-		echo do_shortcode( $shortcode );
+		echo mm_logo_strip( $instance );
 
 		echo $args['after_widget'];
 	}
