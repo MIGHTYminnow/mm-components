@@ -36,7 +36,7 @@ function mm_restricted_content_shortcode( $atts = array(), $content = null, $tag
 	$mm_classes = apply_filters( 'mm_shortcode_custom_classes', $mm_classes, $tag, $atts );
 
 	foreach ( $roles as $role ) {
-		if ( mm_check_user_role_for_vc( $role ) ) {
+		if ( mm_check_user_role( $role ) ) {
 			$valid_user = true;
 			break;
 		}
