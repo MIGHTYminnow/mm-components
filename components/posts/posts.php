@@ -171,24 +171,24 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 )
  *
  * @since  1.0.0
  *
- * @param  object  $context  The global post object for the current page.
- * @param  array   $atts     The params passed to the shortcode.
+ * @param  object  $context  The global post object.
+ * @param  array   $args     The instance args.
  */
-function mm_posts_register_default_hooks( $context, $atts ) {
+function mm_posts_register_default_hooks( $context, $args ) {
 
-	if ( mm_true_or_false( $atts['masonry'] ) ) {
+	if ( mm_true_or_false( $args['masonry'] ) ) {
 		add_action( 'mm_posts_before', 'mm_posts_output_masonry_sizers', 10, 3 );
 	}
 
 	add_action( 'mm_posts_header', 'mm_posts_output_post_header', 10, 3 );
 
-	if ( mm_true_or_false( $atts['show_featured_image'] ) ) {
+	if ( mm_true_or_false( $args['show_featured_image'] ) ) {
 		add_action( 'mm_posts_content', 'mm_posts_output_post_image', 8, 3 );
 	}
 
 	add_action( 'mm_posts_content', 'mm_posts_output_post_content', 10, 3 );
 
-	if ( mm_true_or_false( $atts['show_post_meta'] ) ) {
+	if ( mm_true_or_false( $args['show_post_meta'] ) ) {
 		add_action( 'mm_posts_footer', 'mm_posts_output_post_meta', 10, 3 );
 	}
 }
@@ -232,11 +232,11 @@ function mm_posts_output_masonry_sizers() {
  *
  * @param  object  $post     The current post object.
  * @param  object  $context  The global post object.
- * @param  array   $atts     The array of shortcode atts.
+ * @param  array   $args     The instance args.
  */
-function mm_posts_output_post_header( $post, $context, $atts ) {
+function mm_posts_output_post_header( $post, $context, $args ) {
 
-	$custom_output = apply_filters( 'mm_posts_post_header', '', $post, $context, $atts );
+	$custom_output = apply_filters( 'mm_posts_post_header', '', $post, $context, $args );
 
 	if ( '' !== $custom_output ) {
 		echo $custom_output;
@@ -245,10 +245,10 @@ function mm_posts_output_post_header( $post, $context, $atts ) {
 
 	echo '<header class="entry-header">';
 
-	mm_posts_output_post_title( $post, $context, $atts );
+	mm_posts_output_post_title( $post, $context, $args );
 
-	if ( 1 === (int)$atts['show_post_info'] ) {
-		mm_posts_output_post_info( $post, $context, $atts );
+	if ( 1 === (int)$args['show_post_info'] ) {
+		mm_posts_output_post_info( $post, $context, $args );
 	}
 
 	echo '</header>';
@@ -261,11 +261,11 @@ function mm_posts_output_post_header( $post, $context, $atts ) {
  *
  * @param  object  $post     The current post object.
  * @param  object  $context  The global post object.
- * @param  array   $atts     The array of shortcode atts.
+ * @param  array   $args     The instance args.
  */
-function mm_posts_output_post_title( $post, $context, $atts ) {
+function mm_posts_output_post_title( $post, $context, $args ) {
 
-	$custom_output = apply_filters( 'mm_posts_post_title', '', $post, $context, $atts );
+	$custom_output = apply_filters( 'mm_posts_post_title', '', $post, $context, $args );
 
 	if ( '' !== $custom_output ) {
 		echo $custom_output;
@@ -287,11 +287,11 @@ function mm_posts_output_post_title( $post, $context, $atts ) {
  *
  * @param  object  $post     The current post object.
  * @param  object  $context  The global post object.
- * @param  array   $atts     The array of shortcode atts.
+ * @param  array   $args     The instance args.
  */
-function mm_posts_output_post_info( $post, $context, $atts ) {
+function mm_posts_output_post_info( $post, $context, $args ) {
 
-	$custom_output = apply_filters( 'mm_posts_post_info', '', $post, $context, $atts );
+	$custom_output = apply_filters( 'mm_posts_post_info', '', $post, $context, $args );
 
 	if ( '' !== $custom_output ) {
 		echo $custom_output;
@@ -343,11 +343,11 @@ function mm_posts_output_post_info( $post, $context, $atts ) {
  *
  * @param  object  $post     The current post object.
  * @param  object  $context  The global post object.
- * @param  array   $atts     The array of shortcode atts.
+ * @param  array   $args     The instance args.
  */
-function mm_posts_output_post_image( $post, $context, $atts ) {
+function mm_posts_output_post_image( $post, $context, $args ) {
 
-	$custom_output = apply_filters( 'mm_posts_post_image', '', $post, $context, $atts );
+	$custom_output = apply_filters( 'mm_posts_post_image', '', $post, $context, $args );
 
 	if ( '' !== $custom_output ) {
 		echo $custom_output;
@@ -355,8 +355,8 @@ function mm_posts_output_post_image( $post, $context, $atts ) {
 	}
 
 	// Default to using the 'post-thumbnail' size.
-	if ( '' !== $atts['featured_image_size'] ) {
-		$image_size = esc_attr( $atts['featured_image_size'] );
+	if ( '' !== $args['featured_image_size'] ) {
+		$image_size = esc_attr( $args['featured_image_size'] );
 	} else {
 		$image_size = 'post-thumbnail';
 	}
@@ -378,11 +378,11 @@ function mm_posts_output_post_image( $post, $context, $atts ) {
  *
  * @param  object  $post     The current post object.
  * @param  object  $context  The global post object.
- * @param  array   $atts     The array of shortcode atts.
+ * @param  array   $args     The instance args.
  */
-function mm_posts_output_post_content( $post, $context, $atts ) {
+function mm_posts_output_post_content( $post, $context, $args ) {
 
-	$custom_output = apply_filters( 'mm_posts_post_content', '', $post, $context, $atts );
+	$custom_output = apply_filters( 'mm_posts_post_content', '', $post, $context, $args );
 
 	if ( '' !== $custom_output ) {
 		echo $custom_output;
@@ -391,7 +391,7 @@ function mm_posts_output_post_content( $post, $context, $atts ) {
 
 	echo '<div class="entry-content" itemprop="text">';
 
-	if ( 1 === (int)$atts['use_post_content'] ) {
+	if ( 1 === (int)$args['use_post_content'] ) {
 
 		the_content();
 
@@ -410,11 +410,11 @@ function mm_posts_output_post_content( $post, $context, $atts ) {
  *
  * @param  object  $post     The current post object.
  * @param  object  $context  The global post object.
- * @param  array   $atts     The array of shortcode atts.
+ * @param  array   $args     The instance args.
  */
-function mm_posts_output_post_meta( $post, $context, $atts ) {
+function mm_posts_output_post_meta( $post, $context, $args ) {
 
-	$custom_output = apply_filters( 'mm_posts_post_meta', '', $post, $context, $atts );
+	$custom_output = apply_filters( 'mm_posts_post_meta', '', $post, $context, $args );
 
 	if ( '' !== $custom_output ) {
 		echo $custom_output;
