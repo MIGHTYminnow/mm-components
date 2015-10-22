@@ -3,6 +3,10 @@
  *
  * @since  1.0.0
  */
+/* Reusables
+---------------------------------------------------------------------------------------------------- */
+/* Mixins
+--------------------------------------------- */
 /* Widget fields
 ---------------------------------------------------------------------------------------------------- */
 /* Single media upload field
@@ -23,6 +27,18 @@
 
 .mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-no-image {
   display: block;
+}
+
+.mm-single-media-wrap .mm-single-media-image-preview {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  border: 0;
 }
 
 .mm-single-media-wrap .mm-single-media-no-image {
@@ -105,8 +121,6 @@
   border-color: #999;
 }
 
-.mm-multi-media-wrap .mm-multi-media-images-preview:nth-child(2n+1) {
+.mm-multi-media-wrap .mm-multi-media-images-preview:nth-child(2n + 1) {
   margin-right: 0;
 }
-
-/*# sourceMappingURL=mm-components-admin.css.map */
