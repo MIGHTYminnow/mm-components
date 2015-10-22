@@ -3,6 +3,10 @@
  *
  * @since  1.0.0
  */
+/* Reusables
+---------------------------------------------------------------------------------------------------- */
+/* Mixins
+--------------------------------------------- */
 /* Widget fields
 ---------------------------------------------------------------------------------------------------- */
 /* Single media upload field
@@ -15,21 +19,6 @@
   max-width: 100%;
   padding: 0;
   display: block;
-}
-
-.mm-single-media-wrap .mm-single-media-no-image {
-  display: none;
-  border: 1px solid #eee;
-  line-height: 20px;
-  text-align: center;
-  padding: 12px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: border-color 0.3s;
-}
-
-.mm-single-media-wrap .mm-single-media-no-image:hover {
-  border-color: #999;
 }
 
 .mm-single-media-wrap .mm-single-media-image-preview-wrap.no-image .mm-single-media-image-preview {
@@ -52,7 +41,18 @@
   border: 0;
 }
 
-.mm-single-media-wrap .mm-single-media-image-preview:hover {
+.mm-single-media-wrap .mm-single-media-no-image {
+  display: none;
+  border: 1px solid #eee;
+  line-height: 20px;
+  text-align: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.mm-single-media-wrap .mm-single-media-no-image:hover {
   border-color: #999;
 }
 
@@ -62,17 +62,30 @@
   display: block;
 }
 
+.mm-multi-media-wrap::after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
 .mm-multi-media-wrap .mm-multi-media-images-preview-wrap {
   max-width: 100%;
   padding: 0;
   display: block;
 }
 
-.mm-multi-media-wrap::after,
 .mm-multi-media-wrap .mm-multi-media-images-preview-wrap::after {
   content: '';
   display: table;
   width: 100%;
+}
+
+.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .multi-media-images-preview {
+  display: none;
+}
+
+.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .mm-multi-media-no-images {
+  display: block;
 }
 
 .mm-multi-media-wrap .mm-multi-media-no-images {
@@ -88,14 +101,6 @@
 
 .mm-multi-media-wrap .mm-multi-media-no-images:hover {
   border-color: #999;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .mm-multi-media-images-preview {
-  display: none;
-}
-
-.mm-multi-media-wrap .mm-multi-media-images-preview-wrap.no-images .mm-multi-media-no-images {
-  display: block;
 }
 
 .mm-multi-media-wrap .mm-multi-media-images-preview {
