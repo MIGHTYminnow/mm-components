@@ -488,7 +488,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 		);
 	}
 
-	if ( $page < $query->max_num_pages ) {
+	if ( $query->max_num_pages > $page ) {
 		printf(
 			'<a href="%s" class="%s" title="%s">%s</a>',
 			'?page=' . ( $page + 1 ),
