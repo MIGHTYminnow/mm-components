@@ -557,22 +557,24 @@ function mm_posts_output_postmeta_value( $post_id, $key, $element = 'div' ) {
 	}
 }
 
-add_filter( 'mm_posts_query_args', 'mm_posts_filter_from_query_args' );
+add_filter( 'mm_posts_query_args', 'mm_posts_filter_from_query_args', 10, 2 );
 /**
  * Use specific query args present in the URL to alter the mm_posts query.
  *
  * @since   1.0.0
  *
  * @param   array  $query_args  The original query args.
+ * @param   array  $args        The instance args.
+ *
  * @return  array  $query_args  The updated query args.
  */
-function mm_posts_filter_from_query_args( $query_args ) {
+function mm_posts_filter_from_query_args( $query_args, $args ) {
 
 	if ( isset( $_GET['per_page'] ) ) {
 		$query_args['posts_per_page'] = (int)$_GET['per_page'];
 	}
 
-	if ( get_query_var( 'page' ) ) {
+	if ( mm_true_or_false( $args['pagination'] ) && get_query_var( 'page' ) ) {
 		$query_args['paged'] = (int)get_query_var( 'page' );
 	}
 
