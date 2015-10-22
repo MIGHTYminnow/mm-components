@@ -8,23 +8,26 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'mm_posts', 'mm_posts_shortcode' );
 /**
- * Output [mm_posts]
+ * Build and return the Posts component.
  *
  * @since   1.0.0
  *
- * @param   array   $atts  Shortcode attributes.
- * @return  string         Shortcode output.
+ * @param   array  $args  The args.
+ *
+ * @return  string        The HTML.
  */
-function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
+function mm_posts( $args ) {
 
-	$atts = mm_shortcode_atts( array(
+	$component  = 'mm-posts';
+
+	// Set our defaults and use them as needed.
+	$defaults = array(
 		'post_id'             => '',
-		'post_type'           => '',
+		'post_type'           => 'post',
 		'taxonomy'            => '',
 		'term'                => '',
-		'limit'               => '',
+		'per_page'            => 10,
 		'template'            => '',
 		'show_featured_image' => '',
 		'featured_image_size' => '',
@@ -32,19 +35,20 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 		'show_post_meta'      => '',
 		'use_post_content'    => '',
 		'masonry'             => '',
-	), $atts );
+	);
+	$args = wp_parse_args( (array)$args, $defaults );
 
-	// Sanitize passed in values and set up defaults.
-	$post_id   = ( 0 !== (int)$atts['post_id'] ) ? (int)$atts['post_id'] : '';
-	$post_type = ( ! empty( $atts['post_type'] ) ) ? sanitize_text_field( $atts['post_type'] ) : 'post';
-	$taxonomy  = ( ! empty( $atts['taxonomy'] ) ) ? sanitize_text_field( $atts['taxonomy'] ) : '';
-	$template  = ( ! empty( $atts['template'] ) ) ? sanitize_text_field( $atts['template'] ) : '';
-	$term      = ( ! empty( $atts['term'] ) ) ? sanitize_text_field( $atts['term'] ) : '';
-	$limit     = ( ! empty( $atts['limit'] ) ) ? (int)$atts['limit'] : 10;
-	$masonry   = mm_true_or_false( $atts['masonry'] );
+	// Get clean param values.
+	$post_id   = (int)$args['post_id'];
+	$post_type = sanitize_text_field( $args['post_type'] );
+	$taxonomy  = sanitize_text_field( $args['taxonomy'] );
+	$template  = sanitize_text_field( $args['template'] );
+	$term      = sanitize_text_field( $args['term'] );
+	$per_page  = (int)$args['per_page'];
+	$masonry   = mm_true_or_false( $args['masonry'] );
 
 	// Get Mm classes.
-	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
 	// Maybe add template class.
 	if ( $template ) {
@@ -59,26 +63,26 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 	// Set up the context we're in.
 	global $post;
-	$current_post_id = (int)$post->ID;
+	$global_post_id = (int)$post->ID;
 
 	// Set up a generic query.
 	$query_args = array(
 		'post_type'      => $post_type,
 		'post_status'    => 'publish',
-		'posts_per_page' => $limit,
+		'posts_per_page' => $per_page,
 	);
 
 	// Exclude the page we're on from the query to prevent an infinite loop.
 	$query_args['post__not_in'] = array(
-		$current_post_id
+		$global_post_id
 	);
 
 	// Add to our query if additional params have been passed.
-	if ( '' !== $post_id ) {
+	if ( $post_id ) {
 
 		$query_args['p'] = $post_id;
 
-	} elseif ( '' !== $taxonomy && '' !== $term ) {
+	} elseif ( $taxonomy && $term ) {
 
 		// First try the term by ID, then try by slug.
 		if ( is_int( $term ) ) {
@@ -101,7 +105,7 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 	}
 
 	// Allow the query to be filtered.
-	$query_args = apply_filters( 'mm_posts_query_args', $query_args, $atts );
+	$query_args = apply_filters( 'mm_posts_query_args', $query_args, $args );
 
 	// Do the query.
 	$query = new WP_Query( $query_args );
@@ -109,13 +113,13 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 	// Store the global post object as the context we'll pass to our hooks.
 	$context = $post;
 
-	ob_start(); ?>
+	do_action( 'mm_posts_register_hooks', $context, $args );
 
-	<?php do_action( 'mm_posts_register_hooks', $context, $atts ); ?>
+	ob_start(); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
-		<?php do_action( 'mm_posts_before', $context, $atts ); ?>
+		<?php do_action( 'mm_posts_before', $context, $args ); ?>
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
@@ -123,27 +127,42 @@ function mm_posts_shortcode( $atts = array(), $content = null, $tag ) {
 
 			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
 
-				<?php do_action( 'mm_posts_header', $query->post, $context, $atts ); ?>
+				<?php do_action( 'mm_posts_header', $query->post, $context, $args ); ?>
 
-				<?php do_action( 'mm_posts_content', $query->post, $context, $atts ); ?>
+				<?php do_action( 'mm_posts_content', $query->post, $context, $args ); ?>
 
-				<?php do_action( 'mm_posts_footer', $query->post, $context, $atts ); ?>
+				<?php do_action( 'mm_posts_footer', $query->post, $context, $args ); ?>
 
 			</article>
 
 		<?php endwhile; ?>
 
-		<?php do_action( 'mm_posts_after', $context, $atts ); ?>
+		<?php do_action( 'mm_posts_after', $context, $args ); ?>
 
 	</div>
 
-	<?php wp_reset_postdata(); ?>
+	<?php
 
-	<?php do_action( 'mm_posts_reset_hooks' ); ?>
+	wp_reset_postdata();
 
-	<?php $output = ob_get_clean();
+	do_action( 'mm_posts_reset_hooks' );
 
-	return $output;
+	return ob_get_clean();
+}
+
+add_shortcode( 'mm_posts', 'mm_posts_shortcode' );
+/**
+ * Posts shortcode.
+ *
+ * @since   1.0.0
+ *
+ * @param   array   $atts  Shortcode attributes.
+ *
+ * @return  string         Shortcode output.
+ */
+function mm_posts_shortcode( $atts = array() ) {
+
+	return mm_posts( $atts );
 }
 
 add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 );
@@ -582,9 +601,9 @@ function mm_vc_posts() {
 			),
 			array(
 				'type'        => 'textfield',
-				'heading'     => __( 'Number of Posts', 'mm-components' ),
-				'param_name'  => 'limit',
-				'description' => __( 'Specify the number of posts to show', 'mm-components' ),
+				'heading'     => __( 'Posts Per Page', 'mm-components' ),
+				'param_name'  => 'per_page',
+				'description' => __( 'Specify the maximum number of posts to show at once', 'mm-components' ),
 				'value'       => '10',
 			),
 			array(
