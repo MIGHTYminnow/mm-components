@@ -48,7 +48,7 @@ function mm_restricted_content_shortcode( $atts = array(), $content = null, $tag
 
 	} else {
 
-		$inner_output = do_shortcode( $invalid );
+		$inner_output = do_shortcode( rawurldecode( base64_decode( $invalid ) ) );
 		$mm_classes .= ' invalid-user';
 	}
 
@@ -95,7 +95,7 @@ function mm_vc_restricted_content() {
 				'value'       => $roles,
 			),
 			array(
-				'type'        => 'textarea',
+				'type'        => 'textarea_raw_html',
 				'heading'     => __( 'Invalid User Message', 'mm-components' ),
 				'param_name'  => 'invalid_message',
 				'description' => __( 'This message will be shown to users who do not have the specified role.', 'mm-components' ),
