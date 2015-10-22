@@ -498,7 +498,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 		);
 	}
 
-	echo '<div>';
+	echo '</div>';
 }
 
 /**
