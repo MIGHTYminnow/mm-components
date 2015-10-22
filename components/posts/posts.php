@@ -28,6 +28,7 @@ function mm_posts( $args ) {
 		'taxonomy'            => '',
 		'term'                => '',
 		'per_page'            => 10,
+		'pagination'          => false,
 		'template'            => '',
 		'show_featured_image' => '',
 		'featured_image_size' => '',
@@ -39,13 +40,14 @@ function mm_posts( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$post_id   = (int)$args['post_id'];
-	$post_type = sanitize_text_field( $args['post_type'] );
-	$taxonomy  = sanitize_text_field( $args['taxonomy'] );
-	$template  = sanitize_text_field( $args['template'] );
-	$term      = sanitize_text_field( $args['term'] );
-	$per_page  = (int)$args['per_page'];
-	$masonry   = mm_true_or_false( $args['masonry'] );
+	$post_id    = (int)$args['post_id'];
+	$post_type  = sanitize_text_field( $args['post_type'] );
+	$taxonomy   = sanitize_text_field( $args['taxonomy'] );
+	$term       = sanitize_text_field( $args['term'] );
+	$per_page   = (int)$args['per_page'];
+	$pagination = mm_true_or_false( $args['pagination'] );
+	$template   = sanitize_text_field( $args['template'] );
+	$masonry    = mm_true_or_false( $args['masonry'] );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -58,7 +60,7 @@ function mm_posts( $args ) {
 	// Maybe set up masonry.
 	if ( $masonry ) {
 		wp_enqueue_script( 'mm-isotope' );
-		$mm_classes = $mm_classes . ' mm-masonry';
+		$mm_classes .= ' mm-masonry';
 	}
 
 	// Set up the context we're in.
@@ -119,7 +121,7 @@ function mm_posts( $args ) {
 
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
-		<?php do_action( 'mm_posts_before', $context, $args ); ?>
+		<?php do_action( 'mm_posts_before', $query, $context, $args ); ?>
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
@@ -137,7 +139,7 @@ function mm_posts( $args ) {
 
 		<?php endwhile; ?>
 
-		<?php do_action( 'mm_posts_after', $context, $args ); ?>
+		<?php do_action( 'mm_posts_after', $query, $context, $args ); ?>
 
 	</div>
 
@@ -190,6 +192,10 @@ function mm_posts_register_default_hooks( $context, $args ) {
 
 	if ( mm_true_or_false( $args['show_post_meta'] ) ) {
 		add_action( 'mm_posts_footer', 'mm_posts_output_post_meta', 10, 3 );
+	}
+
+	if ( mm_true_or_false( $args['pagination'] ) ) {
+		add_action( 'mm_posts_after', 'mm_posts_output_pagination', 10, 3 );
 	}
 }
 
@@ -450,6 +456,52 @@ function mm_posts_output_post_meta( $post, $context, $args ) {
 }
 
 /**
+ * Output the pagination links.
+ *
+ * @since  1.0.0
+ *
+ * @param  object  $query    The query object.
+ * @param  object  $context  The global post object.
+ * @param  array   $args     The instance args.
+ */
+function mm_posts_output_pagination( $query, $context, $args ) {
+
+	$custom_output = apply_filters( 'mm_posts_output_pagination', '', $query, $context, $args );
+
+	if ( '' !== $custom_output ) {
+		echo $custom_output;
+		return;
+	}
+
+	// Get the page query arg from the URL.
+	$page = ( get_query_var( 'page' ) ) ? (int)get_query_var( 'page' ) : 1;
+
+	echo '<div class="pagination-wrap">';
+
+	if ( 1 < $page ) {
+		printf(
+			'<a href="%s" class="%s" title="%s">%s</a>',
+			'?page=' . ( $page - 1 ),
+			'prev button',
+			__( 'Previous', 'mm-components' ),
+			__( 'Previous Page', 'mm-components' )
+		);
+	}
+
+	if ( $page < $query->max_num_pages ) {
+		printf(
+			'<a href="%s" class="%s" title="%s">%s</a>',
+			'?page=' . ( $page + 1 ),
+			'next button',
+			__( 'Next', 'mm-components' ),
+			__( 'Next Page', 'mm-components' )
+		);
+	}
+
+	echo '<div>';
+}
+
+/**
  * Output multiple postmeta values in a standard format.
  *
  * @since  1.0.0
@@ -516,8 +568,12 @@ add_filter( 'mm_posts_query_args', 'mm_posts_filter_from_query_args' );
  */
 function mm_posts_filter_from_query_args( $query_args ) {
 
-	if ( isset( $_GET['posts_per_page'] ) ) {
-		$query_args['posts_per_page'] = (int)$_GET['posts_per_page'];
+	if ( isset( $_GET['per_page'] ) ) {
+		$query_args['posts_per_page'] = (int)$_GET['per_page'];
+	}
+
+	if ( get_query_var( 'page' ) ) {
+		$query_args['paged'] = (int)get_query_var( 'page' );
 	}
 
 	if ( isset( $_GET['author'] ) ) {
@@ -607,6 +663,14 @@ function mm_vc_posts() {
 				'value'       => '10',
 			),
 			array(
+				'type'       => 'checkbox',
+				'heading'    => __( 'Enable Pagination?', 'mm-components' ),
+				'param_name' => 'pagination',
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
+			),
+			array(
 				'type'        => 'dropdown',
 				'heading'     => __( 'Template', 'mm-components' ),
 				'param_name'  => 'template',
@@ -615,7 +679,7 @@ function mm_vc_posts() {
 			),
 			array(
 				'type'       => 'checkbox',
-				'heading'    => __( 'Use Masonry', 'mm-components' ),
+				'heading'    => __( 'Use Masonry?', 'mm-components' ),
 				'param_name' => 'masonry',
 				'value'      => array(
 					__( 'Yes', 'mm-components' ) => 1,
@@ -623,7 +687,7 @@ function mm_vc_posts() {
 			),
 			array(
 				'type'       => 'checkbox',
-				'heading'    => __( 'Show the Featured Image', 'mm-components' ),
+				'heading'    => __( 'Show the Featured Image?', 'mm-components' ),
 				'param_name' => 'show_featured_image',
 				'value'      => array(
 					__( 'Yes', 'mm-components' ) => 1,
@@ -641,7 +705,7 @@ function mm_vc_posts() {
 			),
 			array(
 				'type'        => 'checkbox',
-				'heading'     => __( 'Show post info', 'mm-components' ),
+				'heading'     => __( 'Show post info?', 'mm-components' ),
 				'param_name'  => 'show_post_info',
 				'description' => __( 'Default post info output includes post date and author.', 'mm-components' ),
 				'value'       => array(
@@ -650,7 +714,7 @@ function mm_vc_posts() {
 			),
 			array(
 				'type'        => 'checkbox',
-				'heading'     => __( 'Show post meta', 'mm-components' ),
+				'heading'     => __( 'Show post meta?', 'mm-components' ),
 				'param_name'  => 'show_post_meta',
 				'description' => __( 'Default post meta output includes category and tag links.', 'mm-components' ),
 				'value'       => array(
@@ -659,7 +723,7 @@ function mm_vc_posts() {
 			),
 			array(
 				'type'        => 'checkbox',
-				'heading'     => __( 'Use full post content.', 'mm-components' ),
+				'heading'     => __( 'Use full post content?', 'mm-components' ),
 				'param_name'  => 'use_post_content',
 				'description' => __( 'By default the excerpt will be used. Check this to output the full post content.', 'mm-components' ),
 				'value'       => array(
