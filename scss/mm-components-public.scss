@@ -189,11 +189,26 @@
 		&::after {
 			@include clearfix;
 		}
-		.prev {
-			float: left;
+		.pagination-link {
+			padding: 4px 10px;
+			display: inline-block;
+			margin: 0 2px;
+			&:first-child {
+				margin-left: 0;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+			&.prev {
+				float: left;
+			}
+			&.next {
+				float: right;
+			}
 		}
-		.next {
-			float: right;
+		span {
+			display: inline-block;
+			margin: 0 6px;
 		}
 	}
 }

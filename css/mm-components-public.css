@@ -188,12 +188,31 @@
   width: 100%;
 }
 
-.mm-posts .pagination-wrap .prev {
+.mm-posts .pagination-wrap .pagination-link {
+  padding: 4px 10px;
+  display: inline-block;
+  margin: 0 2px;
+}
+
+.mm-posts .pagination-wrap .pagination-link:first-child {
+  margin-left: 0;
+}
+
+.mm-posts .pagination-wrap .pagination-link:last-child {
+  margin-right: 0;
+}
+
+.mm-posts .pagination-wrap .pagination-link.prev {
   float: left;
 }
 
-.mm-posts .pagination-wrap .next {
+.mm-posts .pagination-wrap .pagination-link.next {
   float: right;
+}
+
+.mm-posts .pagination-wrap span {
+  display: inline-block;
+  margin: 0 6px;
 }
 
 /* Posts Templates

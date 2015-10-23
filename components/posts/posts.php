@@ -28,7 +28,7 @@ function mm_posts( $args ) {
 		'taxonomy'            => '',
 		'term'                => '',
 		'per_page'            => 10,
-		'pagination'          => false,
+		'pagination'          => '',
 		'template'            => '',
 		'show_featured_image' => '',
 		'featured_image_size' => '',
@@ -45,7 +45,7 @@ function mm_posts( $args ) {
 	$taxonomy   = sanitize_text_field( $args['taxonomy'] );
 	$term       = sanitize_text_field( $args['term'] );
 	$per_page   = (int)$args['per_page'];
-	$pagination = mm_true_or_false( $args['pagination'] );
+	$pagination = sanitize_text_field( $args['pagination'] );
 	$template   = sanitize_text_field( $args['template'] );
 	$masonry    = mm_true_or_false( $args['masonry'] );
 
@@ -179,7 +179,7 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 )
 function mm_posts_register_default_hooks( $context, $args ) {
 
 	if ( mm_true_or_false( $args['masonry'] ) ) {
-		add_action( 'mm_posts_before', 'mm_posts_output_masonry_sizers', 10, 3 );
+		add_action( 'mm_posts_before', 'mm_posts_output_masonry_sizers', 12, 3 );
 	}
 
 	add_action( 'mm_posts_header', 'mm_posts_output_post_header', 10, 3 );
@@ -194,8 +194,8 @@ function mm_posts_register_default_hooks( $context, $args ) {
 		add_action( 'mm_posts_footer', 'mm_posts_output_post_meta', 10, 3 );
 	}
 
-	if ( mm_true_or_false( $args['pagination'] ) ) {
-		add_action( 'mm_posts_after', 'mm_posts_output_pagination', 10, 3 );
+	if ( ! empty( $args['pagination'] ) ) {
+		add_action( 'mm_posts_after', 'mm_posts_output_pagination', 12, 3 );
 	}
 }
 
@@ -476,26 +476,170 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 	// Get the page query arg from the URL.
 	$page = ( get_query_var( 'page' ) ) ? (int)get_query_var( 'page' ) : 1;
 
-	echo '<div class="pagination-wrap">';
-
-	if ( 1 < $page ) {
-		printf(
-			'<a href="%s" class="%s" title="%s">%s</a>',
-			'?page=' . ( $page - 1 ),
-			'prev button',
-			__( 'Previous', 'mm-components' ),
-			__( 'Previous Page', 'mm-components' )
-		);
+	// Bail if we don't have any additional pages to show.
+	if ( 1 >= $query->max_num_pages ) {
+		return;
 	}
 
-	if ( $query->max_num_pages > $page ) {
-		printf(
-			'<a href="%s" class="%s" title="%s">%s</a>',
-			'?page=' . ( $page + 1 ),
-			'next button',
-			__( 'Next', 'mm-components' ),
-			__( 'Next Page', 'mm-components' )
-		);
+	// Default to next/prev links.
+	if ( ! $args['pagination'] ) {
+		$args['pagination'] = 'next-prev';
+	}
+
+	echo '<div class="pagination-wrap pagination-' . esc_attr( $args['pagination'] ) . '">';
+
+	switch ( $args['pagination'] ) {
+
+		case 'next-prev':
+
+			if ( 1 < $page ) {
+				printf(
+					'<a href="%s" class="%s" title="%s">%s</a>',
+					'?page=' . ( $page - 1 ),
+					'pagination-link prev button',
+					__( 'Previous', 'mm-components' ),
+					__( 'Previous', 'mm-components' )
+				);
+			}
+
+			if ( $query->max_num_pages > $page ) {
+				printf(
+					'<a href="%s" class="%s" title="%s">%s</a>',
+					'?page=' . ( $page + 1 ),
+					'pagination-link next button',
+					__( 'Next', 'mm-components' ),
+					__( 'Next', 'mm-components' )
+				);
+			}
+
+			break;
+
+		case 'page-numbers':
+
+			if ( 5 >= $query->max_num_pages ) {
+
+				// We have 5 or less total pages.
+				for ( $i = 1; $i <= $query->max_num_pages; $i++ ) {
+					if ( $i == $page ) {
+						$link_classes = 'pagination-link page-' . $i . ' button selected';
+					} else {
+						$link_classes = 'pagination-link page-' . $i . ' button';
+					}
+					printf(
+						'<a href="%s" class="%s" title="%s">%s</a>',
+						'?page=' . $i,
+						$link_classes,
+						$i,
+						$i
+					);
+				}
+
+			} elseif ( 3 <= $page && ( $query->max_num_pages - 2 ) >= $page ) {
+
+				// We have 6 or more total pages and we're showing a page between 3 and (total - 2).
+				printf(
+					'<a href="%s" class="%s" title="%s">%s</a>',
+					'?page=1',
+					'pagination-link page-1 button',
+					'1',
+					'1'
+				);
+
+				if ( 3 != $page ) {
+					echo '<span>&hellip;</span>';
+				}
+
+				printf(
+					'<a href="%s" class="%s" title="%s">%s</a>',
+					'?page=' . ( $page - 1 ),
+					'pagination-link page-' . ( $page - 1 ) . ' button',
+					$page - 1,
+					$page - 1
+				);
+				printf(
+					'<a href="%s" class="%s" title="%s">%s</a>',
+					'?page=' . $page,
+					'pagination-link page-' . $page . ' button selected',
+					$page,
+					$page
+				);
+				printf(
+					'<a href="%s" class="%s" title="%s">%s</a>',
+					'?page=' . ( $page + 1 ),
+					'pagination-link page-' . ( $page + 1 ) . ' button',
+					$page + 1,
+					$page + 1
+				);
+
+				if ( $page != ( $query->max_num_pages - 2 ) ) {
+					echo '<span>&hellip;</span>';
+				}
+
+				printf(
+					'<a href="%s" class="%s" title="%s">%s</a>',
+					'?page=' . $query->max_num_pages,
+					'pagination-link page-' . $query->max_num_pages . ' button',
+					$query->max_num_pages,
+					$query->max_num_pages
+				);
+
+			} elseif ( 3 > $page ) {
+
+				// We have more than 6 pages and we're showing page 1 or 2.
+				for ( $i = 1; $i <= 3; $i++ ) {
+					if ( $i == $page ) {
+						$link_classes = 'pagination-link page-' . $i . ' button selected';
+					} else {
+						$link_classes = 'pagination-link page-' . $i . ' button';
+					}
+					printf(
+						'<a href="%s" class="%s" title="%s">%s</a>',
+						'?page=' . $i,
+						$link_classes,
+						$i,
+						$i
+					);
+				}
+
+				echo '<span>&hellip;</span>';
+
+				printf(
+					'<a href="%s" class="%s" title="%s">%s</a>',
+					'?page=' . $query->max_num_pages,
+					'pagination-link page-' . $query->max_num_pages . ' button',
+					$query->max_num_pages,
+					$query->max_num_pages
+				);
+
+			} else {
+
+				// We have more than 6 pages and we're showing the last or second to last page.
+				printf(
+					'<a href="%s" class="%s" title="%s">%s</a>',
+					'?page=1',
+					'pagination-link page-1 button',
+					'1',
+					'1'
+				);
+
+				echo '<span>&hellip;</span>';
+
+				for ( $i = ( $query->max_num_pages - 2 ); $i <= $query->max_num_pages; $i++ ) {
+					if ( $i == $page ) {
+						$link_classes = 'pagination-link page-' . $i . ' button selected';
+					} else {
+						$link_classes = 'pagination-link page-' . $i . ' button';
+					}
+					printf(
+						'<a href="%s" class="%s" title="%s">%s</a>',
+						'?page=' . $i,
+						$link_classes,
+						$i,
+						$i
+					);
+				}
+			}
+			break;
 	}
 
 	echo '</div>';
@@ -574,7 +718,7 @@ function mm_posts_filter_from_query_args( $query_args, $args ) {
 		$query_args['posts_per_page'] = (int)$_GET['per_page'];
 	}
 
-	if ( mm_true_or_false( $args['pagination'] ) && get_query_var( 'page' ) ) {
+	if ( ! empty( $args['pagination'] ) && get_query_var( 'page' ) ) {
 		$query_args['paged'] = (int)get_query_var( 'page' );
 	}
 
@@ -665,11 +809,13 @@ function mm_vc_posts() {
 				'value'       => '10',
 			),
 			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Enable Pagination?', 'mm-components' ),
+				'type'       => 'dropdown',
+				'heading'    => __( 'Pagination', 'mm-components' ),
 				'param_name' => 'pagination',
 				'value'      => array(
-					__( 'Yes', 'mm-components' ) => 1,
+					__( 'None', 'mm-components' )         => '',
+					__( 'Next/Prev', 'mm-components' )    => 'next-prev',
+					__( 'Page Numbers', 'mm-components' ) => 'page-numbers',
 				),
 			),
 			array(
