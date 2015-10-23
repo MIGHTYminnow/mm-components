@@ -131,7 +131,7 @@ function mm_true_or_false( $value ) {
 }
 
 /**
- * Utility function to check if a user has a specific role.
+ * Check if a user has a specific role.
  *
  * @since  1.0.0
  *
@@ -346,7 +346,7 @@ function mm_get_image_sizes_for_vc() {
 function mm_get_mm_posts_templates_for_vc() {
 
 	$templates = array(
-		__( 'Select a template', 'mm-components' ) => '',
+		__( 'Default', 'mm-components' ) => '',
 	);
 
 	// All core and custom templates should be registered using this filter.
