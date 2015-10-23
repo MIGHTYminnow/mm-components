@@ -38,20 +38,20 @@
   text-align: center;
 }
 
-.mm-countdown .count,
+@media (min-width: 350px) {
+  .mm-countdown:last-child {
+    margin-right: 0;
+  }
+}
+
 .mm-countdown .label {
   display: block;
 }
 
 .mm-countdown .count {
+  display: block;
   font-size: 30px;
   font-weight: bold;
-}
-
-@media (min-width: 350px) {
-  .mm-countdown .unit:last-child {
-    margin-right: 0;
-  }
 }
 
 /* Expandable Content
@@ -155,18 +155,18 @@
   margin: 0 15px 12px 0;
 }
 
-.mm-posts .entry-image a,
-.mm-posts .entry-image a img {
-  display: block;
-}
-
 .mm-posts .entry-image a {
+  display: block;
   opacity: 1;
   transition: opacity 0.2s;
 }
 
 .mm-posts .entry-image a:hover {
   opacity: 0.85;
+}
+
+.mm-posts .entry-image a img {
+  display: block;
 }
 
 .mm-posts .entry-meta-wrap {
@@ -181,14 +181,14 @@
   margin: 0 0 10px;
 }
 
-.mm-posts.simple-list .entry-title,
-.mm-posts.simple-list p {
-  display: inline;
-}
-
 .mm-posts.simple-list .entry-title {
+  display: inline;
   font-size: 20px;
   margin-right: 5px;
+}
+
+.mm-posts.simple-list p {
+  display: inline;
 }
 
 .mm-posts.simple-list .entry-info-wrap {
@@ -216,6 +216,17 @@
   position: relative;
 }
 
+@media (min-width: 768px) {
+  .mm-posts.image-grid .mm-post {
+    width: 49%;
+    margin-right: 2%;
+    margin-bottom: 0;
+  }
+  .mm-posts.image-grid .mm-post:nth-child(2n) {
+    margin-right: 0;
+  }
+}
+
 .mm-posts.image-grid .entry-image {
   width: 100%;
   max-width: 100%;
@@ -227,6 +238,12 @@
   line-height: 1.2;
   font-size: 20px;
   float: left;
+}
+
+@media (min-width: 480px) {
+  .mm-posts.image-grid .entry-title {
+    font-size: 24px;
+  }
 }
 
 .mm-posts.image-grid.titles-inside .mm-post {
@@ -261,29 +278,12 @@
   padding: 0;
 }
 
-.mm-posts.image-grid.no-gutter .entry-title {
-  margin: 0;
-}
-
+.mm-posts.image-grid.no-gutter .entry-title,
 .mm-posts.image-grid.mm-masonry .mm-post {
   margin: 0;
 }
 
-@media (min-width: 480px) {
-  .mm-posts.image-grid .entry-title {
-    font-size: 24px;
-  }
-}
-
 @media (min-width: 768px) {
-  .mm-posts.image-grid .mm-post {
-    width: 49%;
-    margin-right: 2%;
-    margin-bottom: 0px;
-  }
-  .mm-posts.image-grid .mm-post:nth-child(2n) {
-    margin-right: 0;
-  }
   .mm-posts.image-grid.no-gutter .mm-post {
     width: 50%;
     margin: 0;
