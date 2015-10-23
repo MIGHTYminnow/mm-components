@@ -5,6 +5,10 @@
  *
  * @package mm-components
  */
+/* Reusables
+---------------------------------------------------------------------------------------------------- */
+/* Mixins
+--------------------------------------------- */
 /* Global Styles
 ---------------------------------------------------------------------------------------------------- */
 .mm-text-align-left {
@@ -171,6 +175,25 @@
 
 .mm-posts .entry-meta-wrap {
   clear: both;
+}
+
+.mm-posts .pagination-wrap {
+  clear: both;
+  width: 100%;
+}
+
+.mm-posts .pagination-wrap::after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.mm-posts .pagination-wrap .prev {
+  float: left;
+}
+
+.mm-posts .pagination-wrap .next {
+  float: right;
 }
 
 /* Posts Templates

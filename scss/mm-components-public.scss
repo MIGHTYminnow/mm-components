@@ -6,6 +6,18 @@
  * @package mm-components
  */
 
+/* Reusables
+---------------------------------------------------------------------------------------------------- */
+
+/* Mixins
+--------------------------------------------- */
+
+@mixin clearfix {
+	content: '';
+	display: table;
+	width: 100%;
+}
+
 /* Global Styles
 ---------------------------------------------------------------------------------------------------- */
 
@@ -170,6 +182,19 @@
 	}
 	.entry-meta-wrap {
 		clear: both;
+	}
+	.pagination-wrap {
+		clear: both;
+		width: 100%;
+		&::after {
+			@include clearfix;
+		}
+		.prev {
+			float: left;
+		}
+		.next {
+			float: right;
+		}
 	}
 }
 
