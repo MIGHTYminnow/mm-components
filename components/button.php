@@ -21,17 +21,17 @@ add_shortcode( 'mm_button', 'mm_button_shortcode' );
 function mm_button_shortcode( $atts, $content = null, $tag ) {
 
 	$atts = mm_shortcode_atts( array(
-		'link'         => '',
-		'link_title'   => '',
-		'link_target'  => '',
-		'class'        => '',
-		'style'        => 'default',
-		'corner_style' => 'pointed',
-		'border_style' => '',
-		'color'        => '',
-		'size'         => '',
-		'full_width'   => '',
-		'alignment'    => 'left',
+		'link'          => '',
+		'link_title'    => '',
+		'link_target'   => '',
+		'class'         => '',
+		'style'         => 'default',
+		'corner_style'  => '',
+		'border_weight' => 'thin',
+		'color'         => '',
+		'size'          => '',
+		'full_width'    => '',
+		'alignment'     => 'left',
 	), $atts );
 
 	// Handle a raw link or a VC link array.
@@ -76,7 +76,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	$classes[] = $atts['class'];
 	$classes[] = $atts['style'];
 	$classes[] = $atts['corner_style'];
-	$classes[] = $atts['border_style'];
+	$classes[] = $atts['border_weight'];
 	$classes[] = $atts['color'];
 	$classes[] = $atts['size'];
 	$classes[] = $atts['full_width'];
@@ -111,6 +111,8 @@ add_action( 'vc_before_init', 'mm_vc_button' );
  */
 function mm_vc_button() {
 
+	$colors = mm_get_available_colors_for_vc();
+
 	vc_map( array(
 		'name'     => __( 'Button', 'mm-components' ),
 		'base'     => 'mm_button',
@@ -131,7 +133,7 @@ function mm_vc_button() {
 				'value'      => array(
 					__( 'Default', 'mm-components' )        => 'default',
 					__( 'Ghost', 'mm-components' )          => 'ghost',
-					__( 'Solid to Ghost', 'mm-components' ) => 'solid_to_ghost',
+					__( 'Solid to Ghost', 'mm-components' ) => 'solid-to-ghost',
 					__( '3D', 'mm-components' )             => 'three_d',
 				),
 			),
@@ -148,18 +150,16 @@ function mm_vc_button() {
 			array(
 				'type'       => 'dropdown',
 				'heading'    => __( 'Border Weight', 'mm-components' ),
-				'param_name' => 'border_style',
+				'param_name' => 'border_weight',
 				'value'      => array(
-					__( 'None', 'mm-components' )   => 'none',
 					__( 'Thin', 'mm-components' )   => 'thin',
-					__( 'Medium', 'mm-components' ) => 'medium',
 					__( 'Thick', 'mm-components' )  => 'thick',
 				),
 				'dependency' => array(
 					'element' => 'style',
 					'value'   => array(
 						'ghost',
-						'solid_to_ghost',
+						'solid-to-ghost',
 					)
 				),
 			),
@@ -167,9 +167,7 @@ function mm_vc_button() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Color', 'mm-components' ),
 				'param_name' => 'color',
-				'value'      => array(
-					__( 'Gray', 'mm-components' ) => 'gray',
-				),
+				'value'      => $colors,
 			),
 			array(
 				'type'       => 'dropdown',

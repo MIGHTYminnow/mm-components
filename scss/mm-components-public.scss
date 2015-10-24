@@ -12,9 +12,13 @@
 /* Variables
 --------------------------------------------- */
 
+$default-color: #99CCCC;
+$light-color: #999;
+$medium-color: #666;
+$dark-color: #333;
+
 $thin-border: 1px solid;
-$medium-border: 2px solid;
-$thick-border: 3px solid;
+$thick-border: 2px solid;
 
 /* Mixins
 --------------------------------------------- */
@@ -53,11 +57,14 @@ $thick-border: 3px solid;
 
 /* Button Styles */
 a.mm-button {
-	text-decoration: none;
+	background-color: $default-color;
+	color: $medium-color;
+	display: inline-block;
 	padding: 15px 25px;
 	border-bottom: none;
-	&.ghost {
-		background-color: transparent;
+	text-decoration: none;
+	&:hover {
+		background-color: darken($default-color, 20%);
 	}
 }
 
@@ -67,9 +74,6 @@ a.mm-button {
 	&.solid-to-ghost {
 		&.thin {
 			border: $thin-border;
-		}
-		&.medium {
-			border: $medium-border;
 		}
 		&.thick {
 			border: $thick-border;
@@ -87,12 +91,95 @@ a.mm-button {
 	}
 }
 
+/* Button Colors */
+a.mm-button {
+	&.light {
+		background-color: $light-color;
+		color: $dark-color;
+		&:hover {
+			background-color: darken($light-color, 20%);
+		}
+		&.solid-to-ghost {
+			&:hover {
+				background-color: transparent;
+				color: $light-color;
+			}
+		}
+	}
+	&.medium {
+		background-color: $medium-color;
+		color: $dark-color;
+		&:hover {
+			background-color: lighten($medium-color, 20%);
+		}
+		&.solid-to-ghost {
+			border-color: $medium-color;
+			&:hover {
+				background-color: transparent;
+				color: $medium-color;
+			}
+		}
+	}
+	&.dark {
+		background-color: $dark-color;
+		color: $light-color;
+		&:hover {
+			background-color: lighten($dark-color, 20%);
+		}
+		&.solid-to-ghost {
+			border-color: $dark-color;
+			&:hover {
+				background-color: transparent;
+				color: $dark-color;
+			}
+		}
+	}
+}
+
+a.mm-button.ghost {
+	&.thin,
+	&.thick {
+		background-color: transparent !important;
+		color: $default-color;
+		&:hover {
+			background-color: $default-color !important;
+			color: $medium-color;
+			border-color: $default-color;
+		}
+		&.light {
+			color: $light-color;
+			&:hover {
+				background-color: $light-color !important;
+				color: $dark-color;
+				border-color: $light-color;
+			}
+		}
+		&.medium {
+			color: $medium-color;
+			&:hover {
+				background-color: $medium-color !important;
+				color: $dark-color;
+				border-color: $medium-color;
+			}
+		}
+		&.dark {
+			color: $dark-color;
+			&:hover {
+				background-color: $dark-color !important;
+				color: $light-color;
+				border-color: $dark-color;
+			}
+		}
+	}
+}
+
 /* Full Width */
 a.mm-button {
 	&.full-width {
 		display: block;
 	}
 }
+
 /* Countdown
 --------------------------------------------- */
 
