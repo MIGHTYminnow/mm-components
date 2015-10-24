@@ -60,6 +60,12 @@
 	}
 }
 
+/* Full Width */
+.mm-button a.button {
+	&.full-width {
+		display: block;
+	}
+}
 /* Countdown
 --------------------------------------------- */
 

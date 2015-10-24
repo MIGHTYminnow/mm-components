@@ -30,6 +30,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 		'border_style' => '',
 		'color'        => '',
 		'size'         => '',
+		'full_width'   => '',
 		'alignment'    => 'left',
 	), $atts );
 
@@ -78,6 +79,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	$classes[] = $atts['border_style'];
 	$classes[] = $atts['color'];
 	$classes[] = $atts['size'];
+	$classes[] = $atts['full_width'];
 
 	$classes = implode( ' ', $classes );
 
@@ -165,6 +167,15 @@ function mm_vc_button() {
 				'value'      => array(
 					__( 'Normal', 'mm-components' ) => 'normal-size',
 					__( 'Large', 'mm-components' )  => 'large',
+				),
+			),
+			array(
+				'type'       => 'checkbox',
+				'heading'    => __( 'Full Width Button', 'mm-components' ),
+				'param_name' => 'full_width',
+				'description' => __( 'Choosing full-width will make the button take up the width of its container.', 'mm-components' ),
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 'full-width',
 				),
 			),
 			array(

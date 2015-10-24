@@ -47,6 +47,11 @@
   border-radius: 50px;
 }
 
+/* Full Width */
+.mm-button a.button.full-width {
+  display: block;
+}
+
 /* Countdown
 --------------------------------------------- */
 .mm-countdown {
