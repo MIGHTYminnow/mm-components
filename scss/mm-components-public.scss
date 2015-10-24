@@ -181,6 +181,18 @@ a.mm-button.ghost {
 	}
 }
 
+/* Button Size */
+a.mm-button {
+	&.small {
+		padding: 10px 20px;
+		font-size: 1em * 0.8;
+	}
+	&.large {
+		padding: 20px 30px;
+		font-size: 1em * 1.25;
+	}
+}
+
 /* Full Width */
 a.mm-button {
 	&.full-width {

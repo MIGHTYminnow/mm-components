@@ -202,6 +202,17 @@ a.mm-button.ghost.thin.dark:hover, a.mm-button.ghost.thick.dark:hover {
   color: #fff;
 }
 
+/* Button Size */
+a.mm-button.small {
+  padding: 10px 20px;
+  font-size: 0.8em;
+}
+
+a.mm-button.large {
+  padding: 20px 30px;
+  font-size: 1.25em;
+}
+
 /* Full Width */
 a.mm-button.full-width {
   display: block;

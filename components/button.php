@@ -27,7 +27,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 		'class'         => '',
 		'style'         => 'default',
 		'corner_style'  => '',
-		'border_weight' => 'thin',
+		'border_weight' => '',
 		'color'         => '',
 		'size'          => '',
 		'full_width'    => '',
@@ -174,8 +174,9 @@ function mm_vc_button() {
 				'heading'    => __( 'Button Size', 'mm-components' ),
 				'param_name' => 'size',
 				'value'      => array(
-					__( 'Normal', 'mm-components' ) => 'normal-size',
-					__( 'Large', 'mm-components' )  => 'large',
+					__( 'Normal', 'mm-components' )      => 'normal-size',
+					__( 'Small', 'mm-components' )       => 'small',
+					__( 'Large', 'mm-components' )       => 'large',
 				),
 			),
 			array(
