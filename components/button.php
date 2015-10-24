@@ -108,12 +108,12 @@ add_action( 'vc_before_init', 'mm_vc_button' );
 function mm_vc_button() {
 
 	vc_map( array(
-		'name' => __( 'Button', 'mm-components' ),
-		'base' => 'mm_button',
-		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'name'     => __( 'Button', 'mm-components' ),
+		'base'     => 'mm_button',
+		'class'    => '',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),
-		'params' => array(
+		'params'   => array(
 			array(
 				'type'       => 'vc_link',
 				'heading'    => __( 'Button URL', 'mm-components' ),
@@ -125,7 +125,7 @@ function mm_vc_button() {
 				'heading'    => __( 'Button Style', 'mm-components' ),
 				'param_name' => 'style',
 				'value'      => array(
-					__( 'Default', 'mm-components ') => 'default',
+					__( 'Default', 'mm-components' ) => 'default',
 				),
 			),
 			array(
@@ -134,8 +134,8 @@ function mm_vc_button() {
 				'param_name' => 'border_style',
 				'value'      => array(
 					__( 'None', 'mm-components' )  => 'none',
-					__( 'Thin', 'mm-components ')  => 'thin',
-					__( 'Thick', 'mm-components ') => 'thick',
+					__( 'Thin', 'mm-components' )  => 'thin',
+					__( 'Thick', 'mm-components' ) => 'thick',
 				),
 			),
 			array(
@@ -143,7 +143,7 @@ function mm_vc_button() {
 				'heading'    => __( 'Color', 'mm-components' ),
 				'param_name' => 'color',
 				'value'      => array(
-					__( 'Gray', 'mm-components ') => 'gray',
+					__( 'Gray', 'mm-components' ) => 'gray',
 				),
 			),
 			array(
@@ -151,8 +151,8 @@ function mm_vc_button() {
 				'heading'    => __( 'Button Size', 'mm-components' ),
 				'param_name' => 'size',
 				'value'      => array(
-					__( 'Normal', 'mm-components ') => 'normal-size',
-					__( 'Large', 'mm-components ')  => 'large',
+					__( 'Normal', 'mm-components' ) => 'normal-size',
+					__( 'Large', 'mm-components' )  => 'large',
 				),
 			),
 			array(
@@ -160,10 +160,10 @@ function mm_vc_button() {
 				'heading'    => __( 'Button Alignment', 'mm-components' ),
 				'param_name' => 'alignment',
 				'value'      => array(
-					__( 'Default', 'mm-components ') => 'default',
-					__( 'Left', 'mm-components ')    => 'left',
-					__( 'Center', 'mm-components ')  => 'center',
-					__( 'Right ', 'mm-components ')  => 'right',
+					__( 'Default', 'mm-components' ) => 'default',
+					__( 'Left', 'mm-components' )    => 'left',
+					__( 'Center', 'mm-components' )  => 'center',
+					__( 'Right ', 'mm-components' )  => 'right',
 				),
 			),
 			array(
