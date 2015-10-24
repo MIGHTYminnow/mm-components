@@ -29,6 +29,15 @@
 
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
+/* Button
+--------------------------------------------- */
+/* Default Styles */
+.mm-button a.button {
+  text-decoration: none;
+  padding: 15px 25px;
+  border-bottom: none;
+}
+
 /* Countdown
 --------------------------------------------- */
 .mm-countdown {
@@ -337,3 +346,5 @@
     width: 0%;
   }
 }
+
+/*# sourceMappingURL=mm-components-public.css.map */
