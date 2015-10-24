@@ -134,17 +134,7 @@ function mm_vc_button() {
 					__( 'Default', 'mm-components' )        => 'default',
 					__( 'Ghost', 'mm-components' )          => 'ghost',
 					__( 'Solid to Ghost', 'mm-components' ) => 'solid-to-ghost',
-					__( '3D', 'mm-components' )             => 'three_d',
-				),
-			),
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Corner Style', 'mm-components' ),
-				'param_name' => 'corner_style',
-				'value'      => array(
-					__( 'Pointed', 'mm-components' ) => 'pointed',
-					__( 'Rounded', 'mm-components' ) => 'rounded',
-					__( 'Pill', 'mm-components' )    => 'pill',
+					__( '3D', 'mm-components' )             => 'three-d',
 				),
 			),
 			array(
@@ -165,6 +155,16 @@ function mm_vc_button() {
 			),
 			array(
 				'type'       => 'dropdown',
+				'heading'    => __( 'Corner Style', 'mm-components' ),
+				'param_name' => 'corner_style',
+				'value'      => array(
+					__( 'Pointed', 'mm-components' ) => 'pointed',
+					__( 'Rounded', 'mm-components' ) => 'rounded',
+					__( 'Pill', 'mm-components' )    => 'pill',
+				),
+			),
+			array(
+				'type'       => 'dropdown',
 				'heading'    => __( 'Color', 'mm-components' ),
 				'param_name' => 'color',
 				'value'      => $colors,
@@ -179,11 +179,11 @@ function mm_vc_button() {
 				),
 			),
 			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Full Width Button', 'mm-components' ),
-				'param_name' => 'full_width',
+				'type'        => 'checkbox',
+				'heading'     => __( 'Full Width Button', 'mm-components' ),
+				'param_name'  => 'full_width',
 				'description' => __( 'Choosing full-width will make the button take up the width of its container.', 'mm-components' ),
-				'value'      => array(
+				'value'       => array(
 					__( 'Yes', 'mm-components' ) => 'full-width',
 				),
 			),

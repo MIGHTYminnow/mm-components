@@ -29,6 +29,34 @@ $thick-border: 2px solid;
 	width: 100%;
 }
 
+@mixin button-color ($color) {
+	background-color: $color;
+	color: #fff;
+	&:hover {
+		background-color: darken($color, 20%);
+	}
+}
+
+@mixin solid-to-ghost-button-color ($color) {
+	border-color: $color;
+	&:hover {
+		background-color: transparent;
+		color: $color;
+	}
+}
+
+@mixin ghost-button-hover-color ($color) {
+	background-color: $color !important;
+	border-color: $color;
+	color: #fff;
+}
+
+@mixin three-d-button-color ($color) {
+	box-shadow: 0 4px 0 0 darken($color, 20%);
+	&:hover {
+		background-color: darken($color, 10%);
+	}
+}
 
 /* Global Styles
 ---------------------------------------------------------------------------------------------------- */
@@ -55,17 +83,13 @@ $thick-border: 2px solid;
 /* Button
 --------------------------------------------- */
 
-/* Button Styles */
+/* Default Styles */
 a.mm-button {
-	background-color: $default-color;
-	color: $medium-color;
 	display: inline-block;
 	padding: 15px 25px;
 	border-bottom: none;
 	text-decoration: none;
-	&:hover {
-		background-color: darken($default-color, 20%);
-	}
+	@include button-color ($default-color);
 }
 
 /* Border Weight */
@@ -91,47 +115,39 @@ a.mm-button {
 	}
 }
 
-/* Button Colors */
+/* Button Styles & Colors */
 a.mm-button {
+	&.solid-to-ghost {
+		@include solid-to-ghost-button-color ($default-color);
+	}
+	&.three-d {
+		@include three-d-button-color ($default-color);
+	}
 	&.light {
-		background-color: $light-color;
-		color: $dark-color;
-		&:hover {
-			background-color: darken($light-color, 20%);
+		@include button-color ($light-color);
+		&.solid-to-ghost{
+			@include solid-to-ghost-button-color ($light-color);
 		}
-		&.solid-to-ghost {
-			&:hover {
-				background-color: transparent;
-				color: $light-color;
-			}
+		&.three-d {
+			@include three-d-button-color ($light-color);
 		}
 	}
 	&.medium {
-		background-color: $medium-color;
-		color: $dark-color;
-		&:hover {
-			background-color: lighten($medium-color, 20%);
-		}
+		@include button-color ($medium-color);
 		&.solid-to-ghost {
-			border-color: $medium-color;
-			&:hover {
-				background-color: transparent;
-				color: $medium-color;
-			}
+			@include solid-to-ghost-button-color ($medium-color);
+		}
+		&.three-d {
+			@include three-d-button-color ($medium-color);
 		}
 	}
 	&.dark {
-		background-color: $dark-color;
-		color: $light-color;
-		&:hover {
-			background-color: lighten($dark-color, 20%);
-		}
+		@include button-color ($dark-color);
 		&.solid-to-ghost {
-			border-color: $dark-color;
-			&:hover {
-				background-color: transparent;
-				color: $dark-color;
-			}
+			@include solid-to-ghost-button-color ($dark-color);
+		}
+		&.three-d {
+			@include three-d-button-color ($dark-color);
 		}
 	}
 }
@@ -142,32 +158,24 @@ a.mm-button.ghost {
 		background-color: transparent !important;
 		color: $default-color;
 		&:hover {
-			background-color: $default-color !important;
-			color: $medium-color;
-			border-color: $default-color;
+			@include ghost-button-hover-color($default-color);
 		}
 		&.light {
 			color: $light-color;
 			&:hover {
-				background-color: $light-color !important;
-				color: $dark-color;
-				border-color: $light-color;
+				@include ghost-button-hover-color($light-color);
 			}
 		}
 		&.medium {
 			color: $medium-color;
 			&:hover {
-				background-color: $medium-color !important;
-				color: $dark-color;
-				border-color: $medium-color;
+				@include ghost-button-hover-color($medium-color);
 			}
 		}
 		&.dark {
 			color: $dark-color;
 			&:hover {
-				background-color: $dark-color !important;
-				color: $light-color;
-				border-color: $dark-color;
+				@include ghost-button-hover-color($dark-color);
 			}
 		}
 	}
