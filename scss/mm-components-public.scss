@@ -9,6 +9,13 @@
 /* Reusables
 ---------------------------------------------------------------------------------------------------- */
 
+/* Variables
+--------------------------------------------- */
+
+$thin-border: 1px solid;
+$medium-border: 2px solid;
+$thick-border: 3px solid;
+
 /* Mixins
 --------------------------------------------- */
 
@@ -17,6 +24,7 @@
 	display: table;
 	width: 100%;
 }
+
 
 /* Global Styles
 ---------------------------------------------------------------------------------------------------- */
@@ -43,11 +51,30 @@
 /* Button
 --------------------------------------------- */
 
-/* Default Styles */
+/* Button Styles */
 .mm-button a.button {
 	text-decoration: none;
 	padding: 15px 25px;
 	border-bottom: none;
+	&.ghost {
+		background-color: transparent;
+	}
+}
+
+/* Border Weight */
+.mm-button a.button {
+	&.ghost,
+	&.solid-to-ghost {
+		&.thin {
+			border: $thin-border;
+		}
+		&.medium {
+			border: $medium-border;
+		}
+		&.thick {
+			border: $thick-border;
+		}
+	}
 }
 
 /* Corner Styles */

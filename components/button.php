@@ -129,7 +129,10 @@ function mm_vc_button() {
 				'heading'    => __( 'Button Style', 'mm-components' ),
 				'param_name' => 'style',
 				'value'      => array(
-					__( 'Default', 'mm-components' ) => 'default',
+					__( 'Default', 'mm-components' )        => 'default',
+					__( 'Ghost', 'mm-components' )          => 'ghost',
+					__( 'Solid to Ghost', 'mm-components' ) => 'solid_to_ghost',
+					__( '3D', 'mm-components' )             => 'three_d',
 				),
 			),
 			array(
@@ -144,12 +147,20 @@ function mm_vc_button() {
 			),
 			array(
 				'type'       => 'dropdown',
-				'heading'    => __( 'Border Style', 'mm-components' ),
+				'heading'    => __( 'Border Weight', 'mm-components' ),
 				'param_name' => 'border_style',
 				'value'      => array(
-					__( 'None', 'mm-components' )  => 'none',
-					__( 'Thin', 'mm-components' )  => 'thin',
-					__( 'Thick', 'mm-components' ) => 'thick',
+					__( 'None', 'mm-components' )   => 'none',
+					__( 'Thin', 'mm-components' )   => 'thin',
+					__( 'Medium', 'mm-components' ) => 'medium',
+					__( 'Thick', 'mm-components' )  => 'thick',
+				),
+				'dependency' => array(
+					'element' => 'style',
+					'value'   => array(
+						'ghost',
+						'solid_to_ghost',
+					)
 				),
 			),
 			array(

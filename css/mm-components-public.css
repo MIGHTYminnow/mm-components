@@ -7,6 +7,8 @@
  */
 /* Reusables
 ---------------------------------------------------------------------------------------------------- */
+/* Variables
+--------------------------------------------- */
 /* Mixins
 --------------------------------------------- */
 /* Global Styles
@@ -31,11 +33,28 @@
 ---------------------------------------------------------------------------------------------------- */
 /* Button
 --------------------------------------------- */
-/* Default Styles */
+/* Button Styles */
 .mm-button a.button {
   text-decoration: none;
   padding: 15px 25px;
   border-bottom: none;
+}
+
+.mm-button a.button.ghost {
+  background-color: transparent;
+}
+
+/* Border Weight */
+.mm-button a.button.ghost.thin, .mm-button a.button.solid-to-ghost.thin {
+  border: 1px solid;
+}
+
+.mm-button a.button.ghost.medium, .mm-button a.button.solid-to-ghost.medium {
+  border: 2px solid;
+}
+
+.mm-button a.button.ghost.thick, .mm-button a.button.solid-to-ghost.thick {
+  border: 3px solid;
 }
 
 /* Corner Styles */
