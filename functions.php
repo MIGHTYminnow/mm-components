@@ -337,22 +337,54 @@ function mm_get_image_sizes_for_vc() {
 }
 
 /**
- * Return an array of Mm Posts templates for use in a Visual Composer dropdown param.
+ * Return an array of Mm Posts templates.
  *
  * @since   1.0.0
  *
  * @return  array  The array of template names.
  */
-function mm_get_mm_posts_templates_for_vc() {
+function mm_get_mm_posts_templates() {
 
 	$templates = array(
-		__( 'Default', 'mm-components' ) => '',
+		__( 'Default', 'mm-components' ) => 'default',
 	);
 
 	// All core and custom templates should be registered using this filter.
 	$templates = apply_filters( 'mm_posts_templates', $templates );
 
 	return $templates;
+}
+
+/**
+ * Return an array of Mm Social Icons types.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of type names.
+ */
+function mm_get_mm_social_icons_types() {
+
+	return apply_filters( 'mm_social_icons_types', array() );
+}
+
+/**
+ * Return an array of registered social networks.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of social networks.
+ */
+function mm_get_social_networks() {
+
+	$social_networks = array(
+		__( 'Facebook', 'mm-components' )  => 'facebook',
+		__( 'Twitter', 'mm-components' )   => 'twitter',
+		__( 'Instagram', 'mm-components' ) => 'instagram',
+		__( 'Pinterest', 'mm-components' ) => 'pinterest',
+		__( 'Youtube', 'mm-components' )   => 'youtube',
+	);
+
+	return apply_filters( 'mm_social_networks', $social_networks );
 }
 
 /**
