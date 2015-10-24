@@ -26,6 +26,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 		'link_target'  => '',
 		'class'        => '',
 		'style'        => 'default',
+		'corner_style' => 'pointed',
 		'border_style' => '',
 		'color'        => '',
 		'size'         => '',
@@ -73,6 +74,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	$classes[] = 'button';
 	$classes[] = $atts['class'];
 	$classes[] = $atts['style'];
+	$classes[] = $atts['corner_style'];
 	$classes[] = $atts['border_style'];
 	$classes[] = $atts['color'];
 	$classes[] = $atts['size'];
@@ -126,6 +128,16 @@ function mm_vc_button() {
 				'param_name' => 'style',
 				'value'      => array(
 					__( 'Default', 'mm-components' ) => 'default',
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Corner Style', 'mm-components' ),
+				'param_name' => 'corner_style',
+				'value'      => array(
+					__( 'Pointed', 'mm-components' ) => 'pointed',
+					__( 'Rounded', 'mm-components' ) => 'rounded',
+					__( 'Pill', 'mm-components' )    => 'pill',
 				),
 			),
 			array(

@@ -38,6 +38,15 @@
   border-bottom: none;
 }
 
+/* Corner Styles */
+.mm-button a.button.rounded {
+  border-radius: 5px;
+}
+
+.mm-button a.button.pill {
+  border-radius: 50px;
+}
+
 /* Countdown
 --------------------------------------------- */
 .mm-countdown {

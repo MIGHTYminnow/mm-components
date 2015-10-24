@@ -50,6 +50,16 @@
 	border-bottom: none;
 }
 
+/* Corner Styles */
+.mm-button a.button {
+	&.rounded {
+		border-radius: 5px;
+	}
+	&.pill {
+		border-radius: 50px;
+	}
+}
+
 /* Countdown
 --------------------------------------------- */
 
