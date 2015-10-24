@@ -34,40 +34,40 @@
 /* Button
 --------------------------------------------- */
 /* Button Styles */
-.mm-button a.button {
+a.mm-button {
   text-decoration: none;
   padding: 15px 25px;
   border-bottom: none;
 }
 
-.mm-button a.button.ghost {
+a.mm-button.ghost {
   background-color: transparent;
 }
 
 /* Border Weight */
-.mm-button a.button.ghost.thin, .mm-button a.button.solid-to-ghost.thin {
+a.mm-button.ghost.thin, a.mm-button.solid-to-ghost.thin {
   border: 1px solid;
 }
 
-.mm-button a.button.ghost.medium, .mm-button a.button.solid-to-ghost.medium {
+a.mm-button.ghost.medium, a.mm-button.solid-to-ghost.medium {
   border: 2px solid;
 }
 
-.mm-button a.button.ghost.thick, .mm-button a.button.solid-to-ghost.thick {
+a.mm-button.ghost.thick, a.mm-button.solid-to-ghost.thick {
   border: 3px solid;
 }
 
 /* Corner Styles */
-.mm-button a.button.rounded {
+a.mm-button.rounded {
   border-radius: 5px;
 }
 
-.mm-button a.button.pill {
+a.mm-button.pill {
   border-radius: 50px;
 }
 
 /* Full Width */
-.mm-button a.button.full-width {
+a.mm-button.full-width {
   display: block;
 }
 

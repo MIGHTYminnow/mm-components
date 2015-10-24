@@ -72,7 +72,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 
 	// Setup button classes.
 	$classes = array();
-	$classes[] = 'button';
+	$classes[] = 'mm-button';
 	$classes[] = $atts['class'];
 	$classes[] = $atts['style'];
 	$classes[] = $atts['corner_style'];
@@ -92,7 +92,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	// Build the output.
 	ob_start(); ?>
 
-	<div class="<?php echo esc_attr( $mm_classes . ' button-wrap ' . $alignment ); ?>">
+	<div class="<?php echo esc_attr( $mm_classes.'-wrapper ' . $alignment ); ?>">
 		<a class="<?php echo esc_attr( $classes ); ?>" href="<?php echo esc_url( $link_url ) ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo do_shortcode( $content ) ?></a>
 	</div>
 

@@ -52,7 +52,7 @@ $thick-border: 3px solid;
 --------------------------------------------- */
 
 /* Button Styles */
-.mm-button a.button {
+a.mm-button {
 	text-decoration: none;
 	padding: 15px 25px;
 	border-bottom: none;
@@ -62,7 +62,7 @@ $thick-border: 3px solid;
 }
 
 /* Border Weight */
-.mm-button a.button {
+a.mm-button {
 	&.ghost,
 	&.solid-to-ghost {
 		&.thin {
@@ -78,7 +78,7 @@ $thick-border: 3px solid;
 }
 
 /* Corner Styles */
-.mm-button a.button {
+a.mm-button {
 	&.rounded {
 		border-radius: 5px;
 	}
@@ -88,7 +88,7 @@ $thick-border: 3px solid;
 }
 
 /* Full Width */
-.mm-button a.button {
+a.mm-button {
 	&.full-width {
 		display: block;
 	}
