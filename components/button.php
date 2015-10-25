@@ -89,10 +89,13 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
+	// Use wrapper class on main wrapper.
+	$mm_classes = str_replace( 'mm-button', 'mm-button-wrapper', $mm_classes );
+
 	// Build the output.
 	ob_start(); ?>
 
-	<div class="<?php echo esc_attr( $mm_classes.'-wrapper ' . $alignment ); ?>">
+	<div class="<?php echo esc_attr( $mm_classes . ' ' . $alignment ); ?>">
 		<a class="<?php echo esc_attr( $classes ); ?>" href="<?php echo esc_url( $link_url ) ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo do_shortcode( $content ) ?></a>
 	</div>
 
