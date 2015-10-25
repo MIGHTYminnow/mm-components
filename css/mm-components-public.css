@@ -41,6 +41,30 @@
   text-transform: capitalize;
 }
 
+.mm-text-color-light {
+  color: #999;
+}
+
+.mm-text-color-medium {
+  color: #666;
+}
+
+.mm-text-color-dark {
+  color: #333;
+}
+
+.mm-bg-color-light {
+  background-color: #999;
+}
+
+.mm-bg-color-medium {
+  background-color: #666;
+}
+
+.mm-bg-color-dark {
+  background-color: #333;
+}
+
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
 /* Button
@@ -579,3 +603,5 @@ a.mm-button.full-width {
     width: 0%;
   }
 }
+
+/*# sourceMappingURL=mm-components-public.css.map */

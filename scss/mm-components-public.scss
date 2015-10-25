@@ -98,6 +98,30 @@ $thick-border: 2px solid;
 	text-transform: capitalize;
 }
 
+.mm-text-color-light {
+	color: $light-color;
+}
+
+.mm-text-color-medium {
+	color: $medium-color;
+}
+
+.mm-text-color-dark {
+	color: $dark-color;
+}
+
+.mm-bg-color-light {
+	background-color: $light-color;
+}
+
+.mm-bg-color-medium {
+	background-color: $medium-color;
+}
+
+.mm-bg-color-dark {
+	background-color: $dark-color;
+}
+
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
 
