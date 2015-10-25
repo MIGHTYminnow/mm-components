@@ -53,8 +53,17 @@ $thick-border: 2px solid;
 
 @mixin three-d-button-color ($color) {
 	box-shadow: 0 4px 0 0 darken($color, 20%);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	&:hover {
 		background-color: darken($color, 10%);
+	}
+}
+
+@mixin gradient-button-color ($color) {
+	background-image: linear-gradient($color 0%, darken($color, 20%) 100%);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	&:hover {
+		background: darken($color, 20%);
 	}
 }
 
@@ -89,6 +98,7 @@ a.mm-button {
 	padding: 15px 25px;
 	border-bottom: none;
 	text-decoration: none;
+	transition: all 0.2s ease-in-out;
 	@include button-color ($default-color);
 }
 
@@ -120,6 +130,9 @@ a.mm-button {
 	&.solid-to-ghost {
 		@include solid-to-ghost-button-color ($default-color);
 	}
+	&.gradient {
+		@include gradient-button-color ($default-color);
+	}
 	&.three-d {
 		@include three-d-button-color ($default-color);
 	}
@@ -131,6 +144,9 @@ a.mm-button {
 		&.three-d {
 			@include three-d-button-color ($light-color);
 		}
+		&.gradient {
+			@include gradient-button-color ($light-color);
+		}
 	}
 	&.medium {
 		@include button-color ($medium-color);
@@ -140,6 +156,9 @@ a.mm-button {
 		&.three-d {
 			@include three-d-button-color ($medium-color);
 		}
+		&.gradient {
+			@include gradient-button-color ($medium-color);
+		}
 	}
 	&.dark {
 		@include button-color ($dark-color);
@@ -148,6 +167,9 @@ a.mm-button {
 		}
 		&.three-d {
 			@include three-d-button-color ($dark-color);
+		}
+		&.gradient {
+			@include gradient-button-color ($dark-color);
 		}
 	}
 }

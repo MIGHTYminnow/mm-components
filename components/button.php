@@ -135,6 +135,7 @@ function mm_vc_button() {
 					__( 'Ghost', 'mm-components' )          => 'ghost',
 					__( 'Solid to Ghost', 'mm-components' ) => 'solid-to-ghost',
 					__( '3D', 'mm-components' )             => 'three-d',
+					__( 'Gradient', 'mm-components' )       => 'gradient',
 				),
 			),
 			array(
