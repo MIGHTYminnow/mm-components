@@ -29,6 +29,10 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 	), $atts );
 
 	// Handle a raw link or a VC link array.
+	$link_url    = '';
+	$link_title  = '';
+	$link_target = '';
+
 	if ( ! empty( $atts['link'] ) ) {
 
 		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
@@ -39,26 +43,14 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 				$link_url    = $link_array['url'];
 				$link_title  = $link_array['title'];
 				$link_target = $link_array['target'];
-
-			} else {
-
-				$link_url    = '';
-				$link_title  = '';
-				$link_target = '';
 			}
 
 		} else {
 
 			$link_url    = $atts['link'];
-			$link_title  = $atts['link_text'];
+			$link_title  = $atts['link_title'];
 			$link_target = $atts['link_target'];
 		}
-
-	} else {
-
-		$link_url    = '';
-		$link_title  = '';
-		$link_target = '';
 	}
 
 	// Get Mm classes.

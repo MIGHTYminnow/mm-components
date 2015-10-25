@@ -23,8 +23,8 @@ add_shortcode( 'mm_restricted_content', 'mm_restricted_content_shortcode' );
 function mm_restricted_content_shortcode( $atts = array(), $content = null, $tag = '' ) {
 
 	$atts = mm_shortcode_atts( array(
-		'allowed_roles'     => '',
-		'invalid_message'      => '',
+		'allowed_roles'   => '',
+		'invalid_message' => '',
 	), $atts );
 
 	$roles = ( strpos( $atts['allowed_roles'], ',' ) ) ? explode( ',', $atts['allowed_roles'] ) : (array)$atts['allowed_roles'];

@@ -38,6 +38,10 @@ function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 	), $atts ) );
 
 	// Handle a raw link or a VC link array.
+	$button_url    = '';
+	$button_title  = '';
+	$button_target = '';
+
 	if ( ! empty( $atts['button_link'] ) ) {
 
 		if ( 'url' === substr( $atts['button_link'], 0, 3 ) ) {
@@ -45,29 +49,17 @@ function mm_hero_banner_shortcode( $atts, $content = null, $tag ) {
 			if ( function_exists( 'vc_build_link' ) ) {
 
 				$link_array  = vc_build_link( $atts['button_link'] );
-				$button_url    = $link_array['url'];
-				$button_title  = $link_array['title'];
-				$button_target = $link_array['target'];
-
-			} else {
-
-				$button_url    = '';
-				$button_title  = '';
-				$button_target = '';
+				$link_url    = $link_array['url'];
+				$link_title  = $link_array['title'];
+				$link_target = $link_array['target'];
 			}
 
 		} else {
 
-			$button_url    = $atts['button_link'];
-			$button_title  = $atts['button_text'];
-			$button_target = $atts['button_link_target'];
+			$link_url    = $atts['button_link'];
+			$link_title  = $atts['button_text'];
+			$link_target = $atts['button_link_target'];
 		}
-
-	} else {
-
-		$button_url    = '';
-		$button_title  = '';
-		$button_target = '';
 	}
 
 	// Get button classes.
