@@ -21,15 +21,17 @@ add_shortcode( 'mm_button', 'mm_button_shortcode' );
 function mm_button_shortcode( $atts, $content = null, $tag ) {
 
 	$atts = mm_shortcode_atts( array(
-		'link'         => '',
-		'link_title'   => '',
-		'link_target'  => '',
-		'class'        => '',
-		'style'        => 'default',
-		'border_style' => '',
-		'color'        => '',
-		'size'         => '',
-		'alignment'    => 'left',
+		'link'          => '',
+		'link_title'    => '',
+		'link_target'   => '',
+		'class'         => '',
+		'style'         => 'default',
+		'corner_style'  => '',
+		'border_weight' => '',
+		'color'         => '',
+		'size'          => '',
+		'full_width'    => '',
+		'alignment'     => 'left',
 	), $atts );
 
 	// Handle a raw link or a VC link array.
@@ -70,12 +72,14 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 
 	// Setup button classes.
 	$classes = array();
-	$classes[] = 'button';
+	$classes[] = 'mm-button';
 	$classes[] = $atts['class'];
 	$classes[] = $atts['style'];
-	$classes[] = $atts['border_style'];
+	$classes[] = $atts['corner_style'];
+	$classes[] = $atts['border_weight'];
 	$classes[] = $atts['color'];
 	$classes[] = $atts['size'];
+	$classes[] = $atts['full_width'];
 
 	$classes = implode( ' ', $classes );
 
@@ -88,7 +92,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	// Build the output.
 	ob_start(); ?>
 
-	<div class="<?php echo esc_attr( $mm_classes . ' button-wrap ' . $alignment ); ?>">
+	<div class="<?php echo esc_attr( $mm_classes.'-wrapper ' . $alignment ); ?>">
 		<a class="<?php echo esc_attr( $classes ); ?>" href="<?php echo esc_url( $link_url ) ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo do_shortcode( $content ) ?></a>
 	</div>
 
@@ -107,13 +111,15 @@ add_action( 'vc_before_init', 'mm_vc_button' );
  */
 function mm_vc_button() {
 
+	$colors = mm_get_available_colors_for_vc();
+
 	vc_map( array(
-		'name' => __( 'Button', 'mm-components' ),
-		'base' => 'mm_button',
-		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'name'     => __( 'Button', 'mm-components' ),
+		'base'     => 'mm_button',
+		'class'    => '',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
 		'category' => __( 'Content', 'mm-components' ),
-		'params' => array(
+		'params'   => array(
 			array(
 				'type'       => 'vc_link',
 				'heading'    => __( 'Button URL', 'mm-components' ),
@@ -125,34 +131,62 @@ function mm_vc_button() {
 				'heading'    => __( 'Button Style', 'mm-components' ),
 				'param_name' => 'style',
 				'value'      => array(
-					__( 'Default', 'mm-components ') => 'default',
+					__( 'Default', 'mm-components' )        => 'default',
+					__( 'Ghost', 'mm-components' )          => 'ghost',
+					__( 'Solid to Ghost', 'mm-components' ) => 'solid-to-ghost',
+					__( '3D', 'mm-components' )             => 'three-d',
+					__( 'Gradient', 'mm-components' )       => 'gradient',
 				),
 			),
 			array(
 				'type'       => 'dropdown',
-				'heading'    => __( 'Border Style', 'mm-components' ),
-				'param_name' => 'border_style',
+				'heading'    => __( 'Border Weight', 'mm-components' ),
+				'param_name' => 'border_weight',
 				'value'      => array(
-					__( 'None', 'mm-components' )  => 'none',
-					__( 'Thin', 'mm-components ')  => 'thin',
-					__( 'Thick', 'mm-components ') => 'thick',
+					__( 'Thin', 'mm-components' )   => 'thin',
+					__( 'Thick', 'mm-components' )  => 'thick',
+				),
+				'dependency' => array(
+					'element' => 'style',
+					'value'   => array(
+						'ghost',
+						'solid-to-ghost',
+					)
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Corner Style', 'mm-components' ),
+				'param_name' => 'corner_style',
+				'value'      => array(
+					__( 'Pointed', 'mm-components' ) => 'pointed',
+					__( 'Rounded', 'mm-components' ) => 'rounded',
+					__( 'Pill', 'mm-components' )    => 'pill',
 				),
 			),
 			array(
 				'type'       => 'dropdown',
 				'heading'    => __( 'Color', 'mm-components' ),
 				'param_name' => 'color',
-				'value'      => array(
-					__( 'Gray', 'mm-components ') => 'gray',
-				),
+				'value'      => $colors,
 			),
 			array(
 				'type'       => 'dropdown',
 				'heading'    => __( 'Button Size', 'mm-components' ),
 				'param_name' => 'size',
 				'value'      => array(
-					__( 'Normal', 'mm-components ') => 'normal-size',
-					__( 'Large', 'mm-components ')  => 'large',
+					__( 'Normal', 'mm-components' )      => 'normal-size',
+					__( 'Small', 'mm-components' )       => 'small',
+					__( 'Large', 'mm-components' )       => 'large',
+				),
+			),
+			array(
+				'type'        => 'checkbox',
+				'heading'     => __( 'Full Width Button', 'mm-components' ),
+				'param_name'  => 'full_width',
+				'description' => __( 'Choosing full-width will make the button take up the width of its container.', 'mm-components' ),
+				'value'       => array(
+					__( 'Yes', 'mm-components' ) => 'full-width',
 				),
 			),
 			array(
@@ -160,10 +194,10 @@ function mm_vc_button() {
 				'heading'    => __( 'Button Alignment', 'mm-components' ),
 				'param_name' => 'alignment',
 				'value'      => array(
-					__( 'Default', 'mm-components ') => 'default',
-					__( 'Left', 'mm-components ')    => 'left',
-					__( 'Center', 'mm-components ')  => 'center',
-					__( 'Right ', 'mm-components ')  => 'right',
+					__( 'Default', 'mm-components' ) => 'default',
+					__( 'Left', 'mm-components' )    => 'left',
+					__( 'Center', 'mm-components' )  => 'center',
+					__( 'Right ', 'mm-components' )  => 'right',
 				),
 			),
 			array(

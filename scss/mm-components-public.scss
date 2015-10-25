@@ -9,6 +9,17 @@
 /* Reusables
 ---------------------------------------------------------------------------------------------------- */
 
+/* Variables
+--------------------------------------------- */
+
+$default-color: #99CCCC;
+$light-color: #999;
+$medium-color: #666;
+$dark-color: #333;
+
+$thin-border: 1px solid;
+$thick-border: 2px solid;
+
 /* Mixins
 --------------------------------------------- */
 
@@ -16,6 +27,44 @@
 	content: '';
 	display: table;
 	width: 100%;
+}
+
+@mixin button-color ($color) {
+	background-color: $color;
+	color: #fff;
+	&:hover {
+		background-color: darken($color, 20%);
+	}
+}
+
+@mixin solid-to-ghost-button-color ($color) {
+	border-color: $color;
+	&:hover {
+		background-color: transparent;
+		color: $color;
+	}
+}
+
+@mixin ghost-button-hover-color ($color) {
+	background-color: $color !important;
+	border-color: $color;
+	color: #fff;
+}
+
+@mixin three-d-button-color ($color) {
+	box-shadow: 0 4px 0 0 darken($color, 20%);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	&:hover {
+		background-color: darken($color, 10%);
+	}
+}
+
+@mixin gradient-button-color ($color) {
+	background-image: linear-gradient($color 0%, darken($color, 20%) 100%);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	&:hover {
+		background: darken($color, 20%);
+	}
 }
 
 /* Global Styles
@@ -39,6 +88,139 @@
 
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
+
+/* Button
+--------------------------------------------- */
+
+/* Default Styles */
+a.mm-button {
+	display: inline-block;
+	padding: 15px 25px;
+	border-bottom: none;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+	@include button-color ($default-color);
+}
+
+/* Border Weight */
+a.mm-button {
+	&.ghost,
+	&.solid-to-ghost {
+		&.thin {
+			border: $thin-border;
+		}
+		&.thick {
+			border: $thick-border;
+		}
+	}
+}
+
+/* Corner Styles */
+a.mm-button {
+	&.rounded {
+		border-radius: 5px;
+	}
+	&.pill {
+		border-radius: 50px;
+	}
+}
+
+/* Button Styles & Colors */
+a.mm-button {
+	&.solid-to-ghost {
+		@include solid-to-ghost-button-color ($default-color);
+	}
+	&.gradient {
+		@include gradient-button-color ($default-color);
+	}
+	&.three-d {
+		@include three-d-button-color ($default-color);
+	}
+	&.light {
+		@include button-color ($light-color);
+		&.solid-to-ghost{
+			@include solid-to-ghost-button-color ($light-color);
+		}
+		&.three-d {
+			@include three-d-button-color ($light-color);
+		}
+		&.gradient {
+			@include gradient-button-color ($light-color);
+		}
+	}
+	&.medium {
+		@include button-color ($medium-color);
+		&.solid-to-ghost {
+			@include solid-to-ghost-button-color ($medium-color);
+		}
+		&.three-d {
+			@include three-d-button-color ($medium-color);
+		}
+		&.gradient {
+			@include gradient-button-color ($medium-color);
+		}
+	}
+	&.dark {
+		@include button-color ($dark-color);
+		&.solid-to-ghost {
+			@include solid-to-ghost-button-color ($dark-color);
+		}
+		&.three-d {
+			@include three-d-button-color ($dark-color);
+		}
+		&.gradient {
+			@include gradient-button-color ($dark-color);
+		}
+	}
+}
+
+a.mm-button.ghost {
+	&.thin,
+	&.thick {
+		background-color: transparent !important;
+		color: $default-color;
+		&:hover {
+			@include ghost-button-hover-color($default-color);
+		}
+		&.light {
+			color: $light-color;
+			&:hover {
+				@include ghost-button-hover-color($light-color);
+			}
+		}
+		&.medium {
+			color: $medium-color;
+			&:hover {
+				@include ghost-button-hover-color($medium-color);
+			}
+		}
+		&.dark {
+			color: $dark-color;
+			&:hover {
+				@include ghost-button-hover-color($dark-color);
+			}
+		}
+	}
+}
+
+/* Button Size */
+a.mm-button {
+	&.small {
+		padding: 10px 20px;
+		font-size: 1em * 0.8;
+	}
+	&.large {
+		padding: 20px 30px;
+		font-size: 1em * 1.25;
+	}
+}
+
+/* Full Width */
+a.mm-button {
+	&.full-width {
+		display: block;
+	}
+}
 
 /* Countdown
 --------------------------------------------- */

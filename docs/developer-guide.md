@@ -24,6 +24,28 @@ function xxx_enable_specific_components( $components ) {
 }
 ```
 
+#### Setting Color Options
+In order to keep a site's branding consistent, it is often a good idea to limit the available colors. This can be achieved using the `mm_get_available_colors_for_vc` filter in the theme's `functions.php`:
+
+```php
+add_filter( 'mm_get_available_colors_for_vc', 'xxx_set_theme_colors' );
+/*
+ * Set theme color options for Mm components.
+ *
+ * @return  array  The array of theme colors.
+ */
+function xxx_set_theme_colors() {
+
+	$colors = array(
+		__( 'Default', 'xxx-theme' ) => 'default',
+		__( 'Blue', 'xxx-theme' )    => 'blue',
+		__( 'Green', 'xxx-theme' )  => 'green',
+	);
+
+	return $colors;
+}
+```
+
 ## Components
 
 #### Posts
@@ -128,7 +150,7 @@ function mm_posts_output_postmeta_value( $post_id, $key, $element = 'div' ) {
 }
 ```
 
-Using this our functions to output the address and phone number from the `store` example become: 
+Using this our functions to output the address and phone number from the `store` example become:
 
 ```php
 /**
