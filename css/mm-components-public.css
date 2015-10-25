@@ -29,6 +29,18 @@
   text-align: right;
 }
 
+.mm-text-transform-uppercase {
+  text-transform: uppercase;
+}
+
+.mm-text-transform-lowercase {
+  text-transform: lowercase;
+}
+
+.mm-text-transform-capitalize {
+  text-transform: capitalize;
+}
+
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
 /* Button
@@ -567,5 +579,3 @@ a.mm-button.full-width {
     width: 0%;
   }
 }
-
-/*# sourceMappingURL=mm-components-public.css.map */
