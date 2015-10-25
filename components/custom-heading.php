@@ -94,10 +94,10 @@ function mm_custom_heading_shortcode( $atts, $content = null, $tag ) {
 		$classes[] = 'color-' . $color;
 	}
 	if ( '' !== $text_transform ) {
-		$classes[] = 'text-transform-' . $text_transform;
+		$classes[] = 'mm-text-transform-' . $text_transform;
 	}
 	if ( '' !== $text_align ) {
-		$classes[] = 'text-align-' . $text_align;
+		$classes[] = 'mm-text-align-' . $text_align;
 	}
 
 	// Build our string of classes.
