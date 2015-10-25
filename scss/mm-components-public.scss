@@ -53,7 +53,7 @@ $thick-border: 2px solid;
 
 @mixin three-d-button-color ($color) {
 	box-shadow: 0 4px 0 0 darken($color, 20%);
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 	&:hover {
 		background-color: darken($color, 10%);
 	}
@@ -61,7 +61,7 @@ $thick-border: 2px solid;
 
 @mixin gradient-button-color ($color) {
 	background-image: linear-gradient($color 0%, darken($color, 20%) 100%);
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 	&:hover {
 		background: darken($color, 20%);
 	}
