@@ -77,11 +77,15 @@ a.mm-button {
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   background-color: #99CCCC;
-  color: #fff;
+  color: #fff !important;
 }
 
 a.mm-button:hover {
   background-color: #55aaaa;
+}
+
+a.mm-button:hover {
+  text-decoration: none;
 }
 
 /* Border Weight */
@@ -104,12 +108,12 @@ a.mm-button.pill {
 
 /* Button Styles & Colors */
 a.mm-button.solid-to-ghost {
-  border-color: #99CCCC;
+  border-color: #99CCCC !important;
 }
 
 a.mm-button.solid-to-ghost:hover {
   background-color: transparent;
-  color: #99CCCC;
+  color: #99CCCC !important;
 }
 
 a.mm-button.gradient {
@@ -139,7 +143,7 @@ a.mm-button.three-d:active {
 
 a.mm-button.light {
   background-color: #999;
-  color: #fff;
+  color: #fff !important;
 }
 
 a.mm-button.light:hover {
@@ -147,12 +151,12 @@ a.mm-button.light:hover {
 }
 
 a.mm-button.light.solid-to-ghost {
-  border-color: #999;
+  border-color: #999 !important;
 }
 
 a.mm-button.light.solid-to-ghost:hover {
   background-color: transparent;
-  color: #999;
+  color: #999 !important;
 }
 
 a.mm-button.light.three-d {
@@ -182,7 +186,7 @@ a.mm-button.light.gradient:hover {
 
 a.mm-button.medium {
   background-color: #666;
-  color: #fff;
+  color: #fff !important;
 }
 
 a.mm-button.medium:hover {
@@ -190,12 +194,12 @@ a.mm-button.medium:hover {
 }
 
 a.mm-button.medium.solid-to-ghost {
-  border-color: #666;
+  border-color: #666 !important;
 }
 
 a.mm-button.medium.solid-to-ghost:hover {
   background-color: transparent;
-  color: #666;
+  color: #666 !important;
 }
 
 a.mm-button.medium.three-d {
@@ -225,7 +229,7 @@ a.mm-button.medium.gradient:hover {
 
 a.mm-button.dark {
   background-color: #333;
-  color: #fff;
+  color: #fff !important;
 }
 
 a.mm-button.dark:hover {
@@ -233,12 +237,12 @@ a.mm-button.dark:hover {
 }
 
 a.mm-button.dark.solid-to-ghost {
-  border-color: #333;
+  border-color: #333 !important;
 }
 
 a.mm-button.dark.solid-to-ghost:hover {
   background-color: transparent;
-  color: #333;
+  color: #333 !important;
 }
 
 a.mm-button.dark.three-d {
@@ -268,43 +272,43 @@ a.mm-button.dark.gradient:hover {
 
 a.mm-button.ghost.thin, a.mm-button.ghost.thick {
   background-color: transparent !important;
-  color: #99CCCC;
+  color: #99CCCC !important;
 }
 
 a.mm-button.ghost.thin:hover, a.mm-button.ghost.thick:hover {
   background-color: #99CCCC !important;
   border-color: #99CCCC;
-  color: #fff;
+  color: #fff !important;
 }
 
 a.mm-button.ghost.thin.light, a.mm-button.ghost.thick.light {
-  color: #999;
+  color: #999 !important;
 }
 
 a.mm-button.ghost.thin.light:hover, a.mm-button.ghost.thick.light:hover {
   background-color: #999 !important;
   border-color: #999;
-  color: #fff;
+  color: #fff !important;
 }
 
 a.mm-button.ghost.thin.medium, a.mm-button.ghost.thick.medium {
-  color: #666;
+  color: #666 !important;
 }
 
 a.mm-button.ghost.thin.medium:hover, a.mm-button.ghost.thick.medium:hover {
   background-color: #666 !important;
   border-color: #666;
-  color: #fff;
+  color: #fff !important;
 }
 
 a.mm-button.ghost.thin.dark, a.mm-button.ghost.thick.dark {
-  color: #333;
+  color: #333 !important;
 }
 
 a.mm-button.ghost.thin.dark:hover, a.mm-button.ghost.thick.dark:hover {
   background-color: #333 !important;
   border-color: #333;
-  color: #fff;
+  color: #fff !important;
 }
 
 /* Button Size */
