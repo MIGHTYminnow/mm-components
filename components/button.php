@@ -25,7 +25,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 		'link_title'    => '',
 		'link_target'   => '',
 		'class'         => '',
-		'style'         => 'default',
+		'style'         => '',
 		'corner_style'  => '',
 		'border_weight' => 'thin',
 		'color'         => '',
@@ -65,13 +65,27 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	// Setup button classes.
 	$classes = array();
 	$classes[] = 'mm-button';
-	$classes[] = $atts['class'];
-	$classes[] = $atts['style'];
-	$classes[] = $atts['corner_style'];
-	$classes[] = $atts['border_weight'];
-	$classes[] = $atts['color'];
-	$classes[] = $atts['size'];
-	$classes[] = $atts['full_width'];
+	if ( ! empty( $atts['class'] ) ) {
+		$classes[] = $atts['class'];
+	}
+	if ( ! empty( $atts['style'] ) ) {
+		$classes[] = $atts['style'];
+	}
+	if ( ! empty( $atts['corner_style'] ) ) {
+		$classes[] = $atts['corner_style'];
+	}
+	if ( ! empty( $atts['border_weight'] ) ) {
+		$classes[] = $atts['border_weight'];
+	}
+	if ( ! empty( $atts['color'] ) ) {
+		$classes[] = $atts['color'];
+	}
+	if( ! empty( $atts['size'] ) ) {
+		$classes[] = $atts['size'];
+	}
+	if( ! empty( $atts['full_width'] ) ) {
+		$classes[] = $atts['full_width'];
+	}
 
 	$classes = implode( ' ', $classes );
 
