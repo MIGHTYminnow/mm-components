@@ -25,6 +25,7 @@ function mm_social_icons( $args ) {
 	$defaults = array(
 		'icon_type'       => 'fontawesome',
 		'image_size'      => 'thumbnail',
+		'alignment'       => 'left',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
@@ -38,14 +39,18 @@ function mm_social_icons( $args ) {
 	// Get clean param values.
 	$icon_type       = $args['icon_type'];
 	$image_size      = $args['image_size'];
+	$alignment       = $args['alignment'];
 	$social_networks = mm_get_social_networks();
+
+	// Build the alignment class.
+	$alignment = 'mm-text-align-' . $args['alignment'];
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
 	ob_start() ?>
 
-	<div class="<?php echo esc_attr( $mm_classes ); ?>">
+	<div class="<?php echo esc_attr( $mm_classes . ' ' . $alignment ); ?>">
 
 		<?php foreach ( $social_networks as $social_network_name => $social_network ) {
 
@@ -117,6 +122,7 @@ function mm_vc_social_icons() {
 
 	$social_icons_types = mm_get_mm_social_icons_types();
 	$image_sizes = mm_get_image_sizes_for_vc();
+	$text_alignment = mm_get_text_alignment_for_vc();
 	$social_networks = mm_get_social_networks();
 
 	vc_map( array(
@@ -139,6 +145,16 @@ function mm_vc_social_icons() {
 				'dependency' => array(
 					'element' => 'icon_type',
 					'value'   => 'images',
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Icon Alignment', 'mm-components' ),
+				'param_name' => 'alignment',
+				'value'      => $text_alignment,
+				'dependency' => array(
+					'element' => 'icon_type',
+					'value'   => 'fontawesome',
 				),
 			),
 		)

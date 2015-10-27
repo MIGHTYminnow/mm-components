@@ -563,3 +563,20 @@ a.mm-button {
 		width: 0%;
 	}
 }
+
+/* Social Icons
+--------------------------------------------- */
+
+/* Defaults */
+.mm-social-icons a {
+	color: $default-color !important;
+	font-size: 36px;
+	&:hover {
+		color: $default-color !important;
+	}
+	i.icon {
+		width: 36px;
+		height: 36px;
+		line-height: 36px;
+	}
+}

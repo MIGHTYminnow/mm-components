@@ -636,4 +636,22 @@ a.mm-button.full-width {
   }
 }
 
+/* Social Icons
+--------------------------------------------- */
+/* Defaults */
+.mm-social-icons a {
+  color: #99CCCC !important;
+  font-size: 36px;
+}
+
+.mm-social-icons a:hover {
+  color: #99CCCC !important;
+}
+
+.mm-social-icons a i.icon {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+}
+
 /*# sourceMappingURL=mm-components-public.css.map */
