@@ -65,6 +65,7 @@ function mm_components_init_components() {
 		'polaroid-2'         => __( 'Polaroid 2', 'mm-components' ),
 		'posts'              => __( 'Posts', 'mm-components' ),
 		'restricted-content' => __( 'Restricted Content', 'mm-components' ),
+		'social-icons'       => __( 'Social Icons', 'mm-components' ),
 		'twitter-feed'       => __( 'Twitter Feed', 'mm-components' ),
 	);
 
@@ -118,6 +119,9 @@ function mm_components_init_components() {
 	}
 	if ( array_key_exists( 'restricted-content', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/restricted-content.php';
+	}
+	if ( array_key_exists( 'social-icons', $mm_active_components ) ) {
+		require_once MM_COMPONENTS_PATH . 'components/social-icons.php';
 	}
 	if ( array_key_exists( 'twitter-feed', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/twitter-feed.php';
