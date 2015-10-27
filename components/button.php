@@ -398,6 +398,18 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 			)
 		);
 
+		// Border weight.
+		$this->field_select(
+			__( 'Border Weight', 'mm-components' ),
+			$classname . 'border_weight widefat',
+			'border_weight',
+			$border_weight,
+			array(
+				'thin'  => __( 'Thin', 'mm-components' ),
+				'thick' => __( 'Thick', 'mm-components' ),
+			)
+		);
+
 		// Color.
 		$this->field_select(
 			__( 'Color', 'mm-components' ),
