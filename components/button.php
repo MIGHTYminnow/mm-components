@@ -121,6 +121,7 @@ add_action( 'vc_before_init', 'mm_vc_button' );
 function mm_vc_button() {
 
 	$colors = mm_get_available_colors_for_vc();
+	$text_alignment = mm_get_text_alignment_for_vc();
 
 	vc_map( array(
 		'name'     => __( 'Button', 'mm-components' ),
@@ -202,12 +203,7 @@ function mm_vc_button() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Button Alignment', 'mm-components' ),
 				'param_name' => 'alignment',
-				'value'      => array(
-					__( 'Default', 'mm-components' ) => 'default',
-					__( 'Left', 'mm-components' )    => 'left',
-					__( 'Center', 'mm-components' )  => 'center',
-					__( 'Right ', 'mm-components' )  => 'right',
-				),
+				'value'      => $text_alignment,
 			),
 			array(
 				'type'        => 'textarea_html',
@@ -276,16 +272,16 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 	public function widget( $args, $instance ) {
 
 		// At this point, all instance options have been sanitized.
-		$title = apply_filters( 'widget_title', $instance['title'] );
-		$link = $instance['link'];
-		$link_title = $instance['link_title'];
-		$style = $instance['style'];
-		$corner_style = $instance['corner_style'];
+		$title         = apply_filters( 'widget_title', $instance['title'] );
+		$link          = $instance['link'];
+		$link_title    = $instance['link_title'];
+		$style         = $instance['style'];
+		$corner_style  = $instance['corner_style'];
 		$border_weight = $instance['border_weight'];
-		$color = $instance['color'];
-		$size = $instance['size'];
-		$full_width = $instance['full_width'];
-		$alignment = $instance['alignment'];
+		$color         = $instance['color'];
+		$size          = $instance['size'];
+		$full_width    = $instance['full_width'];
+		$alignment     = $instance['alignment'];
 
 		$shortcode = sprintf(
 			'[mm_button link="%s" style="%s" corner_style="%s" border_weight="%s" color="%s" size="%s" full_width="%s" alignment="%s"]%s[/mm_button]',
@@ -321,33 +317,34 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 	public function form( $instance ) {
 
 		$defaults = array(
-			'title' => '',
-			'link' => '',
-			'link_title' => '',
-			'style' => '',
-			'corner_style' => '',
+			'title'         => '',
+			'link'          => '',
+			'link_title'    => '',
+			'style'         => '',
+			'corner_style'  => '',
 			'border_weight' => '',
-			'color' => '',
-			'size' => '',
-			'full_width' => '',
-			'alignment' => '',
+			'color'         => '',
+			'size'          => '',
+			'full_width'    => '',
+			'alignment'     => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		$title = $instance['title'];
-		$link = $instance['link'];
-		$link_title = $instance['link_title'];
-		$style = $instance['style'];
-		$corner_style = $instance['corner_style'];
-		$border_weight = $instance['border_weight'];
-		$color = $instance['color'];
-		$size = $instance['size'];
-		$full_width = $instance['full_width'];
-		$alignment = $instance['alignment'];
-		$classname = $this->options['classname'];
-		$colors = mm_get_available_colors();
+		$title          = $instance['title'];
+		$link           = $instance['link'];
+		$link_title     = $instance['link_title'];
+		$style          = $instance['style'];
+		$corner_style   = $instance['corner_style'];
+		$border_weight  = $instance['border_weight'];
+		$color          = $instance['color'];
+		$size           = $instance['size'];
+		$full_width     = mm_true_or_false( $instance['full_width'] );
+		$alignment      = $instance['alignment'];
+		$classname      = $this->options['classname'];
+		$colors         = mm_get_available_colors();
+		$text_alignment = mm_get_text_alignment();
 
 		// Title.
 		$this->field_text(
@@ -415,7 +412,12 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 			__( 'Size', 'mm-components' ),
 			$classname . '-size widefat',
 			'size',
-			$size
+			$size,
+			array(
+				'normal' => __( 'Normal', 'mm-components' ),
+				'small'  => __( 'Small', 'mm-components' ),
+				'large'  => __( 'Large', 'mm-components' ),
+			)
 		);
 
 		// Full width.
@@ -431,7 +433,8 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 			__( 'Button Alignment', 'mm-components' ),
 			$classname . '-alignment widefat',
 			'alignment',
-			$alignment
+			$alignment,
+			$text_alignment
 		);
 	}
 
@@ -446,17 +449,17 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance = $old_instance;
-		$instance['title'] = wp_kses_post($new_instance['title'] );
-		$instance['link'] = ( '' !== $new_instance['link'] ) ? esc_url( $new_instance['link'] ) : '';
-		$instance['link_title'] = wp_kses_post($new_instance['link_title']);
-		$instance['style'] = sanitize_text_field( $new_instance['style'] );
-		$instance['corner_style'] = sanitize_text_field( $new_instance['corner_style'] );
+		$instance                  = $old_instance;
+		$instance['title']         = wp_kses_post($new_instance['title'] );
+		$instance['link']          = ( '' !== $new_instance['link'] ) ? esc_url( $new_instance['link'] ) : '';
+		$instance['link_title']    = wp_kses_post($new_instance['link_title']);
+		$instance['style']         = sanitize_text_field( $new_instance['style'] );
+		$instance['corner_style']  = sanitize_text_field( $new_instance['corner_style'] );
 		$instance['border_weight'] = sanitize_text_field( $new_instance['border_weight'] );
-		$instance['color'] = sanitize_text_field( $new_instance['color'] );
-		$instance['size'] = sanitize_text_field( $new_instance['size'] );
-		$instance['full_width'] = sanitize_text_field( $new_instance['full_width'] );
-		$instance['alignment'] = sanitize_text_field( $new_instance['alignment'] );
+		$instance['color']         = sanitize_text_field( $new_instance['color'] );
+		$instance['size']          = sanitize_text_field( $new_instance['size'] );
+		$instance['full_width']    = sanitize_text_field( $new_instance['full_width'] );
+		$instance['alignment']     = sanitize_text_field( $new_instance['alignment'] );
 
 		return $instance;
 	}
