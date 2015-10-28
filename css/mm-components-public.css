@@ -640,19 +640,19 @@ a.mm-button.full-width {
 --------------------------------------------- */
 /* Defaults */
 .mm-social-icons a {
-  color: #99CCCC !important;
-  font-size: 36px;
   text-align: center;
 }
 
-.mm-social-icons a:hover {
-  color: #99CCCC !important;
-}
-
 .mm-social-icons a i.icon {
+  color: #99CCCC;
   width: 36px;
   height: 36px;
+  font-size: 36px;
   line-height: 36px;
+}
+
+.mm-social-icons a i.icon:hover {
+  color: #55aaaa;
 }
 
 /* Styles */
@@ -660,17 +660,52 @@ a.mm-button.full-width {
   font-size: 24px;
   border-radius: 50px;
   background-color: #99CCCC;
-  color: #fff;
+  color: #fff !important;
 }
 
 .mm-social-icons a i.icon.circle:hover {
   background-color: #55aaaa;
 }
 
+.mm-social-icons a i.icon.circle.light {
+  background-color: #999;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.light:hover {
+  background-color: #666666;
+}
+
+.mm-social-icons a i.icon.circle.medium {
+  background-color: #666;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.medium:hover {
+  background-color: #333333;
+}
+
+.mm-social-icons a i.icon.circle.dark {
+  background-color: #333;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.dark:hover {
+  background-color: black;
+}
+
+.mm-social-icons a i.icon.circle.small {
+  font-size: 16px;
+}
+
+.mm-social-icons a i.icon.circle.large {
+  font-size: 30px;
+}
+
 .mm-social-icons a i.icon.square {
   font-size: 24px;
   background-color: #99CCCC;
-  color: #fff;
+  color: #fff !important;
 }
 
 .mm-social-icons a i.icon.square:hover {
@@ -681,7 +716,7 @@ a.mm-button.full-width {
   font-size: 24px;
   border-radius: 5px;
   background-color: #99CCCC;
-  color: #fff;
+  color: #fff !important;
 }
 
 .mm-social-icons a i.icon.rounded-square:hover {

@@ -75,7 +75,7 @@ $thick-border: 2px solid;
 
 @mixin social-icon-background-colors ($color) {
 	background-color: $color;
-	color: #fff;
+	color: #fff !important;
 	&:hover {
 		background-color: darken($color, 20%);
 	}
@@ -591,16 +591,10 @@ a.mm-button {
 
 /* Defaults */
 .mm-social-icons a {
-	color: $default-color !important;
-	font-size: 36px;
 	text-align: center;
-	&:hover {
-		color: $default-color !important;
-	}
 	i.icon {
-		width: 36px;
-		height: 36px;
-		line-height: 36px;
+		@include social-icon-colors($default-color);
+		@include social-icon-sizes (36px);
 	}
 }
 
@@ -610,6 +604,21 @@ a.mm-button {
 		font-size: 24px;
 		border-radius: 50px;
 		@include social-icon-background-colors($default-color);
+		&.light {
+			@include social-icon-background-colors ($light-color);
+		}
+		&.medium {
+			@include social-icon-background-colors ($medium-color);
+		}
+		&.dark {
+			@include social-icon-background-colors ($dark-color);
+		}
+		&.small {
+			font-size: 16px;
+		}
+		&.large {
+			font-size: 30px;
+		}
 	}
 	&.square {
 		font-size: 24px;
