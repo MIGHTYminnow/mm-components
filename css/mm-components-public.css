@@ -657,8 +657,8 @@ a.mm-button.full-width {
 
 /* Styles */
 .mm-social-icons a i.icon.circle {
-  font-size: 24px;
   border-radius: 50px;
+  font-size: 24px;
   background-color: #99CCCC;
   color: #fff !important;
 }
@@ -712,15 +712,85 @@ a.mm-button.full-width {
   background-color: #55aaaa;
 }
 
+.mm-social-icons a i.icon.square.light {
+  background-color: #999;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.light:hover {
+  background-color: #666666;
+}
+
+.mm-social-icons a i.icon.square.medium {
+  background-color: #666;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.medium:hover {
+  background-color: #333333;
+}
+
+.mm-social-icons a i.icon.square.dark {
+  background-color: #333;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.dark:hover {
+  background-color: black;
+}
+
+.mm-social-icons a i.icon.square.small {
+  font-size: 16px;
+}
+
+.mm-social-icons a i.icon.square.large {
+  font-size: 30px;
+}
+
 .mm-social-icons a i.icon.rounded-square {
-  font-size: 24px;
   border-radius: 5px;
+  font-size: 24px;
   background-color: #99CCCC;
   color: #fff !important;
 }
 
 .mm-social-icons a i.icon.rounded-square:hover {
   background-color: #55aaaa;
+}
+
+.mm-social-icons a i.icon.rounded-square.light {
+  background-color: #999;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.light:hover {
+  background-color: #666666;
+}
+
+.mm-social-icons a i.icon.rounded-square.medium {
+  background-color: #666;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.medium:hover {
+  background-color: #333333;
+}
+
+.mm-social-icons a i.icon.rounded-square.dark {
+  background-color: #333;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.dark:hover {
+  background-color: black;
+}
+
+.mm-social-icons a i.icon.rounded-square.small {
+  font-size: 16px;
+}
+
+.mm-social-icons a i.icon.rounded-square.large {
+  font-size: 30px;
 }
 
 /* Colors */

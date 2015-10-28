@@ -95,6 +95,26 @@ $thick-border: 2px solid;
 	line-height: $size;
 }
 
+@mixin social-icons-with-backgrounds {
+	font-size: 24px;
+	@include social-icon-background-colors($default-color);
+		&.light {
+			@include social-icon-background-colors ($light-color);
+		}
+		&.medium {
+			@include social-icon-background-colors ($medium-color);
+		}
+		&.dark {
+			@include social-icon-background-colors ($dark-color);
+		}
+		&.small {
+			font-size: 16px;
+		}
+		&.large {
+			font-size: 30px;
+		}
+}
+
 /* Global Styles
 ---------------------------------------------------------------------------------------------------- */
 
@@ -601,33 +621,15 @@ a.mm-button {
 /* Styles */
 .mm-social-icons a i.icon {
 	&.circle {
-		font-size: 24px;
 		border-radius: 50px;
-		@include social-icon-background-colors($default-color);
-		&.light {
-			@include social-icon-background-colors ($light-color);
-		}
-		&.medium {
-			@include social-icon-background-colors ($medium-color);
-		}
-		&.dark {
-			@include social-icon-background-colors ($dark-color);
-		}
-		&.small {
-			font-size: 16px;
-		}
-		&.large {
-			font-size: 30px;
-		}
+		@include social-icons-with-backgrounds;
 	}
 	&.square {
-		font-size: 24px;
-		@include social-icon-background-colors($default-color);
+		@include social-icons-with-backgrounds;
 	}
 	&.rounded-square {
-		font-size: 24px;
 		border-radius: 5px;
-		@include social-icon-background-colors($default-color);
+		@include social-icons-with-backgrounds;
 	}
 }
 
