@@ -844,7 +844,7 @@ a.mm-button.full-width {
 }
 
 .mm-social-icons.mm-image-align-center {
-  max-width: 300px;
+  text-align: center;
   margin: 0 auto;
 }
 
