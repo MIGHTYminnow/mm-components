@@ -379,6 +379,46 @@ function mm_get_user_roles_for_vc() {
 }
 
 /**
+ * Return an array of registered user roles for use in a checkbox param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of user roles.
+ */
+function mm_get_user_roles() {
+
+	global $wp_roles;
+
+	$user_roles = array();
+
+	foreach ( $wp_roles->roles as $role => $role_params ) {
+
+		$role_name = ( isset( $role_params['name'] ) ) ? $role_params['name'] : $role;
+
+		$user_roles[ $role ] = $role_name;
+	}
+
+	return $user_roles;
+}
+
+/**
+ * Checks for encoded string.
+ *
+ * @since   1.0.0
+ *
+ * @return  bool  Returns true or false.
+ */
+function validBase64( $data ) {
+     if (preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $data)) {
+     	return TRUE;
+     }
+
+     else {
+     	return FALSE;
+     }
+ };
+
+/**
  * Return an array of colors for use in a Visual Composer dropdown param.
  *
  * @since   1.0.0

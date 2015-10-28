@@ -113,6 +113,64 @@ class Mm_Components_Widget extends WP_Widget {
 	}
 
 	/**
+	 * Output a group of checkboxes.
+	 *
+	 * @since  1.0.0
+	 */
+	public function field_multi_checkbox( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
+
+		if ( mm_true_or_false( $value ) ) {
+			$val = 1;
+		} else {
+			$val = 0;
+		}
+
+		$key = array();
+		$key_num = count( $key );
+		$keys[ $key_num + 1 ] = '';
+		$key_counter = 0;
+
+		echo '<p><label class="multi-checkbox-group-label">' . esc_html( $label ) . '</label><br />';
+
+			// Test whether we have an associative or indexed array.
+			if ( array_values( $options ) === $options ) {
+
+			// We have an indexed array.
+			foreach ( $options as $option ) {
+
+				printf(
+					'<input type="checkbox" class="%s" name="%s" value="1" %s /> <label class="%s">%s</label><br />',
+					$classes,
+					$this->get_field_name( $key_counter ),
+					checked( $val, 1, false ),
+					'radio-label',
+					$option
+				);
+				$key_counter += 1;
+			}
+
+			} else {
+
+				// We have an associative array.
+				foreach ( $options as $option_value => $option_display_name ) {
+
+					printf(
+						'<input type="checkbox" class="%s" name="%s" value="1" %s /> <label class="%s">%s</label><br />',
+						$classes,
+						$this->get_field_name( $key_counter ),
+						checked( $val, 1, false ),
+						'radio-label',
+						$option_display_name
+					);
+					$key_counter += 1;
+				}
+			}
+
+		echo '</p>';
+	}
+
+
+	/**
 	 * Outputs a checkbox input element.
 	 *
 	 * @since  1.0.0
