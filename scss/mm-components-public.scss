@@ -88,6 +88,13 @@ $thick-border: 2px solid;
 	}
 }
 
+@mixin social-icon-sizes ($size) {
+	width: $size;
+	height: $size;
+	font-size: $size;
+	line-height: $size;
+}
+
 /* Global Styles
 ---------------------------------------------------------------------------------------------------- */
 
@@ -625,5 +632,15 @@ a.mm-button {
 	}
 	&.dark {
 		@include social-icon-colors($dark-color);
+	}
+}
+
+/* Sizes */
+.mm-social-icons a i.icon {
+	&.small {
+		@include social-icon-sizes (24px);
+	}
+	&.large {
+		@include social-icon-sizes (48px);
 	}
 }

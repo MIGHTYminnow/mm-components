@@ -713,4 +713,19 @@ a.mm-button.full-width {
   color: black;
 }
 
+/* Sizes */
+.mm-social-icons a i.icon.small {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.mm-social-icons a i.icon.large {
+  width: 48px;
+  height: 48px;
+  font-size: 48px;
+  line-height: 48px;
+}
+
 /*# sourceMappingURL=mm-components-public.css.map */

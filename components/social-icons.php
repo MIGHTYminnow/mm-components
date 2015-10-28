@@ -28,6 +28,7 @@ function mm_social_icons( $args ) {
 		'alignment'       => 'left',
 		'style'           => '',
 		'color'           => '',
+		'size'            => '',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
@@ -44,6 +45,7 @@ function mm_social_icons( $args ) {
 	$alignment       = $args['alignment'];
 	$style           = $args['style'];
 	$color           = $args['color'];
+	$size            = $args['size'];
 	$social_networks = mm_get_social_networks();
 
 	// Build the alignment class.
@@ -56,6 +58,9 @@ function mm_social_icons( $args ) {
 	}
 	if ( ! empty( $args['color'] ) ) {
 		$classes[] = $args['color'];
+	}
+	if ( ! empty( $args['size'] ) ) {
+		$classes[] = $args['size'];
 	}
 
 	$classes = implode( ' ', $classes );
@@ -196,6 +201,16 @@ function mm_vc_social_icons() {
 				'dependency' => array(
 					'element' => 'icon_type',
 					'value'   => 'fontawesome',
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Icon Size', 'mm-components' ),
+				'param_name' => 'size',
+				'value'      => array(
+					__( 'Normal', 'mm-components' ) => 'normal-size',
+					__( 'Small', 'mm-components' )  => 'small',
+					__( 'Large', 'mm-components' )  => 'large',
 				),
 			),
 		)
