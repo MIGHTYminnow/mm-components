@@ -73,11 +73,18 @@ $thick-border: 2px solid;
 	}
 }
 
-@mixin social-icon-colors ($color) {
+@mixin social-icon-background-colors ($color) {
 	background-color: $color;
 	color: #fff;
 	&:hover {
-		background-color: darken($default-color, 20%);
+		background-color: darken($color, 20%);
+	}
+}
+
+@mixin social-icon-colors ($color) {
+	color: $color;
+	&:hover {
+		color: darken($color, 20%);
 	}
 }
 
@@ -595,16 +602,28 @@ a.mm-button {
 	&.circle {
 		font-size: 24px;
 		border-radius: 50px;
-		@include social-icon-colors($default-color);
+		@include social-icon-background-colors($default-color);
 	}
 	&.square {
 		font-size: 24px;
-		@include social-icon-colors($default-color);
+		@include social-icon-background-colors($default-color);
 	}
 	&.rounded-square {
 		font-size: 24px;
 		border-radius: 5px;
-		@include social-icon-colors($default-color);
+		@include social-icon-background-colors($default-color);
 	}
 }
 
+/* Colors */
+.mm-social-icons a i.icon {
+	&.light {
+		@include social-icon-colors($light-color);
+	}
+	&.medium {
+		@include social-icon-colors($medium-color);
+	}
+	&.dark {
+		@include social-icon-colors($dark-color);
+	}
+}

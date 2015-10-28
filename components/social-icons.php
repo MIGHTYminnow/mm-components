@@ -27,6 +27,7 @@ function mm_social_icons( $args ) {
 		'image_size'      => 'thumbnail',
 		'alignment'       => 'left',
 		'style'           => '',
+		'color'           => '',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
@@ -42,6 +43,7 @@ function mm_social_icons( $args ) {
 	$image_size      = $args['image_size'];
 	$alignment       = $args['alignment'];
 	$style           = $args['style'];
+	$color           = $args['color'];
 	$social_networks = mm_get_social_networks();
 
 	// Build the alignment class.
@@ -49,8 +51,11 @@ function mm_social_icons( $args ) {
 
 	// Set up the icon classes.
 	$classes = array();
-	if( ! empty( $args['style'] ) ) {
+	if ( ! empty( $args['style'] ) ) {
 		$classes[] = $args['style'];
+	}
+	if ( ! empty( $args['color'] ) ) {
+		$classes[] = $args['color'];
 	}
 
 	$classes = implode( ' ', $classes );
@@ -133,6 +138,7 @@ function mm_vc_social_icons() {
 	$social_icons_types = mm_get_mm_social_icons_types();
 	$image_sizes = mm_get_image_sizes_for_vc();
 	$text_alignment = mm_get_text_alignment_for_vc();
+	$colors = mm_get_available_colors_for_vc();
 	$social_networks = mm_get_social_networks();
 
 	vc_map( array(
@@ -176,6 +182,20 @@ function mm_vc_social_icons() {
 					__( 'Circle', 'mm-components' )         => 'circle',
 					__( 'Square', 'mm-components' )         => 'square',
 					__( 'Rounded Square', 'mm-components' ) => 'rounded-square',
+				),
+				'dependency' => array(
+					'element' => 'icon_type',
+					'value'   => 'fontawesome',
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Icon Color', 'mm-components' ),
+				'param_name' => 'color',
+				'value'      => $colors,
+				'dependency' => array(
+					'element' => 'icon_type',
+					'value'   => 'fontawesome',
 				),
 			),
 		)

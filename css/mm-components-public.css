@@ -688,4 +688,29 @@ a.mm-button.full-width {
   background-color: #55aaaa;
 }
 
+/* Colors */
+.mm-social-icons a i.icon.light {
+  color: #999;
+}
+
+.mm-social-icons a i.icon.light:hover {
+  color: #666666;
+}
+
+.mm-social-icons a i.icon.medium {
+  color: #666;
+}
+
+.mm-social-icons a i.icon.medium:hover {
+  color: #333333;
+}
+
+.mm-social-icons a i.icon.dark {
+  color: #333;
+}
+
+.mm-social-icons a i.icon.dark:hover {
+  color: black;
+}
+
 /*# sourceMappingURL=mm-components-public.css.map */
