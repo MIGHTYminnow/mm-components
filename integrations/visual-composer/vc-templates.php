@@ -23,7 +23,7 @@ function mm_vc_register_custom_templates( $templates ) {
 	$all                 = array();
 	$all['name']         = __( 'Mm Components - All', 'mm-components' );
 	$all['weight']       = 99;
-  	$all['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
+	  $all['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
 	$all['custom_class'] = 'mm_components_all_template';
 	$all['content']      = <<<CONTENT
 		[vc_row][vc_column][vc_text_separator title="Blockquote"][mm_blockquote image_id="56" quote="This is a blockquote. This blockquote should have an image and a citation." citation="Smart Person"][mm_blockquote quote="This is a blockquote. This blockquote should have no image but should have a citation." citation="Smart Person"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Button"][mm_button link="url:http%3A%2F%2Fexample.com|title:Sample%20Page|" size="large" alignment="center"]
@@ -55,7 +55,7 @@ CONTENT;
 	$button                 = array();
 	$button['name']         = __( 'Mm Components - Button', 'mm-components' );
 	$button['weight']       = 99;
-  	$button['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
+	  $button['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
 	$button['custom_class'] = 'mm_components_button_template';
 	$button['content']      = <<<CONTENT
 		[vc_row][vc_column][mm_custom_heading text_align="center"]Button Style: Default[/mm_custom_heading][vc_empty_space][mm_button link="url:%23||" alignment="center"]Juicy Click Target  [icon name="fighter-jet" class="" unprefixed_class=""][/mm_button][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Corner Styles" border_width="2"][vc_row_inner][vc_column_inner width="1/3"][vc_column_text]
@@ -111,8 +111,143 @@ CONTENT;
 [/vc_column_text][mm_button link="url:%23||" style="gradient" corner_style="rounded" color="dark" alignment="center"]Juicy Click Target  [icon name="fighter-jet" class="" unprefixed_class=""][/mm_button][/vc_column_inner][/vc_row_inner][/vc_column][/vc_row][vc_row][vc_column][vc_empty_space height="35px"][/vc_column][/vc_row]
 CONTENT;
 
+	// Demo template for Mm Social Icon.
+	$social_icons                 = array();
+	$social_icons['name']         = __( 'Mm Components - Social Icons', 'mm-components' );
+	$socia_icons['weight']       = 99;
+	  $social_icons['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
+	$social_icons['custom_class'] = 'mm_components_button_template';
+	$social_icons['content']      = <<<CONTENT
+	[vc_row][vc_column][mm_custom_heading margin_bottom="32" text_align="center"]Social Icon Style: Default[/mm_custom_heading][mm_social_icons alignment="center" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_text_separator title="Colors"][vc_row_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Default
+
+[/vc_column_text][mm_social_icons alignment="center" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_column_text]
+
+Medium
+
+[/vc_column_text][mm_social_icons alignment="center" color="medium" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Light
+
+[/vc_column_text][mm_social_icons alignment="center" color="light" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_column_text]
+
+Dark
+
+[/vc_column_text][mm_social_icons alignment="center" color="dark" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][/vc_row_inner][vc_text_separator title="Sizes"][vc_row_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Small
+
+[/vc_column_text][mm_social_icons alignment="center" size="small" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Normal
+
+[/vc_column_text][mm_social_icons alignment="center" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][/vc_row_inner][vc_empty_space][vc_column_text]
+
+Large
+
+[/vc_column_text][mm_social_icons alignment="center" size="large" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column][/vc_row][vc_row][vc_column][mm_custom_heading margin_bottom="32" text_align="center"]Social Icon Style: Circle[/mm_custom_heading][mm_social_icons alignment="center" style="circle" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_text_separator title="Colors"][vc_row_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Default
+
+[/vc_column_text][mm_social_icons alignment="center" style="circle" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_column_text]
+
+Medium
+
+[/vc_column_text][mm_social_icons alignment="center" style="circle" color="medium" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Light
+
+[/vc_column_text][mm_social_icons alignment="center" style="circle" color="light" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_column_text]
+
+Dark
+
+[/vc_column_text][mm_social_icons alignment="center" style="circle" color="dark" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][/vc_row_inner][vc_text_separator title="Sizes"][vc_row_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Small
+
+[/vc_column_text][mm_social_icons alignment="center" style="circle" size="small" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Normal
+
+[/vc_column_text][mm_social_icons alignment="center" style="circle" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][/vc_row_inner][vc_empty_space][vc_column_text]
+
+Large
+
+[/vc_column_text][mm_social_icons alignment="center" style="circle" size="large" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column][/vc_row][vc_row][vc_column][mm_custom_heading margin_bottom="32" text_align="center"]Social Icon Style: Square[/mm_custom_heading][mm_social_icons alignment="center" style="square" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_text_separator title="Colors"][vc_row_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Default
+
+[/vc_column_text][mm_social_icons alignment="center" style="square" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_column_text]
+
+Medium
+
+[/vc_column_text][mm_social_icons alignment="center" style="square" color="medium" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Light
+
+[/vc_column_text][mm_social_icons alignment="center" style="square" color="light" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_column_text]
+
+Dark
+
+[/vc_column_text][mm_social_icons alignment="center" style="square" color="dark" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][/vc_row_inner][vc_text_separator title="Sizes"][vc_row_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Small
+
+[/vc_column_text][mm_social_icons alignment="center" style="square" size="small" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Normal
+
+[/vc_column_text][mm_social_icons alignment="center" style="square" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][/vc_row_inner][vc_empty_space][vc_column_text]
+
+Large
+
+[/vc_column_text][mm_social_icons alignment="center" style="square" size="large" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column][/vc_row][vc_row][vc_column][mm_custom_heading margin_bottom="32" text_align="center"]Social Icon Style: Rounded Square[/mm_custom_heading][mm_social_icons alignment="center" style="rounded-square" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_text_separator title="Colors"][vc_row_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Default
+
+[/vc_column_text][mm_social_icons alignment="center" style="rounded-square" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_column_text]
+
+Medium
+
+[/vc_column_text][mm_social_icons alignment="center" style="rounded-square" color="medium" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Light
+
+[/vc_column_text][mm_social_icons alignment="center" style="rounded-square" color="light" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][vc_column_text]
+
+Dark
+
+[/vc_column_text][mm_social_icons alignment="center" style="rounded-square" color="dark" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][/vc_row_inner][vc_text_separator title="Sizes"][vc_row_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Small
+
+[/vc_column_text][mm_social_icons alignment="center" style="rounded-square" size="small" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Normal
+
+[/vc_column_text][mm_social_icons alignment="center" style="rounded-square" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][/vc_row_inner][vc_column_text]
+
+Large
+
+[/vc_column_text][vc_empty_space][mm_social_icons alignment="center" style="rounded-square" size="large" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column][/vc_row][vc_row][vc_column][mm_custom_heading margin_bottom="32" text_align="center"]Social Icon Style: Custom Image[/mm_custom_heading][mm_social_icons icon_type="images" alignment="center" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#" facebook_image="1451" twitter_image="1452" instagram_image="1454" pinterest_image="1455" youtube_image="1453"][vc_empty_space][vc_text_separator title="Sizes"][vc_row_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Small
+
+[/vc_column_text][mm_social_icons icon_type="images" alignment="center" size="small" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#" facebook_image="1451" twitter_image="1452" instagram_image="1454" pinterest_image="1455" youtube_image="1453"][/vc_column_inner][vc_column_inner width="1/2"][vc_column_text]
+
+Normal
+
+[/vc_column_text][mm_social_icons icon_type="images" alignment="center" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#" facebook_image="1451" twitter_image="1452" instagram_image="1454" pinterest_image="1455" youtube_image="1453"][/vc_column_inner][/vc_row_inner][vc_empty_space][vc_column_text]
+
+Large
+
+[/vc_column_text][mm_social_icons icon_type="images" alignment="center" size="large" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#" facebook_image="1451" twitter_image="1452" instagram_image="1454" pinterest_image="1455" youtube_image="1453"][/vc_column][/vc_row]
+CONTENT;
+
 	$templates[] = $all;
 	$templates[] = $button;
+	$templates[] = $social_icons;
 
 	return $templates;
 }
