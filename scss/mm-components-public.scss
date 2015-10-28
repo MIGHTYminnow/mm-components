@@ -73,6 +73,14 @@ $thick-border: 2px solid;
 	}
 }
 
+@mixin social-icon-colors ($color) {
+	background-color: $color;
+	color: #fff;
+	&:hover {
+		background-color: darken($default-color, 20%);
+	}
+}
+
 /* Global Styles
 ---------------------------------------------------------------------------------------------------- */
 
@@ -571,6 +579,7 @@ a.mm-button {
 .mm-social-icons a {
 	color: $default-color !important;
 	font-size: 36px;
+	text-align: center;
 	&:hover {
 		color: $default-color !important;
 	}
@@ -580,3 +589,22 @@ a.mm-button {
 		line-height: 36px;
 	}
 }
+
+/* Styles */
+.mm-social-icons a i.icon {
+	&.circle {
+		font-size: 24px;
+		border-radius: 50px;
+		@include social-icon-colors($default-color);
+	}
+	&.square {
+		font-size: 24px;
+		@include social-icon-colors($default-color);
+	}
+	&.rounded-square {
+		font-size: 24px;
+		border-radius: 5px;
+		@include social-icon-colors($default-color);
+	}
+}
+

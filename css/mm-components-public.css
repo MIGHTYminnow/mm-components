@@ -642,6 +642,7 @@ a.mm-button.full-width {
 .mm-social-icons a {
   color: #99CCCC !important;
   font-size: 36px;
+  text-align: center;
 }
 
 .mm-social-icons a:hover {
@@ -652,6 +653,39 @@ a.mm-button.full-width {
   width: 36px;
   height: 36px;
   line-height: 36px;
+}
+
+/* Styles */
+.mm-social-icons a i.icon.circle {
+  font-size: 24px;
+  border-radius: 50px;
+  background-color: #99CCCC;
+  color: #fff;
+}
+
+.mm-social-icons a i.icon.circle:hover {
+  background-color: #55aaaa;
+}
+
+.mm-social-icons a i.icon.square {
+  font-size: 24px;
+  background-color: #99CCCC;
+  color: #fff;
+}
+
+.mm-social-icons a i.icon.square:hover {
+  background-color: #55aaaa;
+}
+
+.mm-social-icons a i.icon.rounded-square {
+  font-size: 24px;
+  border-radius: 5px;
+  background-color: #99CCCC;
+  color: #fff;
+}
+
+.mm-social-icons a i.icon.rounded-square:hover {
+  background-color: #55aaaa;
 }
 
 /*# sourceMappingURL=mm-components-public.css.map */
