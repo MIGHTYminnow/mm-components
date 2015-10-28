@@ -641,6 +641,11 @@ a.mm-button.full-width {
 /* Defaults */
 .mm-social-icons a {
   text-align: center;
+  margin-right: 5px;
+}
+
+.mm-social-icons a:last-child {
+  margin-right: 0;
 }
 
 .mm-social-icons a i.icon {
@@ -831,6 +836,32 @@ a.mm-button.full-width {
   height: 48px;
   font-size: 48px;
   line-height: 48px;
+}
+
+/* Social Images */
+.mm-social-icons.mm-image-align-left {
+  float: left;
+}
+
+.mm-social-icons.mm-image-align-center {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.mm-social-icons.mm-image-align-right {
+  float: right;
+}
+
+.mm-social-icons a.normal-size img {
+  width: 36px;
+}
+
+.mm-social-icons a.small img {
+  width: 24px;
+}
+
+.mm-social-icons a.large img {
+  width: 48px;
 }
 
 /*# sourceMappingURL=mm-components-public.css.map */

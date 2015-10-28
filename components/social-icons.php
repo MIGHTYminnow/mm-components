@@ -28,7 +28,7 @@ function mm_social_icons( $args ) {
 		'alignment'       => 'left',
 		'style'           => '',
 		'color'           => '',
-		'size'            => '',
+		'size'            => 'normal-size',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
@@ -49,7 +49,11 @@ function mm_social_icons( $args ) {
 	$social_networks = mm_get_social_networks();
 
 	// Build the alignment class.
-	$alignment = 'mm-text-align-' . $args['alignment'];
+	if ( 'images' == $args['icon_type'] ) {
+		$alignment = 'mm-image-align-' .$args['alignment'];
+	} else {
+		$alignment = 'mm-text-align-' . $args['alignment'];
+	}
 
 	// Set up the icon classes.
 	$classes = array();
@@ -62,6 +66,8 @@ function mm_social_icons( $args ) {
 	if ( ! empty( $args['size'] ) ) {
 		$classes[] = $args['size'];
 	}
+
+	$image_classes = implode( ' ', $classes );
 
 	$classes = implode( ' ', $classes );
 
@@ -82,9 +88,10 @@ function mm_social_icons( $args ) {
 				$icon = ( 'images' == $icon_type && (int)$image ) ? wp_get_attachment_image( (int)$image, $image_size ) : '<i class="icon fa fa-' . esc_attr( $social_network ) . ' ' . esc_attr( $classes ) . '"></i>';
 
 				printf(
-					'<a href="%s" class="%s">%s</a>',
+					'<a href="%s" class="%s %s">%s</a>',
 					esc_url( $link ),
 					esc_attr( $social_network . '-link' ),
+					esc_attr( $image_classes ),
 					$icon
 				);
 			}
@@ -173,10 +180,6 @@ function mm_vc_social_icons() {
 				'heading'    => __( 'Icon Alignment', 'mm-components' ),
 				'param_name' => 'alignment',
 				'value'      => $text_alignment,
-				'dependency' => array(
-					'element' => 'icon_type',
-					'value'   => 'fontawesome',
-				),
 			),
 			array(
 				'type'       => 'dropdown',

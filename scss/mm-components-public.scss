@@ -95,6 +95,10 @@ $thick-border: 2px solid;
 	line-height: $size;
 }
 
+@mixin social-image-sizes ($size) {
+	width: $size;
+}
+
 @mixin social-icons-with-backgrounds {
 	font-size: 24px;
 	@include social-icon-background-colors($default-color);
@@ -612,6 +616,10 @@ a.mm-button {
 /* Defaults */
 .mm-social-icons a {
 	text-align: center;
+	margin-right: 5px;
+	&:last-child {
+		margin-right: 0;
+	}
 	i.icon {
 		@include social-icon-colors($default-color);
 		@include social-icon-sizes (36px);
@@ -653,5 +661,30 @@ a.mm-button {
 	}
 	&.large {
 		@include social-icon-sizes (48px);
+	}
+}
+
+/* Social Images */
+.mm-social-icons {
+	&.mm-image-align-left {
+		float: left;
+	}
+	&.mm-image-align-center {
+		max-width: 300px;
+		margin: 0 auto;
+	}
+	&.mm-image-align-right {
+		float: right;
+	}
+}
+.mm-social-icons a {
+	&.normal-size img {
+		@include social-image-sizes (36px);
+	}
+	&.small img {
+		@include social-image-sizes(24px);
+	}
+	&.large img {
+		@include social-image-sizes(48px);
 	}
 }
