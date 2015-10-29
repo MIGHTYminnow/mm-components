@@ -641,7 +641,8 @@ a.mm-button.full-width {
 /* Defaults */
 .mm-social-icons a {
   text-align: center;
-  margin-right: 5px;
+  margin-right: 6px;
+  display: inline-block;
 }
 
 .mm-social-icons a:last-child {
@@ -649,6 +650,7 @@ a.mm-button.full-width {
 }
 
 .mm-social-icons a i.icon {
+  margin: 0;
   color: #99CCCC;
   width: 36px;
   height: 36px;
@@ -663,9 +665,9 @@ a.mm-button.full-width {
 /* Styles */
 .mm-social-icons a i.icon.circle {
   border-radius: 50px;
-  font-size: 24px;
   background-color: #99CCCC;
   color: #fff !important;
+  font-size: 24px;
 }
 
 .mm-social-icons a i.icon.circle:hover {
@@ -699,6 +701,96 @@ a.mm-button.full-width {
   background-color: black;
 }
 
+.mm-social-icons a i.icon.circle.brand-colors.fa-facebook {
+  background-color: #3b5998;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-facebook:hover {
+  background-color: #1e2e4f;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-twitter {
+  background-color: #00aced;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-twitter:hover {
+  background-color: #006287;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-youtube {
+  background-color: #bb0000;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-youtube:hover {
+  background-color: #550000;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-google-plus {
+  background-color: #dd4b39;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-google-plus:hover {
+  background-color: #96271a;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-instagram {
+  background-color: #125688;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-instagram:hover {
+  background-color: #061d2e;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-pinterest {
+  background-color: #cb2027;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-pinterest:hover {
+  background-color: #731216;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-linkedin {
+  background-color: #007bb5;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-linkedin:hover {
+  background-color: #00364f;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-vine {
+  background-color: #00bf8f;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-vine:hover {
+  background-color: #005943;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-flickr {
+  background-color: #ff0084;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-flickr:hover {
+  background-color: #99004f;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-vimeo {
+  background-color: #aad450;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.brand-colors.fa-vimeo:hover {
+  background-color: #749925;
+}
+
 .mm-social-icons a i.icon.circle.small {
   font-size: 16px;
 }
@@ -708,9 +800,9 @@ a.mm-button.full-width {
 }
 
 .mm-social-icons a i.icon.square {
-  font-size: 24px;
   background-color: #99CCCC;
   color: #fff !important;
+  font-size: 24px;
 }
 
 .mm-social-icons a i.icon.square:hover {
@@ -744,6 +836,96 @@ a.mm-button.full-width {
   background-color: black;
 }
 
+.mm-social-icons a i.icon.square.brand-colors.fa-facebook {
+  background-color: #3b5998;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-facebook:hover {
+  background-color: #1e2e4f;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-twitter {
+  background-color: #00aced;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-twitter:hover {
+  background-color: #006287;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-youtube {
+  background-color: #bb0000;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-youtube:hover {
+  background-color: #550000;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-google-plus {
+  background-color: #dd4b39;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-google-plus:hover {
+  background-color: #96271a;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-instagram {
+  background-color: #125688;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-instagram:hover {
+  background-color: #061d2e;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-pinterest {
+  background-color: #cb2027;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-pinterest:hover {
+  background-color: #731216;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-linkedin {
+  background-color: #007bb5;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-linkedin:hover {
+  background-color: #00364f;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-vine {
+  background-color: #00bf8f;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-vine:hover {
+  background-color: #005943;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-flickr {
+  background-color: #ff0084;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-flickr:hover {
+  background-color: #99004f;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-vimeo {
+  background-color: #aad450;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.brand-colors.fa-vimeo:hover {
+  background-color: #749925;
+}
+
 .mm-social-icons a i.icon.square.small {
   font-size: 16px;
 }
@@ -754,9 +936,9 @@ a.mm-button.full-width {
 
 .mm-social-icons a i.icon.rounded-square {
   border-radius: 5px;
-  font-size: 24px;
   background-color: #99CCCC;
   color: #fff !important;
+  font-size: 24px;
 }
 
 .mm-social-icons a i.icon.rounded-square:hover {
@@ -788,6 +970,96 @@ a.mm-button.full-width {
 
 .mm-social-icons a i.icon.rounded-square.dark:hover {
   background-color: black;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-facebook {
+  background-color: #3b5998;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-facebook:hover {
+  background-color: #1e2e4f;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-twitter {
+  background-color: #00aced;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-twitter:hover {
+  background-color: #006287;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-youtube {
+  background-color: #bb0000;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-youtube:hover {
+  background-color: #550000;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-google-plus {
+  background-color: #dd4b39;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-google-plus:hover {
+  background-color: #96271a;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-instagram {
+  background-color: #125688;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-instagram:hover {
+  background-color: #061d2e;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-pinterest {
+  background-color: #cb2027;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-pinterest:hover {
+  background-color: #731216;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-linkedin {
+  background-color: #007bb5;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-linkedin:hover {
+  background-color: #00364f;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-vine {
+  background-color: #00bf8f;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-vine:hover {
+  background-color: #005943;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-flickr {
+  background-color: #ff0084;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-flickr:hover {
+  background-color: #99004f;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-vimeo {
+  background-color: #aad450;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.brand-colors.fa-vimeo:hover {
+  background-color: #749925;
 }
 
 .mm-social-icons a i.icon.rounded-square.small {
@@ -823,6 +1095,86 @@ a.mm-button.full-width {
   color: black;
 }
 
+.mm-social-icons a i.icon.brand-colors.fa-facebook {
+  color: #3b5998;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-facebook:hover {
+  color: #1e2e4f;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-twitter {
+  color: #00aced;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-twitter:hover {
+  color: #006287;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-youtube {
+  color: #bb0000;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-youtube:hover {
+  color: #550000;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-google-plus {
+  color: #dd4b39;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-google-plus:hover {
+  color: #96271a;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-instagram {
+  color: #125688;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-instagram:hover {
+  color: #061d2e;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-pinterest {
+  color: #cb2027;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-pinterest:hover {
+  color: #731216;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-linkedin {
+  color: #007bb5;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-linkedin:hover {
+  color: #00364f;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-vine {
+  color: #00bf8f;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-vine:hover {
+  color: #005943;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-flickr {
+  color: #ff0084;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-flickr:hover {
+  color: #99004f;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-vimeo {
+  color: #aad450;
+}
+
+.mm-social-icons a i.icon.brand-colors.fa-vimeo:hover {
+  color: #749925;
+}
+
 /* Sizes */
 .mm-social-icons a i.icon.small {
   width: 24px;
@@ -838,7 +1190,7 @@ a.mm-button.full-width {
   line-height: 48px;
 }
 
-/* Social Images */
+/* Images */
 .mm-social-icons.mm-image-align-left {
   float: left;
 }

@@ -153,6 +153,12 @@ function mm_vc_social_icons() {
 	$colors = mm_get_available_colors_for_vc();
 	$social_networks = mm_get_social_networks();
 
+	// Add our brand colors option.
+	$brand_colors = array(
+		__( 'Brand Colors', 'mm-components' ) => 'brand-colors'
+	);
+	$colors = array_merge( $colors, $brand_colors );
+
 	vc_map( array(
 		'name'     => __( 'Social Icons', 'mm-components' ),
 		'base'     => 'mm_social_icons',
