@@ -103,7 +103,7 @@ a.mm-button.rounded {
 }
 
 a.mm-button.pill {
-  border-radius: 50px;
+  border-radius: 100%;
 }
 
 /* Button Styles & Colors */
@@ -799,7 +799,7 @@ a.mm-button.full-width {
 }
 
 .mm-social-icons.circle a i.icon {
-  border-radius: 50px;
+  border-radius: 100%;
 }
 
 .mm-social-icons.square a i.icon {
