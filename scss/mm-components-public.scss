@@ -755,6 +755,13 @@ a.mm-button {
 	}
 }
 .mm-social-icons a {
+	img {
+		display: block;
+	}
+	&:hover {
+		opacity: 0.85;
+		transition: opacity 0.2s;
+	}
 	&.normal-size img {
 		@include social-image-sizes(36px);
 	}

@@ -1204,6 +1204,15 @@ a.mm-button.full-width {
   float: right;
 }
 
+.mm-social-icons a img {
+  display: block;
+}
+
+.mm-social-icons a:hover {
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
 .mm-social-icons a.normal-size img {
   width: 36px;
 }
