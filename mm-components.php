@@ -131,12 +131,38 @@ function mm_components_init_components() {
 	if ( defined( 'WPB_VC_VERSION' ) ) {
 		require_once MM_COMPONENTS_PATH . 'integrations/visual-composer/vc-functions.php';
 		require_once MM_COMPONENTS_PATH . 'integrations/visual-composer/vc-params.php';
+		require_once MM_COMPONENTS_PATH . 'integrations/visual-composer/vc-templates.php';
 	}
 
 	// Maybe include our demo component.
 	if ( true === WP_DEBUG ) {
 		require_once MM_COMPONENTS_PATH . 'components/demo.php';
 	}
+}
+
+add_action( 'init', 'mm_components_load_bfa', 12 );
+/**
+ * Initialize the Better Font Awesome Library.
+ *
+ * @since  1.0.0
+ */
+function mm_components_load_bfa() {
+
+	if ( ! class_exists( 'Better_Font_Awesome_Library' ) ) {
+		require_once ( MM_COMPONENTS_PATH . 'lib/better-font-awesome-library/better-font-awesome-library.php' );
+	}
+
+	$args = array(
+		'version'             => 'latest',
+		'minified'            => true,
+		'remove_existing_fa'  => false,
+		'load_styles'         => true,
+		'load_admin_styles'   => true,
+		'load_shortcode'      => true,
+		'load_tinymce_plugin' => true,
+	);
+
+	Better_Font_Awesome_Library::get_instance( $args );
 }
 
 add_action( 'wp_enqueue_scripts', 'mm_components_scripts_and_styles' );

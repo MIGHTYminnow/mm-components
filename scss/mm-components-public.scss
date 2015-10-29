@@ -9,6 +9,17 @@
 /* Reusables
 ---------------------------------------------------------------------------------------------------- */
 
+/* Variables
+--------------------------------------------- */
+
+$default-color: #99CCCC;
+$light-color: #999;
+$medium-color: #666;
+$dark-color: #333;
+
+$thin-border: 1px solid;
+$thick-border: 2px solid;
+
 /* Mixins
 --------------------------------------------- */
 
@@ -16,6 +27,96 @@
 	content: '';
 	display: table;
 	width: 100%;
+}
+
+@mixin button-color ($color) {
+	background-color: $color;
+	color: #fff !important;
+	&:hover {
+		background-color: darken($color, 20%);
+	}
+}
+
+@mixin solid-to-ghost-button-color ($color) {
+	border-color: $color !important;
+	&:hover {
+		background-color: transparent;
+		color: $color !important;
+	}
+}
+
+@mixin ghost-button-hover-color ($color) {
+	background-color: $color !important;
+	border-color: $color;
+	color: #fff !important;
+}
+
+@mixin three-d-button-color ($color) {
+	box-shadow: 0 4px 0 0 darken($color, 20%);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+	&:hover {
+		background-color: darken($color, 10%);
+		box-shadow: 0 3px 0 0 darken($color, 20%);
+		transform: translate(0, 1px);
+	}
+	&:active {
+		box-shadow: 0 0 0 0 darken($color, 20%);
+		transform: translate(0, 4px);
+	}
+}
+
+@mixin gradient-button-color ($color) {
+	background-image: linear-gradient($color 0%, darken($color, 20%) 100%);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+	&:hover {
+		background: darken($color, 20%);
+	}
+}
+
+@mixin social-icon-background-colors ($color) {
+	background-color: $color;
+	color: #fff !important;
+	&:hover {
+		background-color: darken($color, 20%);
+	}
+}
+
+@mixin social-icon-colors ($color) {
+	color: $color;
+	&:hover {
+		color: darken($color, 20%);
+	}
+}
+
+@mixin social-icon-sizes ($size) {
+	width: $size;
+	height: $size;
+	font-size: $size;
+	line-height: $size;
+}
+
+@mixin social-image-sizes ($size) {
+	width: $size;
+}
+
+@mixin social-icons-with-backgrounds {
+	font-size: 24px;
+	@include social-icon-background-colors($default-color);
+		&.light {
+			@include social-icon-background-colors ($light-color);
+		}
+		&.medium {
+			@include social-icon-background-colors ($medium-color);
+		}
+		&.dark {
+			@include social-icon-background-colors ($dark-color);
+		}
+		&.small {
+			font-size: 16px;
+		}
+		&.large {
+			font-size: 30px;
+		}
 }
 
 /* Global Styles
@@ -37,8 +138,180 @@
 	text-align: right;
 }
 
+.mm-text-transform-uppercase {
+	text-transform: uppercase;
+}
+
+.mm-text-transform-lowercase {
+	text-transform: lowercase;
+}
+
+.mm-text-transform-capitalize {
+	text-transform: capitalize;
+}
+
+.mm-text-color-light {
+	color: $light-color;
+}
+
+.mm-text-color-medium {
+	color: $medium-color;
+}
+
+.mm-text-color-dark {
+	color: $dark-color;
+}
+
+.mm-bg-color-light {
+	background-color: $light-color;
+}
+
+.mm-bg-color-medium {
+	background-color: $medium-color;
+}
+
+.mm-bg-color-dark {
+	background-color: $dark-color;
+}
+
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
+
+/* Button
+--------------------------------------------- */
+
+/* Default Styles */
+a.mm-button {
+	display: inline-block;
+	padding: 15px 25px;
+	border-bottom: none;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+	@include button-color ($default-color);
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+/* Border Weight */
+a.mm-button {
+	&.ghost,
+	&.solid-to-ghost {
+		&.thin {
+			border: $thin-border;
+		}
+		&.thick {
+			border: $thick-border;
+		}
+	}
+}
+
+/* Corner Styles */
+a.mm-button {
+	&.rounded {
+		border-radius: 5px;
+	}
+	&.pill {
+		border-radius: 50px;
+	}
+}
+
+/* Button Styles & Colors */
+a.mm-button {
+	&.solid-to-ghost {
+		@include solid-to-ghost-button-color ($default-color);
+	}
+	&.gradient {
+		@include gradient-button-color ($default-color);
+	}
+	&.three-d {
+		@include three-d-button-color ($default-color);
+	}
+	&.light {
+		@include button-color ($light-color);
+		&.solid-to-ghost{
+			@include solid-to-ghost-button-color ($light-color);
+		}
+		&.three-d {
+			@include three-d-button-color ($light-color);
+		}
+		&.gradient {
+			@include gradient-button-color ($light-color);
+		}
+	}
+	&.medium {
+		@include button-color ($medium-color);
+		&.solid-to-ghost {
+			@include solid-to-ghost-button-color ($medium-color);
+		}
+		&.three-d {
+			@include three-d-button-color ($medium-color);
+		}
+		&.gradient {
+			@include gradient-button-color ($medium-color);
+		}
+	}
+	&.dark {
+		@include button-color ($dark-color);
+		&.solid-to-ghost {
+			@include solid-to-ghost-button-color ($dark-color);
+		}
+		&.three-d {
+			@include three-d-button-color ($dark-color);
+		}
+		&.gradient {
+			@include gradient-button-color ($dark-color);
+		}
+	}
+}
+
+a.mm-button.ghost {
+	&.thin,
+	&.thick {
+		background-color: transparent !important;
+		color: $default-color !important;
+		&:hover {
+			@include ghost-button-hover-color($default-color);
+		}
+		&.light {
+			color: $light-color !important;
+			&:hover {
+				@include ghost-button-hover-color($light-color);
+			}
+		}
+		&.medium {
+			color: $medium-color !important;
+			&:hover {
+				@include ghost-button-hover-color($medium-color);
+			}
+		}
+		&.dark {
+			color: $dark-color !important;
+			&:hover {
+				@include ghost-button-hover-color($dark-color);
+			}
+		}
+	}
+}
+
+/* Button Size */
+a.mm-button {
+	&.small {
+		padding: 10px 20px;
+		font-size: 1em * 0.8;
+	}
+	&.large {
+		padding: 20px 30px;
+		font-size: 1em * 1.25;
+	}
+}
+
+/* Full Width */
+a.mm-button {
+	&.full-width {
+		display: block;
+	}
+}
 
 /* Countdown
 --------------------------------------------- */
@@ -334,5 +607,84 @@
 
 	.mm-posts.image-grid.mm-masonry.no-gutter .mm-posts-masonry-gutter {
 		width: 0%;
+	}
+}
+
+/* Social Icons
+--------------------------------------------- */
+
+/* Defaults */
+.mm-social-icons a {
+	text-align: center;
+	margin-right: 5px;
+	&:last-child {
+		margin-right: 0;
+	}
+	i.icon {
+		@include social-icon-colors($default-color);
+		@include social-icon-sizes (36px);
+	}
+}
+
+/* Styles */
+.mm-social-icons a i.icon {
+	&.circle {
+		border-radius: 50px;
+		@include social-icons-with-backgrounds;
+	}
+	&.square {
+		@include social-icons-with-backgrounds;
+	}
+	&.rounded-square {
+		border-radius: 5px;
+		@include social-icons-with-backgrounds;
+	}
+}
+
+/* Colors */
+.mm-social-icons a i.icon {
+	&.light {
+		@include social-icon-colors($light-color);
+	}
+	&.medium {
+		@include social-icon-colors($medium-color);
+	}
+	&.dark {
+		@include social-icon-colors($dark-color);
+	}
+}
+
+/* Sizes */
+.mm-social-icons a i.icon {
+	&.small {
+		@include social-icon-sizes (24px);
+	}
+	&.large {
+		@include social-icon-sizes (48px);
+	}
+}
+
+/* Social Images */
+.mm-social-icons {
+	&.mm-image-align-left {
+		float: left;
+	}
+	&.mm-image-align-center {
+		text-align: center;
+		margin: 0 auto;
+	}
+	&.mm-image-align-right {
+		float: right;
+	}
+}
+.mm-social-icons a {
+	&.normal-size img {
+		@include social-image-sizes (36px);
+	}
+	&.small img {
+		@include social-image-sizes(24px);
+	}
+	&.large img {
+		@include social-image-sizes(48px);
 	}
 }

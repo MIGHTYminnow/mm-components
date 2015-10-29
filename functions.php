@@ -140,17 +140,17 @@ function mm_true_or_false( $value ) {
  */
 function mm_check_user_role( $role, $user_id = null ) {
 
-    if ( is_numeric( $user_id ) ) {
-        $user = get_userdata( $user_id );
-    } else {
-        $user = wp_get_current_user();
-    }
+	if ( is_numeric( $user_id ) ) {
+		$user = get_userdata( $user_id );
+	} else {
+		$user = wp_get_current_user();
+	}
 
-    if ( empty( $user ) ) {
-        return false;
-    }
+	if ( empty( $user ) ) {
+		return false;
+	}
 
-    return in_array( $role, (array)$user->roles );
+	return in_array( $role, (array)$user->roles );
 }
 
 /**
@@ -408,4 +408,84 @@ function mm_get_user_roles_for_vc() {
 	}
 
 	return $user_roles;
+}
+
+/**
+ * Return an array of colors for use in a widget dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of colors.
+ */
+function mm_get_available_colors() {
+
+	$colors = array(
+		'default' => __( 'Default', 'mm-components' ),
+		'light' => __( 'Light', 'mm-components' ),
+		'medium' => __( 'Medium', 'mm-components' ),
+		'dark' => __( 'Dark', 'mm-components' ),
+	);
+
+	$colors = apply_filters( 'mm_get_available_colors', $colors );
+
+	return $colors;
+}
+
+/**
+ * Return an array of colors for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of colors.
+ */
+function mm_get_available_colors_for_vc() {
+
+	$colors = array(
+		__( 'Default', 'mm-components' ) => 'default',
+		__( 'Light', 'mm-components' )   => 'light',
+		__( 'Medium', 'mm-components' )  => 'medium',
+		__( 'Dark', 'mm-components' )    => 'dark',
+	);
+
+	$colors = apply_filters( 'mm_get_available_colors_for_vc', $colors );
+
+	return $colors;
+}
+
+/**
+ * Return an array of text alignments for use in a widget dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of text alignment options.
+ */
+function mm_get_text_alignment() {
+
+	$text_alignment = array(
+		'default' => __( 'Default', 'mm-components' ),
+		'left' => __( 'Left', 'mm-components' ),
+		'center' => __( 'Center', 'mm-components' ),
+		'right' => __( 'Right', 'mm-components' ),
+	);
+
+	return $text_alignment;
+}
+
+/**
+ * Return an array of text alignments for use in a Visual Composer dropdown param.
+ *
+ * @since 1.0.0
+ *
+ * @return  array  The array of text alignment options.
+ */
+function mm_get_text_alignment_for_vc() {
+
+	$text_alignment = array(
+		__( 'Default', 'mm-components' ) => 'default',
+		__( 'Left', 'mm-components' )    => 'left',
+		__( 'Center', 'mm-components' )  => 'center',
+		__( 'Right', 'mm-components' )   => 'right',
+	);
+
+	return $text_alignment;
 }

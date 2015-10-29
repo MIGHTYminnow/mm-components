@@ -7,6 +7,8 @@
  */
 /* Reusables
 ---------------------------------------------------------------------------------------------------- */
+/* Variables
+--------------------------------------------- */
 /* Mixins
 --------------------------------------------- */
 /* Global Styles
@@ -27,8 +29,304 @@
   text-align: right;
 }
 
+.mm-text-transform-uppercase {
+  text-transform: uppercase;
+}
+
+.mm-text-transform-lowercase {
+  text-transform: lowercase;
+}
+
+.mm-text-transform-capitalize {
+  text-transform: capitalize;
+}
+
+.mm-text-color-light {
+  color: #999;
+}
+
+.mm-text-color-medium {
+  color: #666;
+}
+
+.mm-text-color-dark {
+  color: #333;
+}
+
+.mm-bg-color-light {
+  background-color: #999;
+}
+
+.mm-bg-color-medium {
+  background-color: #666;
+}
+
+.mm-bg-color-dark {
+  background-color: #333;
+}
+
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
+/* Button
+--------------------------------------------- */
+/* Default Styles */
+a.mm-button {
+  display: inline-block;
+  padding: 15px 25px;
+  border-bottom: none;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  background-color: #99CCCC;
+  color: #fff !important;
+}
+
+a.mm-button:hover {
+  background-color: #55aaaa;
+}
+
+a.mm-button:hover {
+  text-decoration: none;
+}
+
+/* Border Weight */
+a.mm-button.ghost.thin, a.mm-button.solid-to-ghost.thin {
+  border: 1px solid;
+}
+
+a.mm-button.ghost.thick, a.mm-button.solid-to-ghost.thick {
+  border: 2px solid;
+}
+
+/* Corner Styles */
+a.mm-button.rounded {
+  border-radius: 5px;
+}
+
+a.mm-button.pill {
+  border-radius: 50px;
+}
+
+/* Button Styles & Colors */
+a.mm-button.solid-to-ghost {
+  border-color: #99CCCC !important;
+}
+
+a.mm-button.solid-to-ghost:hover {
+  background-color: transparent;
+  color: #99CCCC !important;
+}
+
+a.mm-button.gradient {
+  background-image: linear-gradient(#99CCCC 0%, #55aaaa 100%);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+a.mm-button.gradient:hover {
+  background: #55aaaa;
+}
+
+a.mm-button.three-d {
+  box-shadow: 0 4px 0 0 #55aaaa;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+a.mm-button.three-d:hover {
+  background-color: #77bbbb;
+  box-shadow: 0 3px 0 0 #55aaaa;
+  transform: translate(0, 1px);
+}
+
+a.mm-button.three-d:active {
+  box-shadow: 0 0 0 0 #55aaaa;
+  transform: translate(0, 4px);
+}
+
+a.mm-button.light {
+  background-color: #999;
+  color: #fff !important;
+}
+
+a.mm-button.light:hover {
+  background-color: #666666;
+}
+
+a.mm-button.light.solid-to-ghost {
+  border-color: #999 !important;
+}
+
+a.mm-button.light.solid-to-ghost:hover {
+  background-color: transparent;
+  color: #999 !important;
+}
+
+a.mm-button.light.three-d {
+  box-shadow: 0 4px 0 0 #666666;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+a.mm-button.light.three-d:hover {
+  background-color: gray;
+  box-shadow: 0 3px 0 0 #666666;
+  transform: translate(0, 1px);
+}
+
+a.mm-button.light.three-d:active {
+  box-shadow: 0 0 0 0 #666666;
+  transform: translate(0, 4px);
+}
+
+a.mm-button.light.gradient {
+  background-image: linear-gradient(#999 0%, #666666 100%);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+a.mm-button.light.gradient:hover {
+  background: #666666;
+}
+
+a.mm-button.medium {
+  background-color: #666;
+  color: #fff !important;
+}
+
+a.mm-button.medium:hover {
+  background-color: #333333;
+}
+
+a.mm-button.medium.solid-to-ghost {
+  border-color: #666 !important;
+}
+
+a.mm-button.medium.solid-to-ghost:hover {
+  background-color: transparent;
+  color: #666 !important;
+}
+
+a.mm-button.medium.three-d {
+  box-shadow: 0 4px 0 0 #333333;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+a.mm-button.medium.three-d:hover {
+  background-color: #4d4d4d;
+  box-shadow: 0 3px 0 0 #333333;
+  transform: translate(0, 1px);
+}
+
+a.mm-button.medium.three-d:active {
+  box-shadow: 0 0 0 0 #333333;
+  transform: translate(0, 4px);
+}
+
+a.mm-button.medium.gradient {
+  background-image: linear-gradient(#666 0%, #333333 100%);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+a.mm-button.medium.gradient:hover {
+  background: #333333;
+}
+
+a.mm-button.dark {
+  background-color: #333;
+  color: #fff !important;
+}
+
+a.mm-button.dark:hover {
+  background-color: black;
+}
+
+a.mm-button.dark.solid-to-ghost {
+  border-color: #333 !important;
+}
+
+a.mm-button.dark.solid-to-ghost:hover {
+  background-color: transparent;
+  color: #333 !important;
+}
+
+a.mm-button.dark.three-d {
+  box-shadow: 0 4px 0 0 black;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+a.mm-button.dark.three-d:hover {
+  background-color: #1a1a1a;
+  box-shadow: 0 3px 0 0 black;
+  transform: translate(0, 1px);
+}
+
+a.mm-button.dark.three-d:active {
+  box-shadow: 0 0 0 0 black;
+  transform: translate(0, 4px);
+}
+
+a.mm-button.dark.gradient {
+  background-image: linear-gradient(#333 0%, black 100%);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+a.mm-button.dark.gradient:hover {
+  background: black;
+}
+
+a.mm-button.ghost.thin, a.mm-button.ghost.thick {
+  background-color: transparent !important;
+  color: #99CCCC !important;
+}
+
+a.mm-button.ghost.thin:hover, a.mm-button.ghost.thick:hover {
+  background-color: #99CCCC !important;
+  border-color: #99CCCC;
+  color: #fff !important;
+}
+
+a.mm-button.ghost.thin.light, a.mm-button.ghost.thick.light {
+  color: #999 !important;
+}
+
+a.mm-button.ghost.thin.light:hover, a.mm-button.ghost.thick.light:hover {
+  background-color: #999 !important;
+  border-color: #999;
+  color: #fff !important;
+}
+
+a.mm-button.ghost.thin.medium, a.mm-button.ghost.thick.medium {
+  color: #666 !important;
+}
+
+a.mm-button.ghost.thin.medium:hover, a.mm-button.ghost.thick.medium:hover {
+  background-color: #666 !important;
+  border-color: #666;
+  color: #fff !important;
+}
+
+a.mm-button.ghost.thin.dark, a.mm-button.ghost.thick.dark {
+  color: #333 !important;
+}
+
+a.mm-button.ghost.thin.dark:hover, a.mm-button.ghost.thick.dark:hover {
+  background-color: #333 !important;
+  border-color: #333;
+  color: #fff !important;
+}
+
+/* Button Size */
+a.mm-button.small {
+  padding: 10px 20px;
+  font-size: 0.8em;
+}
+
+a.mm-button.large {
+  padding: 20px 30px;
+  font-size: 1.25em;
+}
+
+/* Full Width */
+a.mm-button.full-width {
+  display: block;
+}
+
 /* Countdown
 --------------------------------------------- */
 .mm-countdown {
@@ -337,3 +635,233 @@
     width: 0%;
   }
 }
+
+/* Social Icons
+--------------------------------------------- */
+/* Defaults */
+.mm-social-icons a {
+  text-align: center;
+  margin-right: 5px;
+}
+
+.mm-social-icons a:last-child {
+  margin-right: 0;
+}
+
+.mm-social-icons a i.icon {
+  color: #99CCCC;
+  width: 36px;
+  height: 36px;
+  font-size: 36px;
+  line-height: 36px;
+}
+
+.mm-social-icons a i.icon:hover {
+  color: #55aaaa;
+}
+
+/* Styles */
+.mm-social-icons a i.icon.circle {
+  border-radius: 50px;
+  font-size: 24px;
+  background-color: #99CCCC;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle:hover {
+  background-color: #55aaaa;
+}
+
+.mm-social-icons a i.icon.circle.light {
+  background-color: #999;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.light:hover {
+  background-color: #666666;
+}
+
+.mm-social-icons a i.icon.circle.medium {
+  background-color: #666;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.medium:hover {
+  background-color: #333333;
+}
+
+.mm-social-icons a i.icon.circle.dark {
+  background-color: #333;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.circle.dark:hover {
+  background-color: black;
+}
+
+.mm-social-icons a i.icon.circle.small {
+  font-size: 16px;
+}
+
+.mm-social-icons a i.icon.circle.large {
+  font-size: 30px;
+}
+
+.mm-social-icons a i.icon.square {
+  font-size: 24px;
+  background-color: #99CCCC;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square:hover {
+  background-color: #55aaaa;
+}
+
+.mm-social-icons a i.icon.square.light {
+  background-color: #999;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.light:hover {
+  background-color: #666666;
+}
+
+.mm-social-icons a i.icon.square.medium {
+  background-color: #666;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.medium:hover {
+  background-color: #333333;
+}
+
+.mm-social-icons a i.icon.square.dark {
+  background-color: #333;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.square.dark:hover {
+  background-color: black;
+}
+
+.mm-social-icons a i.icon.square.small {
+  font-size: 16px;
+}
+
+.mm-social-icons a i.icon.square.large {
+  font-size: 30px;
+}
+
+.mm-social-icons a i.icon.rounded-square {
+  border-radius: 5px;
+  font-size: 24px;
+  background-color: #99CCCC;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square:hover {
+  background-color: #55aaaa;
+}
+
+.mm-social-icons a i.icon.rounded-square.light {
+  background-color: #999;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.light:hover {
+  background-color: #666666;
+}
+
+.mm-social-icons a i.icon.rounded-square.medium {
+  background-color: #666;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.medium:hover {
+  background-color: #333333;
+}
+
+.mm-social-icons a i.icon.rounded-square.dark {
+  background-color: #333;
+  color: #fff !important;
+}
+
+.mm-social-icons a i.icon.rounded-square.dark:hover {
+  background-color: black;
+}
+
+.mm-social-icons a i.icon.rounded-square.small {
+  font-size: 16px;
+}
+
+.mm-social-icons a i.icon.rounded-square.large {
+  font-size: 30px;
+}
+
+/* Colors */
+.mm-social-icons a i.icon.light {
+  color: #999;
+}
+
+.mm-social-icons a i.icon.light:hover {
+  color: #666666;
+}
+
+.mm-social-icons a i.icon.medium {
+  color: #666;
+}
+
+.mm-social-icons a i.icon.medium:hover {
+  color: #333333;
+}
+
+.mm-social-icons a i.icon.dark {
+  color: #333;
+}
+
+.mm-social-icons a i.icon.dark:hover {
+  color: black;
+}
+
+/* Sizes */
+.mm-social-icons a i.icon.small {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.mm-social-icons a i.icon.large {
+  width: 48px;
+  height: 48px;
+  font-size: 48px;
+  line-height: 48px;
+}
+
+/* Social Images */
+.mm-social-icons.mm-image-align-left {
+  float: left;
+}
+
+.mm-social-icons.mm-image-align-center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.mm-social-icons.mm-image-align-right {
+  float: right;
+}
+
+.mm-social-icons a.normal-size img {
+  width: 36px;
+}
+
+.mm-social-icons a.small img {
+  width: 24px;
+}
+
+.mm-social-icons a.large img {
+  width: 48px;
+}
+
+/*# sourceMappingURL=mm-components-public.css.map */
