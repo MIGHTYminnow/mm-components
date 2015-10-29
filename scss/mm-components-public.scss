@@ -111,54 +111,68 @@ $thick-border: 2px solid;
 }
 
 @mixin social-icons-with-backgrounds {
-	@include social-icon-background-colors($default-color);
-	font-size: 24px;
+	a i.icon {
+		@include social-icon-background-colors($default-color);
+		font-size: 24px;
+	}
 	&.light {
-		@include social-icon-background-colors($light-color);
+		a i.icon {
+			@include social-icon-background-colors($light-color);
+		}
 	}
 	&.medium {
-		@include social-icon-background-colors($medium-color);
+		a i.icon {
+			@include social-icon-background-colors($medium-color);
+		}
 	}
 	&.dark {
-		@include social-icon-background-colors($dark-color);
+		a i.icon {
+			@include social-icon-background-colors($dark-color);
+		}
 	}
 	&.brand-colors {
-		&.fa-facebook {
-			@include social-icon-background-colors($facebook-color);
-		}
-		&.fa-twitter {
-			@include social-icon-background-colors($twitter-color);
-		}
-		&.fa-youtube {
-			@include social-icon-background-colors($youtube-color);
-		}
-		&.fa-google-plus {
-			@include social-icon-background-colors($google-plus-color);
-		}
-		&.fa-instagram {
-			@include social-icon-background-colors($instagram-color);
-		}
-		&.fa-pinterest {
-			@include social-icon-background-colors($pinterest-color);
-		}
-		&.fa-linkedin {
-			@include social-icon-background-colors($linkedin-color);
-		}
-		&.fa-vine {
-			@include social-icon-background-colors($vine-color);
-		}
-		&.fa-flickr {
-			@include social-icon-background-colors($flickr-color);
-		}
-		&.fa-vimeo {
-			@include social-icon-background-colors($vimeo-color);
+		a i.icon {
+			&.fa-facebook {
+				@include social-icon-background-colors($facebook-color);
+			}
+			&.fa-twitter {
+				@include social-icon-background-colors($twitter-color);
+			}
+			&.fa-youtube {
+				@include social-icon-background-colors($youtube-color);
+			}
+			&.fa-google-plus {
+				@include social-icon-background-colors($google-plus-color);
+			}
+			&.fa-instagram {
+				@include social-icon-background-colors($instagram-color);
+			}
+			&.fa-pinterest {
+				@include social-icon-background-colors($pinterest-color);
+			}
+			&.fa-linkedin {
+				@include social-icon-background-colors($linkedin-color);
+			}
+			&.fa-vine {
+				@include social-icon-background-colors($vine-color);
+			}
+			&.fa-flickr {
+				@include social-icon-background-colors($flickr-color);
+			}
+			&.fa-vimeo {
+				@include social-icon-background-colors($vimeo-color);
+			}
 		}
 	}
 	&.small {
-		font-size: 16px;
+		a i.icon {
+			font-size: 16px;
+		}
 	}
 	&.large {
-		font-size: 30px;
+		a i.icon {
+			font-size: 30px;
+		}
 	}
 }
 
@@ -672,72 +686,88 @@ a.mm-button {
 }
 
 /* Styles */
-.mm-social-icons a i.icon {
+.mm-social-icons {
 	&.circle {
-		border-radius: 50px;
 		@include social-icons-with-backgrounds;
+		a i.icon {
+			border-radius: 50px;
+		}
 	}
 	&.square {
 		@include social-icons-with-backgrounds;
 	}
 	&.rounded-square {
-		border-radius: 5px;
 		@include social-icons-with-backgrounds;
+		a i.icon {
+			border-radius: 5px;
+		}
 	}
 }
 
 /* Colors */
-.mm-social-icons a i.icon {
+.mm-social-icons {
 	&.light {
-		@include social-icon-colors($light-color);
+		a i.icon {
+			@include social-icon-colors($light-color);
+		}
 	}
 	&.medium {
-		@include social-icon-colors($medium-color);
+		a i.icon {
+			@include social-icon-colors($medium-color);
+		}
 	}
 	&.dark {
-		@include social-icon-colors($dark-color);
+		a i.icon {
+			@include social-icon-colors($dark-color);
+		}
 	}
 	&.brand-colors {
-		&.fa-facebook {
-			@include social-icon-colors($facebook-color);
-		}
-		&.fa-twitter {
-			@include social-icon-colors($twitter-color);
-		}
-		&.fa-youtube {
-			@include social-icon-colors($youtube-color);
-		}
-		&.fa-google-plus {
-			@include social-icon-colors($google-plus-color);
-		}
-		&.fa-instagram {
-			@include social-icon-colors($instagram-color);
-		}
-		&.fa-pinterest {
-			@include social-icon-colors($pinterest-color);
-		}
-		&.fa-linkedin {
-			@include social-icon-colors($linkedin-color);
-		}
-		&.fa-vine {
-			@include social-icon-colors($vine-color);
-		}
-		&.fa-flickr {
-			@include social-icon-colors($flickr-color);
-		}
-		&.fa-vimeo {
-			@include social-icon-colors($vimeo-color);
+		a i.icon {
+			&.fa-facebook {
+				@include social-icon-colors($facebook-color);
+			}
+			&.fa-twitter {
+				@include social-icon-colors($twitter-color);
+			}
+			&.fa-youtube {
+				@include social-icon-colors($youtube-color);
+			}
+			&.fa-google-plus {
+				@include social-icon-colors($google-plus-color);
+			}
+			&.fa-instagram {
+				@include social-icon-colors($instagram-color);
+			}
+			&.fa-pinterest {
+				@include social-icon-colors($pinterest-color);
+			}
+			&.fa-linkedin {
+				@include social-icon-colors($linkedin-color);
+			}
+			&.fa-vine {
+				@include social-icon-colors($vine-color);
+			}
+			&.fa-flickr {
+				@include social-icon-colors($flickr-color);
+			}
+			&.fa-vimeo {
+				@include social-icon-colors($vimeo-color);
+			}
 		}
 	}
 }
 
 /* Sizes */
-.mm-social-icons a i.icon {
+.mm-social-icons {
 	&.small {
-		@include social-icon-sizes(24px);
+		a i.icon {
+			@include social-icon-sizes(24px);
+		}
 	}
 	&.large {
-		@include social-icon-sizes(48px);
+		a i.icon {
+			@include social-icon-sizes(48px);
+		}
 	}
 }
 
@@ -754,21 +784,27 @@ a.mm-button {
 		float: right;
 	}
 }
-.mm-social-icons a {
-	img {
+.mm-social-icons {
+	a img {
 		display: block;
 	}
-	&:hover {
+	a:hover {
 		opacity: 0.85;
 		transition: opacity 0.2s;
 	}
-	&.normal-size img {
-		@include social-image-sizes(36px);
+	&.normal-size {
+		a img {
+			@include social-image-sizes(36px);
+		}
 	}
-	&.small img {
-		@include social-image-sizes(24px);
+	&.small {
+		a img {
+			@include social-image-sizes(24px);
+		}
 	}
-	&.large img {
-		@include social-image-sizes(48px);
+	&.large {
+		a img {
+			@include social-image-sizes(48px);
+		}
 	}
 }

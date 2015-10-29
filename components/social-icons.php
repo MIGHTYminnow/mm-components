@@ -48,35 +48,37 @@ function mm_social_icons( $args ) {
 	$size            = $args['size'];
 	$social_networks = mm_get_social_networks();
 
-	// Build the alignment class.
-	if ( 'images' == $args['icon_type'] ) {
-		$alignment = 'mm-image-align-' .$args['alignment'];
-	} else {
-		$alignment = 'mm-text-align-' . $args['alignment'];
-	}
-
 	// Set up the icon classes.
 	$classes = array();
-	if ( ! empty( $args['style'] ) ) {
-		$classes[] = $args['style'];
-	}
-	if ( ! empty( $args['color'] ) ) {
-		$classes[] = $args['color'];
-	}
-	if ( ! empty( $args['size'] ) ) {
-		$classes[] = $args['size'];
-	}
 
-	$image_classes = implode( ' ', $classes );
+	if ( 'images' == $icon_type ) {
+		$classes[] = 'images';
+		$alignment = 'mm-image-align-' .$args['alignment'];
+	} else {
+		$classes[] = 'icons';
+		$alignment = 'mm-text-align-' . $args['alignment'];
+	}
+	if ( ! empty( $style ) ) {
+		$classes[] = $style;
+	}
+	if ( ! empty( $color ) ) {
+		$classes[] = $color;
+	}
+	if ( ! empty( $size ) ) {
+		$classes[] = $size;
+	}
 
 	$classes = implode( ' ', $classes );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
+	// Combine Mm classes with icon classes.
+	$mm_classes = $mm_classes . ' ' . $classes . ' ' . $alignment;
+
 	ob_start() ?>
 
-	<div class="<?php echo esc_attr( $mm_classes . ' ' . $alignment ); ?>">
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
 		<?php foreach ( $social_networks as $social_network_name => $social_network ) {
 
@@ -85,13 +87,12 @@ function mm_social_icons( $args ) {
 
 			if ( $link ) {
 
-				$icon = ( 'images' == $icon_type && (int)$image ) ? wp_get_attachment_image( (int)$image, $image_size ) : '<i class="icon fa fa-' . esc_attr( $social_network ) . ' ' . esc_attr( $classes ) . '"></i>';
+				$icon = ( 'images' == $icon_type && (int)$image ) ? wp_get_attachment_image( (int)$image, $image_size ) : '<i class="icon fa fa-' . esc_attr( $social_network ) . '"></i>';
 
 				printf(
-					'<a href="%s" class="%s %s">%s</a>',
+					'<a href="%s" class="%s">%s</a>',
 					esc_url( $link ),
 					esc_attr( $social_network . '-link' ),
-					esc_attr( $image_classes ),
 					$icon
 				);
 			}
