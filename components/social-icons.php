@@ -23,12 +23,12 @@ function mm_social_icons( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'icon_type'       => 'fontawesome',
-		'image_size'      => 'thumbnail',
-		'alignment'       => 'left',
-		'style'           => '',
-		'color'           => '',
-		'size'            => 'normal-size',
+		'icon_type'  => 'fontawesome',
+		'image_size' => 'thumbnail',
+		'alignment'  => 'left',
+		'style'      => 'icon-only',
+		'color'      => '',
+		'size'       => 'normal-size',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
@@ -166,10 +166,10 @@ function mm_vc_social_icons() {
 		'category' => __( 'Content', 'mm-components' ),
 		'params'   => array(
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Icon Type', 'mm-components' ),
+				'type'       => 'dropdown',
+				'heading'    => __( 'Icon Type', 'mm-components' ),
 				'param_name' => 'icon_type',
-				'value' => $social_icons_types,
+				'value'      => $social_icons_types,
 			),
 			array(
 				'type'       => 'dropdown',
@@ -192,7 +192,7 @@ function mm_vc_social_icons() {
 				'heading'    => __( 'Icon Style', 'mm-components' ),
 				'param_name' => 'style',
 				'value'      => array(
-					__( 'Icon Only', 'mm-components' )      => 'icon-only',
+					__( 'Icon Only', 'mm-components' )      => '',
 					__( 'Circle', 'mm-components' )         => 'circle',
 					__( 'Square', 'mm-components' )         => 'square',
 					__( 'Rounded Square', 'mm-components' ) => 'rounded-square',
@@ -217,7 +217,7 @@ function mm_vc_social_icons() {
 				'heading'    => __( 'Icon Size', 'mm-components' ),
 				'param_name' => 'size',
 				'value'      => array(
-					__( 'Normal', 'mm-components' ) => 'normal-size',
+					__( 'Normal', 'mm-components' ) => '',
 					__( 'Small', 'mm-components' )  => 'small',
 					__( 'Large', 'mm-components' )  => 'large',
 				),
