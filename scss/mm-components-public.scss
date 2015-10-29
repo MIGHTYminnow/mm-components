@@ -86,9 +86,20 @@ $thick-border: 2px solid;
 
 @mixin social-icon-background-colors($color) {
 	background-color: $color;
-	color: #fff !important;
+	color: #fff;
 	&:hover {
 		background-color: darken($color, 20%);
+		color: #fff;
+	}
+}
+
+@mixin social-icon-ghost-colors($color) {
+	border-color: $color;
+	color: $color;
+	background-color: transparent;
+	&:hover {
+		border-color: darken($color, 20%);
+		color: darken($color, 20%);
 	}
 }
 
@@ -161,6 +172,74 @@ $thick-border: 2px solid;
 			}
 			&.fa-vimeo {
 				@include social-icon-background-colors($vimeo-color);
+			}
+		}
+	}
+	&.small {
+		a i.icon {
+			font-size: 16px;
+		}
+	}
+	&.large {
+		a i.icon {
+			font-size: 30px;
+		}
+	}
+}
+
+@mixin social-icons-with-ghost {
+	a i.icon {
+		@include social-icon-ghost-colors($default-color);
+		font-size: 24px;
+		border-width: 1px;
+		border-style: solid;
+	}
+	&.light {
+		a i.icon {
+			@include social-icon-ghost-colors($light-color);
+		}
+	}
+	&.medium {
+		a i.icon {
+			@include social-icon-ghost-colors($medium-color);
+		}
+	}
+	&.dark {
+		a i.icon {
+			@include social-icon-ghost-colors($dark-color);
+		}
+	}
+	&.brand-colors {
+		a i.icon {
+			&.fa-facebook {
+				@include social-icon-ghost-colors($facebook-color);
+			}
+			&.fa-twitter {
+				@include social-icon-ghost-colors($twitter-color);
+			}
+			&.fa-youtube {
+				@include social-icon-ghost-colors($youtube-color);
+			}
+			&.fa-google-plus {
+				@include social-icon-ghost-colors($google-plus-color);
+			}
+			&.fa-instagram {
+				@include social-icon-ghost-colors($instagram-color);
+			}
+			&.fa-pinterest {
+				@include social-icon-ghost-colors($pinterest-color);
+			}
+			&.fa-linkedin {
+				@include social-icon-ghost-colors($linkedin-color);
+			}
+			&.fa-vine {
+				@include social-icon-ghost-colors($vine-color);
+			}
+			&.fa-flickr {
+				@include social-icon-ghost-colors($flickr-color);
+			}
+			&.fa-vimeo {
+				@include social-icon-ghost-colors($vimeo-color);
 			}
 		}
 	}
@@ -689,15 +768,24 @@ a.mm-button {
 .mm-social-icons {
 	&.circle {
 		@include social-icons-with-backgrounds;
+		&.ghost {
+			@include social-icons-with-ghost;
+		}
 		a i.icon {
 			border-radius: 100%;
 		}
 	}
 	&.square {
 		@include social-icons-with-backgrounds;
+		&.ghost {
+			@include social-icons-with-ghost;
+		}
 	}
 	&.rounded-square {
 		@include social-icons-with-backgrounds;
+		&.ghost {
+			@include social-icons-with-ghost;
+		}
 		a i.icon {
 			border-radius: 5px;
 		}

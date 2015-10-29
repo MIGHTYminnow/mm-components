@@ -665,129 +665,143 @@ a.mm-button.full-width {
 /* Styles */
 .mm-social-icons.circle a i.icon {
   background-color: #99CCCC;
-  color: #fff !important;
+  color: #fff;
   font-size: 24px;
 }
 
 .mm-social-icons.circle a i.icon:hover {
   background-color: #55aaaa;
+  color: #fff;
 }
 
 .mm-social-icons.circle.light a i.icon {
   background-color: #999;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.light a i.icon:hover {
   background-color: #666666;
+  color: #fff;
 }
 
 .mm-social-icons.circle.medium a i.icon {
   background-color: #666;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.medium a i.icon:hover {
   background-color: #333333;
+  color: #fff;
 }
 
 .mm-social-icons.circle.dark a i.icon {
   background-color: #333;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.dark a i.icon:hover {
   background-color: black;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-facebook {
   background-color: #3b5998;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-facebook:hover {
   background-color: #1e2e4f;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-twitter {
   background-color: #00aced;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-twitter:hover {
   background-color: #006287;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-youtube {
   background-color: #bb0000;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-youtube:hover {
   background-color: #550000;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-google-plus {
   background-color: #dd4b39;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-google-plus:hover {
   background-color: #96271a;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-instagram {
   background-color: #125688;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-instagram:hover {
   background-color: #061d2e;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-pinterest {
   background-color: #cb2027;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-pinterest:hover {
   background-color: #731216;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-linkedin {
   background-color: #007bb5;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-linkedin:hover {
   background-color: #00364f;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-vine {
   background-color: #00bf8f;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-vine:hover {
   background-color: #005943;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-flickr {
   background-color: #ff0084;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-flickr:hover {
   background-color: #99004f;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-vimeo {
   background-color: #aad450;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.circle.brand-colors a i.icon.fa-vimeo:hover {
   background-color: #749925;
+  color: #fff;
 }
 
 .mm-social-icons.circle.small a i.icon {
@@ -798,135 +812,314 @@ a.mm-button.full-width {
   font-size: 30px;
 }
 
+.mm-social-icons.circle.ghost a i.icon {
+  border-color: #99CCCC;
+  color: #99CCCC;
+  background-color: transparent;
+  font-size: 24px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.mm-social-icons.circle.ghost a i.icon:hover {
+  border-color: #55aaaa;
+  color: #55aaaa;
+}
+
+.mm-social-icons.circle.ghost.light a i.icon {
+  border-color: #999;
+  color: #999;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.light a i.icon:hover {
+  border-color: #666666;
+  color: #666666;
+}
+
+.mm-social-icons.circle.ghost.medium a i.icon {
+  border-color: #666;
+  color: #666;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.medium a i.icon:hover {
+  border-color: #333333;
+  color: #333333;
+}
+
+.mm-social-icons.circle.ghost.dark a i.icon {
+  border-color: #333;
+  color: #333;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.dark a i.icon:hover {
+  border-color: black;
+  color: black;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-facebook {
+  border-color: #3b5998;
+  color: #3b5998;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-facebook:hover {
+  border-color: #1e2e4f;
+  color: #1e2e4f;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-twitter {
+  border-color: #00aced;
+  color: #00aced;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-twitter:hover {
+  border-color: #006287;
+  color: #006287;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-youtube {
+  border-color: #bb0000;
+  color: #bb0000;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-youtube:hover {
+  border-color: #550000;
+  color: #550000;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-google-plus {
+  border-color: #dd4b39;
+  color: #dd4b39;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-google-plus:hover {
+  border-color: #96271a;
+  color: #96271a;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-instagram {
+  border-color: #125688;
+  color: #125688;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-instagram:hover {
+  border-color: #061d2e;
+  color: #061d2e;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-pinterest {
+  border-color: #cb2027;
+  color: #cb2027;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-pinterest:hover {
+  border-color: #731216;
+  color: #731216;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-linkedin {
+  border-color: #007bb5;
+  color: #007bb5;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-linkedin:hover {
+  border-color: #00364f;
+  color: #00364f;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-vine {
+  border-color: #00bf8f;
+  color: #00bf8f;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-vine:hover {
+  border-color: #005943;
+  color: #005943;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-flickr {
+  border-color: #ff0084;
+  color: #ff0084;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-flickr:hover {
+  border-color: #99004f;
+  color: #99004f;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-vimeo {
+  border-color: #aad450;
+  color: #aad450;
+  background-color: transparent;
+}
+
+.mm-social-icons.circle.ghost.brand-colors a i.icon.fa-vimeo:hover {
+  border-color: #749925;
+  color: #749925;
+}
+
+.mm-social-icons.circle.ghost.small a i.icon {
+  font-size: 16px;
+}
+
+.mm-social-icons.circle.ghost.large a i.icon {
+  font-size: 30px;
+}
+
 .mm-social-icons.circle a i.icon {
   border-radius: 100%;
 }
 
 .mm-social-icons.square a i.icon {
   background-color: #99CCCC;
-  color: #fff !important;
+  color: #fff;
   font-size: 24px;
 }
 
 .mm-social-icons.square a i.icon:hover {
   background-color: #55aaaa;
+  color: #fff;
 }
 
 .mm-social-icons.square.light a i.icon {
   background-color: #999;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.light a i.icon:hover {
   background-color: #666666;
+  color: #fff;
 }
 
 .mm-social-icons.square.medium a i.icon {
   background-color: #666;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.medium a i.icon:hover {
   background-color: #333333;
+  color: #fff;
 }
 
 .mm-social-icons.square.dark a i.icon {
   background-color: #333;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.dark a i.icon:hover {
   background-color: black;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-facebook {
   background-color: #3b5998;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-facebook:hover {
   background-color: #1e2e4f;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-twitter {
   background-color: #00aced;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-twitter:hover {
   background-color: #006287;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-youtube {
   background-color: #bb0000;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-youtube:hover {
   background-color: #550000;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-google-plus {
   background-color: #dd4b39;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-google-plus:hover {
   background-color: #96271a;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-instagram {
   background-color: #125688;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-instagram:hover {
   background-color: #061d2e;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-pinterest {
   background-color: #cb2027;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-pinterest:hover {
   background-color: #731216;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-linkedin {
   background-color: #007bb5;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-linkedin:hover {
   background-color: #00364f;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-vine {
   background-color: #00bf8f;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-vine:hover {
   background-color: #005943;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-flickr {
   background-color: #ff0084;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-flickr:hover {
   background-color: #99004f;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-vimeo {
   background-color: #aad450;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.square.brand-colors a i.icon.fa-vimeo:hover {
   background-color: #749925;
+  color: #fff;
 }
 
 .mm-social-icons.square.small a i.icon {
@@ -937,131 +1130,310 @@ a.mm-button.full-width {
   font-size: 30px;
 }
 
+.mm-social-icons.square.ghost a i.icon {
+  border-color: #99CCCC;
+  color: #99CCCC;
+  background-color: transparent;
+  font-size: 24px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.mm-social-icons.square.ghost a i.icon:hover {
+  border-color: #55aaaa;
+  color: #55aaaa;
+}
+
+.mm-social-icons.square.ghost.light a i.icon {
+  border-color: #999;
+  color: #999;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.light a i.icon:hover {
+  border-color: #666666;
+  color: #666666;
+}
+
+.mm-social-icons.square.ghost.medium a i.icon {
+  border-color: #666;
+  color: #666;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.medium a i.icon:hover {
+  border-color: #333333;
+  color: #333333;
+}
+
+.mm-social-icons.square.ghost.dark a i.icon {
+  border-color: #333;
+  color: #333;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.dark a i.icon:hover {
+  border-color: black;
+  color: black;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-facebook {
+  border-color: #3b5998;
+  color: #3b5998;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-facebook:hover {
+  border-color: #1e2e4f;
+  color: #1e2e4f;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-twitter {
+  border-color: #00aced;
+  color: #00aced;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-twitter:hover {
+  border-color: #006287;
+  color: #006287;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-youtube {
+  border-color: #bb0000;
+  color: #bb0000;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-youtube:hover {
+  border-color: #550000;
+  color: #550000;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-google-plus {
+  border-color: #dd4b39;
+  color: #dd4b39;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-google-plus:hover {
+  border-color: #96271a;
+  color: #96271a;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-instagram {
+  border-color: #125688;
+  color: #125688;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-instagram:hover {
+  border-color: #061d2e;
+  color: #061d2e;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-pinterest {
+  border-color: #cb2027;
+  color: #cb2027;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-pinterest:hover {
+  border-color: #731216;
+  color: #731216;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-linkedin {
+  border-color: #007bb5;
+  color: #007bb5;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-linkedin:hover {
+  border-color: #00364f;
+  color: #00364f;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-vine {
+  border-color: #00bf8f;
+  color: #00bf8f;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-vine:hover {
+  border-color: #005943;
+  color: #005943;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-flickr {
+  border-color: #ff0084;
+  color: #ff0084;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-flickr:hover {
+  border-color: #99004f;
+  color: #99004f;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-vimeo {
+  border-color: #aad450;
+  color: #aad450;
+  background-color: transparent;
+}
+
+.mm-social-icons.square.ghost.brand-colors a i.icon.fa-vimeo:hover {
+  border-color: #749925;
+  color: #749925;
+}
+
+.mm-social-icons.square.ghost.small a i.icon {
+  font-size: 16px;
+}
+
+.mm-social-icons.square.ghost.large a i.icon {
+  font-size: 30px;
+}
+
 .mm-social-icons.rounded-square a i.icon {
   background-color: #99CCCC;
-  color: #fff !important;
+  color: #fff;
   font-size: 24px;
 }
 
 .mm-social-icons.rounded-square a i.icon:hover {
   background-color: #55aaaa;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.light a i.icon {
   background-color: #999;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.light a i.icon:hover {
   background-color: #666666;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.medium a i.icon {
   background-color: #666;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.medium a i.icon:hover {
   background-color: #333333;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.dark a i.icon {
   background-color: #333;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.dark a i.icon:hover {
   background-color: black;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-facebook {
   background-color: #3b5998;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-facebook:hover {
   background-color: #1e2e4f;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-twitter {
   background-color: #00aced;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-twitter:hover {
   background-color: #006287;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-youtube {
   background-color: #bb0000;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-youtube:hover {
   background-color: #550000;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-google-plus {
   background-color: #dd4b39;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-google-plus:hover {
   background-color: #96271a;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-instagram {
   background-color: #125688;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-instagram:hover {
   background-color: #061d2e;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-pinterest {
   background-color: #cb2027;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-pinterest:hover {
   background-color: #731216;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-linkedin {
   background-color: #007bb5;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-linkedin:hover {
   background-color: #00364f;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-vine {
   background-color: #00bf8f;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-vine:hover {
   background-color: #005943;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-flickr {
   background-color: #ff0084;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-flickr:hover {
   background-color: #99004f;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-vimeo {
   background-color: #aad450;
-  color: #fff !important;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.brand-colors a i.icon.fa-vimeo:hover {
   background-color: #749925;
+  color: #fff;
 }
 
 .mm-social-icons.rounded-square.small a i.icon {
@@ -1069,6 +1441,171 @@ a.mm-button.full-width {
 }
 
 .mm-social-icons.rounded-square.large a i.icon {
+  font-size: 30px;
+}
+
+.mm-social-icons.rounded-square.ghost a i.icon {
+  border-color: #99CCCC;
+  color: #99CCCC;
+  background-color: transparent;
+  font-size: 24px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.mm-social-icons.rounded-square.ghost a i.icon:hover {
+  border-color: #55aaaa;
+  color: #55aaaa;
+}
+
+.mm-social-icons.rounded-square.ghost.light a i.icon {
+  border-color: #999;
+  color: #999;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.light a i.icon:hover {
+  border-color: #666666;
+  color: #666666;
+}
+
+.mm-social-icons.rounded-square.ghost.medium a i.icon {
+  border-color: #666;
+  color: #666;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.medium a i.icon:hover {
+  border-color: #333333;
+  color: #333333;
+}
+
+.mm-social-icons.rounded-square.ghost.dark a i.icon {
+  border-color: #333;
+  color: #333;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.dark a i.icon:hover {
+  border-color: black;
+  color: black;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-facebook {
+  border-color: #3b5998;
+  color: #3b5998;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-facebook:hover {
+  border-color: #1e2e4f;
+  color: #1e2e4f;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-twitter {
+  border-color: #00aced;
+  color: #00aced;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-twitter:hover {
+  border-color: #006287;
+  color: #006287;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-youtube {
+  border-color: #bb0000;
+  color: #bb0000;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-youtube:hover {
+  border-color: #550000;
+  color: #550000;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-google-plus {
+  border-color: #dd4b39;
+  color: #dd4b39;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-google-plus:hover {
+  border-color: #96271a;
+  color: #96271a;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-instagram {
+  border-color: #125688;
+  color: #125688;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-instagram:hover {
+  border-color: #061d2e;
+  color: #061d2e;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-pinterest {
+  border-color: #cb2027;
+  color: #cb2027;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-pinterest:hover {
+  border-color: #731216;
+  color: #731216;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-linkedin {
+  border-color: #007bb5;
+  color: #007bb5;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-linkedin:hover {
+  border-color: #00364f;
+  color: #00364f;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-vine {
+  border-color: #00bf8f;
+  color: #00bf8f;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-vine:hover {
+  border-color: #005943;
+  color: #005943;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-flickr {
+  border-color: #ff0084;
+  color: #ff0084;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-flickr:hover {
+  border-color: #99004f;
+  color: #99004f;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-vimeo {
+  border-color: #aad450;
+  color: #aad450;
+  background-color: transparent;
+}
+
+.mm-social-icons.rounded-square.ghost.brand-colors a i.icon.fa-vimeo:hover {
+  border-color: #749925;
+  color: #749925;
+}
+
+.mm-social-icons.rounded-square.ghost.small a i.icon {
+  font-size: 16px;
+}
+
+.mm-social-icons.rounded-square.ghost.large a i.icon {
   font-size: 30px;
 }
 

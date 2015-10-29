@@ -27,6 +27,7 @@ function mm_social_icons( $args ) {
 		'image_size' => 'thumbnail',
 		'alignment'  => 'left',
 		'style'      => 'icon-only',
+		'ghost'      => '',
 		'color'      => '',
 		'size'       => 'normal-size',
 	);
@@ -44,6 +45,7 @@ function mm_social_icons( $args ) {
 	$image_size      = $args['image_size'];
 	$alignment       = $args['alignment'];
 	$style           = $args['style'];
+	$ghost           = $args['ghost'];
 	$color           = $args['color'];
 	$size            = $args['size'];
 	$social_networks = mm_get_social_networks();
@@ -60,6 +62,9 @@ function mm_social_icons( $args ) {
 	}
 	if ( ! empty( $style ) ) {
 		$classes[] = $style;
+	}
+	if ( mm_true_or_false( $ghost ) ) {
+		$classes[] = 'ghost';
 	}
 	if ( ! empty( $color ) ) {
 		$classes[] = $color;
@@ -201,6 +206,23 @@ function mm_vc_social_icons() {
 				'dependency' => array(
 					'element' => 'icon_type',
 					'value'   => 'fontawesome',
+				),
+			),
+			array(
+				'type'       => 'checkbox',
+				'heading'    => __( 'Ghost Mode?', 'mm-components' ),
+				'param_name' => 'ghost',
+				'description' => __( 'Colored icon and icon border with a transparent background', 'mm-components' ),
+				'value'      => array(
+					__( 'Yes' ) => 1,
+				),
+				'dependency' => array(
+					'element' => 'style',
+					'value'   => array(
+						'circle',
+						'square',
+						'rounded-square',
+					),
 				),
 			),
 			array(
