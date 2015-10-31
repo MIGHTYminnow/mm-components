@@ -8,95 +8,33 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'mm_restricted_content', 'mm_restricted_content_shortcode' );
 /**
- * Restricted Content shortcode.
+ * Build and return the Restricted Content component.
  *
  * @since   1.0.0
  *
- * @param   array  $atts  Shortcode attributes.
+ * @param   array  $args  The args.
  *
- * @return  string        Shortcode output.
+ * @return  string        The HTML.
  */
-function mm_restricted_content_shortcode( $atts = array(), $content = null, $tag = '' ) {
-
-	$atts = mm_shortcode_atts( array(
-		'allowed_roles'   => '',
-		'invalid_message' => '',
-	), $atts );
-
-	$roles = ( strpos( $atts['allowed_roles'], ',' ) ) ? explode( ',', $atts['allowed_roles'] ) : (array)$atts['allowed_roles'];
-	$valid_user = false;
-	$invalid = $atts['invalid_message'];
-
-	// Get Mm classes.
-	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
-
-	foreach ( $roles as $role ) {
-		if ( mm_check_user_role( $role ) ) {
-			$valid_user = true;
-			break;
-		}
-	}
-
-	if ( $valid_user ) {
-
-		if( validBase64( $content ) ) {
-			$inner_output = rawurldecode( base64_decode( $content ) );
-		} else {
-			$inner_output = $content;
-		}
-
- 		$mm_classes .= ' valid-user';
-
-	} else {
-
-		if( validBase64( $invalid ) ) {
-			$inner_output = rawurldecode( base64_decode( $invalid ) );
-		} else {
-			$inner_output = $invalid;
-		}
-
-		$mm_classes .= ' invalid-user';
-	}
-
-	ob_start(); ?>
-
-	<div class="<?php echo $mm_classes; ?>">
-		<div class="mm-restricted-content-inner">
-			<?php echo $inner_output; ?>
-		</div>
-	</div>
-
-	<?php
-
-	$output = ob_get_clean();
-
-	return $output;
-}
-
 function mm_restricted_content( $args ) {
 
 	$component  = 'mm-restricted-content';
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'title'            => '',
-		'roles'            => '',
-		'invalid_message'  => '',
-		'content'          => '',
+		'title'              => '',
+		'roles'              => '',
+		'restricted_content' => '',
+		'other_content'      => '',
 	);
 	$args = wp_parse_args( (array)$args, $defaults);
 
 	// Get clean param values.
-	$title   = (string)$args['title'];
-	$roles   = (strpos($args['roles'], ',' ) ) ? explode( ',', $args['roles'] ) : (array)$args['roles'];
-	$invalid = (string)$args['invalid_message'];
-	$content = (string)$args['content'];
-
-	if ( function_exists( 'wpb_js_remove_wpautop' ) ) {
-		$content = wpb_js_remove_wpautop( $content, true );
-	}
+	$title              = $args['title'];
+	$roles              = ( strpos( $args['roles'], ',' ) ) ? explode( ',', $args['roles'] ) : (array)$args['roles'];
+	$restricted_content = $args['restricted_content'];
+	$other_content      = $args['other_content'];
 
 	$valid_user = false;
 
@@ -110,25 +48,23 @@ function mm_restricted_content( $args ) {
 		}
 	}
 
-	if ( $valid_user ) {
+	$content     = ( $valid_user ) ? $restricted_content : $other_content;
+	$mm_classes .= ( $valid_user ) ? ' valid-user' : ' invalid-user';
 
-		if( validBase64( $content ) ) {
-			$inner_output = rawurldecode( base64_decode( $content ) );
-		} else {
-			$inner_output = $content;
-		}
+	if ( strpos( $content, '<' ) ) {
 
- 		$mm_classes .= ' valid-user';
+		/* We have HTML */
+		$inner_content = ( function_exists( 'wpb_js_remove_wpautop' ) ) ? wpb_js_remove_wpautop( $content, true ) : $content;
+
+	} elseif ( mm_is_base64( $content ) ) {
+
+		/* We have a base64 encoded string */
+		$inner_output = rawurldecode( base64_decode( $content ) );
 
 	} else {
 
-		if( validBase64( $invalid ) ) {
-			$inner_output = rawurldecode( base64_decode( $invalid ) );
-		} else {
-			$inner_output = $invalid;
-		}
-
-		$mm_classes .= ' invalid-user';
+		/* We have a non-HTML string */
+		$inner_output = $content;
 	}
 
 	ob_start(); ?>
@@ -142,7 +78,26 @@ function mm_restricted_content( $args ) {
 	<?php
 
 	return ob_get_clean();
+}
 
+add_shortcode( 'mm_restricted_content', 'mm_restricted_content_shortcode' );
+/**
+ * Restricted Content shortcode.
+ *
+ * @since   1.0.0
+ *
+ * @param   array   $atts     Shortcode attributes.
+ * @param   string  $content  Shortcode content.
+ *
+ * @return  string            Shortcode output.
+ */
+function mm_restricted_content_shortcode( $atts = array(), $content = null ) {
+
+	if ( $content ) {
+		$atts['restricted_content'] = $content;
+	}
+
+	return mm_restricted_content( $atts );
 }
 
 add_action( 'vc_before_init', 'mm_vc_restricted_content' );
@@ -175,7 +130,7 @@ function mm_vc_restricted_content() {
 			array(
 				'type'        => 'textarea_raw_html',
 				'heading'     => __( 'Invalid User Message', 'mm-components' ),
-				'param_name'  => 'invalid_message',
+				'param_name'  => 'other_content',
 				'description' => __( 'This message will be shown to users who do not have the specified role.', 'mm-components' ),
 				'value'       => '',
 			),
@@ -246,17 +201,20 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 	public function widget( $args, $instance ) {
 
 		$defaults = array(
-			'title'            => '',
-			'roles'            => '',
-			'content'          => '',
-			'invalid_message'  => '',
+			'title'              => '',
+			'roles'              => '',
+			'restricted_content' => '',
+			'other_content'      => '',
 		);
 
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
+
 		// At this point all instance options have been sanitized.
-		$title           = apply_filters( 'widget_title', $instance['title'] );
-		$roles           = $instance['roles'];
-		$content         = $instance['content'];
-		$invalid_message = $instance['invalid_message'];
+		$title              = apply_filters( 'widget_title', $instance['title'] );
+		$roles              = $instance['roles'];
+		$restricted_content = $instance['restricted_content'];
+		$other_content      = $instance['other_content'];
 
 		echo $args['before_widget'];
 
@@ -267,7 +225,6 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		echo mm_restricted_content( $instance );
 
 		echo $args['after_widget'];
-
 	}
 
 	/**
@@ -280,54 +237,52 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 	public function form( $instance ) {
 
 		$defaults = array(
-			'title'            => '',
-			'roles'            => '',
-			'content'          => '',
-			'invalid_message'  => '',
+			'title'              => '',
+			'roles'              => '',
+			'restricted_content' => '',
+			'other_content'      => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		$title             = $instance['title'];
-		$roles             = isset( $instance['roles'] ) ? $instance['roles'] : array();
-		$content           = $instance['content'];
-		$invalid_message   = $instance['invalid_message'];
-		$classname         = $this->options['classname'];
+		$title              = $instance['title'];
+		$roles              = $instance['roles'];
+		$restricted_content = $instance['restricted_content'];
+		$other_content      = $instance['other_content'];
+		$classname          = $this->options['classname'];
 
-		// Allowed User Roles.
+		// Title.
+		$this->field_text(
+			__( 'Title:', 'mm-components' ),
+			$classname . '-title widefat',
+			'title',
+			$title
+		);
+
+		// User roles.
 		$this->field_multi_checkbox(
-			__( 'Allowed User Roles', 'mm-components' ),
+			__( 'User roles to show restricted content to:', 'mm-components' ),
 			$classname . '-roles widefat',
 			'roles',
 			$roles,
 			mm_get_user_roles()
 		);
 
-		error_log( print_r( $roles , true ) );
-
-		// Title.
-		$this->field_text(
-			__( 'Title', 'mm-components' ),
-			$classname . '-title widefat',
-			'title',
-			$title
-		);
-
-		// Content Container.
+		// Restricted content.
 		$this->field_textarea(
-			__( 'Insert Shortcode Content', 'mm-components' ),
+			__( 'Restricted content for users with the selected role(s):', 'mm-components' ),
 			$classname . '-content widefat',
-			'content',
-			$content
+			'restricted_content',
+			$restricted_content
 		);
 
-		// Invalid User Message.
+		// Other content.
 		$this->field_textarea(
-			__( 'Invalid User Message', 'mm-components' ),
+			__( 'Optional content for all other users:', 'mm-components' ),
 			$classname . '-invalid-message widefat',
-			'invalid_message',
-			$invalid_message
+			'other_content',
+			$other_content
 		);
 	}
 
@@ -339,15 +294,15 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 	 * @param   array  $new_instance  The new settings for the widget instance.
 	 * @param   array  $old_instance  The old settings for the widget instance.
 	 *
-	 * @return  array  The sanitized settings.
+	 * @return  array                 The sanitized settings.
 	 */
 	public function update( $new_instance, $old_instance ) {
 
 		$instance = $old_instance;
-		$instance['title']            = wp_kses_post( $new_instance['title'] );
-		$instance['roles']            = sanitize_text_field( $new_instance['roles'] );
-		$instance['content']          = wp_kses_post($new_instance['content'] );
-		$instance['invalid_message']  = sanitize_text_field( $new_instance['invalid_message'] );
+		$instance['title']              = wp_kses_post( $new_instance['title'] );
+		$instance['roles']              = sanitize_text_field( $new_instance['roles'] );
+		$instance['restricted_content'] = wp_kses_post( $new_instance['restricted_content'] );
+		$instance['other_content']      = wp_kses_post( $new_instance['other_content'] );
 
 		return $instance;
 	}
