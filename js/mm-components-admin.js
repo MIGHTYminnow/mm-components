@@ -1,174 +1,309 @@
+<?php
 /**
- * Mm Components Admin JS
+ * MIGHTYminnow Components
+ *
+ * Component: Restricted Content
+ *
+ * @package mm-components
+ * @since   1.0.0
+ */
+
+/**
+ * Build and return the Restricted Content component.
+ *
+ * @since   1.0.0
+ *
+ * @param   array  $args  The args.
+ *
+ * @return  string        The HTML.
+ */
+function mm_restricted_content( $args ) {
+
+	$component  = 'mm-restricted-content';
+
+	// Set our defaults and use them as needed.
+	$defaults = array(
+		'title'              => '',
+		'roles'              => '',
+		'restricted_content' => '',
+		'other_content'      => '',
+	);
+	$args = wp_parse_args( (array)$args, $defaults);
+
+	// Get clean param values.
+	$title              = $args['title'];
+	$roles              = ( strpos( $args['roles'], ',' ) ) ? explode( ',', $args['roles'] ) : (array)$args['roles'];
+	$restricted_content = $args['restricted_content'];
+	$other_content      = $args['other_content'];
+
+	$valid_user = false;
+
+	// Get Mm classes.
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
+
+	foreach ( $roles as $role ) {
+		if ( mm_check_user_role( $role ) ) {
+			$valid_user = true;
+			break;
+		}
+	}
+
+	$content     = ( $valid_user ) ? $restricted_content : $other_content;
+	$mm_classes .= ( $valid_user ) ? ' valid-user' : ' invalid-user';
+
+	if ( strpos( $content, '<' ) ) {
+
+		/* We have HTML */
+		$inner_content = ( function_exists( 'wpb_js_remove_wpautop' ) ) ? wpb_js_remove_wpautop( $content, true ) : $content;
+
+	} elseif ( mm_is_base64( $content ) ) {
+
+		/* We have a base64 encoded string */
+		$inner_output = rawurldecode( base64_decode( $content ) );
+
+	} else {
+
+		/* We have a non-HTML string */
+		$inner_output = $content;
+	}
+
+	ob_start(); ?>
+
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
+		<div class="mm-restricted-content-inner">
+			<?php echo do_shortcode( $inner_output ); ?>
+		</div>
+	</div>
+
+	<?php
+
+	return ob_get_clean();
+}
+
+add_shortcode( 'mm_restricted_content', 'mm_restricted_content_shortcode' );
+/**
+ * Restricted Content shortcode.
+ *
+ * @since   1.0.0
+ *
+ * @param   array   $atts     Shortcode attributes.
+ * @param   string  $content  Shortcode content.
+ *
+ * @return  string            Shortcode output.
+ */
+function mm_restricted_content_shortcode( $atts = array(), $content = null ) {
+
+	if ( $content ) {
+		$atts['restricted_content'] = $content;
+	}
+
+	return mm_restricted_content( $atts );
+}
+
+add_action( 'vc_before_init', 'mm_vc_restricted_content' );
+/**
+ * Visual Composer add-on.
  *
  * @since  1.0.0
  */
+function mm_vc_restricted_content() {
 
-( function( $ ) {
-
-	$( document ).ready( function() {
-
-		// Set up any alpha color picker fields on initial page load.
-		$( 'input.alpha-color-picker' ).not( '#widget-list input.alpha-color-picker' ).alphaColorPicker();
-
-		// Set up any single media fields.
-		$( '.mm-single-media-wrap' ).mmSingleMediaField();
-
-		// Set up any multi media fields.
-		$( '.mm-multi-media-wrap' ).mmMultiMediaField();
-	});
-
-	// Reset or initialize certain fields when widgets are added or updated.
-	$( document ).on( 'widget-added widget-updated', function( e, data ) {
-
-		$( data[0] ).find( 'input.alpha-color-picker' ).alphaColorPicker();
-		$( data[0] ).find( '.mm-single-media-wrap' ).mmSingleMediaField();
-		$( data[0] ).find( '.mm-multi-media-wrap' ).mmMultiMediaField();
-	});
+	$roles = mm_get_user_roles_for_vc();
 
 	/**
-	 * Set up one or many single media fields.
+	 * Restricted Content.
+	 */
+	vc_map( array(
+		'name'         => __( 'Restricted Content', 'mm-components' ),
+		'base'         => 'mm_restricted_content',
+		'icon'         => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'as_parent'    => array( 'except' => '' ),
+		'is_container' => true,
+		'params' => array(
+			array(
+				'type'        => 'checkbox',
+				'heading'     => __( 'Allowed User Roles', 'mm-components' ),
+				'param_name'  => 'roles',
+				'description' => __( 'Which user role should be allowed to view this content?', 'mm-components' ),
+				'value'       => $roles,
+			),
+			array(
+				'type'        => 'textarea_raw_html',
+				'heading'     => __( 'Invalid User Message', 'mm-components' ),
+				'param_name'  => 'other_content',
+				'description' => __( 'This message will be shown to users who do not have the specified role.', 'mm-components' ),
+				'value'       => '',
+			),
+		),
+		'js_view' => 'VcColumnView'
+	) );
+}
+
+// This is necessary to make any element that wraps other elements work.
+if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+    class WPBakeryShortCode_MM_Restricted_Content extends WPBakeryShortCodesContainer {
+    }
+}
+
+add_action( 'widgets_init', 'mm_components_register_restricted_content_widget' );
+/**
+ * Register the widget.
+ *
+ * @since  1.0.0
+ */
+function mm_components_register_restricted_content_widget() {
+
+	register_widget( 'mm_restricted_content_widget' );
+}
+
+/**
+ * Restricted Content widget.
+ *
+ * @since  1.0.0
+ */
+class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
+
+	/**
+	 * Global options for this widget.
 	 *
 	 * @since  1.0.0
 	 */
-	$.fn.mmSingleMediaField = function() {
-
-		return this.each( function() {
-
-			var $field        = $( this );
-			var $elements     = $();
-			var $uploadButton = $field.find( '.upload-btn' );
-			var $imagePreview = $field.find( '.mm-single-media-image-preview' );
-			var $noImage      = $field.find( '.mm-single-media-no-image' );
-			var $clearButton  = $field.find( '.clear-btn' );
-
-			$elements = $uploadButton.add( $imagePreview ).add( $noImage );
-
-			// Set up the interaction with wp.media.
-			$elements.on( 'click', function( e ) {
-				e.preventDefault();
-
-				$field.mmSingleMediaUpload();
-			});
-
-			// Set up the clear button.
-			$clearButton.on( 'click', function( e ) {
-				e.preventDefault();
-
-				$field.find( '.mm-single-media-image' ).val( '' );
-				$field.find( '.mm-single-media-image-preview-wrap' ).addClass( 'no-image' );
-			});
-		});
-	};
+	protected $options;
 
 	/**
-	 * Handle the interaction with wp.media for one or many single media upload fields.
+	 * Initialize an instance of the widget.
 	 *
 	 * @since  1.0.0
 	 */
-	$.fn.mmSingleMediaUpload = function() {
+	public function __construct() {
 
-		return this.each( function() {
+		// Set up the options to pass to the WP_Widget constructor.
+		$this->options = array(
+			'classname'   => 'mm-restricted-content',
+			'description' => __( 'A Restricted Content Container', 'mm-components' ),
+		);
 
-			var $field = $( this );
-
-			var mmSingleMedia = wp.media( {
-				title    : 'Upload Image or File',
-				multiple : false
-			}).open().on( 'select', function( e ) {
-
-				var uploadedMedia    = mmSingleMedia.state().get( 'selection' ).first();
-				var mmSingleMediaId  = uploadedMedia.id;
-				var mmSingleMediaUrl = uploadedMedia.attributes.url;
-
-				$field.find( '.mm-single-media-image' ).val( mmSingleMediaId );
-				$field.find( '.mm-single-media-image-preview-wrap' ).removeClass( 'no-image' );
-				$field.find( '.mm-single-media-image-preview' ).attr( 'src', mmSingleMediaUrl );
-			});
-		});
-	};
+		parent::__construct(
+			'mm_restricted_content_widget',
+			__( 'Mm Restricted Content', 'mm-components' ),
+			$this->options
+		);
+	}
 
 	/**
-	 * Set up one or many multi media fields.
+	 * Output the widget.
 	 *
 	 * @since  1.0.0
+	 *
+	 * @param  array  $args      The global options for the widget.
+	 * @param  array  $instance  The options for the widget instance.
 	 */
-	$.fn.mmMultiMediaField = function() {
+	public function widget( $args, $instance ) {
 
-		return this.each( function() {
+		$defaults = array(
+			'title'              => '',
+			'roles'              => '',
+			'restricted_content' => '',
+			'other_content'      => '',
+		);
 
-			var $field         = $( this );
-			var $elements      = $();
-			var $uploadButton  = $field.find( '.upload-btn' );
-			var $imagesPreview = $field.find( '.mm-multi-media-images-preview' );
-			var $noImages      = $field.find( '.mm-multi-media-no-images' );
-			var $clearButton   = $field.find( '.clear-btn' );
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
 
-			$elements = $uploadButton.add( $imagesPreview ).add( $noImages );
+		// At this point all instance options have been sanitized.
+		$title              = apply_filters( 'widget_title', $instance['title'] );
+		$roles              = $instance['roles'];
+		$restricted_content = $instance['restricted_content'];
+		$other_content      = $instance['other_content'];
 
-			// Set up the interaction with wp.media.
-			$elements.on( 'click', function( e ) {
-				e.preventDefault();
+		echo $args['before_widget'];
 
-				$field.mmMultiMediaUpload();
-			});
+		if ( ! empty( $title ) ) {
+			echo $args['before_title'] . $title . $args['after_title'];
+		}
 
-			// Set up the clear button.
-			$clearButton.on( 'click', function( e ) {
-				e.preventDefault();
+		echo mm_restricted_content( $instance );
 
-				$field.find( '.mm-multi-media-images-preview-wrap' ).addClass( 'no-images' ).find( '.mm-multi-media-images-preview' ).remove();
-				$field.find( '.mm-multi-media-images' ).val( '' );
-			});
-		});
-	};
+		echo $args['after_widget'];
+	}
 
 	/**
-	 * Handle the interaction with wp.media for one or many multi media upload fields.
+	 * Output the Widget settings form.
 	 *
 	 * @since  1.0.0
+	 *
+	 * @param  array  $instance  The options for the widget instance.
 	 */
-	$.fn.mmMultiMediaUpload = function() {
+	public function form( $instance ) {
 
-		return this.each( function() {
+		$defaults = array(
+			'title'              => '',
+			'roles'              => '',
+			'restricted_content' => '',
+			'other_content'      => '',
+		);
 
-			var $field = $( this );
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
 
-			var mmMultiMedia = wp.media( {
-				title    : 'Upload Images or Files',
-				multiple : true
-			}).open().on( 'select', function( e ) {
+		$title              = $instance['title'];
+		$roles              = $instance['roles'];
+		$restricted_content = $instance['restricted_content'];
+		$other_content      = $instance['other_content'];
+		$classname          = $this->options['classname'];
 
-				var data = mmMultiMedia.state().get( 'selection' ).toJSON();
+		// Title.
+		$this->field_text(
+			__( 'Title:', 'mm-components' ),
+			$classname . '-title widefat',
+			'title',
+			$title
+		);
 
-				// If no media items were selected, clear the preview wrapper and bail.
-				if ( 0 === data.length ) {
-					$field.find( '.mm-multi-media-images-preview-wrap' ).addClass( 'no-images' ).find( '.mm-multi-media-images-preview' ).remove();
-					$field.find( '.mm-multi-media-images' ).val( '' );
-					return;
-				}
+		// User roles.
+		$this->field_multi_checkbox(
+			__( 'User roles to show restricted content to:', 'mm-components' ),
+			$classname . '-roles widefat',
+			'roles',
+			$roles,
+			mm_get_user_roles()
+		);
 
-				var ids      = [];
-				var urls     = [];
-				var previews = '';
+		// Restricted content.
+		$this->field_textarea(
+			__( 'Restricted content for users with the selected role(s):', 'mm-components' ),
+			$classname . '-content widefat',
+			'restricted_content',
+			$restricted_content
+		);
 
-				$.each( data, function() {
-					ids.push( this.id );
-					urls.push( this.url );
-				});
+		// Other content.
+		$this->field_textarea(
+			__( 'Optional content for all other users:', 'mm-components' ),
+			$classname . '-invalid-message widefat',
+			'other_content',
+			$other_content
+		);
+	}
 
-				// Store the attachment IDs as a comma separated string.
-				$field.find( '.mm-multi-media-images' ).val( ids.toString() );
+	/**
+	 * Update the widget settings.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param   array  $new_instance  The new settings for the widget instance.
+	 * @param   array  $old_instance  The old settings for the widget instance.
+	 *
+	 * @return  array                 The sanitized settings.
+	 */
+	public function update( $new_instance, $old_instance ) {
 
-				// Output all of the media item previews.
-				$.each( urls, function() {
-					previews += '<img class="mm-multi-media-images-preview" src="' + this + '" title="Media Items" alt="Media Items" />';
-				});
+		$instance = $old_instance;
+		$instance['title']              = wp_kses_post( $new_instance['title'] );
+		$instance['roles']              = sanitize_text_field( $new_instance['roles'] );
+		$instance['restricted_content'] = wp_kses_post( $new_instance['restricted_content'] );
+		$instance['other_content']      = wp_kses_post( $new_instance['other_content'] );
 
-				$field.find( '.mm-multi-media-images-preview' ).remove();
-				$field.find( '.mm-multi-media-images-preview-wrap' ).removeClass( 'no-images' ).append( previews );
-			});
-		});
-	};
-
-}( jQuery ));
+		return $instance;
+	}
+}

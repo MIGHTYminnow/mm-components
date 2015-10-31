@@ -379,6 +379,36 @@ function mm_get_user_roles_for_vc() {
 }
 
 /**
+ * Checks for encoded string.
+ *
+ * @since   1.0.0
+ *
+ * @return  bool  Returns true or false.
+ */
+function mm_is_base64( $string ) {
+
+	$decoded = base64_decode( $string, true );
+
+	// Check if there are invalid characters in the string.
+	if ( ! preg_match( '/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $string ) ) {
+		return false;
+	}
+
+	// Decode the string in strict mode and check whether it is recognized as invalid.
+	if ( ! base64_decode( $string, true ) ) {
+		return false;
+	}
+
+	// Reencode and compare it to the original value.
+	if ( base64_encode( $decoded ) != $string ) {
+		return false;
+	}
+
+	return true;
+
+};
+
+/**
  * Return an array of colors for use in a Visual Composer dropdown param.
  *
  * @since   1.0.0

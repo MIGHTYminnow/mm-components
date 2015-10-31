@@ -113,17 +113,13 @@ class Mm_Components_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Outputs a checkbox input element.
+	 * Output a checkbox.
 	 *
 	 * @since  1.0.0
 	 */
 	public function field_checkbox( $label = '', $classes = '', $key = '', $value = '' ) {
 
-		if ( mm_true_or_false( $value ) ) {
-			$val = 1;
-		} else {
-			$val = 0;
-		}
+		$val = (int)mm_true_or_false( $value );
 
 		echo '<p>';
 
@@ -140,7 +136,73 @@ class Mm_Components_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Output a group of radio button input elements.
+	 * Output a group of checkboxes.
+	 *
+	 * @since  1.0.0
+	 */
+	public function field_multi_checkbox( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
+
+		if ( ! is_array( $value ) ) {
+			$values = ( strpos( $value, ',' ) ) ? explode( ',', $value ) : (array)$value;
+		} else {
+			$values = $value;
+		}
+
+		echo '<p><label class="multi-checkbox-group-label">' . esc_html( $label ) . '</label><br />';
+
+			echo '<span class="mm-multi-checkbox-wrap">';
+
+			// Test whether we have an associative or indexed array.
+			if ( array_values( $options ) === $options ) {
+
+				// We have an indexed array.
+				foreach ( $options as $option_value ) {
+
+					$val = ( in_array( $option_value, $values ) ) ? 1 : 0;
+					$option_display_name = ucwords( str_replace( '_', ' ', $option_value ) );
+
+					printf(
+						'<input type="checkbox" class="%s" value="%s" %s /> <label class="%s">%s</label><br />',
+						esc_attr( $classes ),
+						esc_attr( $option_value ),
+						checked( $val, 1, false ),
+						'multi-checkbox-label',
+						esc_html( $option_display_name )
+					);
+				}
+
+			} else {
+
+				// We have an associative array.
+				foreach ( $options as $option_value => $option_display_name ) {
+
+					$val = ( in_array( $option_value, $values ) ) ? 1 : 0;
+
+					printf(
+						'<input type="checkbox" class="%s" value="%s" %s /> <label class="%s">%s</label><br />',
+						esc_attr( $classes ),
+						esc_attr( $option_value ),
+						checked( $val, 1, false ),
+						'multi-checkbox-label',
+						esc_html( $option_display_name )
+					);
+				}
+			}
+
+			printf(
+				'<input type="hidden" class="%s" name="%s" value="%s" />',
+				'multi-checkbox-hidden-input',
+				$this->get_field_name( $key ),
+				esc_attr( (string)$value )
+			);
+
+			echo '</span>';
+
+		echo '</p>';
+	}
+
+	/**
+	 * Output a group of radio buttons.
 	 *
 	 * @since  1.0.0
 	 */
