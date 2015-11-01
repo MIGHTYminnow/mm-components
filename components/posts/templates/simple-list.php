@@ -52,7 +52,7 @@ function mm_posts_simple_list_info( $post, $context, $atts ) {
 	echo '<span class="entry-info-wrap"><span class="entry-info">— ';
 
 	$format = get_option( 'date_format' );
-	$time   = get_the_modified_date( $format );
+	$time   = get_the_date( $format );
 
 	printf(
 		'<time class="%s" itemprop="datePublished">%s</time>',
