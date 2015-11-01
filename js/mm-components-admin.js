@@ -8,8 +8,11 @@
 
 	$( document ).ready( function() {
 
-		// Set up any alpha color picker fields on initial page load.
+		// Set up any alpha color picker fields.
 		$( 'input.alpha-color-picker' ).not( '#widget-list input.alpha-color-picker' ).alphaColorPicker();
+
+		// Set up any multi checkbox fields.
+		$( '.mm-multi-checkbox-wrap' ).mmMultiCheckboxField();
 
 		// Set up any single media fields.
 		$( '.mm-single-media-wrap' ).mmSingleMediaField();
@@ -22,9 +25,39 @@
 	$( document ).on( 'widget-added widget-updated', function( e, data ) {
 
 		$( data[0] ).find( 'input.alpha-color-picker' ).alphaColorPicker();
+		$( data[0] ).find( '.mm-multi-checkbox-wrap' ).mmMultiCheckboxField();
 		$( data[0] ).find( '.mm-single-media-wrap' ).mmSingleMediaField();
 		$( data[0] ).find( '.mm-multi-media-wrap' ).mmMultiMediaField();
 	});
+
+	/**
+	 * Set up one or many multi checkbox fields.
+	 *
+	 * @since  1.0.0
+	 */
+	$.fn.mmMultiCheckboxField = function() {
+
+		return this.each( function() {
+
+			var $inputs = $( this ).find( 'input[type="checkbox"]' );
+			var $input  = $( this ).find( 'input[type="hidden"]' );
+			var values  = [];
+			var value   = '';
+
+			$inputs.on( 'click', function() {
+				values = [];
+
+				$.each( $inputs, function( i ) {
+					if ( $( this ).is( ':checked' ) ) {
+						values.push( $( this ).val() );
+					}
+				});
+				value = values.join( ',' );
+
+				$input.val( value );
+			});
+		});
+	};
 
 	/**
 	 * Set up one or many single media fields.

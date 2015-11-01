@@ -22,10 +22,10 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_image_grid_hooks', 10, 2 );
 /**
  * Modify the default hooks.
  */
-function mm_posts_image_grid_hooks( $context, $atts ) {
+function mm_posts_image_grid_hooks( $context, $args ) {
 
 	// Only affect the output if this template is being used.
-	if ( 'image-grid' != $atts['template'] ) {
+	if ( 'image-grid' != $args['template'] ) {
 		return;
 	}
 

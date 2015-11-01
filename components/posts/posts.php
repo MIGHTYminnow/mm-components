@@ -316,7 +316,7 @@ function mm_posts_output_post_info( $post, $context, $args ) {
 			echo '<span class="entry-info">';
 
 			$format = get_option( 'date_format' );
-			$time   = get_the_modified_date( $format );
+			$time   = get_the_date( $format );
 
 			printf(
 				'<time class="%s" itemprop="datePublished">%s</time>',
@@ -764,7 +764,7 @@ function mm_vc_posts() {
 	$post_types  = mm_get_post_types_for_vc();
 	$taxonomies  = mm_get_taxonomies_for_vc();
 	$image_sizes = mm_get_image_sizes_for_vc();
-	$templates   = mm_get_mm_posts_templates();
+	$templates   = mm_get_mm_posts_templates_for_vc();
 
 	vc_map( array(
 		'name'     => __( 'Posts', 'mm-components' ),

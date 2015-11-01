@@ -85,7 +85,7 @@ function mm_social_icons( $args ) {
 
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
-		<?php foreach ( $social_networks as $social_network_name => $social_network ) {
+		<?php foreach ( $social_networks as $social_network => $social_network_name ) {
 
 			$link = ( isset( $args[ $social_network . '_link' ] ) ) ? $args[ $social_network . '_link' ] : '';
 			$image = ( isset( $args[ $social_network . '_image' ] ) ) ? $args[ $social_network . '_image' ] : '';
@@ -154,10 +154,10 @@ add_action( 'vc_before_init', 'mm_vc_social_icons' );
 function mm_vc_social_icons() {
 
 	$social_icons_types = mm_get_mm_social_icons_types();
-	$image_sizes = mm_get_image_sizes_for_vc();
-	$text_alignment = mm_get_text_alignment_for_vc();
-	$colors = mm_get_available_colors_for_vc();
-	$social_networks = mm_get_social_networks();
+	$image_sizes        = mm_get_image_sizes_for_vc();
+	$text_alignment     = mm_get_text_alignment_for_vc();
+	$colors             = mm_get_available_colors_for_vc();
+	$social_networks    = mm_get_social_networks_for_vc();
 
 	// Add our brand colors option.
 	$brand_colors = array(
