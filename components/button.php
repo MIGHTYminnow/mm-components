@@ -25,7 +25,7 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 		'link_title'    => '',
 		'link_target'   => '',
 		'class'         => '',
-		'style'         => 'default',
+		'style'         => '',
 		'corner_style'  => '',
 		'border_weight' => 'thin',
 		'color'         => '',
@@ -65,13 +65,27 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	// Setup button classes.
 	$classes = array();
 	$classes[] = 'mm-button';
-	$classes[] = $atts['class'];
-	$classes[] = $atts['style'];
-	$classes[] = $atts['corner_style'];
-	$classes[] = $atts['border_weight'];
-	$classes[] = $atts['color'];
-	$classes[] = $atts['size'];
-	$classes[] = $atts['full_width'];
+	if ( ! empty( $atts['class'] ) ) {
+		$classes[] = $atts['class'];
+	}
+	if ( ! empty( $atts['style'] ) ) {
+		$classes[] = $atts['style'];
+	}
+	if ( ! empty( $atts['corner_style'] ) ) {
+		$classes[] = $atts['corner_style'];
+	}
+	if ( ! empty( $atts['border_weight'] ) ) {
+		$classes[] = $atts['border_weight'];
+	}
+	if ( ! empty( $atts['color'] ) ) {
+		$classes[] = $atts['color'];
+	}
+	if( ! empty( $atts['size'] ) ) {
+		$classes[] = $atts['size'];
+	}
+	if( ! empty( $atts['full_width'] ) ) {
+		$classes[] = $atts['full_width'];
+	}
 
 	$classes = implode( ' ', $classes );
 
@@ -107,6 +121,7 @@ add_action( 'vc_before_init', 'mm_vc_button' );
 function mm_vc_button() {
 
 	$colors = mm_get_available_colors_for_vc();
+	$text_alignment = mm_get_text_alignment_for_vc();
 
 	vc_map( array(
 		'name'     => __( 'Button', 'mm-components' ),
@@ -188,12 +203,7 @@ function mm_vc_button() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Button Alignment', 'mm-components' ),
 				'param_name' => 'alignment',
-				'value'      => array(
-					__( 'Default', 'mm-components' ) => 'default',
-					__( 'Left', 'mm-components' )    => 'left',
-					__( 'Center', 'mm-components' )  => 'center',
-					__( 'Right ', 'mm-components' )  => 'right',
-				),
+				'value'      => $text_alignment,
 			),
 			array(
 				'type'        => 'textarea_html',
@@ -204,4 +214,265 @@ function mm_vc_button() {
 			),
 		)
 	) );
+}
+
+add_action( 'widgets_init', 'mm_components_register_button' );
+/**
+ * Register the button widget.
+ *
+ * @since 1.0.0
+ */
+function mm_components_register_button() {
+
+	register_widget( 'mm_button_widget' );
+}
+
+/**
+ * Button widget.
+ *
+ * @since 1.0.0
+ */
+class Mm_Button_Widget extends Mm_Components_Widget {
+
+	/**
+	 * Global options for this widget.
+	 *
+	 * @since 1.0.0
+	 */
+	protected $options;
+
+	/**
+	 * Initalize an instance of the widget.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+
+		// Set up the options to pass to the WP_Widget constructor.
+		$this->options = array(
+			'classname'   => 'mm-button',
+			'description' => __( 'A Button', 'mm-components' ),
+		);
+
+		parent::__construct(
+			'mm_button_widget',
+			__( 'Mm Button', 'mm-components' ),
+			$this->options
+		);
+	}
+
+	/**
+	 * Output the widget.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  array  $args      The global options for the widget.
+	 * @param  array  $instance  The options for the widget instance.
+	 */
+	public function widget( $args, $instance ) {
+
+		// At this point, all instance options have been sanitized.
+		$title         = apply_filters( 'widget_title', $instance['title'] );
+		$link          = $instance['link'];
+		$link_title    = $instance['link_title'];
+		$style         = $instance['style'];
+		$corner_style  = $instance['corner_style'];
+		$border_weight = $instance['border_weight'];
+		$color         = $instance['color'];
+		$size          = $instance['size'];
+		$full_width    = $instance['full_width'];
+		$alignment     = $instance['alignment'];
+
+		$shortcode = sprintf(
+			'[mm_button link="%s" style="%s" corner_style="%s" border_weight="%s" color="%s" size="%s" full_width="%s" alignment="%s"]%s[/mm_button]',
+			$link,
+			$style,
+			$corner_style,
+			$border_weight,
+			$color,
+			$size,
+			$full_width,
+			$alignment,
+			$link_title
+		);
+
+		echo $args['before_widget'];
+
+		if( ! empty( $title ) ) {
+			echo $args['before_title'] . $title . $args['after_title'];
+		}
+
+		echo do_shortcode( $shortcode );
+
+		echo $args['after_widget'];
+	}
+
+	/**
+	 * Output the Widgets settings form.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  array  $instance  The options for the widget instance.
+	 */
+	public function form( $instance ) {
+
+		$defaults = array(
+			'title'         => '',
+			'link'          => '',
+			'link_title'    => '',
+			'style'         => '',
+			'corner_style'  => '',
+			'border_weight' => '',
+			'color'         => '',
+			'size'          => '',
+			'full_width'    => '',
+			'alignment'     => '',
+		);
+
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
+
+		$title          = $instance['title'];
+		$link           = $instance['link'];
+		$link_title     = $instance['link_title'];
+		$style          = $instance['style'];
+		$corner_style   = $instance['corner_style'];
+		$border_weight  = $instance['border_weight'];
+		$color          = $instance['color'];
+		$size           = $instance['size'];
+		$full_width     = mm_true_or_false( $instance['full_width'] );
+		$alignment      = $instance['alignment'];
+		$classname      = $this->options['classname'];
+		$colors         = mm_get_available_colors();
+		$text_alignment = mm_get_text_alignment();
+
+		// Title.
+		$this->field_text(
+			__( 'Title', 'mm-components' ),
+			$classname . '-title widefat',
+			'title',
+			$title
+		);
+
+		// Link.
+		$this->field_text(
+			__( 'Button Link', 'mm-components' ),
+			$classname . '-link widefat',
+			'link',
+			$link
+		);
+
+		// Link title.
+		$this->field_text(
+			__( 'Button Text', 'mm-components' ),
+			$classname . '-link_title widefat',
+			'link_title',
+			$link_title
+		);
+
+		// Button style.
+		$this->field_select(
+			__( 'Button Style', 'mm-components' ),
+			$classname . '-style widefat',
+			'style',
+			$style,
+			array(
+				'default'        => __( 'Default', 'mm-components' ),
+				'ghost'          => __( 'Ghost', 'mm-components' ),
+				'solid-to-ghost' => __( 'Solid to Ghost', 'mm-components' ),
+				'three-d'        => __( '3D', 'mm-components' ),
+				'gradient'       => __( 'Gradient', 'mm-components' ),
+			)
+		);
+
+		// Corner style.
+		$this->field_select(
+			__( 'Corner Style', 'mm-components' ),
+			$classname . '-corner_style widefat',
+			'corner_style',
+			$corner_style,
+			array(
+				'pointed' => __( 'Pointed', 'mm-components' ),
+				'rounded' => __( 'Rounded', 'mm-components' ),
+				'pill'    => __( 'Pill', 'mm-components' ),
+			)
+		);
+
+		// Border weight.
+		$this->field_select(
+			__( 'Border Weight', 'mm-components' ),
+			$classname . 'border_weight widefat',
+			'border_weight',
+			$border_weight,
+			array(
+				'thin'  => __( 'Thin', 'mm-components' ),
+				'thick' => __( 'Thick', 'mm-components' ),
+			)
+		);
+
+		// Color.
+		$this->field_select(
+			__( 'Color', 'mm-components' ),
+			$classname . '-color widefat',
+			'color',
+			$color,
+			$colors
+		);
+
+		// Size.
+		$this->field_select(
+			__( 'Size', 'mm-components' ),
+			$classname . '-size widefat',
+			'size',
+			$size,
+			array(
+				'normal' => __( 'Normal', 'mm-components' ),
+				'small'  => __( 'Small', 'mm-components' ),
+				'large'  => __( 'Large', 'mm-components' ),
+			)
+		);
+
+		// Full width.
+		$this->field_checkbox(
+			__( 'Full Width', 'mm-components' ),
+			$classname . '-full_width widefat',
+			'full_width',
+			$full_width
+		);
+
+		// Alignment.
+		$this->field_select(
+			__( 'Button Alignment', 'mm-components' ),
+			$classname . '-alignment widefat',
+			'alignment',
+			$alignment,
+			$text_alignment
+		);
+	}
+
+	/**
+	 * Update the widget settings.
+	 *
+	 * @since 1.0.0
+	 * @param  array  $new_instnace  The new settings for the widget instance.
+	 * @param  array  $old_instance  The old settings for the widget instance.
+	 *
+	 * @return  array  The sanitized settings.
+	 */
+	public function update( $new_instance, $old_instance ) {
+
+		$instance                  = $old_instance;
+		$instance['title']         = wp_kses_post($new_instance['title'] );
+		$instance['link']          = ( '' !== $new_instance['link'] ) ? esc_url( $new_instance['link'] ) : '';
+		$instance['link_title']    = wp_kses_post($new_instance['link_title']);
+		$instance['style']         = sanitize_text_field( $new_instance['style'] );
+		$instance['corner_style']  = sanitize_text_field( $new_instance['corner_style'] );
+		$instance['border_weight'] = sanitize_text_field( $new_instance['border_weight'] );
+		$instance['color']         = sanitize_text_field( $new_instance['color'] );
+		$instance['size']          = sanitize_text_field( $new_instance['size'] );
+		$instance['full_width']    = sanitize_text_field( $new_instance['full_width'] );
+		$instance['alignment']     = sanitize_text_field( $new_instance['alignment'] );
+
+		return $instance;
+	}
 }

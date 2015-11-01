@@ -373,11 +373,31 @@ function mm_is_base64( $string ) {
 	}
 
 	return true;
-
 };
 
 /**
- * Return an array of colors for use in a Visual Composer dropdown param.
+ * Return an array of registered color names.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of colors.
+ */
+function mm_get_available_colors() {
+
+	$colors = array(
+		'default' => __( 'Default', 'mm-components' ),
+		'light'   => __( 'Light', 'mm-components' ),
+		'medium'  => __( 'Medium', 'mm-components' ),
+		'dark'    => __( 'Dark', 'mm-components' ),
+	);
+
+	$colors = apply_filters( 'mm_get_available_colors', $colors );
+
+	return $colors;
+}
+
+/**
+ * Return an array of color names for use in a Visual Composer dropdown param.
  *
  * @since   1.0.0
  *
@@ -385,14 +405,40 @@ function mm_is_base64( $string ) {
  */
 function mm_get_available_colors_for_vc() {
 
-	$colors = array(
-		__( 'Default', 'mm-components' ) => 'default',
-		__( 'Light', 'mm-components' )   => 'light',
-		__( 'Medium', 'mm-components' )  => 'medium',
-		__( 'Dark', 'mm-components' )    => 'dark',
-	);
-
-	$colors = apply_filters( 'mm_get_available_colors_for_vc', $colors );
+	$colors = array_flip( mm_get_available_colors() );
 
 	return $colors;
+}
+
+/**
+ * Return an array of text alignment options.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of options.
+ */
+function mm_get_text_alignment() {
+
+	$text_alignment = array(
+		'default' => __( 'Default', 'mm-components' ),
+		'left'    => __( 'Left', 'mm-components' ),
+		'center'  => __( 'Center', 'mm-components' ),
+		'right'   => __( 'Right', 'mm-components' ),
+	);
+
+	return $text_alignment;
+}
+
+/**
+ * Return an array of text alignments for use in a Visual Composer dropdown param.
+ *
+ * @since 1.0.0
+ *
+ * @return  array  The array of text alignment options.
+ */
+function mm_get_text_alignment_for_vc() {
+
+	$text_alignment = array_flip( mm_get_text_alignment() );
+
+	return $text_alignment;
 }
