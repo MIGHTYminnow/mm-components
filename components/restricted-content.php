@@ -108,7 +108,7 @@ add_action( 'vc_before_init', 'mm_vc_restricted_content' );
  */
 function mm_vc_restricted_content() {
 
-	$roles = mm_get_user_roles_for_vc();
+	$roles = mm_get_user_roles();
 
 	/**
 	 * Restricted Content.
