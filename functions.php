@@ -176,9 +176,10 @@ function mm_get_post_types() {
 		$formatted_cpts[ $post_type->name ] = $post_type->labels->singular_name;
 	}
 
-	// Manually add 'post' and an empty option.
+	// Manually add 'post' and 'page' types.
 	$default_post_types = array(
 		'post' => __( 'Post', 'mm-components' ),
+		'page' => __( 'Page', 'mm-components' ),
 	);
 
 	$post_types = array_merge( $default_post_types, $formatted_cpts );
@@ -195,27 +196,7 @@ function mm_get_post_types() {
  */
 function mm_get_post_types_for_vc() {
 
-	$post_type_args = array(
-		'public' => true,
-		'_builtin' => false
-	);
-
-	$custom_post_types = get_post_types( $post_type_args, 'objects', 'and' );
-
-	$formatted_cpts = array();
-
-	foreach( $custom_post_types as $post_type ) {
-
-		$formatted_cpts[ $post_type->labels->singular_name ] = $post_type->name;
-	}
-
-	// Manually add 'post' and an empty option.
-	$default_post_types = array(
-		__( 'Select a Post Type', 'mm-components' ) => '',
-		__( 'Post', 'mm-components' ) => 'post',
-	);
-
-	$post_types = array_merge( $default_post_types, $formatted_cpts );
+	$post_types = array_flip( mm_get_post_types() );
 
 	return $post_types;
 }
