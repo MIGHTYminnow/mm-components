@@ -356,13 +356,13 @@ function mm_get_mm_posts_templates_for_vc() {
 }
 
 /**
- * Return an array of registered user roles for use in a Visual Composer checkbox param.
+ * Return an array of registered user roles.
  *
  * @since   1.0.0
  *
  * @return  array  The array of user roles.
  */
-function mm_get_user_roles_for_vc() {
+function mm_get_user_roles() {
 
 	global $wp_roles;
 
@@ -379,7 +379,7 @@ function mm_get_user_roles_for_vc() {
 }
 
 /**
- * Checks for encoded string.
+ * Checks for a base64 encoded string.
  *
  * @since   1.0.0
  *
