@@ -17,6 +17,17 @@ $light-color: #999;
 $medium-color: #666;
 $dark-color: #333;
 
+$facebook-color: #3b5998;
+$twitter-color: #00aced;
+$youtube-color: #bb0000;
+$google-plus-color: #dd4b39;
+$instagram-color: #125688;
+$pinterest-color: #cb2027;
+$linkedin-color: #007bb5;
+$vine-color: #00bf8f;
+$flickr-color: #ff0084;
+$vimeo-color: #aad450;
+
 $thin-border: 1px solid;
 $thick-border: 2px solid;
 
@@ -29,7 +40,7 @@ $thick-border: 2px solid;
 	width: 100%;
 }
 
-@mixin button-color ($color) {
+@mixin button-color($color) {
 	background-color: $color;
 	color: #fff !important;
 	&:hover {
@@ -37,7 +48,7 @@ $thick-border: 2px solid;
 	}
 }
 
-@mixin solid-to-ghost-button-color ($color) {
+@mixin solid-to-ghost-button-color($color) {
 	border-color: $color !important;
 	&:hover {
 		background-color: transparent;
@@ -45,13 +56,13 @@ $thick-border: 2px solid;
 	}
 }
 
-@mixin ghost-button-hover-color ($color) {
+@mixin ghost-button-hover-color($color) {
 	background-color: $color !important;
 	border-color: $color;
 	color: #fff !important;
 }
 
-@mixin three-d-button-color ($color) {
+@mixin three-d-button-color($color) {
 	box-shadow: 0 4px 0 0 darken($color, 20%);
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 	&:hover {
@@ -65,11 +76,182 @@ $thick-border: 2px solid;
 	}
 }
 
-@mixin gradient-button-color ($color) {
+@mixin gradient-button-color($color) {
 	background-image: linear-gradient($color 0%, darken($color, 20%) 100%);
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 	&:hover {
 		background: darken($color, 20%);
+	}
+}
+
+@mixin social-icon-background-colors($color) {
+	background-color: $color;
+	color: #fff;
+	&:hover {
+		background-color: darken($color, 20%);
+		color: #fff;
+	}
+}
+
+@mixin social-icon-ghost-colors($color) {
+	border-color: $color;
+	color: $color;
+	background-color: transparent;
+	&:hover {
+		border-color: darken($color, 20%);
+		color: darken($color, 20%);
+	}
+}
+
+@mixin social-icon-colors($color) {
+	color: $color;
+	&:hover {
+		color: darken($color, 20%);
+	}
+}
+
+@mixin social-icon-sizes($size) {
+	width: $size;
+	height: $size;
+	font-size: $size;
+	line-height: $size;
+}
+
+@mixin social-image-sizes($size) {
+	width: $size;
+}
+
+@mixin social-icons-with-backgrounds {
+	a i.icon {
+		@include social-icon-background-colors($default-color);
+		font-size: 24px;
+	}
+	&.light {
+		a i.icon {
+			@include social-icon-background-colors($light-color);
+		}
+	}
+	&.medium {
+		a i.icon {
+			@include social-icon-background-colors($medium-color);
+		}
+	}
+	&.dark {
+		a i.icon {
+			@include social-icon-background-colors($dark-color);
+		}
+	}
+	&.brand-colors {
+		a i.icon {
+			&.fa-facebook {
+				@include social-icon-background-colors($facebook-color);
+			}
+			&.fa-twitter {
+				@include social-icon-background-colors($twitter-color);
+			}
+			&.fa-youtube {
+				@include social-icon-background-colors($youtube-color);
+			}
+			&.fa-google-plus {
+				@include social-icon-background-colors($google-plus-color);
+			}
+			&.fa-instagram {
+				@include social-icon-background-colors($instagram-color);
+			}
+			&.fa-pinterest {
+				@include social-icon-background-colors($pinterest-color);
+			}
+			&.fa-linkedin {
+				@include social-icon-background-colors($linkedin-color);
+			}
+			&.fa-vine {
+				@include social-icon-background-colors($vine-color);
+			}
+			&.fa-flickr {
+				@include social-icon-background-colors($flickr-color);
+			}
+			&.fa-vimeo {
+				@include social-icon-background-colors($vimeo-color);
+			}
+		}
+	}
+	&.small {
+		a i.icon {
+			font-size: 16px;
+		}
+	}
+	&.large {
+		a i.icon {
+			font-size: 30px;
+		}
+	}
+}
+
+@mixin social-icons-with-ghost {
+	a i.icon {
+		@include social-icon-ghost-colors($default-color);
+		font-size: 24px;
+		border-width: 1px;
+		border-style: solid;
+	}
+	&.light {
+		a i.icon {
+			@include social-icon-ghost-colors($light-color);
+		}
+	}
+	&.medium {
+		a i.icon {
+			@include social-icon-ghost-colors($medium-color);
+		}
+	}
+	&.dark {
+		a i.icon {
+			@include social-icon-ghost-colors($dark-color);
+		}
+	}
+	&.brand-colors {
+		a i.icon {
+			&.fa-facebook {
+				@include social-icon-ghost-colors($facebook-color);
+			}
+			&.fa-twitter {
+				@include social-icon-ghost-colors($twitter-color);
+			}
+			&.fa-youtube {
+				@include social-icon-ghost-colors($youtube-color);
+			}
+			&.fa-google-plus {
+				@include social-icon-ghost-colors($google-plus-color);
+			}
+			&.fa-instagram {
+				@include social-icon-ghost-colors($instagram-color);
+			}
+			&.fa-pinterest {
+				@include social-icon-ghost-colors($pinterest-color);
+			}
+			&.fa-linkedin {
+				@include social-icon-ghost-colors($linkedin-color);
+			}
+			&.fa-vine {
+				@include social-icon-ghost-colors($vine-color);
+			}
+			&.fa-flickr {
+				@include social-icon-ghost-colors($flickr-color);
+			}
+			&.fa-vimeo {
+				@include social-icon-ghost-colors($vimeo-color);
+			}
+		}
+	}
+	&.small {
+		a i.icon {
+			font-size: 16px;
+		}
+	}
+	&.large {
+		a i.icon {
+			font-size: 30px;
+		}
 	}
 }
 
@@ -141,7 +323,7 @@ a.mm-button {
 	border-bottom: none;
 	text-decoration: none;
 	transition: all 0.2s ease-in-out;
-	@include button-color ($default-color);
+	@include button-color($default-color);
 	&:hover {
 		text-decoration: none;
 	}
@@ -166,55 +348,55 @@ a.mm-button {
 		border-radius: 5px;
 	}
 	&.pill {
-		border-radius: 50px;
+		border-radius: 100%;
 	}
 }
 
 /* Button Styles & Colors */
 a.mm-button {
 	&.solid-to-ghost {
-		@include solid-to-ghost-button-color ($default-color);
+		@include solid-to-ghost-button-color($default-color);
 	}
 	&.gradient {
-		@include gradient-button-color ($default-color);
+		@include gradient-button-color($default-color);
 	}
 	&.three-d {
-		@include three-d-button-color ($default-color);
+		@include three-d-button-color($default-color);
 	}
 	&.light {
-		@include button-color ($light-color);
+		@include button-color($light-color);
 		&.solid-to-ghost{
-			@include solid-to-ghost-button-color ($light-color);
+			@include solid-to-ghost-button-color($light-color);
 		}
 		&.three-d {
-			@include three-d-button-color ($light-color);
+			@include three-d-button-color($light-color);
 		}
 		&.gradient {
-			@include gradient-button-color ($light-color);
+			@include gradient-button-color($light-color);
 		}
 	}
 	&.medium {
-		@include button-color ($medium-color);
+		@include button-color($medium-color);
 		&.solid-to-ghost {
-			@include solid-to-ghost-button-color ($medium-color);
+			@include solid-to-ghost-button-color($medium-color);
 		}
 		&.three-d {
-			@include three-d-button-color ($medium-color);
+			@include three-d-button-color($medium-color);
 		}
 		&.gradient {
-			@include gradient-button-color ($medium-color);
+			@include gradient-button-color($medium-color);
 		}
 	}
 	&.dark {
-		@include button-color ($dark-color);
+		@include button-color($dark-color);
 		&.solid-to-ghost {
-			@include solid-to-ghost-button-color ($dark-color);
+			@include solid-to-ghost-button-color($dark-color);
 		}
 		&.three-d {
-			@include three-d-button-color ($dark-color);
+			@include three-d-button-color($dark-color);
 		}
 		&.gradient {
-			@include gradient-button-color ($dark-color);
+			@include gradient-button-color($dark-color);
 		}
 	}
 }
@@ -561,5 +743,156 @@ a.mm-button {
 
 	.mm-posts.image-grid.mm-masonry.no-gutter .mm-posts-masonry-gutter {
 		width: 0%;
+	}
+}
+
+/* Social Icons
+--------------------------------------------- */
+
+/* Defaults */
+.mm-social-icons a {
+	text-align: center;
+	margin-right: 6px;
+	display: inline-block;
+	&:last-child {
+		margin-right: 0;
+	}
+	i.icon {
+		margin: 0;
+		@include social-icon-colors($default-color);
+		@include social-icon-sizes(36px);
+	}
+}
+
+/* Styles */
+.mm-social-icons {
+	&.circle {
+		@include social-icons-with-backgrounds;
+		&.ghost {
+			@include social-icons-with-ghost;
+		}
+		a i.icon {
+			border-radius: 100%;
+		}
+	}
+	&.square {
+		@include social-icons-with-backgrounds;
+		&.ghost {
+			@include social-icons-with-ghost;
+		}
+	}
+	&.rounded-square {
+		@include social-icons-with-backgrounds;
+		&.ghost {
+			@include social-icons-with-ghost;
+		}
+		a i.icon {
+			border-radius: 5px;
+		}
+	}
+}
+
+/* Colors */
+.mm-social-icons {
+	&.light {
+		a i.icon {
+			@include social-icon-colors($light-color);
+		}
+	}
+	&.medium {
+		a i.icon {
+			@include social-icon-colors($medium-color);
+		}
+	}
+	&.dark {
+		a i.icon {
+			@include social-icon-colors($dark-color);
+		}
+	}
+	&.brand-colors {
+		a i.icon {
+			&.fa-facebook {
+				@include social-icon-colors($facebook-color);
+			}
+			&.fa-twitter {
+				@include social-icon-colors($twitter-color);
+			}
+			&.fa-youtube {
+				@include social-icon-colors($youtube-color);
+			}
+			&.fa-google-plus {
+				@include social-icon-colors($google-plus-color);
+			}
+			&.fa-instagram {
+				@include social-icon-colors($instagram-color);
+			}
+			&.fa-pinterest {
+				@include social-icon-colors($pinterest-color);
+			}
+			&.fa-linkedin {
+				@include social-icon-colors($linkedin-color);
+			}
+			&.fa-vine {
+				@include social-icon-colors($vine-color);
+			}
+			&.fa-flickr {
+				@include social-icon-colors($flickr-color);
+			}
+			&.fa-vimeo {
+				@include social-icon-colors($vimeo-color);
+			}
+		}
+	}
+}
+
+/* Sizes */
+.mm-social-icons {
+	&.small {
+		a i.icon {
+			@include social-icon-sizes(24px);
+		}
+	}
+	&.large {
+		a i.icon {
+			@include social-icon-sizes(48px);
+		}
+	}
+}
+
+/* Images */
+.mm-social-icons {
+	&.mm-image-align-left {
+		float: left;
+	}
+	&.mm-image-align-center {
+		text-align: center;
+		margin: 0 auto;
+	}
+	&.mm-image-align-right {
+		float: right;
+	}
+}
+.mm-social-icons {
+	a img {
+		display: block;
+	}
+	a:hover {
+		opacity: 0.85;
+		transition: opacity 0.2s;
+	}
+	&.normal-size {
+		a img {
+			@include social-image-sizes(36px);
+		}
+	}
+	&.small {
+		a img {
+			@include social-image-sizes(24px);
+		}
+	}
+	&.large {
+		a img {
+			@include social-image-sizes(48px);
+		}
 	}
 }
