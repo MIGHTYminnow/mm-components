@@ -11,9 +11,7 @@ add_filter( 'mm_posts_templates', 'mm_posts_simple_list_template', 0 );
  */
 function mm_posts_simple_list_template( $templates ) {
 
-	$template_name = __( 'Simple List', 'mm-components' );
-
-	$templates[ $template_name ] = 'simple-list';
+	$templates['simple-list'] = __( 'Simple List', 'mm-components' );
 
 	return $templates;
 }

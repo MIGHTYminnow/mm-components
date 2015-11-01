@@ -880,4 +880,8 @@ function mm_vc_posts() {
 			),
 		)
 	) );
+
+	// Because this component is registered on init we will call a custom action here
+	// so that any templates adding extra params have a better hook to add them on.
+	do_action( 'mm_posts_register_extra_vc_params' );
 }

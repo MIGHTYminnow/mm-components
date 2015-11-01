@@ -352,7 +352,7 @@ function mm_get_mm_posts_templates_for_vc() {
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	$templates = $empty_option + mm_get_mm_posts_templates();
+	$templates = $empty_option + array_flip( mm_get_mm_posts_templates() );
 
 	return $templates;
 }
