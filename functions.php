@@ -241,7 +241,7 @@ function mm_get_taxonomies() {
  */
 function mm_get_taxonomies_for_vc() {
 
-	// Manually add an empty first option.
+	// Add an empty first option.
 	$empty_option = array(
 		__( 'Select a Taxonomy', 'mm-components' ) => '',
 	);
@@ -284,24 +284,29 @@ function mm_get_image_sizes() {
  */
 function mm_get_image_sizes_for_vc() {
 
-	$image_sizes = get_intermediate_image_sizes();
-
-	// Add the empty first option.
-	$formatted_image_sizes = array(
+	// Add an empty first option.
+	$empty_option = array(
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	foreach ( $image_sizes as $image_size ) {
+	$image_sizes = $empty_option + mm_get_image_sizes();
 
-		$formatted_image_size = ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $image_size ) ) );
-		$formatted_image_sizes[ $formatted_image_size ] = $image_size;
-	}
+	return $image_sizes;
+}
 
-	// Manually add in the 'Full' size.
-	$full_size = __( 'Full', 'mm-components' );
-	$formatted_image_sizes[ $full_size ] = 'full';
+/**
+ * Return an array of Mm Posts templates.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of template names.
+ */
+function mm_get_mm_posts_templates() {
 
-	return $formatted_image_sizes;
+	// All core and custom templates should be registered using this filter.
+	$templates = apply_filters( 'mm_posts_templates', array() );
+
+	return $templates;
 }
 
 /**
@@ -313,12 +318,12 @@ function mm_get_image_sizes_for_vc() {
  */
 function mm_get_mm_posts_templates_for_vc() {
 
-	$templates = array(
+	// Add an empty first option.
+	$empty_option = array(
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	// All core and custom templates should be registered using this filter.
-	$templates = apply_filters( 'mm_posts_templates', $templates );
+	$templates = $empty_option + mm_get_mm_posts_templates();
 
 	return $templates;
 }
