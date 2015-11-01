@@ -22,70 +22,6 @@ function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
 }
 
 /**
- * Return custom VC image upload description.
- *
- * @since   1.0.0
- *
- * @param   string  $image_size  Image size slug.
- *
- * @return  string               Image upload description.
- */
-function mm_custom_image_field_description( $image_size = '' ) {
-
-	$default_message = __( 'Upload an image that is large enough to be output without stretching.', 'mm-components' );
-
-	// Do default image message if no specific image_size is passed.
-	if ( ! $image_size ) {
-		return $default_message;
-	}
-
-	// Get dimensions of image.
-	$image_dimensions = mm_get_image_size_dimensions( $image_size );
-
-	// Do default message if the specified image size doesn't exists.
-	if ( ! $image_dimensions ) {
-		return $default_message;
-	}
-
-	$width = $image_dimensions['width'] * 2;
-	$height = $image_dimensions['height'] * 2;
-
-	return sprintf( __( 'Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that it is not stretched.', 'mm-components' ), $width, $height );
-}
-
-/**
- * Get the dimensions of WP default and add-on image sizes.
- *
- * @since   1.0.0
- *
- * @param   string  $image_size  Image size slug.
- *
- * @return  array                Array of image width/height.
- */
-function mm_get_image_size_dimensions( $image_size = '' ) {
-
-	global $_wp_additional_image_sizes;
-
-	if ( in_array( $image_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
-
-		$image_dimensions['width'] = get_option( $image_size . '_size_w' );
-		$image_dimensions['height'] = get_option( $image_size . '_size_h' );
-
-	} elseif ( isset( $_wp_additional_image_sizes[ $image_size ] ) ) {
-
-		$image_dimensions = array(
-			'width' => $_wp_additional_image_sizes[ $image_size ]['width'],
-			'height' => $_wp_additional_image_sizes[ $image_size ]['height'],
-		);
-
-	} else {
-		return false;
-	}
-
-	return $image_dimensions;
-}
-
-/**
  * Possibly wrap content in a link.
  *
  * @since   1.0.0
@@ -129,6 +65,35 @@ function mm_true_or_false( $value ) {
 		return false;
 	}
 }
+
+/**
+ * Checks for a base64 encoded string.
+ *
+ * @since   1.0.0
+ *
+ * @return  bool  Returns true or false.
+ */
+function mm_is_base64( $string ) {
+
+	$decoded = base64_decode( $string, true );
+
+	// Check if there are invalid characters in the string.
+	if ( ! preg_match( '/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $string ) ) {
+		return false;
+	}
+
+	// Decode the string in strict mode and check whether it is recognized as invalid.
+	if ( ! base64_decode( $string, true ) ) {
+		return false;
+	}
+
+	// Reencode and compare it to the original value.
+	if ( base64_encode( $decoded ) != $string ) {
+		return false;
+	}
+
+	return true;
+};
 
 /**
  * Check if a user has a specific role.
@@ -295,6 +260,70 @@ function mm_get_image_sizes_for_vc() {
 }
 
 /**
+ * Return custom VC image upload description.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $image_size  Image size slug.
+ *
+ * @return  string               Image upload description.
+ */
+function mm_custom_image_field_description( $image_size = '' ) {
+
+	$default_message = __( 'Upload an image that is large enough to be output without stretching.', 'mm-components' );
+
+	// Do default image message if no specific image_size is passed.
+	if ( ! $image_size ) {
+		return $default_message;
+	}
+
+	// Get dimensions of image.
+	$image_dimensions = mm_get_image_size_dimensions( $image_size );
+
+	// Do default message if the specified image size doesn't exists.
+	if ( ! $image_dimensions ) {
+		return $default_message;
+	}
+
+	$width = $image_dimensions['width'] * 2;
+	$height = $image_dimensions['height'] * 2;
+
+	return sprintf( __( 'Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that it is not stretched.', 'mm-components' ), $width, $height );
+}
+
+/**
+ * Get the dimensions of WP default and add-on image sizes.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $image_size  Image size slug.
+ *
+ * @return  array                Array of image width/height.
+ */
+function mm_get_image_size_dimensions( $image_size = '' ) {
+
+	global $_wp_additional_image_sizes;
+
+	if ( in_array( $image_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+
+		$image_dimensions['width'] = get_option( $image_size . '_size_w' );
+		$image_dimensions['height'] = get_option( $image_size . '_size_h' );
+
+	} elseif ( isset( $_wp_additional_image_sizes[ $image_size ] ) ) {
+
+		$image_dimensions = array(
+			'width' => $_wp_additional_image_sizes[ $image_size ]['width'],
+			'height' => $_wp_additional_image_sizes[ $image_size ]['height'],
+		);
+
+	} else {
+		return false;
+	}
+
+	return $image_dimensions;
+}
+
+/**
  * Return an array of Mm Posts templates.
  *
  * @since   1.0.0
@@ -345,40 +374,25 @@ function mm_get_user_roles() {
 
 		$role_name = ( isset( $role_params['name'] ) ) ? $role_params['name'] : $role;
 
-		$user_roles[ $role_name ] = $role;
+		$user_roles[ $role ] = $role_name;
 	}
 
 	return $user_roles;
 }
 
 /**
- * Checks for a base64 encoded string.
+ * Return an array of registered user roles for use in a Visual Composer param.
  *
  * @since   1.0.0
  *
- * @return  bool  Returns true or false.
+ * @return  array  The array of user roles.
  */
-function mm_is_base64( $string ) {
+function mm_get_user_roles_for_vc() {
 
-	$decoded = base64_decode( $string, true );
+	$user_roles = array_flip( mm_get_user_roles() );
 
-	// Check if there are invalid characters in the string.
-	if ( ! preg_match( '/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $string ) ) {
-		return false;
-	}
-
-	// Decode the string in strict mode and check whether it is recognized as invalid.
-	if ( ! base64_decode( $string, true ) ) {
-		return false;
-	}
-
-	// Reencode and compare it to the original value.
-	if ( base64_encode( $decoded ) != $string ) {
-		return false;
-	}
-
-	return true;
-};
+	return $user_roles;
+}
 
 /**
  * Return an array of registered color names.
