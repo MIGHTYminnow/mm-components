@@ -241,25 +241,12 @@ function mm_get_taxonomies() {
  */
 function mm_get_taxonomies_for_vc() {
 
-	$taxonomy_args = array(
-		'public'   => true,
-		'_builtin' => false
-	);
-
-	$custom_taxonomies = get_taxonomies( $taxonomy_args, 'objects', 'and' );
-
-	// Manually add 'category', 'tag', and an empty option.
-	$taxonomies = array(
+	// Manually add an empty first option.
+	$empty_option = array(
 		__( 'Select a Taxonomy', 'mm-components' ) => '',
-		__( 'Category', 'mm-components' ) => 'category',
-		__( 'Tag', 'mm-components' ) => 'post_tag',
 	);
 
-	// Format the taxonomies.
-	foreach ( $custom_taxonomies as $taxonomy ) {
-
-		$taxonomies[ $taxonomy->labels->singular_name ] = $taxonomy->name;
-	}
+	$taxonomies = $empty_option + array_flip( mm_get_taxonomies() );
 
 	return $taxonomies;
 }
