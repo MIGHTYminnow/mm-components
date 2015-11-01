@@ -31,24 +31,24 @@ $thick-border: 2px solid;
 
 @mixin button-color ($color) {
 	background-color: $color;
-	color: #fff;
+	color: #fff !important;
 	&:hover {
 		background-color: darken($color, 20%);
 	}
 }
 
 @mixin solid-to-ghost-button-color ($color) {
-	border-color: $color;
+	border-color: $color !important;
 	&:hover {
 		background-color: transparent;
-		color: $color;
+		color: $color !important;
 	}
 }
 
 @mixin ghost-button-hover-color ($color) {
 	background-color: $color !important;
 	border-color: $color;
-	color: #fff;
+	color: #fff !important;
 }
 
 @mixin three-d-button-color ($color) {
@@ -142,6 +142,9 @@ a.mm-button {
 	text-decoration: none;
 	transition: all 0.2s ease-in-out;
 	@include button-color ($default-color);
+	&:hover {
+		text-decoration: none;
+	}
 }
 
 /* Border Weight */
@@ -220,24 +223,24 @@ a.mm-button.ghost {
 	&.thin,
 	&.thick {
 		background-color: transparent !important;
-		color: $default-color;
+		color: $default-color !important;
 		&:hover {
 			@include ghost-button-hover-color($default-color);
 		}
 		&.light {
-			color: $light-color;
+			color: $light-color !important;
 			&:hover {
 				@include ghost-button-hover-color($light-color);
 			}
 		}
 		&.medium {
-			color: $medium-color;
+			color: $medium-color !important;
 			&:hover {
 				@include ghost-button-hover-color($medium-color);
 			}
 		}
 		&.dark {
-			color: $dark-color;
+			color: $dark-color !important;
 			&:hover {
 				@include ghost-button-hover-color($dark-color);
 			}
