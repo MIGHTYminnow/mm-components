@@ -22,10 +22,10 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_simple_list_hooks', 10, 2 );
 /**
  * Modify the default hooks.
  */
-function mm_posts_simple_list_hooks( $context, $atts ) {
+function mm_posts_simple_list_hooks( $context, $args ) {
 
 	// Only affect the output if this template is being used.
-	if ( 'simple-list' != $atts['template'] ) {
+	if ( 'simple-list' != $args['template'] ) {
 		return;
 	}
 
@@ -43,9 +43,9 @@ function mm_posts_simple_list_hooks( $context, $atts ) {
 /**
  * Maybe output the post info.
  */
-function mm_posts_simple_list_info( $post, $context, $atts ) {
+function mm_posts_simple_list_info( $post, $context, $args ) {
 
-	if ( 1 != (int)$atts['show_post_info'] ) {
+	if ( 1 != (int)$args['show_post_info'] ) {
 		return;
 	}
 
