@@ -103,7 +103,7 @@ a.mm-button.rounded {
 }
 
 a.mm-button.pill {
-  border-radius: 100%;
+  border-radius: 50px;
 }
 
 /* Button Styles & Colors */
