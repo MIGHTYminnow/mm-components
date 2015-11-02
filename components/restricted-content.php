@@ -67,19 +67,18 @@ function mm_restricted_content( $args ) {
 		$inner_output = $content;
 	}
 
-		/* Returns empty string if invalid user and no invalid user message is input.*/
+	// Return an empty string if we have an invalid user but no invalid user message.
 	if ( ! $valid_user && '' === $other_content ) {
-
 		return '';
 	}
 
-		ob_start(); ?>
+	ob_start(); ?>
 
-		<div class="<?php echo esc_attr( $mm_classes ); ?>">
-			<div class="mm-restricted-content-inner">
-				<?php echo do_shortcode( $inner_output ); ?>
-			</div>
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
+		<div class="mm-restricted-content-inner">
+			<?php echo do_shortcode( $inner_output ); ?>
 		</div>
+	</div>
 
 	<?php
 
@@ -295,9 +294,9 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 			$other_content
 		);
 
-		// Other content.
+		// Custom class.
 		$this->field_text(
-			__( 'Add a custom class to widget wrapper.', 'mm-components' ),
+			__( 'Custom class:', 'mm-components' ),
 			$classname . '-mm-custom-class widefat',
 			'mm_custom_class',
 			$mm_custom_class
