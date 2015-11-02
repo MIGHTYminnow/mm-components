@@ -355,4 +355,17 @@ class Mm_Components_Widget extends WP_Widget {
 		echo '</p>';
 	}
 
+	/**
+	 * Output a custom field.
+	 *
+	 * @since  1.0.0
+	 */
+	public function field_custom( $label = '', $output = '' ) {
+
+		printf(
+			'<p><label>%s</label><br />%s</p>',
+			esc_html( $label ),
+			$output
+		);
+	}
 }
