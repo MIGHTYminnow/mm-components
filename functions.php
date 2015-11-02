@@ -147,9 +147,7 @@ function mm_get_post_types() {
 		'page' => __( 'Page', 'mm-components' ),
 	);
 
-	$post_types = array_merge( $default_post_types, $formatted_cpts );
-
-	return $post_types;
+	return array_merge( $default_post_types, $formatted_cpts );
 }
 
 /**
@@ -161,9 +159,7 @@ function mm_get_post_types() {
  */
 function mm_get_post_types_for_vc() {
 
-	$post_types = array_flip( mm_get_post_types() );
-
-	return $post_types;
+	return array_flip( mm_get_post_types() );
 }
 
 /**
@@ -211,9 +207,7 @@ function mm_get_taxonomies_for_vc() {
 		__( 'Select a Taxonomy', 'mm-components' ) => '',
 	);
 
-	$taxonomies = $empty_option + array_flip( mm_get_taxonomies() );
-
-	return $taxonomies;
+	return $empty_option + array_flip( mm_get_taxonomies() );
 }
 
 /**
@@ -254,9 +248,7 @@ function mm_get_image_sizes_for_vc() {
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	$image_sizes = $empty_option + mm_get_image_sizes();
-
-	return $image_sizes;
+	return $empty_option + mm_get_image_sizes();
 }
 
 /**
@@ -333,9 +325,7 @@ function mm_get_image_size_dimensions( $image_size = '' ) {
 function mm_get_mm_posts_templates() {
 
 	// All core and custom templates should be registered using this filter.
-	$templates = apply_filters( 'mm_posts_templates', array() );
-
-	return $templates;
+	return apply_filters( 'mm_posts_templates', array() );
 }
 
 /**
@@ -352,9 +342,7 @@ function mm_get_mm_posts_templates_for_vc() {
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	$templates = $empty_option + array_flip( mm_get_mm_posts_templates() );
-
-	return $templates;
+	return $empty_option + array_flip( mm_get_mm_posts_templates() );
 }
 
 /**
@@ -398,9 +386,7 @@ function mm_get_social_networks() {
  */
 function mm_get_social_networks_for_vc() {
 
-	$networks = array_flip( mm_get_social_networks() );
-
-	return $networks;
+	return array_flip( mm_get_social_networks() );
 }
 
 /**
@@ -435,9 +421,7 @@ function mm_get_user_roles() {
  */
 function mm_get_user_roles_for_vc() {
 
-	$user_roles = array_flip( mm_get_user_roles() );
-
-	return $user_roles;
+	return array_flip( mm_get_user_roles() );
 }
 
 /**
@@ -456,9 +440,7 @@ function mm_get_available_colors() {
 		'dark'    => __( 'Dark', 'mm-components' ),
 	);
 
-	$colors = apply_filters( 'mm_get_available_colors', $colors );
-
-	return $colors;
+	return apply_filters( 'mm_get_available_colors', $colors );
 }
 
 /**
@@ -470,9 +452,7 @@ function mm_get_available_colors() {
  */
 function mm_get_available_colors_for_vc() {
 
-	$colors = array_flip( mm_get_available_colors() );
-
-	return $colors;
+	return array_flip( mm_get_available_colors() );
 }
 
 /**
@@ -503,7 +483,5 @@ function mm_get_text_alignment() {
  */
 function mm_get_text_alignment_for_vc() {
 
-	$text_alignment = array_flip( mm_get_text_alignment() );
-
-	return $text_alignment;
+	return array_flip( mm_get_text_alignment() );
 }
