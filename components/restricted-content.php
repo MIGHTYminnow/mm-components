@@ -67,13 +67,19 @@ function mm_restricted_content( $args ) {
 		$inner_output = $content;
 	}
 
-	ob_start(); ?>
+		/* Returns empty string if invalid user and no invalid user message is input.*/
+	if ( ! $valid_user && '' === $other_content ) {
 
-	<div class="<?php echo esc_attr( $mm_classes ); ?>">
-		<div class="mm-restricted-content-inner">
-			<?php echo do_shortcode( $inner_output ); ?>
+		return '';
+	}
+
+		ob_start(); ?>
+
+		<div class="<?php echo esc_attr( $mm_classes ); ?>">
+			<div class="mm-restricted-content-inner">
+				<?php echo do_shortcode( $inner_output ); ?>
+			</div>
 		</div>
-	</div>
 
 	<?php
 
@@ -205,6 +211,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 			'roles'              => '',
 			'restricted_content' => '',
 			'other_content'      => '',
+			'mm_custom_class'    => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
@@ -215,6 +222,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		$roles              = $instance['roles'];
 		$restricted_content = $instance['restricted_content'];
 		$other_content      = $instance['other_content'];
+		$mm_custom_class    = $instance['mm_custom_class'];
 
 		echo $args['before_widget'];
 
@@ -241,6 +249,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 			'roles'              => '',
 			'restricted_content' => '',
 			'other_content'      => '',
+			'mm_custom_class'    => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
@@ -250,6 +259,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		$roles              = $instance['roles'];
 		$restricted_content = $instance['restricted_content'];
 		$other_content      = $instance['other_content'];
+		$mm_custom_class    = $instance['mm_custom_class'];
 		$classname          = $this->options['classname'];
 
 		// Title.
@@ -284,6 +294,14 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 			'other_content',
 			$other_content
 		);
+
+		// Other content.
+		$this->field_text(
+			__( 'Add a custom class to widget wrapper.', 'mm-components' ),
+			$classname . '-mm-custom-class widefat',
+			'mm_custom_class',
+			$mm_custom_class
+		);
 	}
 
 	/**
@@ -303,6 +321,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		$instance['roles']              = sanitize_text_field( $new_instance['roles'] );
 		$instance['restricted_content'] = wp_kses_post( $new_instance['restricted_content'] );
 		$instance['other_content']      = wp_kses_post( $new_instance['other_content'] );
+		$instance['mm_custom_class']    = sanitize_text_field( $new_instance['mm_custom_class'] );
 
 		return $instance;
 	}
