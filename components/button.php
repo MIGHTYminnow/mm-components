@@ -8,22 +8,25 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'mm_button', 'mm_button_shortcode' );
 /**
- * Output Mm Button.
+ * Build and return the Button component.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
- * @param   array  $atts  Shortcode attributes.
+ * @param   array  $args  The args.
  *
- * @return  string        Shortcode output.
+ * @return  string        The HTML.
  */
-function mm_button_shortcode( $atts, $content = null, $tag ) {
+function mm_button( $args ) {
 
-	$atts = mm_shortcode_atts( array(
+	$component  = 'mm-button';
+
+	// Set our defaults and use them as needed.
+	$defaults = array(
 		'link'          => '',
 		'link_title'    => '',
 		'link_target'   => '',
+		'button_text'   => '',
 		'class'         => '',
 		'style'         => '',
 		'corner_style'  => '',
@@ -32,20 +35,21 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 		'size'          => '',
 		'full_width'    => '',
 		'alignment'     => 'left',
-	), $atts );
+	);
+	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Handle a raw link or a VC link array.
 	$link_url    = '';
 	$link_title  = '';
 	$link_target = '';
 
-	if ( ! empty( $atts['link'] ) ) {
+	if ( ! empty( $args['link'] ) ) {
 
-		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
+		if ( 'url' === substr( $args['link'], 0, 3 ) ) {
 
 			if ( function_exists( 'vc_build_link' ) ) {
 
-				$link_array  = vc_build_link( $atts['link'] );
+				$link_array  = vc_build_link( $args['link'] );
 				$link_url    = $link_array['url'];
 				$link_title  = $link_array['title'];
 				$link_target = $link_array['target'];
@@ -53,47 +57,47 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 
 		} else {
 
-			$link_url    = $atts['link'];
-			$link_title  = $atts['link_title'];
-			$link_target = $atts['link_target'];
+			$link_url    = $args['link'];
+			$link_title  = $args['link_title'];
+			$link_target = $args['link_target'];
 		}
 	}
 
 	// Build the alignment class.
-	$alignment = 'mm-text-align-' . $atts['alignment'];
+	$alignment = 'mm-text-align-' . $args['alignment'];
 
 	// Setup button classes.
 	$classes = array();
 	$classes[] = 'mm-button';
-	if ( ! empty( $atts['class'] ) ) {
-		$classes[] = $atts['class'];
+	if ( ! empty( $args['class'] ) ) {
+		$classes[] = $args['class'];
 	}
-	if ( ! empty( $atts['style'] ) ) {
-		$classes[] = $atts['style'];
+	if ( ! empty( $args['style'] ) ) {
+		$classes[] = $args['style'];
 	}
-	if ( ! empty( $atts['corner_style'] ) ) {
-		$classes[] = $atts['corner_style'];
+	if ( ! empty( $args['corner_style'] ) ) {
+		$classes[] = $args['corner_style'];
 	}
-	if ( ! empty( $atts['border_weight'] ) ) {
-		$classes[] = $atts['border_weight'];
+	if ( ! empty( $args['border_weight'] ) ) {
+		$classes[] = $args['border_weight'];
 	}
-	if ( ! empty( $atts['color'] ) ) {
-		$classes[] = $atts['color'];
+	if ( ! empty( $args['color'] ) ) {
+		$classes[] = $args['color'];
 	}
-	if( ! empty( $atts['size'] ) ) {
-		$classes[] = $atts['size'];
+	if( ! empty( $args['size'] ) ) {
+		$classes[] = $args['size'];
 	}
-	if( ! empty( $atts['full_width'] ) ) {
-		$classes[] = $atts['full_width'];
+	if( ! empty( $args['full_width'] ) ) {
+		$classes[] = $args['full_width'];
 	}
 
 	$classes = implode( ' ', $classes );
 
 	// Remove any paragraphs and extra whitespace in the button text.
-	$content = wp_kses( trim( $content ), '<p>' );
+	$button_text = wp_kses( trim( $args['button_text'] ), '<p>' );
 
 	// Get Mm classes.
-	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
 	// Use wrapper class on main wrapper.
 	$mm_classes = str_replace( 'mm-button', 'mm-button-wrapper', $mm_classes );
@@ -102,14 +106,31 @@ function mm_button_shortcode( $atts, $content = null, $tag ) {
 	ob_start(); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes . ' ' . $alignment ); ?>">
-		<a class="<?php echo esc_attr( $classes ); ?>" href="<?php echo esc_url( $link_url ) ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo do_shortcode( $content ) ?></a>
+		<a class="<?php echo esc_attr( $classes ); ?>" href="<?php echo esc_url( $link_url ) ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo do_shortcode( $button_text ) ?></a>
 	</div>
 
 	<?php
 
-	$output = ob_get_clean();
+	return ob_get_clean();
+}
 
-	return do_shortcode( $output );
+add_shortcode( 'mm_button', 'mm_button_shortcode' );
+/**
+ * Button shortcode.
+ *
+ * @since  1.0.0
+ *
+ * @param   array  $atts  Shortcode attributes.
+ *
+ * @return  string        Shortcode output.
+ */
+function mm_button_shortcode( $atts = array(), $content = null ) {
+
+	if ( $content ) {
+		$atts['button_text'] = $content;
+	}
+
+	return mm_button( $atts );
 }
 
 add_action( 'vc_before_init', 'mm_vc_button' );
@@ -272,29 +293,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 	public function widget( $args, $instance ) {
 
 		// At this point, all instance options have been sanitized.
-		$title         = apply_filters( 'widget_title', $instance['title'] );
-		$link          = $instance['link'];
-		$link_title    = $instance['link_title'];
-		$style         = $instance['style'];
-		$corner_style  = $instance['corner_style'];
-		$border_weight = $instance['border_weight'];
-		$color         = $instance['color'];
-		$size          = $instance['size'];
-		$full_width    = $instance['full_width'];
-		$alignment     = $instance['alignment'];
-
-		$shortcode = sprintf(
-			'[mm_button link="%s" style="%s" corner_style="%s" border_weight="%s" color="%s" size="%s" full_width="%s" alignment="%s"]%s[/mm_button]',
-			$link,
-			$style,
-			$corner_style,
-			$border_weight,
-			$color,
-			$size,
-			$full_width,
-			$alignment,
-			$link_title
-		);
+		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
 
@@ -302,7 +301,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
-		echo do_shortcode( $shortcode );
+		echo mm_button( $instance );
 
 		echo $args['after_widget'];
 	}
@@ -319,7 +318,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		$defaults = array(
 			'title'         => '',
 			'link'          => '',
-			'link_title'    => '',
+			'button_text'   => '',
 			'style'         => '',
 			'corner_style'  => '',
 			'border_weight' => '',
@@ -334,7 +333,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 
 		$title          = $instance['title'];
 		$link           = $instance['link'];
-		$link_title     = $instance['link_title'];
+		$button_text    = $instance['button_text'];
 		$style          = $instance['style'];
 		$corner_style   = $instance['corner_style'];
 		$border_weight  = $instance['border_weight'];
@@ -346,12 +345,24 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		$colors         = mm_get_available_colors();
 		$text_alignment = mm_get_text_alignment();
 
+		// Handle the case of a newly added widget that doesn't yet have button text set.
+		$preview_instance = $instance;
+		if ( '' == $preview_instance['button_text'] ) {
+			$preview_instance['button_text'] = __( 'Button Text', 'mm-components' );
+		}
+
 		// Title.
 		$this->field_text(
 			__( 'Title', 'mm-components' ),
 			$classname . '-title widefat',
 			'title',
 			$title
+		);
+
+		// Preview.
+		$this->field_custom(
+			__( 'Button Preview', 'mm-components' ),
+			'<div class="mm-button-preview-wrap">' . mm_button( $preview_instance ) . '</div>'
 		);
 
 		// Link.
@@ -365,9 +376,9 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Link title.
 		$this->field_text(
 			__( 'Button Text', 'mm-components' ),
-			$classname . '-link_title widefat',
-			'link_title',
-			$link_title
+			$classname . '-button-text widefat',
+			'button_text',
+			$button_text
 		);
 
 		// Button style.
@@ -388,7 +399,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Corner style.
 		$this->field_select(
 			__( 'Corner Style', 'mm-components' ),
-			$classname . '-corner_style widefat',
+			$classname . '-corner-style widefat',
 			'corner_style',
 			$corner_style,
 			array(
@@ -401,7 +412,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Border weight.
 		$this->field_select(
 			__( 'Border Weight', 'mm-components' ),
-			$classname . 'border_weight widefat',
+			$classname . 'border-weight widefat',
 			'border_weight',
 			$border_weight,
 			array(
@@ -435,7 +446,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Full width.
 		$this->field_checkbox(
 			__( 'Full Width', 'mm-components' ),
-			$classname . '-full_width widefat',
+			$classname . '-full-width widefat',
 			'full_width',
 			$full_width
 		);
@@ -462,9 +473,9 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 	public function update( $new_instance, $old_instance ) {
 
 		$instance                  = $old_instance;
-		$instance['title']         = wp_kses_post($new_instance['title'] );
+		$instance['title']         = wp_kses_post( $new_instance['title'] );
 		$instance['link']          = ( '' !== $new_instance['link'] ) ? esc_url( $new_instance['link'] ) : '';
-		$instance['link_title']    = wp_kses_post($new_instance['link_title']);
+		$instance['button_text']   = wp_kses_post( $new_instance['button_text'] );
 		$instance['style']         = sanitize_text_field( $new_instance['style'] );
 		$instance['corner_style']  = sanitize_text_field( $new_instance['corner_style'] );
 		$instance['border_weight'] = sanitize_text_field( $new_instance['border_weight'] );

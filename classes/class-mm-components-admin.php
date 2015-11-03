@@ -70,6 +70,14 @@ class Mm_Components_Admin {
 			true
 		);
 
+		// General styles.
+		wp_register_style(
+			'mm-components-public',
+			MM_COMPONENTS_URL . 'css/mm-components-public.css',
+			array(),
+			MM_COMPONENTS_VERSION
+		);
+
 		// Only enqueue on specific admin pages.
 		if ( 'widgets.php' === $hook ) {
 			wp_enqueue_media();
@@ -77,7 +85,7 @@ class Mm_Components_Admin {
 			wp_enqueue_script( 'alpha-color-picker' );
 			wp_enqueue_style( 'mm-components-admin' );
 			wp_enqueue_script( 'mm-components-admin' );
+			wp_enqueue_style( 'mm-components-public' );
 		}
 	}
-
 }
