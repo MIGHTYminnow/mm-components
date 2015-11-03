@@ -54,7 +54,7 @@ function mm_restricted_content( $args ) {
 	if ( strpos( $content, '<' ) ) {
 
 		/* We have HTML */
-		$inner_content = ( function_exists( 'wpb_js_remove_wpautop' ) ) ? wpb_js_remove_wpautop( $content, true ) : $content;
+		$inner_output = ( function_exists( 'wpb_js_remove_wpautop' ) ) ? wpb_js_remove_wpautop( $content, true ) : $content;
 
 	} elseif ( mm_is_base64( $content ) ) {
 
