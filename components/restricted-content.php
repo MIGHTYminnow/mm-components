@@ -43,7 +43,7 @@ function mm_restricted_content( $args ) {
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
-	if ( $logged_in ) {
+	if ( mm_true_or_false( $logged_in ) && is_user_logged_in() ) {
 		$valid_user = true;
 	}
 
