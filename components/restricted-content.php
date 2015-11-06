@@ -134,7 +134,7 @@ function mm_vc_restricted_content() {
 		'params' => array(
 			array(
 				'type'        => 'checkbox',
-				'heading'     => __( 'User Logged In?', 'mm-components' ),
+				'heading'     => __( 'Restrict to specific user roles?', 'mm-components' ),
 				'param_name'  => 'logged_in',
 				'description' => __( 'Show this content if a user is logged in.', 'mm-components' ),
 				'value'       => array(
@@ -147,6 +147,10 @@ function mm_vc_restricted_content() {
 				'param_name'  => 'roles',
 				'description' => __( 'Which user role should be allowed to view this content?', 'mm-components' ),
 				'value'       => $roles,
+				'dependency' => array(
+					'element'   => 'logged_in',
+					'not_empty' => true,
+				),
 			),
 			array(
 				'type'        => 'textarea_raw_html',
