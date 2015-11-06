@@ -346,6 +346,73 @@ function mm_get_mm_posts_templates_for_vc() {
 }
 
 /**
+ * Return an array of Mm Users templates.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of template names.
+ */
+function mm_get_mm_users_templates() {
+
+	// All core and custom templates should be registered using this filter.
+	return apply_filters( 'mm_users_templates', array() );
+}
+
+/**
+ * Return an array of Mm Users templates for use in a Visual Composer param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of template names.
+ */
+function mm_get_mm_users_templates_for_vc() {
+
+	// Add an empty first option.
+	$empty_option = array(
+		__( 'Default', 'mm-components' ) => '',
+	);
+
+	return $empty_option + array_flip( mm_get_mm_users_templates() );
+}
+
+/**
+ * Return an array of HTML wrap elements.
+ *
+ * @since  1.0.0
+ *
+ * @return  array  The array of wrap elements.
+ */
+function mm_get_wrap_elements() {
+
+	$wrap_elements = array(
+		'article' => 'article',
+		'div'     => 'div',
+		'ul'      => 'ul',
+		'ol'      => 'ol',
+		'span'    => 'span',
+	);
+
+	return apply_filters( 'mm_components_wrap_elements', $wrap_elements );
+}
+
+/**
+ * Return an array of HTML wrap elements for use in a Visual Composer param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of wrap elements.
+ */
+function mm_get_wrap_elements_for_vc() {
+
+	// Add an empty first option.
+	$empty_option = array(
+		__( 'Default', 'mm-components' ) => '',
+	);
+
+	return $empty_option + array_flip( mm_get_wrap_elements() );
+}
+
+/**
  * Return an array of Mm Social Icons types.
  *
  * @since   1.0.0
@@ -477,11 +544,80 @@ function mm_get_text_alignment() {
 /**
  * Return an array of text alignments for use in a Visual Composer dropdown param.
  *
- * @since 1.0.0
+ * @since   1.0.0
  *
  * @return  array  The array of text alignment options.
  */
 function mm_get_text_alignment_for_vc() {
 
 	return array_flip( mm_get_text_alignment() );
+}
+
+/**
+ * Output <table>.
+ *
+ * @since  1.0.0
+ *
+ * @param  string  $classes  The classes for the table.
+ */
+function mm_output_table_element_open( $classes = '' ) {
+
+	if ( '' !== $classes ) {
+		printf(
+			'<table class="%s">',
+			esc_attr( $classes )
+		);
+	} else {
+		echo '<table>';
+	}
+}
+
+/**
+ * Output </table>.
+ *
+ * @since  1.0.0
+ */
+function mm_output_table_element_close() {
+
+	echo '</table>';
+}
+
+/**
+ * Output <thead>.
+ *
+ * @since  1.0.0
+ */
+function mm_output_thead_element_open() {
+
+	echo '<thead>';
+}
+
+/**
+ * Output </thead>.
+ *
+ * @since  1.0.0
+ */
+function mm_output_thead_element_close() {
+
+	echo '</thead>';
+}
+
+/**
+ * Output <tbody>.
+ *
+ * @since  1.0.0
+ */
+function mm_output_tbody_element_open() {
+
+	echo '<tbody>';
+}
+
+/**
+ * Output </tbody>.
+ *
+ * @since  1.0.0
+ */
+function mm_output_tbody_element_close() {
+
+	echo '</tbody>';
 }

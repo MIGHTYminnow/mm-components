@@ -67,6 +67,7 @@ function mm_components_init_components() {
 		'restricted-content' => __( 'Restricted Content', 'mm-components' ),
 		'social-icons'       => __( 'Social Icons', 'mm-components' ),
 		'twitter-feed'       => __( 'Twitter Feed', 'mm-components' ),
+		'users'              => __( 'Users', 'mm-components' ),
 	);
 
 	// Allow the theme to turn off specific components.
@@ -125,6 +126,10 @@ function mm_components_init_components() {
 	}
 	if ( array_key_exists( 'twitter-feed', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/twitter-feed.php';
+	}
+	if ( array_key_exists( 'users', $mm_active_components ) ) {
+		require_once MM_COMPONENTS_PATH . 'components/users/users.php';
+		require_once MM_COMPONENTS_PATH . 'components/users/templates/user-table.php';
 	}
 
 	// Include Visual Composer Integration if VC is activated.
