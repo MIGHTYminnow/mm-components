@@ -74,7 +74,7 @@ function mm_users_user_table_output_table_open() {
 /**
  * Output thead row.
  */
-function mm_users_user_table_output_thead_row() {
+function mm_users_user_table_output_thead_row( $query, $context, $args ) {
 
 	ob_start(); ?>
 
@@ -86,7 +86,7 @@ function mm_users_user_table_output_thead_row() {
 
 	<?php
 
-	echo apply_filters( 'mm_users_user_table_thead_row', ob_get_clean() );
+	echo apply_filters( 'mm_users_user_table_thead_row', ob_get_clean(), $query, $context, $args );
 }
 
 /**
@@ -110,5 +110,5 @@ function mm_users_user_table_output_user_row( $user, $context, $args ) {
 
 	<?php
 
-	echo apply_filters( 'mm_users_user_table_user_row', ob_get_clean() );
+	echo apply_filters( 'mm_users_user_table_user_row', ob_get_clean(), $user, $context, $args );
 }
