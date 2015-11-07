@@ -111,10 +111,22 @@ CONTENT;
 [/vc_column_text][mm_button link="url:%23||" style="gradient" corner_style="rounded" color="dark" alignment="center"]Juicy Click Target  [icon name="fighter-jet" class="" unprefixed_class=""][/mm_button][/vc_column_inner][/vc_row_inner][/vc_column][/vc_row][vc_row][vc_column][vc_empty_space height="35px"][/vc_column][/vc_row]
 CONTENT;
 
+	// Demo template for Mm Restricted Content.
+	$restricted_content                 = array();
+	$restricted_content['name']         = __( 'Mm Components - Restricted Content', 'mm-components' );
+	$restricted_content['weight']       = 99;
+	$restricted_content['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
+	$restricted_content['custom_class'] = 'mm_components_restricted_content_template';
+	$restricted_content['content']      = <<<CONTENT
+	[vc_row][vc_column][vc_empty_space][vc_column_text]The Restricted Content component is all about showing certain content to certain users only. Any content placed inside the Restricted Content component will be visible to only logged in users by default.
+
+You can further restrict the content to only specific user roles, and you can also provide an alternate message to show to users who are not logged in.[/vc_column_text][vc_empty_space][vc_text_separator title="Only logged in users will see the content below:"][mm_restricted_content logged_in="1"][mm_custom_heading text_align="center"]Special Content for Logged In Users Only[/mm_custom_heading][/mm_restricted_content][vc_empty_space][vc_empty_space][vc_text_separator title="Logged in will see the content, logged out will see a message:"][mm_restricted_content other_content="JTNDcCUyMHN0eWxlJTNEJTIydGV4dC1hbGlnbiUzQSUyMGNlbnRlciUzQiUyMiUzRUxvb2tzJTIwbGlrZSUyMHlvdSUyMGFyZW4lMjd0JTIwbG9nZ2VkJTIwaW4uJTIwUGxlYXNlJTIwdmlzaXQlMjB0aGUlMjAlM0NhJTIwaHJlZiUzRCUyMiUyRndwLWxvZ2luLnBocCUyMiUzRWxvZ2luJTIwcGFnZSUzQyUyRmElM0UuJTNDJTJGcCUzRQ==" logged_in="1"][mm_custom_heading text_align="center"]Special Content for Logged In Users Only[/mm_custom_heading][/mm_restricted_content][vc_empty_space][vc_empty_space][vc_text_separator title="Only administrators will see the content below:"][mm_restricted_content specific_roles="0" roles="administrator" logged_in="1"][mm_custom_heading text_align="center"]Special Content for Admins Only[/mm_custom_heading][/mm_restricted_content][/vc_column][vc_column][/vc_column][/vc_row]
+CONTENT;
+
 	// Demo template for Mm Social Icon.
 	$social_icons                 = array();
 	$social_icons['name']         = __( 'Mm Components - Social Icons', 'mm-components' );
-	$socia_icons['weight']        = 99;
+	$social_icons['weight']        = 99;
 	$social_icons['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
 	$social_icons['custom_class'] = 'mm_components_social_icons_template';
 	$social_icons['content']      = <<<CONTENT
@@ -189,16 +201,6 @@ CONTENT;
 [/vc_column_text][mm_social_icons icon_type="images" alignment="center" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][/vc_column_inner][/vc_row_inner][vc_empty_space][vc_column_text]
 <p style="text-align: center;">Large</p>
 [/vc_column_text][mm_social_icons icon_type="images" alignment="center" size="large" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][/vc_column][/vc_row]
-CONTENT;
-
-	// Demo template for restricted content.
-	$restricted_content                 = array();
-	$restricted_content['name']         = __( 'Mm Components - Restricted Content', 'mm-components' );
-	$restricted_content['weight']       = 99;
-	$restricted_content['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
-	$restricted_content['custom_class'] = 'mm_components_restricted_content_template';
-	$restricted_content['content']      = <<<CONTENT
-	[vc_row][vc_column][vc_text_separator title="Logged in"][mm_restricted_content other_content="QWxsJTIwbG9nZ2VkJTIwaW4lMjB1c2VycyUyMGNhbiUyMHZpZXclMjB0aGlzJTIwY29udGVudC4=" logged_in="1"][vc_column_text]This is the content that all logged in users can view.[/vc_column_text][/mm_restricted_content][vc_empty_space][vc_text_separator title="Logged out"][mm_restricted_content specific_roles="0" roles="administrator" other_content="U29ycnklMkMlMjB5b3UlMjBtdXN0JTIwYmUlMjBsb2dnZWQlMjBpbiUyMHRvJTIwdmlldyUyMHRoaXMlMjBjb250ZW50Lg==" logged_in="1"][vc_column_text]Sorry, you must be logged in to view this content.[/vc_column_text][/mm_restricted_content][vc_empty_space][vc_text_separator title="Administrators"][mm_restricted_content specific_roles="0" roles="administrator" other_content="VGhpcyUyMGlzJTIwdGhlJTIwY29udGVudCUyMHRoYXQlMjBhZG1pbmlzdHJhdG9ycyUyMGNhbiUyMHZpZXcu" logged_in="1"][vc_column_text]This is the content that administrators can view.[/vc_column_text][/mm_restricted_content][/vc_column][vc_column][/vc_column][/vc_row
 CONTENT;
 
 	$templates[] = $all;
