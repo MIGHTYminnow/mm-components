@@ -137,7 +137,7 @@ function mm_vc_restricted_content() {
 				'type'        => 'checkbox',
 				'heading'     => __( 'Restrict to specific user roles?', 'mm-components' ),
 				'param_name'  => 'specific_roles',
-				'description' => __( 'Show this content if a user is logged in.', 'mm-components' ),
+				'description' => __( 'By default only logged in users will see the restricted content. Check this to further restrict to specific user roles.', 'mm-components' ),
 				'value'       => array(
 					__( 'Yes', 'mm-components' ) => 0,
 				),
@@ -146,7 +146,7 @@ function mm_vc_restricted_content() {
 				'type'       =>  'checkbox',
 				'heading'     => __( 'Allowed User Roles', 'mm-components' ),
 				'param_name'  => 'roles',
-				'description' => __( 'Which user role should be allowed to view this content?', 'mm-components' ),
+				'description' => __( 'Select the user role(s) that should be allowed to view the restricted content.', 'mm-components' ),
 				'value'       => $roles,
 				'dependency' => array(
 					'element'   => 'specific_roles',
@@ -155,9 +155,9 @@ function mm_vc_restricted_content() {
 			),
 			array(
 				'type'        => 'textarea_raw_html',
-				'heading'     => __( 'Invalid User Message', 'mm-components' ),
+				'heading'     => __( 'Alternate Content', 'mm-components' ),
 				'param_name'  => 'other_content',
-				'description' => __( 'This message will be shown to users who do not have the specified role.', 'mm-components' ),
+				'description' => __( 'The content entered here will be shown to users who do not meet the criteria set above. HTML and shortcodes are allowed.', 'mm-components' ),
 				'value'       => '',
 			),
 		),
