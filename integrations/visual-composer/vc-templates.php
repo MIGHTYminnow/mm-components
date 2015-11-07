@@ -48,7 +48,7 @@ Icon box text. Icon box text. Icon box text. Icon box text.[/mm_icon_box][/vc_co
 
 Just some text content for the polaroid.
 
-[/mm_polaroid][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Polaroid 2"][mm_polaroid_2 title="Polaroid 2" image="57" caption="Just a polaroid caption here" caption_color="dark-text" link="url:http%3A%2F%2Fexample.com||"][/vc_column][/vc_row][vc_row][vc_column][mm_posts post_type="post" show_featured_image="1" show_post_info="1" show_post_meta="1"][/vc_column][/vc_row]
+[/mm_polaroid][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Polaroid 2"][mm_polaroid_2 title="Polaroid 2" image="57" caption="Just a polaroid caption here" caption_color="dark-text" link="url:http%3A%2F%2Fexample.com||"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Restricted Content"][mm_restricted_content][vc_column_text]This is the content that all logged in users can view.[/vc_column_text][/mm_restricted_content][/vc_column][/vc_row][vc_row][vc_column][mm_posts post_type="post" show_featured_image="1" show_post_info="1" show_post_meta="1"][/vc_column][/vc_row]
 CONTENT;
 
 	// Demo template for Mm Button.
@@ -191,9 +191,20 @@ CONTENT;
 [/vc_column_text][mm_social_icons icon_type="images" alignment="center" size="large" facebook_link="#" twitter_link="#" instagram_link="#" pinterest_link="#" youtube_link="#"][vc_empty_space][/vc_column][/vc_row]
 CONTENT;
 
+	// Demo template for restricted content.
+	$restricted_content                 = array();
+	$restricted_content['name']         = __( 'Mm Components - Restricted Content', 'mm-components' );
+	$restricted_content['weight']       = 99;
+	$restricted_content['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
+	$restricted_content['custom_class'] = 'mm_components_restricted_content_template';
+	$restricted_content['content']      = <<<CONTENT
+	[vc_row][vc_column][vc_text_separator title="Logged in"][mm_restricted_content other_content="QWxsJTIwbG9nZ2VkJTIwaW4lMjB1c2VycyUyMGNhbiUyMHZpZXclMjB0aGlzJTIwY29udGVudC4=" logged_in="1"][vc_column_text]This is the content that all logged in users can view.[/vc_column_text][/mm_restricted_content][vc_empty_space][vc_text_separator title="Logged out"][mm_restricted_content specific_roles="0" roles="administrator" other_content="U29ycnklMkMlMjB5b3UlMjBtdXN0JTIwYmUlMjBsb2dnZWQlMjBpbiUyMHRvJTIwdmlldyUyMHRoaXMlMjBjb250ZW50Lg==" logged_in="1"][vc_column_text]Sorry, you must be logged in to view this content.[/vc_column_text][/mm_restricted_content][vc_empty_space][vc_text_separator title="Administrators"][mm_restricted_content specific_roles="0" roles="administrator" other_content="VGhpcyUyMGlzJTIwdGhlJTIwY29udGVudCUyMHRoYXQlMjBhZG1pbmlzdHJhdG9ycyUyMGNhbiUyMHZpZXcu" logged_in="1"][vc_column_text]This is the content that administrators can view.[/vc_column_text][/mm_restricted_content][/vc_column][vc_column][/vc_column][/vc_row
+CONTENT;
+
 	$templates[] = $all;
 	$templates[] = $button;
 	$templates[] = $social_icons;
+	$templates[] = $restricted_content;
 
 	return $templates;
 }

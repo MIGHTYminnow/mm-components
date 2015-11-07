@@ -24,7 +24,7 @@ function mm_restricted_content( $args ) {
 	// Set our defaults and use them as needed.
 	$defaults = array(
 		'title'              => '',
-		'logged_in'          => '',
+		'specific_roles'     => '',
 		'roles'              => '',
 		'restricted_content' => '',
 		'other_content'      => '',
@@ -33,7 +33,7 @@ function mm_restricted_content( $args ) {
 
 	// Get clean param values.
 	$title              = $args['title'];
-	$logged_in          = $args['logged_in'];
+	$specific_roles     = $args['specific_roles'];
 	$roles              = ( strpos( $args['roles'], ',' ) ) ? explode( ',', $args['roles'] ) : (array)$args['roles'];
 	$restricted_content = $args['restricted_content'];
 	$other_content      = $args['other_content'];
@@ -43,14 +43,16 @@ function mm_restricted_content( $args ) {
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
-	if ( mm_true_or_false( $logged_in ) && is_user_logged_in() ) {
-		$valid_user = true;
-	}
-
-	foreach ( $roles as $role ) {
-		if ( mm_check_user_role( $role ) ) {
+	if ( is_user_logged_in() ) {
+		if ( '' !== $roles[0] ) {
+			foreach ( $roles as $role ) {
+				if ( mm_check_user_role( $role ) ) {
+					$valid_user = true;
+					break;
+				}
+			}
+		} else {
 			$valid_user = true;
-			break;
 		}
 	}
 
@@ -135,10 +137,10 @@ function mm_vc_restricted_content() {
 			array(
 				'type'        => 'checkbox',
 				'heading'     => __( 'Restrict to specific user roles?', 'mm-components' ),
-				'param_name'  => 'logged_in',
+				'param_name'  => 'specific_roles',
 				'description' => __( 'Show this content if a user is logged in.', 'mm-components' ),
 				'value'       => array(
-					__( 'Yes', 'mm-components' ) => 1,
+					__( 'Yes', 'mm-components' ) => 0,
 				),
 			),
 			array(
@@ -148,7 +150,7 @@ function mm_vc_restricted_content() {
 				'description' => __( 'Which user role should be allowed to view this content?', 'mm-components' ),
 				'value'       => $roles,
 				'dependency' => array(
-					'element'   => 'logged_in',
+					'element'   => 'specific_roles',
 					'not_empty' => true,
 				),
 			),
@@ -227,7 +229,6 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 
 		$defaults = array(
 			'title'              => '',
-			'logged_in'          => '',
 			'roles'              => '',
 			'restricted_content' => '',
 			'other_content'      => '',
@@ -239,7 +240,6 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 
 		// At this point all instance options have been sanitized.
 		$title              = apply_filters( 'widget_title', $instance['title'] );
-		$logged_in          = $instance['logged_in'];
 		$roles              = $instance['roles'];
 		$restricted_content = $instance['restricted_content'];
 		$other_content      = $instance['other_content'];
@@ -267,7 +267,6 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 
 		$defaults = array(
 			'title'              => '',
-			'logged_in'          => '',
 			'roles'              => '',
 			'restricted_content' => '',
 			'other_content'      => '',
@@ -278,7 +277,6 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		$instance = wp_parse_args( $instance, $defaults );
 
 		$title              = $instance['title'];
-		$logged_in          = $instance['logged_in'];
 		$roles              = $instance['roles'];
 		$restricted_content = $instance['restricted_content'];
 		$other_content      = $instance['other_content'];
@@ -293,18 +291,9 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 			$title
 		);
 
-		// User logged in.
-		$this->field_checkbox(
-			__( 'User roles to show restricted content to:', 'mm-components' ),
-			$classname . '-logged-in widefat',
-			'logged_in',
-			$logged_in,
-			mm_get_user_roles()
-		);
-
 		// User roles.
 		$this->field_multi_checkbox(
-			__( 'User roles to show restricted content to:', 'mm-components' ),
+			__( 'Allowed user roles.', 'mm-components' ),
 			$classname . '-roles widefat',
 			'roles',
 			$roles,
@@ -350,7 +339,6 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 
 		$instance = $old_instance;
 		$instance['title']              = wp_kses_post( $new_instance['title'] );
-		$instance['logged_in']          = sanitize_text_field( $new_instance['logged_in'] );
 		$instance['roles']              = sanitize_text_field( $new_instance['roles'] );
 		$instance['restricted_content'] = wp_kses_post( $new_instance['restricted_content'] );
 		$instance['other_content']      = wp_kses_post( $new_instance['other_content'] );
