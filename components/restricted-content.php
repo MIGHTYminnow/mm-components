@@ -24,6 +24,7 @@ function mm_restricted_content( $args ) {
 	// Set our defaults and use them as needed.
 	$defaults = array(
 		'title'              => '',
+		'specific_roles'     => '',
 		'roles'              => '',
 		'restricted_content' => '',
 		'other_content'      => '',
@@ -32,6 +33,7 @@ function mm_restricted_content( $args ) {
 
 	// Get clean param values.
 	$title              = $args['title'];
+	$specific_roles     = $args['specific_roles'];
 	$roles              = ( strpos( $args['roles'], ',' ) ) ? explode( ',', $args['roles'] ) : (array)$args['roles'];
 	$restricted_content = $args['restricted_content'];
 	$other_content      = $args['other_content'];
@@ -41,10 +43,16 @@ function mm_restricted_content( $args ) {
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
-	foreach ( $roles as $role ) {
-		if ( mm_check_user_role( $role ) ) {
+	if ( is_user_logged_in() ) {
+		if ( '' !== $roles[0] ) {
+			foreach ( $roles as $role ) {
+				if ( mm_check_user_role( $role ) ) {
+					$valid_user = true;
+					break;
+				}
+			}
+		} else {
 			$valid_user = true;
-			break;
 		}
 	}
 
@@ -127,10 +135,23 @@ function mm_vc_restricted_content() {
 		'params' => array(
 			array(
 				'type'        => 'checkbox',
+				'heading'     => __( 'Restrict to specific user roles?', 'mm-components' ),
+				'param_name'  => 'specific_roles',
+				'description' => __( 'Show this content if a user is logged in.', 'mm-components' ),
+				'value'       => array(
+					__( 'Yes', 'mm-components' ) => 0,
+				),
+			),
+			array(
+				'type'       =>  'checkbox',
 				'heading'     => __( 'Allowed User Roles', 'mm-components' ),
 				'param_name'  => 'roles',
 				'description' => __( 'Which user role should be allowed to view this content?', 'mm-components' ),
 				'value'       => $roles,
+				'dependency' => array(
+					'element'   => 'specific_roles',
+					'not_empty' => true,
+				),
 			),
 			array(
 				'type'        => 'textarea_raw_html',
@@ -271,7 +292,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 
 		// User roles.
 		$this->field_multi_checkbox(
-			__( 'User roles to show restricted content to:', 'mm-components' ),
+			__( 'Allowed user roles.', 'mm-components' ),
 			$classname . '-roles widefat',
 			'roles',
 			$roles,
