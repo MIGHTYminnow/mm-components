@@ -1,5 +1,5 @@
 === Mm Components ===
-Contributors: braad, mcguive7, jgonzo127, carrieforde
+Contributors: braad, mcguive7, jgonzo127, carrieforde, roosalles
 Donate link: http://mightyminnow.com/
 Tags: mightyminnow, components
 Requires at least: 4.0
