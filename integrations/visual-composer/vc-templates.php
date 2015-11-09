@@ -48,7 +48,7 @@ Icon box text. Icon box text. Icon box text. Icon box text.[/mm_icon_box][/vc_co
 
 Just some text content for the polaroid.
 
-[/mm_polaroid][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Polaroid 2"][mm_polaroid_2 title="Polaroid 2" image="57" caption="Just a polaroid caption here" caption_color="dark-text" link="url:http%3A%2F%2Fexample.com||"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Restricted Content"][mm_restricted_content][vc_column_text]This is the content that all logged in users can view.[/vc_column_text][/mm_restricted_content][/vc_column][/vc_row][vc_row][vc_column][mm_posts post_type="post" show_featured_image="1" show_post_info="1" show_post_meta="1"][/vc_column][/vc_row]
+[/mm_polaroid][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Polaroid 2"][mm_polaroid_2 title="Polaroid 2" image="57" caption="Just a polaroid caption here" caption_color="dark-text" link="url:http%3A%2F%2Fexample.com||"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Restricted Content"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Only logged in users will see the content below:"][mm_restricted_content logged_in="1"][mm_custom_heading text_align="center"]Special Content for Logged In Users Only[/mm_custom_heading][/mm_restricted_content][/vc_column][/vc_row]
 CONTENT;
 
 	// Demo template for Mm Button.
@@ -126,7 +126,7 @@ CONTENT;
 	// Demo template for Mm Social Icon.
 	$social_icons                 = array();
 	$social_icons['name']         = __( 'Mm Components - Social Icons', 'mm-components' );
-	$social_icons['weight']        = 99;
+	$social_icons['weight']       = 99;
 	$social_icons['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template_icon.png';
 	$social_icons['custom_class'] = 'mm_components_social_icons_template';
 	$social_icons['content']      = <<<CONTENT
