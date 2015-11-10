@@ -29,7 +29,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_text( $label = '', $classes = '', $key = '', $value = '' ) {
+	public function field_text( $label = '', $description = '', $classes = '', $key = '', $value = '' ) {
 
 		echo '<p><label>' . esc_html( $label ) . '</label>';
 
@@ -40,6 +40,13 @@ class Mm_Components_Widget extends WP_Widget {
 			$value
 		);
 
+		if ( '' !== $description) {
+			printf(
+				'<small class="mm-description-text">%s</small>',
+				esc_html( $description )
+			);
+		}
+
 		echo '</p>';
 	}
 
@@ -48,7 +55,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_textarea( $label = '', $classes = '', $key = '', $value = '', $rows = '4', $cols = '4' ) {
+	public function field_textarea( $label = '', $description = '', $classes = '', $key = '', $value = '', $rows = '4', $cols = '4' ) {
 
 		echo '<p><label>' . esc_html( $label ) . '</label>';
 
@@ -61,6 +68,13 @@ class Mm_Components_Widget extends WP_Widget {
 			$value
 		);
 
+		if ( '' !== $description) {
+			printf(
+				'<small class="mm-description-text">%s</small>',
+				esc_html( $description )
+			);
+		}
+
 		echo '</p>';
 	}
 
@@ -69,7 +83,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_select( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
+	public function field_select( $label = '', $description = '', $classes = '', $key = '', $value = '', $options = array() ) {
 
 		echo '<p><label>' . esc_html( $label ) . '</label>';
 
@@ -109,6 +123,13 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '</select>';
 
+		if ( '' !== $description) {
+			printf(
+				'<small class="mm-description-text">%s</small>',
+				esc_html( $description )
+			);
+		}
+
 		echo '</p>';
 	}
 
@@ -117,7 +138,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_checkbox( $label = '', $classes = '', $key = '', $value = '' ) {
+	public function field_checkbox( $label = '', $description = '', $classes = '', $key = '', $value = '' ) {
 
 		$val = (int)mm_true_or_false( $value );
 
@@ -132,6 +153,13 @@ class Mm_Components_Widget extends WP_Widget {
 				$label
 			);
 
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
+
 		echo '</p>';
 	}
 
@@ -140,7 +168,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_multi_checkbox( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
+	public function field_multi_checkbox( $label = '', $description = '', $classes = '', $key = '', $value = '', $options = array() ) {
 
 		if ( ! is_array( $value ) ) {
 			$values = ( strpos( $value, ',' ) ) ? explode( ',', $value ) : (array)$value;
@@ -198,6 +226,13 @@ class Mm_Components_Widget extends WP_Widget {
 
 			echo '</span>';
 
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
+
 		echo '</p>';
 	}
 
@@ -206,7 +241,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_radio( $label = '', $classes = '', $key = '', $value = '', $options = array() ) {
+	public function field_radio( $label = '', $description = '', $classes = '', $key = '', $value = '', $options = array() ) {
 
 		echo '<p><label class="radio-group-label">' . esc_html( $label ) . '</label><br />';
 
@@ -244,6 +279,13 @@ class Mm_Components_Widget extends WP_Widget {
 			}
 		}
 
+		if ( '' !== $description) {
+			printf(
+				'<small class="mm-description-text">%s</small>',
+				esc_html( $description )
+			);
+		}
+
 		echo '</p>';
 	}
 
@@ -252,7 +294,12 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_alpha_color_picker( $label = '', $classes = '', $key = '', $value = '', $palette = true, $default = '#222', $show_opacity = true ) {
+	public function field_alpha_color_picker( $label = '', $description = '', $classes = '', $key = '', $value = '', $options = array() ) {
+
+		// Set our defaults for additional args.
+		$palette = ( isset( $options['palette'] ) ) ? $options['palette'] : 'true';
+		$default = ( isset( $options['default'] ) ) ? $options['default'] : '#222';
+		$show_opacity = ( isset( $options['show-opacity'] ) ) ? $options['show_opacity'] : 'true';
 
 		// Process the palette.
 		if ( is_array( $palette ) ) {
@@ -275,6 +322,13 @@ class Mm_Components_Widget extends WP_Widget {
 			esc_attr( $default )
 		);
 
+		if ( '' !== $description) {
+			printf(
+				'<small><em>%s</em></small>',
+				esc_html( $description )
+			);
+		}
+
 		echo '</p>';
 	}
 
@@ -283,7 +337,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_single_media( $label = '', $classes = '', $key = '', $value = '' ) {
+	public function field_single_media( $label = '', $description = '', $classes = '', $key = '', $value = '' ) {
 
 		if ( is_int( $value ) ) {
 			$image = wp_get_attachment_image_src( $value, 'large' )[0];
@@ -305,6 +359,13 @@ class Mm_Components_Widget extends WP_Widget {
 		</span>
 		<?php
 
+		if ( '' !== $description) {
+			printf(
+				'<small class="mm-description-text">%s</small>',
+				esc_html( $description )
+			);
+		}
+
 		echo '</p>';
 	}
 
@@ -313,7 +374,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_multi_media( $label = '', $classes = '', $key = '', $value = '' ) {
+	public function field_multi_media( $label = '', $description = '', $classes = '', $key = '', $value = '' ) {
 
 		if ( ! empty( $value ) ) {
 			$image_ids = explode( ',', $value );
@@ -352,6 +413,13 @@ class Mm_Components_Widget extends WP_Widget {
 		</span>
 		<?php
 
+		if ( '' !== $description) {
+			printf(
+				'<small class="mm-description-text">%s</small>',
+				esc_html( $description )
+			);
+		}
+
 		echo '</p>';
 	}
 
@@ -360,12 +428,19 @@ class Mm_Components_Widget extends WP_Widget {
 	 *
 	 * @since  1.0.0
 	 */
-	public function field_custom( $label = '', $output = '' ) {
+	public function field_custom( $label = '', $description = '', $output = '' ) {
 
 		printf(
 			'<p><label>%s</label><br />%s</p>',
 			esc_html( $label ),
 			$output
 		);
+
+		if ( '' !== $description) {
+			printf(
+				'<small class="mm-description-text">%s</small>',
+				esc_html( $description )
+			);
+		}
 	}
 }

@@ -285,6 +285,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		// Title.
 		$this->field_text(
 			__( 'Title:', 'mm-components' ),
+			'',
 			$classname . '-title widefat',
 			'title',
 			$title
@@ -293,6 +294,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		// User roles.
 		$this->field_multi_checkbox(
 			__( 'Allowed user roles.', 'mm-components' ),
+			__( 'Select the user role(s) that should be allowed to view the restricted content.', 'mm-components' ),
 			$classname . '-roles widefat',
 			'roles',
 			$roles,
@@ -302,7 +304,8 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		// Restricted content.
 		$this->field_textarea(
 			__( 'Restricted content for users with the selected role(s):', 'mm-components' ),
-			$classname . '-content widefat',
+			'',
+			$classname . '-restricted-content widefat',
 			'restricted_content',
 			$restricted_content
 		);
@@ -310,7 +313,8 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		// Other content.
 		$this->field_textarea(
 			__( 'Optional content for all other users:', 'mm-components' ),
-			$classname . '-invalid-message widefat',
+			__( 'The content entered here will be shown to users who do not meet the criteria set above. HTML and shortcodes are allowed.', 'mm-components' ),
+			$classname . '-other-content widefat',
 			'other_content',
 			$other_content
 		);
@@ -318,6 +322,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		// Custom class.
 		$this->field_text(
 			__( 'Custom class:', 'mm-components' ),
+			'',
 			$classname . '-mm-custom-class widefat',
 			'mm_custom_class',
 			$mm_custom_class

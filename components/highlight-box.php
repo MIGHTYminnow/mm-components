@@ -237,6 +237,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		// Title.
 		$this->field_text(
 			__( 'Title', 'mm-components' ),
+			'',
 			$classname . '-title widefat',
 			'title',
 			$title
@@ -245,6 +246,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		// Heading Text.
 		$this->field_text(
 			__( 'Heading Text', 'mm-components' ),
+			'',
 			$classname . '-heading-text widefat',
 			'heading_text',
 			$heading_text
@@ -253,6 +255,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		// Paragraph Text.
 		$this->field_textarea(
 			__( 'Paragraph Text', 'mm-components' ),
+			'',
 			$classname . '-paragraph-text widefat',
 			'paragraph_text',
 			$paragraph_text
@@ -261,6 +264,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		// Link Text.
 		$this->field_text(
 			__( 'Link Text', 'mm-components' ),
+			'',
 			$classname . '-link-text widefat',
 			'link_text',
 			$link_text
@@ -269,6 +273,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		// Link.
 		$this->field_text(
 			__( 'Link', 'mm-components' ),
+			'',
 			$classname . '-link widefat',
 			'link',
 			$link

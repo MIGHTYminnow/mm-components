@@ -217,6 +217,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 		// Title.
 		$this->field_text(
 			__( 'Title', 'mm-components' ),
+			'',
 			$classname . '-title widefat',
 			'title',
 			$title
@@ -225,6 +226,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 		// Quote.
 		$this->field_textarea(
 			__( 'Quote', 'mm-components' ),
+			'',
 			$classname . '-quote widefat',
 			'quote',
 			$quote
@@ -233,6 +235,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 		// Citation.
 		$this->field_text(
 			__( 'Citation', 'mm-components' ),
+			'',
 			$classname . '-citation widefat',
 			'citation',
 			$citation
@@ -241,6 +244,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 		// Image.
 		$this->field_single_media(
 			__( 'Image ID', 'mm-components' ),
+			__( 'Select an image from the library.', 'mm-components'),
 			$classname . '-image widefat',
 			'image_id',
 			$image_id
