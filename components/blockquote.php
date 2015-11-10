@@ -45,7 +45,7 @@ function mm_blockquote( $args ) {
 			<?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?>
 		<?php endif; ?>
 
-		<?php echo wp_kses_post( '<p>' . $quote . '</p>' ); ?>
+		<?php echo '<p>' . wp_kses_post( $quote ) . '</p>'; ?>
 
 		<?php if ( ! empty( $citation ) ) : ?>
 			<cite><?php echo wp_kses_post( $citation ); ?></cite>
@@ -243,7 +243,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 
 		// Image.
 		$this->field_single_media(
-			__( 'Image ID', 'mm-components' ),
+			__( 'Image', 'mm-components' ),
 			__( 'Select an image from the library.', 'mm-components'),
 			$classname . '-image widefat',
 			'image_id',
