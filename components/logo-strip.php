@@ -273,7 +273,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		// Images.
 		$this->field_multi_media(
 			__( 'Images', 'mm-components' ),
-			__( 'The bigger the image size, the better. Upload an image that is large enough to be output without stretching.', 'mm-components' ),
+			'',
 			$classname . '-images widefat',
 			'images',
 			$images
