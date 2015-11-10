@@ -209,6 +209,7 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 		// Text.
 		$this->field_text(
 			__( 'Text Field', 'mm-components' ),
+			'',
 			$classname . '-text widefat',
 			'text_field',
 			$text_field
@@ -217,23 +218,27 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 		// Alpha Color Picker.
 		$this->field_alpha_color_picker(
 			__( 'Alpha Color Field', 'mm-components' ),
+			'',
 			$classname . '-alpha-color-field',
 			'alpha_color_field',
 			$alpha_color_field,
 			array(
-				'rgba(255, 0, 0, 0.7)',
-				'rgba(54, 0, 170, 0.8)',
-				'#FFCC00',
-				'rgba( 20, 20, 20, 0.8 )',
-				'#00CC77',
-			),
-			'#00CC99',
-			true
+				'default'      => '#00CC99',
+				'show_opacity' => 'true',
+				'palette'      => array(
+					'rgba(255, 0, 0, 0.7)',
+					'rgba(54, 0, 170, 0.8)',
+					'#FFCC00',
+					'rgba( 20, 20, 20, 0.8 )',
+					'#00CC77',
+				),
+			)
 		);
 
 		// Single Media Upload.
 		$this->field_single_media(
 			__( 'Single Media Field', 'mm-components' ),
+			'',
 			$classname . '-single-media-field',
 			'single_media_field',
 			$single_media_field
@@ -242,6 +247,7 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 		// Multi Media Upload.
 		$this->field_multi_media(
 			__( 'Multi Media Field', 'mm-components' ),
+			'',
 			$classname . '-multi-media-field',
 			'multi_media_field',
 			$multi_media_field

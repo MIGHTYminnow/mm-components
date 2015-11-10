@@ -354,6 +354,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Title.
 		$this->field_text(
 			__( 'Title', 'mm-components' ),
+			'',
 			$classname . '-title widefat',
 			'title',
 			$title
@@ -362,12 +363,14 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Preview.
 		$this->field_custom(
 			__( 'Button Preview', 'mm-components' ),
+			'',
 			'<div class="mm-button-preview-wrap">' . mm_button( $preview_instance ) . '</div>'
 		);
 
 		// Link.
 		$this->field_text(
 			__( 'Button Link', 'mm-components' ),
+			'',
 			$classname . '-link widefat',
 			'link',
 			$link
@@ -376,6 +379,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Link title.
 		$this->field_text(
 			__( 'Button Text', 'mm-components' ),
+			'',
 			$classname . '-button-text widefat',
 			'button_text',
 			$button_text
@@ -384,6 +388,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Button style.
 		$this->field_select(
 			__( 'Button Style', 'mm-components' ),
+			'',
 			$classname . '-style widefat',
 			'style',
 			$style,
@@ -399,6 +404,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Corner style.
 		$this->field_select(
 			__( 'Corner Style', 'mm-components' ),
+			'',
 			$classname . '-corner-style widefat',
 			'corner_style',
 			$corner_style,
@@ -412,6 +418,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Border weight.
 		$this->field_select(
 			__( 'Border Weight', 'mm-components' ),
+			'',
 			$classname . 'border-weight widefat',
 			'border_weight',
 			$border_weight,
@@ -424,6 +431,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Color.
 		$this->field_select(
 			__( 'Color', 'mm-components' ),
+			'',
 			$classname . '-color widefat',
 			'color',
 			$color,
@@ -433,6 +441,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Size.
 		$this->field_select(
 			__( 'Size', 'mm-components' ),
+			'',
 			$classname . '-size widefat',
 			'size',
 			$size,
@@ -446,6 +455,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Full width.
 		$this->field_checkbox(
 			__( 'Full Width', 'mm-components' ),
+			__( 'Choosing full-width will make the button take up the width of its container.', 'mm-components' ),
 			$classname . '-full-width widefat',
 			'full_width',
 			$full_width
@@ -454,6 +464,7 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		// Alignment.
 		$this->field_select(
 			__( 'Button Alignment', 'mm-components' ),
+			'',
 			$classname . '-alignment widefat',
 			'alignment',
 			$alignment,

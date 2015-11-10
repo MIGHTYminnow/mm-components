@@ -140,7 +140,7 @@ function mm_vc_logo_strip() {
 				'type'        => 'attach_images',
 				'heading'     => __( 'Logos', 'mm-components' ),
 				'param_name'  => 'images',
-				'description' => __( 'The bigger the image size, the better', 'mm-components' ),
+				'description' => __( 'The bigger the image size, the better.', 'mm-components' ),
 				'value'       => '',
 			),
 			array(
@@ -250,6 +250,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		// Title.
 		$this->field_text(
 			__( 'Title', 'mm-components' ),
+			'',
 			$classname . '-title widefat',
 			'title',
 			$title
@@ -258,6 +259,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		// Title Alignment.
 		$this->field_select(
 			__( 'Title Alignment', 'mm-components' ),
+			'',
 			$classname . '-title-alignment widefat',
 			'title_alignment',
 			$title_alignment,
@@ -271,6 +273,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		// Images.
 		$this->field_multi_media(
 			__( 'Images', 'mm-components' ),
+			__( 'The bigger the image size, the better. Upload an image that is large enough to be output without stretching.', 'mm-components' ),
 			$classname . '-images widefat',
 			'images',
 			$images
@@ -279,6 +282,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		// Image Size.
 		$this->field_select(
 			__( 'Image Size', 'mm-components' ),
+			'',
 			$classname . '-image-size widefat',
 			'image_size',
 			$image_size,
