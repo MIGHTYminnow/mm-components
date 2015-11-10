@@ -33,19 +33,19 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '<p><label>' . esc_html( $label ) . '</label>';
 
-		printf(
-			'<input type="text" class="%s" name="%s" value="%s" />',
-			$classes,
-			$this->get_field_name( $key ),
-			$value
-		);
-
-		if ( '' !== $description) {
 			printf(
-				'<small class="mm-description-text">%s</small>',
-				esc_html( $description )
+				'<input type="text" class="%s" name="%s" value="%s" />',
+				esc_attr( $classes ),
+				$this->get_field_name( $key ),
+				esc_attr( $value )
 			);
-		}
+
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
 
 		echo '</p>';
 	}
@@ -59,21 +59,21 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '<p><label>' . esc_html( $label ) . '</label>';
 
-		printf(
-			'<textarea class="%s" name="%s" rows="%s" cols="%s">%s</textarea>',
-			$classes,
-			$this->get_field_name( $key ),
-			$rows,
-			$cols,
-			$value
-		);
-
-		if ( '' !== $description) {
 			printf(
-				'<small class="mm-description-text">%s</small>',
-				esc_html( $description )
+				'<textarea class="%s" name="%s" rows="%s" cols="%s">%s</textarea>',
+				esc_attr( $classes ),
+				$this->get_field_name( $key ),
+				esc_attr( $rows ),
+				esc_attr( $cols ),
+				$value
 			);
-		}
+
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
 
 		echo '</p>';
 	}
@@ -87,48 +87,48 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '<p><label>' . esc_html( $label ) . '</label>';
 
-		printf(
-			'<select class="%s" name="%s">',
-			$classes,
-			$this->get_field_name( $key )
-		);
-
-		// Test whether we have an associative or indexed array.
-		if ( array_values( $options ) === $options ) {
-
-			// We have an indexed array.
-			foreach ( $options as $option ) {
-
-				printf(
-					'<option value="%s" %s>%s</option>',
-					$option,
-					selected( $value, $option, false ),
-					$option
-				);
-			}
-
-		} else {
-
-			// We have an associative array.
-			foreach ( $options as $option_value => $option_display_name ) {
-
-				printf(
-					'<option value="%s" %s>%s</option>',
-					$option_value,
-					selected( $value, $option_value, false ),
-					$option_display_name
-				);
-			}
-		}
-
-		echo '</select>';
-
-		if ( '' !== $description) {
 			printf(
-				'<small class="mm-description-text">%s</small>',
-				esc_html( $description )
+				'<select class="%s" name="%s">',
+				esc_attr( $classes ),
+				$this->get_field_name( $key )
 			);
-		}
+
+			// Test whether we have an associative or indexed array.
+			if ( array_values( $options ) === $options ) {
+
+				// We have an indexed array.
+				foreach ( $options as $option ) {
+
+					printf(
+						'<option value="%s" %s>%s</option>',
+						esc_attr( $option ),
+						selected( $value, $option, false ),
+						esc_html( $option )
+					);
+				}
+
+			} else {
+
+				// We have an associative array.
+				foreach ( $options as $option_value => $option_display_name ) {
+
+					printf(
+						'<option value="%s" %s>%s</option>',
+						esc_attr( $option_value ),
+						selected( $value, $option_value, false ),
+						esc_html( $option_display_name )
+					);
+				}
+			}
+
+			echo '</select>';
+
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
 
 		echo '</p>';
 	}
@@ -146,11 +146,11 @@ class Mm_Components_Widget extends WP_Widget {
 
 			printf(
 				'<input type="checkbox" class="%s" name="%s" value="1" %s /> <label class="%s">%s</label><br />',
-				$classes,
+				esc_attr( $classes ),
 				$this->get_field_name( $key ),
 				checked( $val, 1, false ),
 				'radio-label',
-				$label
+				esc_html( $label )
 			);
 
 			if ( '' !== $description) {
@@ -245,46 +245,46 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '<p><label class="radio-group-label">' . esc_html( $label ) . '</label><br />';
 
-		// Test whether we have an associative or indexed array.
-		if ( array_values( $options ) === $options ) {
+			// Test whether we have an associative or indexed array.
+			if ( array_values( $options ) === $options ) {
 
-			// We have an indexed array.
-			foreach ( $options as $option ) {
+				// We have an indexed array.
+				foreach ( $options as $option ) {
 
-				printf(
-					'<input type="radio" class="%s" name="%s" value="%s" %s /> <label class="%s">%s</label><br />',
-					$classes,
-					$this->get_field_name( $key ),
-					$option,
-					checked( $value, $option, false ),
-					'radio-option-label',
-					$option
-				);
+					printf(
+						'<input type="radio" class="%s" name="%s" value="%s" %s /> <label class="%s">%s</label><br />',
+						esc_attr( $classes ),
+						$this->get_field_name( $key ),
+						esc_attr( $option ),
+						checked( $value, $option, false ),
+						'radio-option-label',
+						esc_html( $option )
+					);
+				}
+
+			} else {
+
+				// We have an associative array.
+				foreach ( $options as $option_value => $option_display_name ) {
+
+					printf(
+						'<input type="radio" class="%s" name="%s" value="%s" %s /> <label class="%s">%s</label><br />',
+						esc_attr( $classes ),
+						$this->get_field_name( $key ),
+						esc_attr( $option_value ),
+						checked( $value, $option_value, false ),
+						'radio-option-label',
+						esc_html( $option_display_name )
+					);
+				}
 			}
 
-		} else {
-
-			// We have an associative array.
-			foreach ( $options as $option_value => $option_display_name ) {
-
+			if ( '' !== $description) {
 				printf(
-					'<input type="radio" class="%s" name="%s" value="%s" %s /> <label class="%s">%s</label><br />',
-					$classes,
-					$this->get_field_name( $key ),
-					$option_value,
-					checked( $value, $option_value, false ),
-					'radio-option-label',
-					$option_display_name
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
 				);
 			}
-		}
-
-		if ( '' !== $description) {
-			printf(
-				'<small class="mm-description-text">%s</small>',
-				esc_html( $description )
-			);
-		}
 
 		echo '</p>';
 	}
@@ -297,8 +297,8 @@ class Mm_Components_Widget extends WP_Widget {
 	public function field_alpha_color_picker( $label = '', $description = '', $classes = '', $key = '', $value = '', $options = array() ) {
 
 		// Set our defaults for additional args.
-		$palette = ( isset( $options['palette'] ) ) ? $options['palette'] : 'true';
-		$default = ( isset( $options['default'] ) ) ? $options['default'] : '#222';
+		$palette      = ( isset( $options['palette'] ) ) ? $options['palette'] : 'true';
+		$default      = ( isset( $options['default'] ) ) ? $options['default'] : '#222';
 		$show_opacity = ( isset( $options['show-opacity'] ) ) ? $options['show_opacity'] : 'true';
 
 		// Process the palette.
@@ -312,22 +312,22 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '<p><label>' . esc_html( $label ) . '</label><br />';
 
-		printf(
-			'<input class="%s" type="text" name="%s" value="%s" data-palette="%s" data-show-opacity="%s" data-default-color="%s" />',
-			esc_attr( $classes ) . ' alpha-color-picker',
-			$this->get_field_name( $key ),
-			esc_attr( $value ),
-			esc_attr( $palette ),
-			esc_attr( $show_opacity ),
-			esc_attr( $default )
-		);
-
-		if ( '' !== $description) {
 			printf(
-				'<small><em>%s</em></small>',
-				esc_html( $description )
+				'<input class="%s" type="text" name="%s" value="%s" data-palette="%s" data-show-opacity="%s" data-default-color="%s" />',
+				esc_attr( $classes ) . ' alpha-color-picker',
+				$this->get_field_name( $key ),
+				esc_attr( $value ),
+				esc_attr( $palette ),
+				esc_attr( $show_opacity ),
+				esc_attr( $default )
 			);
-		}
+
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
 
 		echo '</p>';
 	}
@@ -347,24 +347,24 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '<p><label>' . esc_html( $label ) . '</label><br />';
 
-		?>
-		<span class="mm-single-media-wrap">
-			<span class="mm-single-media-image-preview-wrap <?php echo ( empty( $value ) ) ? 'no-image' : ''; ?>">
-				<span class="mm-single-media-no-image"><?php _e( 'No File Selected', 'mm-components' ); ?></span>
-				<img class="mm-single-media-image-preview" src="<?php echo esc_url( $image ); ?>" title="<?php _e( 'Media Item', 'mm-components' ); ?>" alt="<?php _e( 'Media Item', 'mm-components' ); ?>" />
+			?>
+			<span class="mm-single-media-wrap">
+				<span class="mm-single-media-image-preview-wrap <?php echo ( empty( $value ) ) ? 'no-image' : ''; ?>">
+					<span class="mm-single-media-no-image"><?php _e( 'No File Selected', 'mm-components' ); ?></span>
+					<img class="mm-single-media-image-preview" src="<?php echo esc_url( $image ); ?>" title="<?php _e( 'Media Item', 'mm-components' ); ?>" alt="<?php _e( 'Media Item', 'mm-components' ); ?>" />
+				</span>
+				<input type="hidden" name="<?php echo $this->get_field_name( $key ); ?>" class="mm-single-media-image" class="regular-text" value="<?php echo esc_attr( $value ); ?>" />
+				<input type="button" name="upload-btn" class="upload-btn button-secondary" value="<?php _e( 'Select Image', 'mm-components' ); ?>" />
+				<input type="button" name="clear-btn" class="clear-btn button-secondary" value="<?php _e( 'Clear', 'mm-components' ); ?>" />
 			</span>
-			<input type="hidden" name="<?php echo $this->get_field_name( $key ); ?>" class="mm-single-media-image" class="regular-text" value="<?php echo esc_attr( $value ); ?>" />
-			<input type="button" name="upload-btn" class="upload-btn button-secondary" value="<?php _e( 'Select Image', 'mm-components' ); ?>" />
-			<input type="button" name="clear-btn" class="clear-btn button-secondary" value="<?php _e( 'Clear', 'mm-components' ); ?>" />
-		</span>
-		<?php
+			<?php
 
-		if ( '' !== $description) {
-			printf(
-				'<small class="mm-description-text">%s</small>',
-				esc_html( $description )
-			);
-		}
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
 
 		echo '</p>';
 	}
@@ -388,37 +388,37 @@ class Mm_Components_Widget extends WP_Widget {
 
 		echo '<p><label>' . esc_html( $label ) . '</label><br />';
 
-		?>
-		<span class="mm-multi-media-wrap">
-			<span class="mm-multi-media-images-preview-wrap <?php echo ( empty( $value ) ) ? 'no-images' : ''; ?>">
-				<span class="mm-multi-media-no-images"><?php _e( 'No Files Selected', 'mm-components' ); ?></span>
-				<?php
-				if ( ! empty( $images ) ) {
+			?>
+			<span class="mm-multi-media-wrap">
+				<span class="mm-multi-media-images-preview-wrap <?php echo ( empty( $value ) ) ? 'no-images' : ''; ?>">
+					<span class="mm-multi-media-no-images"><?php _e( 'No Files Selected', 'mm-components' ); ?></span>
+					<?php
+					if ( ! empty( $images ) ) {
 
-					foreach ( $images as $image_id => $image_url ) {
-						printf(
-							'<img src="%s" class="%s" title="%s" alt="%s" />',
-							esc_url( $image_url ),
-							'mm-multi-media-images-preview',
-							__( 'Media Items', 'mm-components' ),
-							__( 'Media Items', 'mm-components' )
-						);
+						foreach ( $images as $image_id => $image_url ) {
+							printf(
+								'<img src="%s" class="%s" title="%s" alt="%s" />',
+								esc_url( $image_url ),
+								'mm-multi-media-images-preview',
+								__( 'Media Items', 'mm-components' ),
+								__( 'Media Items', 'mm-components' )
+							);
+						}
 					}
-				}
-				?>
+					?>
+				</span>
+				<input type="hidden" name="<?php echo $this->get_field_name( $key ); ?>" class="mm-multi-media-images" class="regular-text" value="<?php echo esc_attr( $value ); ?>" />
+				<input type="button" name="upload-btn" class="upload-btn button-secondary" value="<?php _e( 'Select Images', 'mm-components' ); ?>" />
+				<input type="button" name="clear-btn" class="clear-btn button-secondary" value="<?php _e( 'Clear', 'mm-components' ); ?>" />
 			</span>
-			<input type="hidden" name="<?php echo $this->get_field_name( $key ); ?>" class="mm-multi-media-images" class="regular-text" value="<?php echo esc_attr( $value ); ?>" />
-			<input type="button" name="upload-btn" class="upload-btn button-secondary" value="<?php _e( 'Select Images', 'mm-components' ); ?>" />
-			<input type="button" name="clear-btn" class="clear-btn button-secondary" value="<?php _e( 'Clear', 'mm-components' ); ?>" />
-		</span>
-		<?php
+			<?php
 
-		if ( '' !== $description) {
-			printf(
-				'<small class="mm-description-text">%s</small>',
-				esc_html( $description )
-			);
-		}
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
 
 		echo '</p>';
 	}
@@ -430,17 +430,19 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_custom( $label = '', $description = '', $output = '' ) {
 
-		printf(
-			'<p><label>%s</label><br />%s</p>',
-			esc_html( $label ),
-			$output
-		);
+		echo '<p>';
 
-		if ( '' !== $description) {
-			printf(
-				'<small class="mm-description-text">%s</small>',
-				esc_html( $description )
-			);
-		}
+			echo '<label>' . esc_html( $label ) . '</label><br />';
+
+			echo $output;
+
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
+
+		echo '</p>';
 	}
 }
