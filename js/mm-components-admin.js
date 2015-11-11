@@ -19,6 +19,9 @@
 
 		// Set up any multi media fields.
 		$( '.mm-multi-media-wrap' ).mmMultiMediaField();
+
+		// Set up any checkbox dependency fields.
+		$( '.mm-field-multi-checkbox-wrap' ).mmRestrictedContentDependency();
 	});
 
 	// Reset or initialize certain fields when widgets are added or updated.
@@ -28,6 +31,7 @@
 		$( data[0] ).find( '.mm-multi-checkbox-wrap' ).mmMultiCheckboxField();
 		$( data[0] ).find( '.mm-single-media-wrap' ).mmSingleMediaField();
 		$( data[0] ).find( '.mm-multi-media-wrap' ).mmMultiMediaField();
+		$( data[0] ).find( '.mm-field-multi-checkbox-wrap' ).mmRestrictedContentDependency();
 	});
 
 	/**
@@ -203,5 +207,22 @@
 			});
 		});
 	};
+
+	/**
+	 * Dependency for single checkbox widget fields.
+	 *
+	 * @since  1.0.0
+	 */
+	$.fn.mmRestrictedContentDependency = function() {
+
+		var $checkbox = $( 'input[type="checkbox"].mm-restricted-content-specific-roles' );
+		var $restricted_content = $( '[id*=mm_restricted_content] .mm-field-multi-checkbox-wrap' );
+
+		$restricted_content.hide();
+
+		$checkbox.click( function() {
+			$( $restricted_content ).toggle();
+		});
+	}
 
 }( jQuery ));
