@@ -59,7 +59,9 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_textarea( $label = '', $description = '', $classes = '', $key = '', $value = '', $rows = '4', $cols = '4' ) {
 
-		echo '<p class="mm-field-textarea-wrap"><label>' . esc_html( $label ) . '</label><br />';
+		echo '<p class="mm-field-textarea-wrap">';
+
+			echo '<label>' . esc_html( $label ) . '</label><br />';
 
 			printf(
 				'<textarea class="%s" name="%s" rows="%s" cols="%s">%s</textarea>',
