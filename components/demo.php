@@ -47,7 +47,7 @@ function mm_demo( $args ) {
 			<li><?php echo __( 'Alpha Color Field:', 'mm-components' ) . ' ' . esc_html( $alpha_color_field ); ?></li>
 			<li><?php echo __( 'Single Media Field:', 'mm-components' ) . ' ' . esc_html( $single_media_field ); ?></li>
 			<li><?php echo __( 'Multi Media Field:', 'mm-components' ) . ' ' . esc_html( $multi_media_field ); ?></li>
-		 </ul>
+		</ul>
 	</div>
 
 	<?php
