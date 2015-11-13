@@ -20,8 +20,8 @@
 		// Set up any multi media fields.
 		$( '.mm-multi-media-wrap' ).mmMultiMediaField();
 
-		// Set up any checkbox dependency fields.
-		$( '.mm-multi-checkbox-field-wrap' ).mmRestrictedContentDependency();
+		// Set up field dependencies for Mm Restricted Content.
+		$( '.widget[id*="mm_restricted_content_widget"]' ).mmRestrictedContentFields();
 	});
 
 	// Reset or initialize certain fields when widgets are added or updated.
@@ -31,7 +31,10 @@
 		$( data[0] ).find( '.mm-multi-checkbox-wrap' ).mmMultiCheckboxField();
 		$( data[0] ).find( '.mm-single-media-wrap' ).mmSingleMediaField();
 		$( data[0] ).find( '.mm-multi-media-wrap' ).mmMultiMediaField();
-		$( data[0] ).find( '.mm-field-multi-checkbox-wrap' ).mmRestrictedContentDependency();
+
+		if ( $( data[0] ).is( '.widget[id*="mm_restricted_content_widget"]' ) ) {
+			$( data[0] ).mmRestrictedContentFields();
+		}
 	});
 
 	/**
@@ -213,18 +216,21 @@
 	 *
 	 * @since  1.0.0
 	 */
-	$.fn.mmRestrictedContentDependency = function() {
+	$.fn.mmRestrictedContentFields = function() {
 
+		return this.each( function() {
 
-		var $checkbox = $( 'input[type="checkbox"].mm-restricted-content-specific-roles' );
-		var $restricted_content = $( '[id*=mm_restricted_content] .mm-field-multi-checkbox-wrap:contains(.mm-restricted-content-roles)' );
+			var $widget = $( this );
+			var $checkbox = $widget.find( '.mm-restricted-content-specific-roles' );
+			var $rolesCheckboxes = $widget.find( '.mm-multi-checkbox-field-wrap' ).has( '.mm-restricted-content-roles' );
 
-		$field.find( '.mm-field-multi-checkbox-wrap' ).has( '.mm-restricted-content-roles' );
+			if ( ! $checkbox.is( ':checked' ) ) {
+				$rolesCheckboxes.addClass( 'mm-hidden' );
+			}
 
-		$restricted_content.hide();
-
-		$checkbox.click( function() {
-			$( $restricted_content ).toggle();
+			$checkbox.on( 'click', function() {
+				$rolesCheckboxes.toggleClass( 'mm-hidden' );
+			});
 		});
 	}
 

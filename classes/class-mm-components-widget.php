@@ -31,7 +31,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_text( $label = '', $description = '', $classes = '', $key = '', $value = '' ) {
 
-		echo '<p class="mm-field-text-wrap">';
+		echo '<p class="mm-text-field-wrap">';
 
 			echo '<label>' . esc_html( $label ) . '</label><br />';
 
@@ -59,7 +59,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_textarea( $label = '', $description = '', $classes = '', $key = '', $value = '', $rows = '4', $cols = '4' ) {
 
-		echo '<p class="mm-field-textarea-wrap">';
+		echo '<p class="mm-textarea-field-wrap">';
 
 			echo '<label>' . esc_html( $label ) . '</label><br />';
 
@@ -89,7 +89,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_select( $label = '', $description = '', $classes = '', $key = '', $value = '', $options = array() ) {
 
-		echo '<p class="mm-field-select-wrap">';
+		echo '<p class="mm-select-field-wrap">';
 
 			echo '<label>' . esc_html( $label ) . '</label><br />';
 
@@ -148,7 +148,7 @@ class Mm_Components_Widget extends WP_Widget {
 
 		$val = (int)mm_true_or_false( $value );
 
-		echo '<p class="mm-field-checkbox-wrap">';
+		echo '<p class="mm-checkbox-field-wrap">';
 
 			printf(
 				'<input type="checkbox" class="%s" name="%s" value="1" %s /> <label class="%s">%s</label><br />',
@@ -182,7 +182,7 @@ class Mm_Components_Widget extends WP_Widget {
 			$values = $value;
 		}
 
-		echo '<p class="mm-field-multi-checkbox-wrap">';
+		echo '<p class="mm-multi-checkbox-field-wrap">';
 
 			echo '<label class="multi-checkbox-group-label">' . esc_html( $label ) . '</label><br />';
 
@@ -251,7 +251,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_radio( $label = '', $description = '', $classes = '', $key = '', $value = '', $options = array() ) {
 
-		echo '<p class="mm-field-radio-wrap">';
+		echo '<p class="mm-radio-field-wrap">';
 
 			echo '<label class="radio-group-label">' . esc_html( $label ) . '</label><br />';
 
@@ -320,7 +320,7 @@ class Mm_Components_Widget extends WP_Widget {
 
 		$show_opacity = ( mm_true_or_false( $show_opacity ) ) ? 'true' : 'false';
 
-		echo '<p class="mm-field-alpha-color-picker-wrap">';
+		echo '<p class="mm-alpha-color-picker-field-wrap">';
 
 			echo '<label>' . esc_html( $label ) . '</label><br />';
 
@@ -357,7 +357,7 @@ class Mm_Components_Widget extends WP_Widget {
 			$image = '';
 		}
 
-		echo '<p class="mm-field-single-media-wrap">';
+		echo '<p class="mm-single-media-field-wrap">';
 
 			echo '<label>' . esc_html( $label ) . '</label><br />';
 
@@ -400,7 +400,7 @@ class Mm_Components_Widget extends WP_Widget {
 			$images = array();
 		}
 
-		echo '<p class="mm-field-multi-media-wrap">';
+		echo '<p class="mm-multi-media-field-wrap">';
 
 			echo '<label>' . esc_html( $label ) . '</label><br />';
 
@@ -446,7 +446,7 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_custom( $label = '', $description = '', $output = '' ) {
 
-		echo '<p class="mm-field-custom-wrap">';
+		echo '<p class="mm-custom-field-wrap">';
 
 			echo '<label>' . esc_html( $label ) . '</label><br />';
 
