@@ -184,7 +184,7 @@ function mm_vc_hero_banner() {
 	vc_map( array(
 		'name' => __( 'Hero Banner', 'mm-components' ),
 		'base' => 'mm_hero_banner',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(

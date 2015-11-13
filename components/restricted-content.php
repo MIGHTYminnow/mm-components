@@ -121,7 +121,7 @@ function mm_vc_restricted_content() {
 	vc_map( array(
 		'name'         => __( 'Restricted Content', 'mm-components' ),
 		'base'         => 'mm_restricted_content',
-		'icon'         => MM_COMPONENTS_ASSETS_URL . 'restricted-content_icon.png',
+		'icon'         => MM_COMPONENTS_ASSETS_URL . 'restricted-content-icon.png',
 		'as_parent'    => array( 'except' => '' ),
 		'is_container' => true,
 		'params' => array(

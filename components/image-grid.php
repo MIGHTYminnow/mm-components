@@ -199,7 +199,7 @@ function mm_vc_image_grid() {
 		'as_parent'               => array( 'only' => 'mm_image_grid_image' ),
 		'content_element'         => true,
 		'class'                   => 'image-grid',
-		  'icon'                    => MM_COMPONENTS_ASSETS_URL . 'image-grid_icon.png',
+		'icon'                    => MM_COMPONENTS_ASSETS_URL . 'image-grid-icon.png',
 		'show_settings_on_create' => false,
 		'params' => array(
 			array(

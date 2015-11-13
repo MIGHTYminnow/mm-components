@@ -87,7 +87,7 @@ function mm_button( $args ) {
 	if ( ! empty( $args['size'] ) ) {
 		$classes[] = $args['size'];
 	}
-	if ( ! empty( $args['full_width'] ) && mm_true_or_false( 1 ) ) {
+	if ( ! empty( $args['full_width'] ) && mm_true_or_false( $args['full_width'] ) ) {
 		$classes[] = 'full-width';
 	}
 
@@ -148,7 +148,7 @@ function mm_vc_button() {
 		'name'     => __( 'Button', 'mm-components' ),
 		'base'     => 'mm_button',
 		'class'    => '',
-		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params'   => array(
 			array(

@@ -115,7 +115,7 @@ function mm_vc_logo_strip() {
 		'name'     => __( 'Logo Strip', 'mm-components' ),
 		'base'     => 'mm_logo_strip',
 		'class'    => '',
-		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params'   => array(
 			array(
