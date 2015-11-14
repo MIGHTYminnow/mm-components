@@ -186,7 +186,7 @@ function mm_vc_icon_box() {
 		'name' => __( 'Icon Box', 'mm-components' ),
 		'base' => 'mm_icon_box',
 		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(

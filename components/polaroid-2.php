@@ -113,7 +113,7 @@ function mm_vc_polaroid_2() {
 		'name' => __( 'Polaroid 2', 'mm-components' ),
 		'base' => 'mm_polaroid_2',
 		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(

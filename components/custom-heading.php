@@ -137,7 +137,7 @@ function mm_vc_custom_heading() {
 		'name' => __( 'Custom Heading', 'mm-components' ),
 		'base' => 'mm_custom_heading',
 		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
