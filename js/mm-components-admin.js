@@ -19,6 +19,9 @@
 
 		// Set up any multi media fields.
 		$( '.mm-multi-media-wrap' ).mmMultiMediaField();
+
+		// Set up field dependencies for Mm Restricted Content.
+		$( '.widget[id*="mm_restricted_content_widget"]' ).mmRestrictedContentFields();
 	});
 
 	// Reset or initialize certain fields when widgets are added or updated.
@@ -28,6 +31,10 @@
 		$( data[0] ).find( '.mm-multi-checkbox-wrap' ).mmMultiCheckboxField();
 		$( data[0] ).find( '.mm-single-media-wrap' ).mmSingleMediaField();
 		$( data[0] ).find( '.mm-multi-media-wrap' ).mmMultiMediaField();
+
+		if ( $( data[0] ).is( '.widget[id*="mm_restricted_content_widget"]' ) ) {
+			$( data[0] ).mmRestrictedContentFields();
+		}
 	});
 
 	/**
@@ -203,5 +210,28 @@
 			});
 		});
 	};
+
+	/**
+	 * Dependency for single checkbox widget fields.
+	 *
+	 * @since  1.0.0
+	 */
+	$.fn.mmRestrictedContentFields = function() {
+
+		return this.each( function() {
+
+			var $widget = $( this );
+			var $checkbox = $widget.find( '.mm-restricted-content-specific-roles' );
+			var $rolesCheckboxes = $widget.find( '.mm-multi-checkbox-field-wrap' ).has( '.mm-restricted-content-roles' );
+
+			if ( ! $checkbox.is( ':checked' ) ) {
+				$rolesCheckboxes.addClass( 'mm-hidden' );
+			}
+
+			$checkbox.on( 'click', function() {
+				$rolesCheckboxes.toggleClass( 'mm-hidden' );
+			});
+		});
+	}
 
 }( jQuery ));

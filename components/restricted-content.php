@@ -228,6 +228,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 
 		$defaults = array(
 			'title'              => '',
+			'specific_roles'     => '',
 			'roles'              => '',
 			'restricted_content' => '',
 			'other_content'      => '',
@@ -239,6 +240,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 
 		// At this point all instance options have been sanitized.
 		$title              = apply_filters( 'widget_title', $instance['title'] );
+		$specific_roles     = $instance['specific_roles'];
 		$roles              = $instance['roles'];
 		$restricted_content = $instance['restricted_content'];
 		$other_content      = $instance['other_content'];
@@ -266,6 +268,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 
 		$defaults = array(
 			'title'              => '',
+			'specific_roles'     => '',
 			'roles'              => '',
 			'restricted_content' => '',
 			'other_content'      => '',
@@ -276,6 +279,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		$instance = wp_parse_args( $instance, $defaults );
 
 		$title              = $instance['title'];
+		$specific_roles     = $instance['specific_roles'];
 		$roles              = $instance['roles'];
 		$restricted_content = $instance['restricted_content'];
 		$other_content      = $instance['other_content'];
@@ -289,6 +293,18 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 			$classname . '-title widefat',
 			'title',
 			$title
+		);
+
+		// Specific Roles.
+		$this->field_checkbox(
+			__( 'Restrict to specific user roles?', 'mm-components' ),
+			__( 'By default only logged in users will see the restricted content. Check this to further restrict to specific user roles.', 'mm-components' ),
+			$classname . '-specific-roles widefat',
+			'specific_roles',
+			$specific_roles,
+			array(
+				'Yes',
+			)
 		);
 
 		// User roles.
@@ -344,6 +360,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		$instance = $old_instance;
 		$instance['title']              = wp_kses_post( $new_instance['title'] );
 		$instance['roles']              = sanitize_text_field( $new_instance['roles'] );
+		$instance['specific_roles']     = sanitize_text_field( $new_instance['specific_roles'] );
 		$instance['restricted_content'] = wp_kses_post( $new_instance['restricted_content'] );
 		$instance['other_content']      = wp_kses_post( $new_instance['other_content'] );
 		$instance['mm_custom_class']    = sanitize_text_field( $new_instance['mm_custom_class'] );
