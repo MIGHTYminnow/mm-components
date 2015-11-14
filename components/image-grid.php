@@ -241,7 +241,7 @@ function mm_vc_image_grid() {
 		'name'            => __( 'Image Grid Image', 'mm-components' ),
 		'base'            => 'mm_image_grid_image',
 		'content_element' => true,
-		'icon'            => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon'            => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'as_child'        => array( 'only' => 'mm_image_grid' ),
 		'params'          => array(
 			array(
