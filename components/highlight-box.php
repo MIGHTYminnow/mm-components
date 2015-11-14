@@ -98,7 +98,7 @@ function mm_vc_highlight_box() {
 		'name' => __( 'Highlight Box', 'mm-components' ),
 		'base' => 'mm_highlight_box',
 		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(

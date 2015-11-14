@@ -107,7 +107,7 @@ function mm_vc_mm_twitter_feed() {
 		'name' => __( 'Twitter Feed', 'mm-components' ),
 		'base' => 'mm_twitter_feed',
 		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(

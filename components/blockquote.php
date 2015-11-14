@@ -84,7 +84,7 @@ function mm_vc_blockquote() {
 	vc_map( array(
 		'name'     => __( 'Blockquote', 'mm-components' ),
 		'base'     => 'mm_blockquote',
-		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params'   => array(
 			array(

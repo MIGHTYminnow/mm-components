@@ -101,7 +101,7 @@ function mm_vc_countdown() {
 	vc_map( array(
 		'name'     => __( 'Countdown', 'mm-components' ),
 		'base'     => 'mm_countdown',
-		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params'   => array(
 			array(
