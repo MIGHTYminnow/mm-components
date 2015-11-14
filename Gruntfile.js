@@ -10,6 +10,7 @@ module.exports = function( grunt ) {
 				},
 				files: {
 					'css/mm-components-admin.css' : 'scss/mm-components-admin.scss',
+					'css/mm-posts-template-builder.css' : 'scss/mm-posts-template-builder.scss',
 					'css/mm-components-public.css' : 'scss/mm-components-public.scss'
 				}
 			}
@@ -58,5 +59,4 @@ module.exports = function( grunt ) {
 
 	// Configure tasks.
 	grunt.registerTask( 'build', ['sass', 'postcss', 'wp_readme_to_markdown', 'makepot'] );
-
 };

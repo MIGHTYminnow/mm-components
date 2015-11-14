@@ -701,6 +701,30 @@ function mm_posts_output_postmeta_value( $post_id, $key, $element = 'div' ) {
 	}
 }
 
+add_filter( 'mm_posts_template_components', 'mm_posts_register_template_components', 0 );
+/**
+ * Register the core template components.
+ *
+ * @since   1.0.0
+ *
+ * @param   array  $components  Existing template components.
+ *
+ * @return  array               New template components.
+ */
+function mm_posts_register_template_components( $components ) {
+
+	$core_components = array(
+		'mm_posts_output_post_header'  => __( 'Post Header', 'mm-components' ),
+		'mm_posts_output_post_title'   => __( 'Post Title', 'mm-components' ),
+		'mm_posts_output_post_info'    => __( 'Post Info', 'mm-components' ),
+		'mm_posts_output_post_image'   => __( 'Featured Image', 'mm-components' ),
+		'mm_posts_output_post_content' => __( 'Post Content', 'mm-components' ),
+		'mm_posts_output_post_meta'    => __( 'Post Meta', 'mm-components' ),
+	);
+
+	return array_merge( $core_components, $components );
+}
+
 add_filter( 'mm_posts_query_args', 'mm_posts_filter_from_query_args', 10, 2 );
 /**
  * Use specific query args present in the URL to alter the mm_posts query.

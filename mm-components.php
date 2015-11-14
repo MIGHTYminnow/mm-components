@@ -115,6 +115,7 @@ function mm_components_init_components() {
 	}
 	if ( array_key_exists( 'posts', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/posts/posts.php';
+		require_once MM_COMPONENTS_PATH . 'components/posts/posts-template-builder.php';
 		require_once MM_COMPONENTS_PATH . 'components/posts/templates/image-grid.php';
 		require_once MM_COMPONENTS_PATH . 'components/posts/templates/simple-list.php';
 	}

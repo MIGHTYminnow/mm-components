@@ -346,6 +346,19 @@ function mm_get_mm_posts_templates_for_vc() {
 }
 
 /**
+ * Return an array of Mm Posts template components.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of template component names.
+ */
+function mm_get_mm_posts_template_components() {
+
+	// All core and custom template components should be registered using this filter.
+	return apply_filters( 'mm_posts_template_components', array() );
+}
+
+/**
  * Return an array of Mm Users templates.
  *
  * @since   1.0.0

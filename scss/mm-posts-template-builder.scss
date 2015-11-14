@@ -1,0 +1,113 @@
+/**
+ * Mm Posts Template Builder CSS
+ *
+ * @since  1.0.0
+ */
+
+/* Reusables
+--------------------------------------------- */
+
+@mixin template-component {
+	margin: 0 0 10px;
+	padding: 12px 6px;
+	cursor: pointer;
+	@include light-box-shadow;
+}
+
+@mixin light-box-shadow {
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+/* Template Builder Page
+--------------------------------------------- */
+
+.mm-posts-template-builder-options-page {
+	.template-components-wrap,
+	.template-drop-area-wrap {
+		width: 49%;
+		padding: 20px;
+		float: left;
+		margin-right: 2%;
+		box-sizing: border-box;
+	}
+	.template-components-wrap {
+		.template-components {
+			margin: 0;
+		}
+		.template-component {
+			@include template-component;
+			border-top: 1px solid #EFECEC;
+			min-width: 300px;
+			background-color: white;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	.template-drop-area-wrap {
+		margin-right: 0;
+		.template-select-wrap {
+			margin-bottom: 15px;
+		}
+		.current-template {
+			display: none;
+		}
+		label {
+			display: block;
+			margin-bottom: 6px;
+		}
+		.header-drop-area-wrap,
+		.content-drop-area-wrap {
+			margin-bottom: 20px;
+		}
+		.content-drop-area {
+			min-height: 200px;
+		}
+		.drop-area {
+			width: 100%;
+			min-height: 120px;
+			padding: 12px 10px 14px;
+			box-sizing: border-box;
+			border-top: 1px solid #EFECEC;
+			@include light-box-shadow;
+			.placeholder {
+				color: #A1A4AA;
+				margin-top: 3px;
+			}
+		}
+		.drop-area-component {
+			@include template-component;
+			line-height: 18px;
+			&:last-child {
+				margin-bottom: 0;
+			}
+			.remove {
+				padding: 10px;
+				background: 0 0;
+				border: none;
+				color: #b4b9be;
+				cursor: pointer;
+				float: right;
+				margin-top: -10px;
+				margin-right: -6px;
+				&::before {
+					background: 0 0;
+					color: #b4b9be;
+					content: '\f153';
+					display: block;
+					font: 400 16px/20px dashicons;
+					speak: none;
+					height: 20px;
+					text-align: center;
+					width: 20px;
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+				}
+			}
+		}
+	}
+	.ui-draggable-dragging {
+		z-index: 999;
+	}
+}
