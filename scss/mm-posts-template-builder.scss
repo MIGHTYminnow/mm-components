@@ -79,6 +79,8 @@
 		.drop-area-component {
 			@include template-component;
 			line-height: 18px;
+			text-transform: capitalize;
+			background-color: white;
 			&:last-child {
 				margin-bottom: 0;
 			}

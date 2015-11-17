@@ -114,9 +114,9 @@ class Mm_Posts_Template_Builder {
 
 		ob_start(); ?>
 
-		<div class="wrap <?php echo $this->slug . '-options-page' ?>">
+		<div class="wrap <?php echo esc_attr( $this->slug . '-options-page' ); ?>">
 
-			<h1><?php echo $this->display_name ?></h1>
+			<h1><?php echo esc_html( $this->display_name ); ?></h1>
 
 			<form action="options.php" method="post">
 
@@ -156,7 +156,7 @@ class Mm_Posts_Template_Builder {
 							} ?>
 						</select>
 					</div>
-					<input class="current-template" value="template-name" />
+					<input class="current-template" value="" />
 					<div class="header-drop-area-wrap">
 						<label><?php _e( 'Header', 'mm-components' ); ?></label>
 						<div class="header-drop-area drop-area">
