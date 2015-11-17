@@ -351,8 +351,8 @@ class Mm_Components_Widget extends WP_Widget {
 	 */
 	public function field_single_media( $label = '', $description = '', $classes = '', $key = '', $value = '' ) {
 
-		if ( is_int( $value ) ) {
-			$image = wp_get_attachment_image_src( $value, 'large' )[0];
+		if ( is_numeric( $value ) ) {
+			$image = wp_get_attachment_image_src( (int)$value, 'large' )[0];
 		} else {
 			$image = '';
 		}
@@ -394,7 +394,9 @@ class Mm_Components_Widget extends WP_Widget {
 			$image_ids = explode( ',', $value );
 			$images    = array();
 			foreach ( $image_ids as $image_id ) {
-				$images[ $image_id ] = wp_get_attachment_image_src( $image_id, 'thumbnail' )[0];
+				if ( is_numeric( $image_id ) ) {
+					$images[ $image_id ] = wp_get_attachment_image_src( (int)$image_id, 'thumbnail' )[0];
+				}
 			}
 		} else {
 			$images = array();
