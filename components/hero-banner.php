@@ -108,64 +108,24 @@ function mm_hero_banner( $args ) {
 		$content_output = '<p>' . $content . '</p>';
 	}
 
-	// Check for VC button.
-	$button_shortcode_link = '';
-	if ( ! empty( $button_link ) ) {
+	// Output the button.
+	$button_shortcode = '';
 
-		if ( 'url' === substr( $button_link, 0, 3 ) ) {
+	if ( $button_text ) {
 
-			if ( function_exists( 'vc_build_link' ) ) {
-
-				$link_array    = vc_build_link( $button_link );
-				$button_url    = $link_array['url'];
-				$button_title  = $link_array['title'];
-				$button_target = $link_array['target'];
-
-				$button_shortcode_link =
-				sprintf(
-					'%s|title:%s|target:%s',
-					$button_link,
-					$button_title,
-					$button_target
-				);
-
-			} elseif ( isset( $button_link_target ) ) {
-				'_blank' == $button_link_target;
-
-				$button_shortcode_link =
-				sprintf(
-					'%s|title:%s|target:%s',
-					$button_url,
-					$button_text,
-					$button_link_target
-				);
-			}
-
-		} else {
-
-			$button_url = $button_link;
-
-		}
-	}
-
-
-	//Output the button.
-	$button_output = '';
-
-	if ( $button_url ) {
-
-		$button_output =
-		sprintf(
-			'[mm_button class="%s" alignment="%s" link="%s"]%s[/mm_button]',
+		$button_shortcode = sprintf(
+			'[mm_button class="%s" alignment="%s" link="%s" link_title="%s" link_target="%s" link-title]%s[/mm_button]',
 			esc_attr( $button_classes ),
 			esc_attr( $text_position ),
-			$button_shortcode_link,
+			$button_link,
+			$button_text,
+			$button_link_target,
 			$button_text
 		);
 
 	} else {
 
-		'' == $button_output;
+		$button_shortcode = '';
 	}
 
 
@@ -190,7 +150,6 @@ function mm_hero_banner( $args ) {
 	if ( $secondary_cta ) {
 
 		$secondary_cta_output = '<div class="secondary-cta">' . $secondary_cta_output . '</div>';
-
 	}
 
 	ob_start(); ?>
@@ -200,15 +159,18 @@ function mm_hero_banner( $args ) {
 
 		<div class="hero-text-wrapper">
 			<div class="wrapper">
+
 				<?php echo $heading_output; ?>
 
 				<?php echo $content_output; ?>
 
-				<?php echo do_shortcode( $button_output ); ?>
+				<?php echo do_shortcode( $button_shortcode ); ?>
 
 				<?php echo do_shortcode( $secondary_cta_output ); ?>
+
 			</div>
 		</div>
+
 	</div>
 
 	<?php
@@ -575,18 +537,6 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-button-link widefat',
 			'button_link',
 			$button_link
-		);
-
-		// Button Link Target.
-		$this->field_checkbox(
-			__( 'Button Link Target', 'mm-components' ),
-			'Open link in a new window/tab?',
-			$classname . '-button-link-target widefat',
-			'button_link_target',
-			$button_link_target,
-			array(
-				'Yes',
-			)
 		);
 
 		// Button Text.
