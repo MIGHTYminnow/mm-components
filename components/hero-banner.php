@@ -44,6 +44,7 @@ function mm_hero_banner( $args ) {
 	$button_style         = $args['button_style'];
 	$button_color         = $args['button_color'];
 	$secondary_cta        = $args['secondary_cta'];
+	$overlay = '';
 
 	// Setup button classes.
 	$button_classes = array();
@@ -234,23 +235,16 @@ function mm_vc_hero_banner() {
 				'type' => 'dropdown',
 				'heading' => __( 'Overlay Color', 'mm-components' ),
 				'param_name' => 'overlay_color',
-				'value' => array(
-					__( 'None', 'mm-components' ) => '',
-					__( 'Black', 'mm-components' ) => '#000',
-					__( 'White', 'mm-components' ) => '#fff',
-				),
+				'value' => mm_get_overlay_colors_for_vc()
 			),
 			array(
 				'type' => 'dropdown',
 				'heading' => __( 'Overlay Opacity', 'mm-components' ),
 				'param_name' => 'overlay_opacity',
-				'value' => range( 0.1, 1, 0.1 ),
+				'value' => mm_get_overlay_opacity_values_for_vc(),
 				'dependency' => array(
 					'element' => 'overlay_color',
-					'value' => array(
-						'#fff',
-						'#000'
-					),
+					'not_empty' => 1,
 				),
 			),
 			array(
@@ -268,11 +262,7 @@ function mm_vc_hero_banner() {
 				'type' => 'dropdown',
 				'heading' => __( 'Text Position', 'mm-components' ),
 				'param_name' => 'text_position',
-				'value' => array(
-					__( 'Left', 'mm-components' ) => 'left',
-					__( 'Center', 'mm-components' ) => 'center',
-					__( 'Right', 'mm-components' ) => 'right',
-				),
+				'value' => mm_get_text_alignment_for_vc(),
 			),
 			array(
 				'type' => 'vc_link',
@@ -387,25 +377,6 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		// At this point all instance options have been sanitized.
-		$background_image     = $instance['background_image'];
-		$background_position  = $instance['background_position'];
-		$overlay_color        = $instance['overlay_color'];
-		$overlay_opacity      = $instance['overlay_opacity'];
-		$heading              = $instance['heading'];
-		$content              = $instance['content'];
-		$text_position        = $instance['text_position'];
-		$button_link          = $instance['button_link'];
-		$button_link_target   = $instance['button_link_target'];
-		$button_text          = $instance['button_text'];
-		$button_style         = $instance['button_style'];
-		$button_color         = $instance['button_color'];
-		$secondary_cta        = $instance['secondary_cta'];
-
-		$button_url    = '';
-		$button_title  = '';
-		$button_target = '';
-
 		echo $args['before_widget'];
 
 		if ( ! empty( $title ) ) {
@@ -496,10 +467,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-overlay-opacity widefat',
 			'overlay_opacity',
 			$overlay_opacity,
-			array(
-				'0.1',
-				'0.2',
-				'0.3',)
+			mm_get_overlay_opacity_values()
 		);
 
 		// Heading.

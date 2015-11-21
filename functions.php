@@ -531,16 +531,15 @@ function mm_get_available_colors_for_vc() {
  *
  * @return  array   The array of overlay colors.
  */
-function mm_get_available_overlay_colors( $component = '' ) {
+function mm_get_overlay_colors( $component = '' ) {
 
 	$colors = array(
-		'default' => __( 'Default', 'mm-components' ),
-		'light'   => __( 'Light', 'mm-components' ),
-		'medium'  => __( 'Medium', 'mm-components' ),
-		'dark'    => __( 'Dark', 'mm-components' ),
+		'none' => __( 'None', 'mm-components' ),
+		'white'   => __( 'White', 'mm-components' ),
+		'black'   => __( 'Black', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_available_overlay_colors', $colors, $component );
+	return apply_filters( 'mm_get_overlay_colors', $colors, $component );
 }
 
 /**
@@ -550,11 +549,53 @@ function mm_get_available_overlay_colors( $component = '' ) {
  *
  * @param   string  The component calling this function.
  *
- * @return  array  The array of overlay colors.
+ * @return  array   The array of overlay colors.
  */
-function mm_get_available_overlay_colors_for_vc( $component = '' ) {
+function mm_get_overlay_colors_for_vc( $component = '' ) {
 
-	return array_flip( mm_get_available_overlay_colors( $component ) );
+	return array_flip( mm_get_overlay_colors( $component ) );
+}
+
+/**
+ * Return an array of overlay opacity values.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  The component calling this function.
+ *
+ * @return  array   The array of overlay values.
+ */
+function mm_get_overlay_opacity_values( $component = '' ) {
+
+	$values = array(
+		'0.1'  => __( '0.1', 'mm-components' ),
+		'0.2'  => __( '0.2', 'mm-components' ),
+		'0.3'  => __( '0.3', 'mm-components' ),
+		'0.4'  => __( '0.4', 'mm-components' ),
+		'0.5'  => __( '0.5', 'mm-components' ),
+		'0.6'  => __( '0.6', 'mm-components' ),
+		'0.7'  => __( '0.7', 'mm-components' ),
+		'0.8'  => __( '0.8', 'mm-components' ),
+		'0.9'  => __( '0.9', 'mm-components' ),
+		'1'    => __( '1', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_get_overlay_opacity_values', $values, $component );
+}
+
+/**
+ * Return an array of overlay opacity values for visual composer.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  The component calling this function.
+ *
+ * @return  array   The array of overlay values.
+ */
+function mm_get_overlay_opacity_values_for_vc( $component = '' ) {
+
+	return array_flip( mm_get_overlay_opacity_values( $component ) );
+
 }
 
 /**
@@ -585,7 +626,7 @@ function mm_get_text_alignment( $component = '' ) {
  *
  * @return  array  The array of text alignment options.
  */
-function mm_get_text_alignment_for_vc() {
+function mm_get_text_alignment_for_vc( $component = '' ) {
 
 	return array_flip( mm_get_text_alignment() );
 }

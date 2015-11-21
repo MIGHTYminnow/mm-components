@@ -661,7 +661,7 @@ a.mm-button {
 .hero-banner a.mm-button {
   display: inline-block;
   background-color: #99CCCC;
-  border-bottom: none;
+  border-bottom: none !important;
 }
 
 .hero-banner a.mm-button:hover  {
