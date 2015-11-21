@@ -25,38 +25,34 @@ function mm_hero_banner( $args ) {
 		'button_link_target'  => '',
 		'button_text'         => __( 'Read More', 'mm-components' ),
 		'button_style'        => '',
+		'button_border'       => '',
+		'button_corner_style' => '',
 		'button_color'        => '',
 		'secondary_cta'       => '',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$background_image     = $args['background_image'];
-	$background_position  = $args['background_position'];
-	$overlay_color        = $args['overlay_color'];
-	$overlay_opacity      = $args['overlay_opacity'];
-	$heading              = $args['heading'];
-	$content              = $args['content'];
-	$text_position        = $args['text_position'];
-	$button_link          = $args['button_link'];
-	$button_link_target   = $args['button_link_target'];
-	$button_text          = $args['button_text'];
-	$button_style         = $args['button_style'];
-	$button_color         = $args['button_color'];
-	$secondary_cta        = $args['secondary_cta'];
+	$background_image    = $args['background_image'];
+	$background_position = $args['background_position'];
+	$overlay_color       = $args['overlay_color'];
+	$overlay_opacity     = $args['overlay_opacity'];
+	$heading             = $args['heading'];
+	$content             = $args['content'];
+	$text_position       = $args['text_position'];
+	$button_link         = $args['button_link'];
+	$button_link_target  = $args['button_link_target'];
+	$button_text         = $args['button_text'];
+	$button_style        = $args['button_style'];
+	$button_border       = $args['button_border'];
+	$button_color        = $args['button_color'];
+	$button_corner_style = $args['button_corner_style'];
+	$secondary_cta       = $args['secondary_cta'];
+	$heading_output = '';
+	$content_output = '';
 	$overlay = '';
-
-	// Setup button classes.
-	$button_classes = array();
-	$button_classes[] = 'mm-button';
-	if( ! empty( $args['button_style'] ) ) {
-		$button_classes[] = $args['button_style'];
-	}
-	if( ! empty( $args['button_color'] ) ) {
-		$button_classes[] = $args['button_color'];
-	}
-
-	$button_classes = implode( ' ', $button_classes );
+	$button_shortcode = '';
+	$secondary_cta_output  = '';
 
 	// Get MM classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -92,31 +88,32 @@ function mm_hero_banner( $args ) {
 		$styles_array[] = "filter: alpha(opacity=$overlay_opacity_ie);";
 		$styles = implode( ' ', $styles_array );
 
-		$overlay = '<div class="color-overlay" style="' . $styles . '"></div>';
+		$overlay = '<div class="color-overlay" style="' . esc_attr( $styles ) . '"></div>';
 
 	}
 
-	// Output the heading.
-	$heading_output = '';
+	// Build the heading.
 
 	if ( $heading ) {
-		$heading_output = '<h2>' . $heading . '</h2>';
+		$heading_output = '<div>' . esc_attr( $heading ) . '</div>';
 	}
 
-	// Output the content.
-	$content_output = '';
+	// Build the content.
+
 	if ( $content ) {
-		$content_output = '<p>' . $content . '</p>';
+		$content_output = '<div>' . esc_attr( $content ) . '</div>';
 	}
 
-	// Output the button.
-	$button_shortcode = '';
+	// Build the button shortcode.
 
 	if ( $button_text ) {
 
 		$button_shortcode = sprintf(
-			'[mm_button class="%s" alignment="%s" link="%s" link_title="%s" link_target="%s" link-title]%s[/mm_button]',
-			esc_attr( $button_classes ),
+			'[mm_button color="%s" style="%s" corner_style="%s" border_weight="%s" alignment="%s" link="%s" link_title="%s" link_target="%s" link-title]%s[/mm_button]',
+			esc_attr( $button_color ),
+			esc_attr( $button_style ),
+			esc_attr( $button_corner_style ),
+			esc_attr( $button_border ),
 			esc_attr( $text_position ),
 			$button_link,
 			$button_text,
@@ -124,13 +121,7 @@ function mm_hero_banner( $args ) {
 			$button_text
 		);
 
-	} else {
-
-		$button_shortcode = '';
 	}
-
-
-	$secondary_cta_output  = '';
 
 	if ( strpos( $secondary_cta, '<' ) ) {
 
@@ -150,12 +141,12 @@ function mm_hero_banner( $args ) {
 
 	if ( $secondary_cta ) {
 
-		$secondary_cta_output = '<div class="secondary-cta">' . $secondary_cta_output . '</div>';
+		$secondary_cta_output = '<div class="secondary-cta">' . wp_kses_post( $secondary_cta_output ) . '</div>';
 	}
 
 	ob_start(); ?>
 
-	<div class="hero-banner <?php echo esc_attr( $mm_classes ); ?>" style="<?php echo $style; ?>">
+	<div class="mm-hero-banner <?php echo esc_attr( $mm_classes ); ?>" style="<?php echo $style; ?> background-size: cover">
 		<?php echo $overlay; ?>
 
 		<div class="hero-text-wrapper">
@@ -213,7 +204,7 @@ function mm_vc_hero_banner() {
 	vc_map( array(
 		'name' => __( 'Hero Banner', 'mm-components' ),
 		'base' => 'mm_hero_banner',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component_icon.png',
+		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params' => array(
 			array(
@@ -222,14 +213,10 @@ function mm_vc_hero_banner() {
 				'param_name' => 'background_image',
 			),
 			array(
-				'type' => 'textfield',
+				'type' => 'dropdown',
 				'heading' => __( 'Background Position', 'mm-components' ),
 				'param_name' => 'background_position',
-				'description' => sprintf(
-					__( 'CSS background position value (%sread more%s). Defaults to: center center.', 'mm-components' ),
-					'<a href="http://www.w3schools.com/cssref/pr_background-position.asp" target="_blank">',
-					'</a>'
-				),
+				'value' => mm_get_background_position_for_vc()
 			),
 			array(
 				'type' => 'dropdown',
@@ -244,18 +231,18 @@ function mm_vc_hero_banner() {
 				'value' => mm_get_overlay_opacity_values_for_vc(),
 				'dependency' => array(
 					'element' => 'overlay_color',
-					'not_empty' => 1,
+					'not_empty' => '1',
 				),
 			),
 			array(
 				'type' => 'textfield',
-				'heading' => __( 'Heading', 'mm-components' ),
+				'heading' => __( 'Hero Banner Heading', 'mm-components' ),
 				'param_name' => 'heading',
 				'admin_label' => true,
 			),
 			array(
 				'type' => 'textarea_html',
-				'heading' => __( 'Paragraph Text', 'mm-components' ),
+				'heading' => __( 'Hero Banner Content', 'mm-components' ),
 				'param_name' => 'content',
 			),
 			array(
@@ -278,20 +265,32 @@ function mm_vc_hero_banner() {
 				'type' => 'dropdown',
 				'heading' => __( 'Button Style', 'mm-components' ),
 				'param_name' => 'button_style',
-				'value' => array(
-					__( 'Default (solid)', 'mm-components ') => 'default',
-					__( 'Ghost (transparent background, white border)', 'mm-components ') => 'ghost',
+				'value' => mm_get_button_styles_for_vc(),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Border Weight', 'mm-components' ),
+				'param_name' => 'border_weight',
+				'value'      => mm_get_button_border_weights_for_vc(),
+				'dependency' => array(
+					'element' => 'button_style',
+					'value'   => array(
+						'ghost',
+						'solid-to-ghost',
+					)
 				),
+			),
+			array(
+				'type' => 'dropdown',
+				'heading' => __( 'Button Corner Style', 'mm-components' ),
+				'param_name' => 'button_corner_style',
+				'value' => mm_get_button_corner_styles_for_vc(),
 			),
 			array(
 				'type' => 'dropdown',
 				'heading' => __( 'Button Color', 'mm-components' ),
 				'param_name' => 'button_color',
-				'value' => array(
-					__( 'Default', 'mm-components ') => 'default',
-					__( 'White', 'mm-components ') => 'white',
-					__( 'Gray', 'mm-components ') => 'gray',
-				),
+				'value' => mm_get_available_colors_for_vc(),
 			),
 			array(
 				'type' => 'textarea_raw_html',
@@ -370,6 +369,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			'button_link_target'  => '',
 			'button_text'         => __( 'Read More', 'mm-components' ),
 			'button_style'        => '',
+			'button_corner_style' => '',
 			'button_color'        => '',
 			'secondary_cta'       => '',
 		);
@@ -409,6 +409,8 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			'button_link_target'  => '',
 			'button_text'         => __( 'Read More', 'mm-components' ),
 			'button_style'        => '',
+			'button_border'       => '',
+			'button_corner_style' => '',
 			'button_color'        => '',
 			'secondary_cta'       => '',
 		);
@@ -416,19 +418,21 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		$background_image     = $instance['background_image'];
-		$background_position  = $instance['background_position'];
-		$overlay_color        = $instance['overlay_color'];
-		$overlay_opacity      = $instance['overlay_opacity'];
-		$heading              = $instance['heading'];
-		$content              = $instance['content'];
-		$text_position        = $instance['text_position'];
-		$button_link          = $instance['button_link'];
-		$button_link_target   = $instance['button_link_target'];
-		$button_text          = $instance['button_text'];
-		$button_style         = $instance['button_style'];
-		$button_color         = $instance['button_color'];
-		$secondary_cta        = $instance['secondary_cta'];
+		$background_image    = $instance['background_image'];
+		$background_position = $instance['background_position'];
+		$overlay_color       = $instance['overlay_color'];
+		$overlay_opacity     = $instance['overlay_opacity'];
+		$heading             = $instance['heading'];
+		$content             = $instance['content'];
+		$text_position       = $instance['text_position'];
+		$button_link         = $instance['button_link'];
+		$button_link_target  = $instance['button_link_target'];
+		$button_text         = $instance['button_text'];
+		$button_style        = $instance['button_style'];
+		$button_border       = $instance['button_border'];
+		$button_color        = $instance['button_color'];
+		$button_corner_style = $args['button_corner_style'];
+		$secondary_cta       = $instance['secondary_cta'];
 
 		$classname          = $this->options['classname'];
 
@@ -444,10 +448,11 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 		// Background Position.
 		$this->field_text(
 			__( 'Background Position', 'mm-components' ),
-			__( 'CSS background position value (<a href="http://www.w3schools.com/cssref/pr_background-position.asp">read more</a>). Defaults to: center center.', 'mm-components' ),
-			$classname . '-specific-roles widefat',
+			__( '', 'mm-components' ),
+			$classname . '-background-position widefat',
 			'background_position',
-			$background_position
+			$background_position,
+			mm_get_background_position()
 		);
 
 		// Overlay Color.
@@ -457,7 +462,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-overlay_color widefat',
 			'overlay_color',
 			$overlay_color,
-			mm_get_available_overlay_colors( 'hero-banner' )
+			mm_get_overlay_colors()
 		);
 
 		// Overlay Opacity.
@@ -472,7 +477,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 
 		// Heading.
 		$this->field_text(
-			__( 'Heading', 'mm-components' ),
+			__( 'Hero Banner Heading', 'mm-components' ),
 			'',
 			$classname . '-heading widefat',
 			'heading',
@@ -481,7 +486,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 
 		// Content.
 		$this->field_textarea(
-			__( 'Content', 'mm-components' ),
+			__( 'Hero Banner Content', 'mm-components' ),
 			'',
 			$classname . '-content widefat',
 			'content',
@@ -523,10 +528,27 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-button-style widefat',
 			'button_style',
 			$button_style,
-			array(
-				'default' => 'Default (solid)',
-				'ghost'   => 'Ghost (transparent background, white border)',
-				)
+			mm_get_button_styles()
+		);
+
+		// Button Border Weight.
+		$this->field_select(
+			__( 'Button Border Weight', 'mm-components' ),
+			'',
+			$classname . '-button-border-weight widefat',
+			'button_border',
+			$button_border,
+			mm_get_button_border_weights()
+		);
+
+		// Button Corner Style.
+		$this->field_select(
+			__( 'Button Corner Style', 'mm-components' ),
+			'',
+			$classname . '-button-corner-style widefat',
+			'button_corner_style',
+			$button_corner_style,
+			mm_get_button_corner_styles()
 		);
 
 		// Button Color.
@@ -536,11 +558,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-button-color widefat',
 			'button_color',
 			$button_color,
-			array(
-				'default' => 'Default',
-				'white'   => 'White',
-				'gray'    => 'Gray',
-				)
+			mm_get_available_colors()
 		);
 
 		// Secondary CTA.
@@ -577,7 +595,9 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 		$instance['button_link_target']  = sanitize_text_field( $new_instance['button_link_target'] );
 		$instance['button_text']         = sanitize_text_field( $new_instance['button_text'] );
 		$instance['button_style']        = sanitize_text_field( $new_instance['button_style'] );
+		$instance['button_border']       = sanitize_text_field( $new_instance['button_border'] );
 		$instance['button_color']        = sanitize_text_field( $new_instance['button_color'] );
+		$instance['button_corner_style'] = sanitize_text_field( $new_instance['button_corner_style'] );
 		$instance['secondary_cta']       = wp_kses_post( $new_instance['secondary_cta'] );
 
 		return $instance;

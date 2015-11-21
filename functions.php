@@ -523,6 +523,46 @@ function mm_get_available_colors_for_vc() {
 }
 
 /**
+ * Return an array of background position values.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  The component calling this function.
+ *
+ * @return  array   The array of background position values.
+ */
+function mm_get_background_position( $component = '' ) {
+
+	$position = array(
+		'center center' => __( 'Center Center', 'mm-components' ),
+		'center top'    => __( 'Center Top', 'mm-components' ),
+		'center bottom' => __( 'Center Bottom', 'mm-components' ),
+		'left center'   => __( 'Left Center', 'mm-components' ),
+		'left top'      => __( 'Left Top', 'mm-components' ),
+		'left bottom'   => __( 'Left Bottom', 'mm-components' ),
+		'right center'  => __( 'Right Center', 'mm-components' ),
+		'right top'     => __( 'Right Top', 'mm-components' ),
+		'right bottom'  => __( 'Right Bottom', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_get_background_position', $position, $component );
+
+	return $position;
+}
+
+/**
+ * Return an array of background position for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of colors.
+ */
+function mm_get_background_position_for_vc() {
+
+	return array_flip( mm_get_background_position() );
+}
+
+/**
  * Return an array of registered overlay color names.
  *
  * @since   1.0.0
@@ -595,7 +635,6 @@ function mm_get_overlay_opacity_values( $component = '' ) {
 function mm_get_overlay_opacity_values_for_vc( $component = '' ) {
 
 	return array_flip( mm_get_overlay_opacity_values( $component ) );
-
 }
 
 /**
@@ -603,7 +642,9 @@ function mm_get_overlay_opacity_values_for_vc( $component = '' ) {
  *
  * @since   1.0.0
  *
- * @return  array  The array of options.
+ * @param   string  The component calling this function.
+ *
+ * @return  array  The array of text alignment options.
  */
 function mm_get_text_alignment( $component = '' ) {
 
@@ -622,6 +663,8 @@ function mm_get_text_alignment( $component = '' ) {
 /**
  * Return an array of text alignments for use in a Visual Composer dropdown param.
  *
+ * @param   string  The component calling this function.
+ *
  * @since   1.0.0
  *
  * @return  array  The array of text alignment options.
@@ -629,6 +672,115 @@ function mm_get_text_alignment( $component = '' ) {
 function mm_get_text_alignment_for_vc( $component = '' ) {
 
 	return array_flip( mm_get_text_alignment() );
+}
+
+/**
+ * Return an array of button style options.
+ *
+ * @param   string  The component calling this function.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of button style options.
+ */
+function mm_get_button_styles( $component = '' ) {
+
+	$button_style = array(
+		'default'        => __( 'Default', 'mm-components' ),
+		'ghost'          => __( 'Ghost', 'mm-components' ),
+		'solid-to-ghost' => __( 'Solid to Ghost', 'mm-components' ),
+		'three-d'        => __( '3D', 'mm-components' ),
+		'gradient'       => __( 'Gradient', 'mm-components' ),
+	);
+
+	$button_style = apply_filters( 'mm_get_button_styles', $button_style, $component );
+
+	return $button_style;
+}
+
+/**
+ * Return an array of button style options for use in a Visual Composer dropdown param.
+ *
+ * @param   string  The component calling this function.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of text alignment options.
+ */
+function mm_get_button_styles_for_vc( $component = '' ) {
+
+	return array_flip( mm_get_button_styles() );
+}
+
+/**
+ * Return an array of button border weight options.
+ *
+ * @param   string  The component calling this function.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of button border weight options.
+ */
+function mm_get_button_border_weights( $component = '' ) {
+
+	$button_border_weight = array(
+		'thin' => __( 'Thin', 'mm-components' ),
+		'thick' => __( 'Thick', 'mm-components' ),
+	);
+
+	$button_style = apply_filters( 'mm_get_button_border_weights', $button_border_weight, $component );
+
+	return $button_border_weight;
+}
+
+/**
+ * Return an array of button border weight options for use in a Visual Composer dropdown param.
+ *
+ * @param   string  The component calling this function.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of button border weight options.
+ */
+function mm_get_button_border_weights_for_vc( $component = '' ) {
+
+	return array_flip( mm_get_button_border_weights() );
+}
+
+/**
+ * Return an array of button corner style options.
+ *
+ * @param   string  The component calling this function.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of button corner style options.
+ */
+function mm_get_button_corner_styles( $component = '' ) {
+
+	$button_corner_style = array(
+		'pointed' => __( 'Pointed', 'mm-components' ),
+		'rounded' => __( 'Rounded', 'mm-components' ),
+		'pill'    => __( 'Pill', 'mm-components' ),
+	);
+
+	$button_style = apply_filters( 'mm_get_button_corner_styles', $button_corner_style, $component );
+
+	return $button_corner_style;
+}
+
+/**
+ * Return an array of button corner style options for use in a Visual Composer dropdown param.
+ *
+ * @param   string  The component calling this function.
+ *
+ * @since   1.0.0
+ *
+ * @return  array  The array of button corner style options.
+ */
+function mm_get_button_corner_styles_for_vc( $component = '' ) {
+
+	return array_flip( mm_get_button_corner_styles() );
 }
 
 /**
