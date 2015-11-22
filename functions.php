@@ -574,7 +574,7 @@ function mm_get_background_position_for_vc() {
 function mm_get_overlay_colors( $component = '' ) {
 
 	$colors = array(
-		'none' => __( 'None', 'mm-components' ),
+		'' => __( 'None', 'mm-components' ),
 		'white'   => __( 'White', 'mm-components' ),
 		'black'   => __( 'Black', 'mm-components' ),
 	);
