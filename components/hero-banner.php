@@ -92,8 +92,25 @@ function mm_hero_banner( $args ) {
 	}
 
 	// Build the content.
+	if ( strpos( $content, '<' ) ) {
+
+		/* We have HTML */
+		$content_output = ( function_exists( 'wpb_js_remove_wpautop' ) ) ? wpb_js_remove_wpautop( $content, true ) : $content;
+
+	} elseif ( mm_is_base64( $content ) ) {
+
+		/* We have a base64 encoded string */
+		$content_output = rawurldecode( base64_decode( $content ) );
+
+	} else {
+
+		/* We have a non-HTML string */
+		$content_output = $content;
+	}
+
 	if ( $content ) {
-		$content_output = '<div>' . esc_attr( $content ) . '</div>';
+
+		$content_output = '<div class="content">' .  wp_kses_post( $content_output ) . '</div>';
 	}
 
 	// Build the button shortcode.
@@ -145,7 +162,7 @@ function mm_hero_banner( $args ) {
 
 				<?php echo $heading_output; ?>
 
-				<?php echo $content_output; ?>
+				<?php echo do_shortcode( $content_output ); ?>
 
 				<?php echo do_shortcode( $button_shortcode ); ?>
 
