@@ -250,41 +250,37 @@
 
 		return this.each( function() {
 
-			var $widget = $( this );
-			var $overlayColor = $widget.find( '.mm-hero-banner-overlay-color' );
-			var $overlayOpacity = $widget.find( '.mm-select-field-wrap' ).has( '.mm-hero-banner-overlay-opacity' );
-			var $buttonStyle = $widget.find( '.mm-hero-banner-button-style' );
-			var $buttonBorder = $widget.find( '.mm-select-field-wrap' ).has( '.mm-hero-banner-button-border-weight' );
+			var $widget             = $( this );
+			var $overlayColor       = $widget.find( '.mm-hero-banner-widget-overlay-color' );
+			var $overlayOpacityWrap = $widget.find( '.mm-select-field-wrap' ).has( '.mm-hero-banner-widget-overlay-opacity' );
+			var $buttonStyle        = $widget.find( '.mm-hero-banner-widget-button-style' );
+			var $buttonBorderWrap   = $widget.find( '.mm-select-field-wrap' ).has( '.mm-hero-banner-widget-button-border-weight' );
 
-			if ( $overlayColor.find('option:selected').text() === 'None' ) {
-					$overlayOpacity.addClass( 'mm-hidden' );
-				}
-
-			$overlayColor.change( function() {
-				if ( $overlayColor.find('option:selected').text() !== 'None' ) {
-					$overlayOpacity.removeClass( 'mm-hidden' );
-				} else {
-					$overlayOpacity.addClass( 'mm-hidden' );
-				}
-
-			});
-
-
-			if ( $buttonStyle.find('option:selected').text() === 'Ghost' || $buttonStyle.find('option:selected').text() === 'Solid to Ghost' ) {
-				$buttonBorder.removeClass( 'mm-hidden' );
-			} else {
-				$buttonBorder.addClass( 'mm-hidden' );
+			if ( '' === $overlayColor.find( 'option:selected' ).attr( 'value' ) ) {
+				$overlayOpacityWrap.addClass( 'mm-hidden' );
 			}
 
-			$buttonStyle.change( function() {
-				if ( $buttonStyle.find('option:selected').text() === 'Ghost' || $buttonStyle.find('option:selected').text() === 'Solid to Ghost' ) {
-					$buttonBorder.removeClass( 'mm-hidden' );
-				} else {
-					$buttonBorder.addClass( 'mm-hidden' );
-				}
+			if ( 'ghost' === $buttonStyle.find( 'option:selected' ).attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' ) ) {
+				$buttonBorderWrap.removeClass( 'mm-hidden' );
+			} else {
+				$buttonBorderWrap.addClass( 'mm-hidden' );
+			}
 
+			$overlayColor.on( 'change', function() {
+				if ( '' !== $overlayColor.find( 'option:selected' ).attr( 'value' ) ) {
+					$overlayOpacityWrap.removeClass( 'mm-hidden' );
+				} else {
+					$overlayOpacityWrap.addClass( 'mm-hidden' );
+				}
 			});
 
+			$buttonStyle.on( 'change', function() {
+				if ( 'ghost' === $buttonStyle.find('option:selected').attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' ) ) {
+					$buttonBorderWrap.removeClass( 'mm-hidden' );
+				} else {
+					$buttonBorderWrap.addClass( 'mm-hidden' );
+				}
+			});
 		});
 	}
 

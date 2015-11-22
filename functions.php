@@ -615,6 +615,7 @@ function mm_get_background_position_for_vc( $context = '' ) {
 function mm_get_overlay_colors( $context = '' ) {
 
 	$colors = array(
+		''      => __( 'None', 'mm-components' ),
 		'white' => __( 'White', 'mm-components' ),
 		'black' => __( 'Black', 'mm-components' ),
 	);
@@ -633,11 +634,7 @@ function mm_get_overlay_colors( $context = '' ) {
  */
 function mm_get_overlay_colors_for_vc( $context = '' ) {
 
-	$empty_option = array(
-		__( 'None', 'mm-components' ) => '',
-	);
-
-	return $empty_option + array_flip( mm_get_overlay_colors( $context ) );
+	return array_flip( mm_get_overlay_colors( $context ) );
 }
 
 /**
@@ -679,6 +676,47 @@ function mm_get_overlay_opacity_values( $context = '' ) {
 function mm_get_overlay_opacity_values_for_vc( $context = '' ) {
 
 	return array_flip( mm_get_overlay_opacity_values( $context ) );
+}
+
+/**
+ * Return an array of heading levels.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of heading levels.
+ */
+function mm_get_heading_levels( $context = '' ) {
+
+	$heading_levels = array(
+		'h1' => __( 'h1', 'mm-components' ),
+		'h2' => __( 'h2', 'mm-components' ),
+		'h3' => __( 'h3', 'mm-components' ),
+		'h4' => __( 'h4', 'mm-components' ),
+		'h5' => __( 'h5', 'mm-components' ),
+		'h6' => __( 'h6', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_get_heading_levels', $heading_levels, $context );
+}
+
+/**
+ * Return an array of heading levels for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of heading levels.
+ */
+function mm_get_heading_levels_for_vc( $context = '' ) {
+
+	$empty_option = array(
+		__( 'Select a heading level', 'mm-components' ),
+	);
+
+	return $empty_option + array_flip( mm_get_heading_levels( $context ) );
 }
 
 /**
@@ -792,7 +830,7 @@ function mm_get_button_border_weights_for_vc( $context = '' ) {
  *
  * @param   string  $context  The context to pass to our filter.
  *
- * @return  array  The array of button corner style options.
+ * @return  array             The array of button corner style options.
  */
 function mm_get_button_corner_styles( $context = '' ) {
 
@@ -817,6 +855,41 @@ function mm_get_button_corner_styles( $context = '' ) {
 function mm_get_button_corner_styles_for_vc( $context = '' ) {
 
 	return array_flip( mm_get_button_corner_styles( $context ) );
+}
+
+/**
+ * Return an array of link targets.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of link targets.
+ */
+function mm_get_link_targets( $context = '' ) {
+
+	$link_targets = array(
+		'_self'   => __( 'Same window', 'mm-components' ),
+		'_blank'  => __( 'New window', 'mm-components' ),
+		'_parent' => __( 'Parent window', 'mm-components' ),
+		'_top'    => __( 'Top window', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_link_targets', $link_targets, $context );
+}
+
+/**
+ * Return an array of link targets for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of link targets.
+ */
+function mm_get_link_targets_for_vc( $context = '' ) {
+
+	return array_flip( mm_get_link_targets( $context ) );
 }
 
 /**
