@@ -22,6 +22,9 @@
 
 		// Set up field dependencies for Mm Restricted Content.
 		$( '.widget[id*="mm_restricted_content_widget"]' ).mmRestrictedContentFields();
+
+		// Set up field dependencies for Mm Hero Banner.
+		$( '.widget[id*="mm_hero_banner_widget"]' ).mmHeroBannerFields();
 	});
 
 	// Reset or initialize certain fields when widgets are added or updated.
@@ -34,6 +37,10 @@
 
 		if ( $( data[0] ).is( '.widget[id*="mm_restricted_content_widget"]' ) ) {
 			$( data[0] ).mmRestrictedContentFields();
+		}
+
+		if ( $( data[0] ).is( '.widget[id*="mm_hero_banner_widget"]' ) ) {
+			$( data[0] ).mmHeroBannerFields();
 		}
 	});
 
@@ -231,6 +238,53 @@
 			$checkbox.on( 'click', function() {
 				$rolesCheckboxes.toggleClass( 'mm-hidden' );
 			});
+		});
+	}
+
+	/**
+	 * Dependency for dropdown widget fields.
+	 *
+	 * @since  1.0.0
+	 */
+	$.fn.mmHeroBannerFields = function() {
+
+		return this.each( function() {
+
+			var $widget = $( this );
+			var $overlayColor = $widget.find( '.mm-hero-banner-overlay-color' );
+			var $overlayOpacity = $widget.find( '.mm-select-field-wrap' ).has( '.mm-hero-banner-overlay-opacity' );
+			var $buttonStyle = $widget.find( '.mm-hero-banner-button-style' );
+			var $buttonBorder = $widget.find( '.mm-select-field-wrap' ).has( '.mm-hero-banner-button-border-weight' );
+
+			if ( $overlayColor.find('option:selected').text() === 'None' ) {
+					$overlayOpacity.addClass( 'mm-hidden' );
+				}
+
+			$overlayColor.change( function() {
+				if ( $overlayColor.find('option:selected').text() !== 'None' ) {
+					$overlayOpacity.removeClass( 'mm-hidden' );
+				} else {
+					$overlayOpacity.addClass( 'mm-hidden' );
+				}
+
+			});
+
+
+			if ( $buttonStyle.find('option:selected').text() === 'Ghost' || $buttonStyle.find('option:selected').text() === 'Solid to Ghost' ) {
+				$buttonBorder.removeClass( 'mm-hidden' );
+			} else {
+				$buttonBorder.addClass( 'mm-hidden' );
+			}
+
+			$buttonStyle.change( function() {
+				if ( $buttonStyle.find('option:selected').text() === 'Ghost' || $buttonStyle.find('option:selected').text() === 'Solid to Ghost' ) {
+					$buttonBorder.removeClass( 'mm-hidden' );
+				} else {
+					$buttonBorder.addClass( 'mm-hidden' );
+				}
+
+			});
+
 		});
 	}
 
