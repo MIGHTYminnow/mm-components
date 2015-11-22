@@ -449,6 +449,156 @@ a.mm-button.full-width {
   display: block;
 }
 
+/* Hero Banner
+--------------------------------------------- */
+.mm-hero-banner {
+  position: relative;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  color: #fff;
+  overflow: hidden;
+}
+
+.mm-hero-banner:not(:last-child) {
+  margin-bottom: 40px !important;
+}
+
+.mm-hero-banner h2,
+.mm-hero-banner .secondary-cta a,
+.mm-hero-banner .secondary-cta a:hover,
+.mm-hero-banner.light-text,
+.mm-hero-banner.light-text h2,
+.mm-hero-banner.light-text .secondary-cta a,
+.mm-hero-banner.light-text .secondary-cta a:hover {
+  color: #fff !important;
+}
+
+.mm-hero-banner.medium-text,
+.mm-hero-banner.medium-text h2,
+.mm-hero-banner.medium-text .secondary-cta a,
+.mm-hero-banner.medium-text .secondary-cta a:hover {
+  color: #a8a8a8 !important;
+}
+
+.mm-hero-banner.dark-text,
+.mm-hero-banner.dark-text h2,
+.mm-hero-banner.dark-text .secondary-cta a,
+.mm-hero-banner.dark-text .secondary-cta a:hover {
+  color: #2A2A2A !important;
+}
+
+.mm-hero-banner .color-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 !important;
+}
+
+.mm-hero-banner .background-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.mm-hero-banner .hero-text-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.mm-hero-banner.text-center .hero-text-wrapper {
+  text-align: center;
+}
+
+.mm-hero-banner .wrapper {
+  max-width: 95%;
+  min-height: 250px;
+  margin: 0 15px;
+  padding: 48px 0 36px;
+  word-break: break-word;
+}
+
+.mm-hero-banner.text-center .wrapper {
+  margin: 0 auto;
+}
+
+.mm-hero-banner h2 {
+  margin-bottom: 14px;
+  font-size: 24px;
+}
+
+.mm-hero-banner div {
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+
+.mm-hero-banner .secondary-cta {
+  margin-top: 1.5em;
+  margin-bottom: 0 !important;
+}
+
+.mm-hero-banner .secondary-cta a:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 599px) {
+  .mm-hero-banner .button {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+}
+
+@media (min-width: 600px) {
+  .mm-hero-banner .wrapper {
+    min-height: 400px;
+    margin: 0 6%;
+    padding: 108px 0 116px;
+  }
+  .mm-hero-banner h2 {
+    margin-bottom: 12px;
+    font-size: 30px;
+  }
+  .mm-hero-banner div {
+    margin-bottom: 30px;
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-banner.text-right .wrapper {
+    float: right;
+  }
+}
+
+@media (min-width: 880px) {
+  .hero-banner:not(:last-child) {
+    margin-bottom: 60px !important;
+  }
+  .hero-banner .wrapper {
+    padding-bottom: 111px;
+  }
+  .hero-banner p {
+    font-size: 20px;
+  }
+  .hero-banner .button {
+    /*font-family: 'Benton Sans Medium', sans-serif;
+        font-weight: normal;*/
+  }
+}
+
+@media (min-width: 1000px) {
+  .hero-banner .hero-text-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .hero-banner .wrapper {
+    margin: 0 10px;
+    margin: 0 1rem;
+  }
+}
+
 /* Posts
 --------------------------------------------- */
 .mm-posts .entry-image {
