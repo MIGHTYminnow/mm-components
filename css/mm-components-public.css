@@ -97,8 +97,12 @@ a.mm-button.ghost.thin, a.mm-button.solid-to-ghost.thin {
   border: 1px solid;
 }
 
-a.mm-button.ghost.thick, a.mm-button.solid-to-ghost.thick {
+a.mm-button.ghost.default, a.mm-button.solid-to-ghost.default {
   border: 2px solid;
+}
+
+a.mm-button.ghost.thick, a.mm-button.solid-to-ghost.thick {
+  border: 3px solid;
 }
 
 /* Corner Styles */
@@ -274,42 +278,42 @@ a.mm-button.dark.gradient:hover {
   background: black;
 }
 
-a.mm-button.ghost.thin, a.mm-button.ghost.thick {
+a.mm-button.ghost.thin, a.mm-button.ghost.default, a.mm-button.ghost.thick {
   background-color: transparent !important;
   color: #99CCCC !important;
 }
 
-a.mm-button.ghost.thin:hover, a.mm-button.ghost.thick:hover {
+a.mm-button.ghost.thin:hover, a.mm-button.ghost.default:hover, a.mm-button.ghost.thick:hover {
   background-color: #99CCCC !important;
   border-color: #99CCCC;
   color: #fff !important;
 }
 
-a.mm-button.ghost.thin.light, a.mm-button.ghost.thick.light {
+a.mm-button.ghost.thin.light, a.mm-button.ghost.default.light, a.mm-button.ghost.thick.light {
   color: #999 !important;
 }
 
-a.mm-button.ghost.thin.light:hover, a.mm-button.ghost.thick.light:hover {
+a.mm-button.ghost.thin.light:hover, a.mm-button.ghost.default.light:hover, a.mm-button.ghost.thick.light:hover {
   background-color: #999 !important;
   border-color: #999;
   color: #fff !important;
 }
 
-a.mm-button.ghost.thin.medium, a.mm-button.ghost.thick.medium {
+a.mm-button.ghost.thin.medium, a.mm-button.ghost.default.medium, a.mm-button.ghost.thick.medium {
   color: #666 !important;
 }
 
-a.mm-button.ghost.thin.medium:hover, a.mm-button.ghost.thick.medium:hover {
+a.mm-button.ghost.thin.medium:hover, a.mm-button.ghost.default.medium:hover, a.mm-button.ghost.thick.medium:hover {
   background-color: #666 !important;
   border-color: #666;
   color: #fff !important;
 }
 
-a.mm-button.ghost.thin.dark, a.mm-button.ghost.thick.dark {
+a.mm-button.ghost.thin.dark, a.mm-button.ghost.default.dark, a.mm-button.ghost.thick.dark {
   color: #333 !important;
 }
 
-a.mm-button.ghost.thin.dark:hover, a.mm-button.ghost.thick.dark:hover {
+a.mm-button.ghost.thin.dark:hover, a.mm-button.ghost.default.dark:hover, a.mm-button.ghost.thick.dark:hover {
   background-color: #333 !important;
   border-color: #333;
   color: #fff !important;
