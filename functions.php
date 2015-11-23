@@ -67,11 +67,11 @@ function mm_true_or_false( $value ) {
 }
 
 /**
- * Checks for a base64 encoded string.
+ * Check for a base64 encoded string.
  *
  * @since   1.0.0
  *
- * @return  bool  Returns true or false.
+ * @return  bool
  */
 function mm_is_base64( $string ) {
 
@@ -98,10 +98,12 @@ function mm_is_base64( $string ) {
 /**
  * Check if a user has a specific role.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
- * @param  string  $role     The role we want to check.
- * @param  int     $user_id  The current user's ID.
+ * @param   string  $role     The role we want to check.
+ * @param   int     $user_id  The current user's ID.
+ *
+ * @return  bool
  */
 function mm_check_user_role( $role, $user_id = null ) {
 
@@ -123,12 +125,14 @@ function mm_check_user_role( $role, $user_id = null ) {
  *
  * @since   1.0.0
  *
- * @return  array  The array of formatted post types.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted post types.
  */
-function mm_get_post_types() {
+function mm_get_post_types( $context = '' ) {
 
 	$post_type_args = array(
-		'public' => true,
+		'public'   => true,
 		'_builtin' => false
 	);
 
@@ -137,7 +141,6 @@ function mm_get_post_types() {
 	$formatted_cpts = array();
 
 	foreach( $custom_post_types as $post_type ) {
-
 		$formatted_cpts[ $post_type->name ] = $post_type->labels->singular_name;
 	}
 
@@ -147,7 +150,9 @@ function mm_get_post_types() {
 		'page' => __( 'Page', 'mm-components' ),
 	);
 
-	return array_merge( $default_post_types, $formatted_cpts );
+	$post_types = $default_post_types + $formatted_cpts;
+
+	return apply_filters( 'mm_post_types', $post_types, $context );
 }
 
 /**
@@ -155,11 +160,13 @@ function mm_get_post_types() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of formatted post types.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted post types.
  */
-function mm_get_post_types_for_vc() {
+function mm_get_post_types_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_post_types() );
+	return array_flip( mm_get_post_types( $context ) );
 }
 
 /**
@@ -167,9 +174,11 @@ function mm_get_post_types_for_vc() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of formatted taxonomies.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted taxonomies.
  */
-function mm_get_taxonomies() {
+function mm_get_taxonomies( $context = '' ) {
 
 	$taxonomy_args = array(
 		'public'   => true,
@@ -190,7 +199,7 @@ function mm_get_taxonomies() {
 		$taxonomies[ $taxonomy->name ] = $taxonomy->labels->singular_name;
 	}
 
-	return $taxonomies;
+	return apply_filters( 'mm_taxonomies', $taxonomies, $context );
 }
 
 /**
@@ -198,16 +207,18 @@ function mm_get_taxonomies() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of formatted taxonomies.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted taxonomies.
  */
-function mm_get_taxonomies_for_vc() {
+function mm_get_taxonomies_for_vc( $context = '' ) {
 
 	// Add an empty first option.
 	$empty_option = array(
 		__( 'Select a Taxonomy', 'mm-components' ) => '',
 	);
 
-	return $empty_option + array_flip( mm_get_taxonomies() );
+	return $empty_option + array_flip( mm_get_taxonomies( $context ) );
 }
 
 /**
@@ -215,9 +226,11 @@ function mm_get_taxonomies_for_vc() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of formatted image sizes.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted image sizes.
  */
-function mm_get_image_sizes() {
+function mm_get_image_sizes( $context = '' ) {
 
 	$image_sizes = get_intermediate_image_sizes();
 	$formatted_image_sizes = array();
@@ -231,7 +244,7 @@ function mm_get_image_sizes() {
 	// Manually add in the 'Full' size.
 	$formatted_image_sizes['full'] = __( 'Full', 'mm-components' );
 
-	return $formatted_image_sizes;
+	return apply_filters( 'mm_image_sizes', $formatted_image_sizes, $context );
 }
 
 /**
@@ -239,16 +252,18 @@ function mm_get_image_sizes() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of formatted image sizes.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted image sizes.
  */
-function mm_get_image_sizes_for_vc() {
+function mm_get_image_sizes_for_vc( $context = '' ) {
 
 	// Add an empty first option.
 	$empty_option = array(
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	return $empty_option + mm_get_image_sizes();
+	return $empty_option + mm_get_image_sizes( $context );
 }
 
 /**
@@ -320,12 +335,14 @@ function mm_get_image_size_dimensions( $image_size = '' ) {
  *
  * @since   1.0.0
  *
- * @return  array  The array of template names.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
  */
-function mm_get_mm_posts_templates() {
+function mm_get_mm_posts_templates( $context = '' ) {
 
 	// All core and custom templates should be registered using this filter.
-	return apply_filters( 'mm_posts_templates', array() );
+	return apply_filters( 'mm_posts_templates', array(), $context );
 }
 
 /**
@@ -333,16 +350,18 @@ function mm_get_mm_posts_templates() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of template names.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
  */
-function mm_get_mm_posts_templates_for_vc() {
+function mm_get_mm_posts_templates_for_vc( $context = '' ) {
 
 	// Add an empty first option.
 	$empty_option = array(
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	return $empty_option + array_flip( mm_get_mm_posts_templates() );
+	return $empty_option + array_flip( mm_get_mm_posts_templates( $context ) );
 }
 
 /**
@@ -350,12 +369,14 @@ function mm_get_mm_posts_templates_for_vc() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of template names.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
  */
-function mm_get_mm_users_templates() {
+function mm_get_mm_users_templates( $context = '' ) {
 
 	// All core and custom templates should be registered using this filter.
-	return apply_filters( 'mm_users_templates', array() );
+	return apply_filters( 'mm_users_templates', array(), $context );
 }
 
 /**
@@ -363,16 +384,18 @@ function mm_get_mm_users_templates() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of template names.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
  */
-function mm_get_mm_users_templates_for_vc() {
+function mm_get_mm_users_templates_for_vc( $context = '' ) {
 
 	// Add an empty first option.
 	$empty_option = array(
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	return $empty_option + array_flip( mm_get_mm_users_templates() );
+	return $empty_option + array_flip( mm_get_mm_users_templates( $context ) );
 }
 
 /**
@@ -380,9 +403,11 @@ function mm_get_mm_users_templates_for_vc() {
  *
  * @since  1.0.0
  *
+ * @param   string  $context  The context to pass to our filter.
+ *
  * @return  array  The array of wrap elements.
  */
-function mm_get_wrap_elements() {
+function mm_get_wrap_elements( $context = '' ) {
 
 	$wrap_elements = array(
 		'article' => 'article',
@@ -392,7 +417,7 @@ function mm_get_wrap_elements() {
 		'span'    => 'span',
 	);
 
-	return apply_filters( 'mm_components_wrap_elements', $wrap_elements );
+	return apply_filters( 'mm_components_wrap_elements', $wrap_elements, $context );
 }
 
 /**
@@ -400,16 +425,18 @@ function mm_get_wrap_elements() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of wrap elements.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of wrap elements.
  */
-function mm_get_wrap_elements_for_vc() {
+function mm_get_wrap_elements_for_vc( $context = '' ) {
 
 	// Add an empty first option.
 	$empty_option = array(
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	return $empty_option + array_flip( mm_get_wrap_elements() );
+	return $empty_option + array_flip( mm_get_wrap_elements( $context ) );
 }
 
 /**
@@ -417,11 +444,13 @@ function mm_get_wrap_elements_for_vc() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of type names.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of type names.
  */
-function mm_get_mm_social_icons_types() {
+function mm_get_mm_social_icons_types( $context = '' ) {
 
-	return apply_filters( 'mm_social_icons_types', array() );
+	return apply_filters( 'mm_social_icons_types', array(), $context );
 }
 
 /**
@@ -429,9 +458,11 @@ function mm_get_mm_social_icons_types() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of social networks.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of social networks.
  */
-function mm_get_social_networks() {
+function mm_get_social_networks( $context = '' ) {
 
 	$social_networks = array(
 		'facebook'  => __( 'Facebook', 'mm-components' ),
@@ -441,7 +472,7 @@ function mm_get_social_networks() {
 		'youtube'   => __( 'Youtube', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_social_networks', $social_networks );
+	return apply_filters( 'mm_social_networks', $social_networks, $context );
 }
 
 /**
@@ -449,11 +480,13 @@ function mm_get_social_networks() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of social networks.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of social networks.
  */
-function mm_get_social_networks_for_vc() {
+function mm_get_social_networks_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_social_networks() );
+	return array_flip( mm_get_social_networks( $context ) );
 }
 
 /**
@@ -461,9 +494,11 @@ function mm_get_social_networks_for_vc() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of user roles.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of user roles.
  */
-function mm_get_user_roles() {
+function mm_get_user_roles( $context = '' ) {
 
 	global $wp_roles;
 
@@ -476,7 +511,7 @@ function mm_get_user_roles() {
 		$user_roles[ $role ] = $role_name;
 	}
 
-	return $user_roles;
+	return apply_filters( 'mm_user_roles', $user_roles, $context );
 }
 
 /**
@@ -484,11 +519,13 @@ function mm_get_user_roles() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of user roles.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of user roles.
  */
-function mm_get_user_roles_for_vc() {
+function mm_get_user_roles_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_user_roles() );
+	return array_flip( mm_get_user_roles( $context ) );
 }
 
 /**
@@ -496,9 +533,11 @@ function mm_get_user_roles_for_vc() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of colors.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of colors.
  */
-function mm_get_available_colors() {
+function mm_get_available_colors( $context = '' ) {
 
 	$colors = array(
 		'default' => __( 'Default', 'mm-components' ),
@@ -507,7 +546,7 @@ function mm_get_available_colors() {
 		'dark'    => __( 'Dark', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_available_colors', $colors );
+	return apply_filters( 'mm_get_available_colors', $colors, $context );
 }
 
 /**
@@ -515,11 +554,13 @@ function mm_get_available_colors() {
  *
  * @since   1.0.0
  *
- * @return  array  The array of colors.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of colors.
  */
-function mm_get_available_colors_for_vc() {
+function mm_get_available_colors_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_available_colors() );
+	return array_flip( mm_get_available_colors( $context ) );
 }
 
 /**
@@ -527,11 +568,11 @@ function mm_get_available_colors_for_vc() {
  *
  * @since   1.0.0
  *
- * @param   string  The component calling this function.
+ * @param   string  $context  The context to pass to our filter.
  *
- * @return  array   The array of background position values.
+ * @return  array             The array of background position values.
  */
-function mm_get_background_position( $component = '' ) {
+function mm_get_background_position( $context = '' ) {
 
 	$position = array(
 		'center center' => __( 'Center Center', 'mm-components' ),
@@ -545,9 +586,7 @@ function mm_get_background_position( $component = '' ) {
 		'right bottom'  => __( 'Right Bottom', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_background_position', $position, $component );
-
-	return $position;
+	return apply_filters( 'mm_get_background_position', $position, $context );
 }
 
 /**
@@ -555,11 +594,13 @@ function mm_get_background_position( $component = '' ) {
  *
  * @since   1.0.0
  *
- * @return  array  The array of colors.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of colors.
  */
-function mm_get_background_position_for_vc() {
+function mm_get_background_position_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_background_position() );
+	return array_flip( mm_get_background_position( $context ) );
 }
 
 /**
@@ -567,19 +608,19 @@ function mm_get_background_position_for_vc() {
  *
  * @since   1.0.0
  *
- * @param   string  The component calling this function.
+ * @param   string  $context  The context to pass to our filter.
  *
- * @return  array   The array of overlay colors.
+ * @return  array             The array of overlay colors.
  */
-function mm_get_overlay_colors( $component = '' ) {
+function mm_get_overlay_colors( $context = '' ) {
 
 	$colors = array(
-		'' => __( 'None', 'mm-components' ),
-		'white'   => __( 'White', 'mm-components' ),
-		'black'   => __( 'Black', 'mm-components' ),
+		''      => __( 'None', 'mm-components' ),
+		'white' => __( 'White', 'mm-components' ),
+		'black' => __( 'Black', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_overlay_colors', $colors, $component );
+	return apply_filters( 'mm_get_overlay_colors', $colors, $context );
 }
 
 /**
@@ -587,13 +628,13 @@ function mm_get_overlay_colors( $component = '' ) {
  *
  * @since   1.0.0
  *
- * @param   string  The component calling this function.
+ * @param   string  $context  The context to pass to our filter.
  *
- * @return  array   The array of overlay colors.
+ * @return  array             The array of overlay colors.
  */
-function mm_get_overlay_colors_for_vc( $component = '' ) {
+function mm_get_overlay_colors_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_overlay_colors( $component ) );
+	return array_flip( mm_get_overlay_colors( $context ) );
 }
 
 /**
@@ -601,26 +642,26 @@ function mm_get_overlay_colors_for_vc( $component = '' ) {
  *
  * @since   1.0.0
  *
- * @param   string  The component calling this function.
+ * @param   string  $context  The context to pass to our filter.
  *
- * @return  array   The array of overlay values.
+ * @return  array             The array of overlay values.
  */
-function mm_get_overlay_opacity_values( $component = '' ) {
+function mm_get_overlay_opacity_values( $context = '' ) {
 
 	$values = array(
-		'0.1'  => __( '0.1', 'mm-components' ),
-		'0.2'  => __( '0.2', 'mm-components' ),
-		'0.3'  => __( '0.3', 'mm-components' ),
-		'0.4'  => __( '0.4', 'mm-components' ),
-		'0.5'  => __( '0.5', 'mm-components' ),
-		'0.6'  => __( '0.6', 'mm-components' ),
-		'0.7'  => __( '0.7', 'mm-components' ),
-		'0.8'  => __( '0.8', 'mm-components' ),
-		'0.9'  => __( '0.9', 'mm-components' ),
-		'1'    => __( '1', 'mm-components' ),
+		'0.1' => __( '0.1', 'mm-components' ),
+		'0.2' => __( '0.2', 'mm-components' ),
+		'0.3' => __( '0.3', 'mm-components' ),
+		'0.4' => __( '0.4', 'mm-components' ),
+		'0.5' => __( '0.5', 'mm-components' ),
+		'0.6' => __( '0.6', 'mm-components' ),
+		'0.7' => __( '0.7', 'mm-components' ),
+		'0.8' => __( '0.8', 'mm-components' ),
+		'0.9' => __( '0.9', 'mm-components' ),
+		'1'   => __( '1', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_overlay_opacity_values', $values, $component );
+	return apply_filters( 'mm_get_overlay_opacity_values', $values, $context );
 }
 
 /**
@@ -628,13 +669,54 @@ function mm_get_overlay_opacity_values( $component = '' ) {
  *
  * @since   1.0.0
  *
- * @param   string  The component calling this function.
+ * @param   string  $context  The context to pass to our filter.
  *
  * @return  array   The array of overlay values.
  */
-function mm_get_overlay_opacity_values_for_vc( $component = '' ) {
+function mm_get_overlay_opacity_values_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_overlay_opacity_values( $component ) );
+	return array_flip( mm_get_overlay_opacity_values( $context ) );
+}
+
+/**
+ * Return an array of heading levels.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of heading levels.
+ */
+function mm_get_heading_levels( $context = '' ) {
+
+	$heading_levels = array(
+		'h1' => __( 'h1', 'mm-components' ),
+		'h2' => __( 'h2', 'mm-components' ),
+		'h3' => __( 'h3', 'mm-components' ),
+		'h4' => __( 'h4', 'mm-components' ),
+		'h5' => __( 'h5', 'mm-components' ),
+		'h6' => __( 'h6', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_get_heading_levels', $heading_levels, $context );
+}
+
+/**
+ * Return an array of heading levels for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of heading levels.
+ */
+function mm_get_heading_levels_for_vc( $context = '' ) {
+
+	$empty_option = array(
+		__( 'Select a heading level', 'mm-components' ),
+	);
+
+	return $empty_option + array_flip( mm_get_heading_levels( $context ) );
 }
 
 /**
@@ -642,11 +724,11 @@ function mm_get_overlay_opacity_values_for_vc( $component = '' ) {
  *
  * @since   1.0.0
  *
- * @param   string  The component calling this function.
+ * @param   string  $context  The context to pass to our filter.
  *
- * @return  array  The array of text alignment options.
+ * @return  array             The array of text alignment options.
  */
-function mm_get_text_alignment( $component = '' ) {
+function mm_get_text_alignment( $context = '' ) {
 
 	$text_alignment = array(
 		'default' => __( 'Default', 'mm-components' ),
@@ -655,35 +737,33 @@ function mm_get_text_alignment( $component = '' ) {
 		'right'   => __( 'Right', 'mm-components' ),
 	);
 
-	$text_alignment = apply_filters( 'mm_get_text_alignment', $text_alignment, $component );
-
-	return $text_alignment;
+	return apply_filters( 'mm_get_text_alignment', $text_alignment, $context );
 }
 
 /**
  * Return an array of text alignments for use in a Visual Composer dropdown param.
  *
- * @param   string  The component calling this function.
- *
  * @since   1.0.0
  *
- * @return  array  The array of text alignment options.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of text alignment options.
  */
-function mm_get_text_alignment_for_vc( $component = '' ) {
+function mm_get_text_alignment_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_text_alignment() );
+	return array_flip( mm_get_text_alignment( $context ) );
 }
 
 /**
  * Return an array of button style options.
  *
- * @param   string  The component calling this function.
- *
  * @since   1.0.0
  *
- * @return  array  The array of button style options.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of button style options.
  */
-function mm_get_button_styles( $component = '' ) {
+function mm_get_button_styles( $context = '' ) {
 
 	$button_style = array(
 		'default'        => __( 'Default', 'mm-components' ),
@@ -693,98 +773,127 @@ function mm_get_button_styles( $component = '' ) {
 		'gradient'       => __( 'Gradient', 'mm-components' ),
 	);
 
-	$button_style = apply_filters( 'mm_get_button_styles', $button_style, $component );
-
-	return $button_style;
+	return apply_filters( 'mm_get_button_styles', $button_style, $context );
 }
 
 /**
  * Return an array of button style options for use in a Visual Composer dropdown param.
  *
- * @param   string  The component calling this function.
- *
  * @since   1.0.0
  *
- * @return  array  The array of text alignment options.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of text alignment options.
  */
-function mm_get_button_styles_for_vc( $component = '' ) {
+function mm_get_button_styles_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_button_styles() );
+	return array_flip( mm_get_button_styles( $context ) );
 }
 
 /**
  * Return an array of button border weight options.
  *
- * @param   string  The component calling this function.
- *
  * @since   1.0.0
  *
- * @return  array  The array of button border weight options.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of button border weight options.
  */
-function mm_get_button_border_weights( $component = '' ) {
+function mm_get_button_border_weights( $context = '' ) {
 
-	$button_border_weight = array(
-		'thin' => __( 'Thin', 'mm-components' ),
+	$button_border_weights = array(
+		'thin'  => __( 'Thin', 'mm-components' ),
 		'thick' => __( 'Thick', 'mm-components' ),
 	);
 
-	$button_style = apply_filters( 'mm_get_button_border_weights', $button_border_weight, $component );
-
-	return $button_border_weight;
+	return apply_filters( 'mm_get_button_border_weights', $button_border_weights, $context );
 }
 
 /**
  * Return an array of button border weight options for use in a Visual Composer dropdown param.
  *
- * @param   string  The component calling this function.
- *
  * @since   1.0.0
  *
- * @return  array  The array of button border weight options.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of button border weight options.
  */
-function mm_get_button_border_weights_for_vc( $component = '' ) {
+function mm_get_button_border_weights_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_button_border_weights() );
+	return array_flip( mm_get_button_border_weights( $context ) );
 }
 
 /**
  * Return an array of button corner style options.
  *
- * @param   string  The component calling this function.
- *
  * @since   1.0.0
  *
- * @return  array  The array of button corner style options.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of button corner style options.
  */
-function mm_get_button_corner_styles( $component = '' ) {
+function mm_get_button_corner_styles( $context = '' ) {
 
-	$button_corner_style = array(
+	$button_corner_styles = array(
 		'pointed' => __( 'Pointed', 'mm-components' ),
 		'rounded' => __( 'Rounded', 'mm-components' ),
 		'pill'    => __( 'Pill', 'mm-components' ),
 	);
 
-	$button_style = apply_filters( 'mm_get_button_corner_styles', $button_corner_style, $component );
-
-	return $button_corner_style;
+	return apply_filters( 'mm_get_button_corner_styles', $button_corner_styles, $context );
 }
 
 /**
  * Return an array of button corner style options for use in a Visual Composer dropdown param.
  *
- * @param   string  The component calling this function.
- *
  * @since   1.0.0
  *
- * @return  array  The array of button corner style options.
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of button corner style options.
  */
-function mm_get_button_corner_styles_for_vc( $component = '' ) {
+function mm_get_button_corner_styles_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_button_corner_styles() );
+	return array_flip( mm_get_button_corner_styles( $context ) );
 }
 
 /**
- * Output <table>.
+ * Return an array of link targets.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of link targets.
+ */
+function mm_get_link_targets( $context = '' ) {
+
+	$link_targets = array(
+		'_self'   => __( 'Same window', 'mm-components' ),
+		'_blank'  => __( 'New window', 'mm-components' ),
+		'_parent' => __( 'Parent window', 'mm-components' ),
+		'_top'    => __( 'Top window', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_link_targets', $link_targets, $context );
+}
+
+/**
+ * Return an array of link targets for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of link targets.
+ */
+function mm_get_link_targets_for_vc( $context = '' ) {
+
+	return array_flip( mm_get_link_targets( $context ) );
+}
+
+/**
+ * Output an opening <table> element.
  *
  * @since  1.0.0
  *
@@ -803,7 +912,7 @@ function mm_output_table_element_open( $classes = '' ) {
 }
 
 /**
- * Output </table>.
+ * Output a closing </table> element.
  *
  * @since  1.0.0
  */
@@ -813,7 +922,7 @@ function mm_output_table_element_close() {
 }
 
 /**
- * Output <thead>.
+ * Output an opening <thead> element.
  *
  * @since  1.0.0
  */
@@ -823,7 +932,7 @@ function mm_output_thead_element_open() {
 }
 
 /**
- * Output </thead>.
+ * Output a closing </thead> element.
  *
  * @since  1.0.0
  */
@@ -833,7 +942,7 @@ function mm_output_thead_element_close() {
 }
 
 /**
- * Output <tbody>.
+ * Output an opening <tbody> element.
  *
  * @since  1.0.0
  */
@@ -843,7 +952,7 @@ function mm_output_tbody_element_open() {
 }
 
 /**
- * Output </tbody>.
+ * Output a closing </tbody> element.
  *
  * @since  1.0.0
  */
