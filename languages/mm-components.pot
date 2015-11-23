@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MIGHTYminnow Components 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mm-components\n"
-"POT-Creation-Date: 2015-10-23 06:47:57+00:00\n"
+"POT-Creation-Date: 2015-11-23 15:01:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,33 +13,37 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 0.5.3\n"
 
-#: classes/class-mm-components-widget.php:237
+#: functions.php:661
+msgid "1"
+msgstr ""
+
+#: classes/class-mm-components-widget.php:367
 msgid "No File Selected"
 msgstr ""
 
-#: classes/class-mm-components-widget.php:238
+#: classes/class-mm-components-widget.php:368
 msgid "Media Item"
 msgstr ""
 
-#: classes/class-mm-components-widget.php:241
+#: classes/class-mm-components-widget.php:371
 msgid "Select Image"
 msgstr ""
 
-#: classes/class-mm-components-widget.php:242
-#: classes/class-mm-components-widget.php:289
+#: classes/class-mm-components-widget.php:372
+#: classes/class-mm-components-widget.php:430
 msgid "Clear"
 msgstr ""
 
-#: classes/class-mm-components-widget.php:271
+#: classes/class-mm-components-widget.php:412
 msgid "No Files Selected"
 msgstr ""
 
-#: classes/class-mm-components-widget.php:280
-#: classes/class-mm-components-widget.php:281
+#: classes/class-mm-components-widget.php:421
+#: classes/class-mm-components-widget.php:422
 msgid "Media Items"
 msgstr ""
 
-#: classes/class-mm-components-widget.php:288
+#: classes/class-mm-components-widget.php:429
 msgid "Select Images"
 msgstr ""
 
@@ -47,29 +51,30 @@ msgstr ""
 msgid "Blockquote"
 msgstr ""
 
-#: components/blockquote.php:88 components/button.php:115
-#: components/countdown/countdown.php:105 components/custom-heading.php:149
-#: components/demo.php:86 components/hero-banner.php:196
-#: components/highlight-box.php:110 components/icon-box.php:198
-#: components/logo-strip.php:119 components/polaroid-2.php:125
-#: components/polaroid.php:167 components/posts/posts.php:774
-#: components/twitter-feed.php:111
+#: components/blockquote.php:88 components/button.php:152
+#: components/countdown/countdown.php:105 components/custom-heading.php:141
+#: components/hero-banner.php:259 components/hero-banner.php:323
+#: components/highlight-box.php:102 components/icon-box.php:190
+#: components/logo-strip.php:119 components/polaroid-2.php:117
+#: components/polaroid.php:159 components/posts/posts.php:774
+#: components/social-icons.php:172 components/users/users.php:270
 msgid "Content"
 msgstr ""
 
-#: components/blockquote.php:92 components/image-grid.php:260
+#: components/blockquote.php:92 components/blockquote.php:246
+#: components/image-grid.php:260 components/social-icons.php:264
 msgid "Image"
 msgstr ""
 
-#: components/blockquote.php:94
+#: components/blockquote.php:94 components/blockquote.php:247
 msgid "Select an image from the library."
 msgstr ""
 
-#: components/blockquote.php:98 components/blockquote.php:227
+#: components/blockquote.php:98 components/blockquote.php:228
 msgid "Quote"
 msgstr ""
 
-#: components/blockquote.php:103 components/blockquote.php:235
+#: components/blockquote.php:103 components/blockquote.php:237
 msgid "Citation"
 msgstr ""
 
@@ -81,100 +86,155 @@ msgstr ""
 msgid "Mm Blockquote"
 msgstr ""
 
-#: components/blockquote.php:219 components/highlight-box.php:247
-#: components/image-grid.php:207 components/logo-strip.php:123
-#: components/logo-strip.php:252 components/polaroid-2.php:129
-#: components/polaroid.php:171
+#: components/blockquote.php:219 components/button.php:356
+#: components/highlight-box.php:239 components/image-grid.php:207
+#: components/logo-strip.php:123 components/logo-strip.php:252
+#: components/polaroid-2.php:121 components/polaroid.php:163
 msgid "Title"
 msgstr ""
 
-#: components/blockquote.php:243
-msgid "Image ID"
-msgstr ""
-
-#: components/button.php:111 components/expandable-content.php:94
+#: components/button.php:148 components/expandable-content.php:94
 #: mm-components.php:55
 msgid "Button"
 msgstr ""
 
-#: components/button.php:119 components/hero-banner.php:268
+#: components/button.php:156 components/hero-banner.php:334
 msgid "Button URL"
 msgstr ""
 
-#: components/button.php:125 components/hero-banner.php:295
+#: components/button.php:162 components/button.php:390
+#: components/hero-banner.php:344 components/hero-banner.php:660
 msgid "Button Style"
 msgstr ""
 
-#: components/button.php:128 components/button.php:163
-#: components/custom-heading.php:184 components/custom-heading.php:192
-#: components/custom-heading.php:209 components/custom-heading.php:226
-#: components/hero-banner.php:307 functions.php:323
+#: components/button.php:165 components/button.php:396
+#: components/custom-heading.php:176 components/custom-heading.php:184
+#: components/custom-heading.php:201 components/custom-heading.php:218
+#: functions.php:263 functions.php:361 functions.php:395 functions.php:436
+#: functions.php:543 functions.php:734 functions.php:769
 #: integrations/visual-composer/vc-functions.php:38
 #: integrations/visual-composer/vc-functions.php:52
 msgid "Default"
 msgstr ""
 
-#: components/button.php:133
-msgid "Border Style"
+#: components/button.php:166 components/button.php:397 functions.php:770
+msgid "Ghost"
 msgstr ""
 
-#: components/button.php:136 components/custom-heading.php:217
-#: components/hero-banner.php:218 components/posts/posts.php:816
-msgid "None"
+#: components/button.php:167 components/button.php:398 functions.php:771
+msgid "Solid to Ghost"
 msgstr ""
 
-#: components/button.php:137
+#: components/button.php:168 components/button.php:399 functions.php:772
+msgid "3D"
+msgstr ""
+
+#: components/button.php:169 components/button.php:400 functions.php:773
+msgid "Gradient"
+msgstr ""
+
+#: components/button.php:174 components/button.php:420
+msgid "Border Weight"
+msgstr ""
+
+#: components/button.php:177 components/button.php:426 functions.php:805
 msgid "Thin"
 msgstr ""
 
-#: components/button.php:138
+#: components/button.php:178 components/button.php:427 functions.php:806
 msgid "Thick"
 msgstr ""
 
-#: components/button.php:143 components/custom-heading.php:206
+#: components/button.php:190 components/button.php:406
+msgid "Corner Style"
+msgstr ""
+
+#: components/button.php:193 components/button.php:412 functions.php:838
+msgid "Pointed"
+msgstr ""
+
+#: components/button.php:194 components/button.php:413 functions.php:839
+msgid "Rounded"
+msgstr ""
+
+#: components/button.php:195 components/button.php:414 functions.php:840
+msgid "Pill"
+msgstr ""
+
+#: components/button.php:200 components/button.php:433
+#: components/custom-heading.php:198
 msgid "Color"
 msgstr ""
 
-#: components/button.php:146 components/hero-banner.php:310
-msgid "Gray"
-msgstr ""
-
-#: components/button.php:151
+#: components/button.php:206
 msgid "Button Size"
 msgstr ""
 
-#: components/button.php:154
+#: components/button.php:209 components/button.php:449
+#: components/social-icons.php:243
 msgid "Normal"
 msgstr ""
 
-#: components/button.php:155
+#: components/button.php:210 components/button.php:450
+#: components/social-icons.php:244
+msgid "Small"
+msgstr ""
+
+#: components/button.php:211 components/button.php:451
+#: components/social-icons.php:245
 msgid "Large"
 msgstr ""
 
-#: components/button.php:160
+#: components/button.php:216
+msgid "Full Width Button"
+msgstr ""
+
+#: components/button.php:218 components/button.php:458
+msgid "Choosing full-width will make the button take up the width of its container."
+msgstr ""
+
+#: components/button.php:220 components/expandable-content.php:122
+#: components/hero-banner.php:278 components/posts/posts.php:833
+#: components/posts/posts.php:841 components/posts/posts.php:860
+#: components/posts/posts.php:869 components/posts/posts.php:878
+#: components/posts/templates/image-grid.php:83
+#: components/posts/templates/image-grid.php:97
+#: components/restricted-content.php:142 components/social-icons.php:217
+msgid "Yes"
+msgstr ""
+
+#: components/button.php:225 components/button.php:466
 msgid "Button Alignment"
 msgstr ""
 
-#: components/button.php:164 components/custom-heading.php:227
-#: components/expandable-content.php:112 components/hero-banner.php:252
-#: components/logo-strip.php:134 components/logo-strip.php:265
-#: integrations/visual-composer/vc-functions.php:53
-msgid "Left"
-msgstr ""
-
-#: components/button.php:165 components/custom-heading.php:228
-#: components/expandable-content.php:113 components/hero-banner.php:253
-#: components/logo-strip.php:135 components/logo-strip.php:266
-#: integrations/visual-composer/vc-functions.php:54
-msgid "Center"
-msgstr ""
-
-#: components/button.php:166 components/custom-heading.php:229
-msgid "Right "
-msgstr ""
-
-#: components/button.php:171 components/hero-banner.php:290
+#: components/button.php:231 components/button.php:351
+#: components/button.php:381 components/hero-banner.php:339
+#: components/hero-banner.php:632
 msgid "Button Text"
+msgstr ""
+
+#: components/button.php:275
+msgid "A Button"
+msgstr ""
+
+#: components/button.php:280
+msgid "Mm Button"
+msgstr ""
+
+#: components/button.php:365
+msgid "Button Preview"
+msgstr ""
+
+#: components/button.php:372 components/hero-banner.php:641
+msgid "Button Link"
+msgstr ""
+
+#: components/button.php:443
+msgid "Size"
+msgstr ""
+
+#: components/button.php:457
+msgid "Full Width"
 msgstr ""
 
 #: components/countdown/countdown.php:102 mm-components.php:56
@@ -203,154 +263,237 @@ msgstr ""
 msgid "Time Zone"
 msgstr ""
 
-#: components/custom-heading.php:145 mm-components.php:57
+#: components/custom-heading.php:137 mm-components.php:57
 msgid "Custom Heading"
 msgstr ""
 
-#: components/custom-heading.php:153 components/highlight-box.php:255
+#: components/custom-heading.php:145 components/hero-banner.php:311
+#: components/highlight-box.php:248
 msgid "Heading Text"
 msgstr ""
 
-#: components/custom-heading.php:160
+#: components/custom-heading.php:152 components/hero-banner.php:317
+#: components/hero-banner.php:603
 msgid "Heading Level"
 msgstr ""
 
-#: components/custom-heading.php:164
+#: components/custom-heading.php:156 functions.php:693
 msgid "h1"
 msgstr ""
 
-#: components/custom-heading.php:165
+#: components/custom-heading.php:157 functions.php:694
 msgid "h2"
 msgstr ""
 
-#: components/custom-heading.php:166
+#: components/custom-heading.php:158 functions.php:695
 msgid "h3"
 msgstr ""
 
-#: components/custom-heading.php:167
+#: components/custom-heading.php:159 functions.php:696
 msgid "h4"
 msgstr ""
 
-#: components/custom-heading.php:168
+#: components/custom-heading.php:160 functions.php:697
 msgid "h5"
 msgstr ""
 
-#: components/custom-heading.php:169
+#: components/custom-heading.php:161 functions.php:698
 msgid "h6"
 msgstr ""
 
-#: components/custom-heading.php:174
+#: components/custom-heading.php:166
 msgid "Margin Bottom"
 msgstr ""
 
-#: components/custom-heading.php:177
+#: components/custom-heading.php:169
 msgid ""
 "Leave blank for default or use a number value (number of pixels). Example: "
 "16"
 msgstr ""
 
-#: components/custom-heading.php:181
+#: components/custom-heading.php:173
 msgid "Font Family"
 msgstr ""
 
-#: components/custom-heading.php:189
+#: components/custom-heading.php:181
 msgid "Font Size"
 msgstr ""
 
-#: components/custom-heading.php:193
+#: components/custom-heading.php:185
 msgid "50px"
 msgstr ""
 
-#: components/custom-heading.php:194
+#: components/custom-heading.php:186
 msgid "48px"
 msgstr ""
 
-#: components/custom-heading.php:195
+#: components/custom-heading.php:187
 msgid "40px"
 msgstr ""
 
-#: components/custom-heading.php:196
+#: components/custom-heading.php:188
 msgid "36px"
 msgstr ""
 
-#: components/custom-heading.php:197
+#: components/custom-heading.php:189
 msgid "30px"
 msgstr ""
 
-#: components/custom-heading.php:198
+#: components/custom-heading.php:190
 msgid "24px"
 msgstr ""
 
-#: components/custom-heading.php:199
+#: components/custom-heading.php:191
 msgid "16px"
 msgstr ""
 
-#: components/custom-heading.php:200
+#: components/custom-heading.php:192
 msgid "14px"
 msgstr ""
 
-#: components/custom-heading.php:201
+#: components/custom-heading.php:193
 msgid "12px"
 msgstr ""
 
-#: components/custom-heading.php:214
+#: components/custom-heading.php:206
 msgid "Text Transform"
 msgstr ""
 
-#: components/custom-heading.php:218
+#: components/custom-heading.php:209 components/posts/posts.php:816
+#: functions.php:618
+msgid "None"
+msgstr ""
+
+#: components/custom-heading.php:210
 msgid "Uppercase"
 msgstr ""
 
-#: components/custom-heading.php:223
+#: components/custom-heading.php:215
 msgid "Text Align"
 msgstr ""
 
-#: components/custom-heading.php:234
+#: components/custom-heading.php:219 components/expandable-content.php:112
+#: components/logo-strip.php:134 components/logo-strip.php:267
+#: functions.php:735 integrations/visual-composer/vc-functions.php:53
+msgid "Left"
+msgstr ""
+
+#: components/custom-heading.php:220 components/expandable-content.php:113
+#: components/logo-strip.php:135 components/logo-strip.php:268
+#: functions.php:736 integrations/visual-composer/vc-functions.php:54
+msgid "Center"
+msgstr ""
+
+#: components/custom-heading.php:221
+msgid "Right "
+msgstr ""
+
+#: components/custom-heading.php:226
 msgid "Heading Link"
 msgstr ""
 
-#: components/demo.php:46
+#: components/demo.php:58
 msgid "Text Field:"
 msgstr ""
 
-#: components/demo.php:47
+#: components/demo.php:59
+msgid "Text Area Field:"
+msgstr ""
+
+#: components/demo.php:60
+msgid "Select Field:"
+msgstr ""
+
+#: components/demo.php:61
+msgid "Checkbox Field:"
+msgstr ""
+
+#: components/demo.php:62
+msgid "Multi Checkbox Field:"
+msgstr ""
+
+#: components/demo.php:63
+msgid "Radio Field:"
+msgstr ""
+
+#: components/demo.php:64
 msgid "Alpha Color Field:"
 msgstr ""
 
-#: components/demo.php:48
+#: components/demo.php:65
 msgid "Single Media Field:"
 msgstr ""
 
-#: components/demo.php:49
+#: components/demo.php:66
 msgid "Multi Media Field:"
 msgstr ""
 
-#: components/demo.php:82
-msgid "Demo"
+#: components/demo.php:67
+msgid "Custom Field:"
 msgstr ""
 
-#: components/demo.php:90 components/demo.php:211
-msgid "Text Field"
-msgstr ""
-
-#: components/demo.php:133
+#: components/demo.php:126
 msgid "A Demo"
 msgstr ""
 
-#: components/demo.php:138
+#: components/demo.php:131
 msgid "Mm Demo"
 msgstr ""
 
-#: components/demo.php:219
+#: components/demo.php:229
+msgid "Text Field"
+msgstr ""
+
+#: components/demo.php:238
+msgid "Text Area Field"
+msgstr ""
+
+#: components/demo.php:247
+msgid "Select Field"
+msgstr ""
+
+#: components/demo.php:253 components/demo.php:276 components/demo.php:290
+msgid "Option 1"
+msgstr ""
+
+#: components/demo.php:254 components/demo.php:277 components/demo.php:291
+msgid "Option 2"
+msgstr ""
+
+#: components/demo.php:255 components/demo.php:278 components/demo.php:292
+msgid "Option 3"
+msgstr ""
+
+#: components/demo.php:261
+msgid "Checkbox Field"
+msgstr ""
+
+#: components/demo.php:270
+msgid "Multi Checkbox Field"
+msgstr ""
+
+#: components/demo.php:284
+msgid "Radio Field"
+msgstr ""
+
+#: components/demo.php:298
 msgid "Alpha Color Field"
 msgstr ""
 
-#: components/demo.php:236
+#: components/demo.php:318
 msgid "Single Media Field"
 msgstr ""
 
-#: components/demo.php:244
+#: components/demo.php:327
 msgid "Multi Media Field"
+msgstr ""
+
+#: components/demo.php:336
+msgid "Custom Field"
+msgstr ""
+
+#: components/demo.php:338
+msgid "This custom field can support <em>any</em> html."
 msgstr ""
 
 #: components/expandable-content.php:81 mm-components.php:58
@@ -369,8 +512,8 @@ msgstr ""
 msgid "Select Button or Link"
 msgstr ""
 
-#: components/expandable-content.php:95 components/highlight-box.php:279
-#: components/image-grid.php:266
+#: components/expandable-content.php:95 components/highlight-box.php:275
+#: components/image-grid.php:266 components/social-icons.php:257
 msgid "Link"
 msgstr ""
 
@@ -390,20 +533,14 @@ msgstr ""
 msgid "Select Left, Center, or Right"
 msgstr ""
 
-#: components/expandable-content.php:114 components/hero-banner.php:254
-#: components/logo-strip.php:136 components/logo-strip.php:267
+#: components/expandable-content.php:114 components/logo-strip.php:136
+#: components/logo-strip.php:269 functions.php:737
 #: integrations/visual-composer/vc-functions.php:55
 msgid "Right"
 msgstr ""
 
 #: components/expandable-content.php:119
 msgid "Fade in?"
-msgstr ""
-
-#: components/expandable-content.php:122 components/posts/posts.php:833
-#: components/posts/posts.php:841 components/posts/posts.php:860
-#: components/posts/posts.php:869 components/posts/posts.php:878
-msgid "Yes"
 msgstr ""
 
 #: components/expandable-content.php:127 components/image-grid.php:231
@@ -416,115 +553,126 @@ msgid ""
 "to it in custom CSS."
 msgstr ""
 
-#: components/hero-banner.php:34
-msgid "Read More"
-msgstr ""
-
-#: components/hero-banner.php:193 mm-components.php:59
+#: components/hero-banner.php:256 mm-components.php:59
 msgid "Hero Banner"
 msgstr ""
 
-#: components/hero-banner.php:200
+#: components/hero-banner.php:263
 msgid "Background Image"
 msgstr ""
 
-#: components/hero-banner.php:205
+#: components/hero-banner.php:268 components/hero-banner.php:536
 msgid "Background Position"
 msgstr ""
 
-#: components/hero-banner.php:208
-msgid "CSS background position value (%sread more%s). Defaults to: center center."
+#: components/hero-banner.php:274 components/hero-banner.php:546
+msgid "Full Height"
 msgstr ""
 
-#: components/hero-banner.php:215
+#: components/hero-banner.php:276 components/hero-banner.php:547
+msgid "Check this to make the Hero Banner as tall as the window."
+msgstr ""
+
+#: components/hero-banner.php:283 components/hero-banner.php:555
+msgid "Minimum Height"
+msgstr ""
+
+#: components/hero-banner.php:285 components/hero-banner.php:556
+msgid "Specify a number of pixels. Default is 360."
+msgstr ""
+
+#: components/hero-banner.php:289 components/hero-banner.php:564
 msgid "Overlay Color"
 msgstr ""
 
-#: components/hero-banner.php:219
-msgid "Black"
-msgstr ""
-
-#: components/hero-banner.php:220 components/hero-banner.php:309
-msgid "White"
-msgstr ""
-
-#: components/hero-banner.php:225
+#: components/hero-banner.php:295 components/hero-banner.php:574
 msgid "Overlay Opacity"
 msgstr ""
 
-#: components/hero-banner.php:238 components/highlight-box.php:114
-#: components/icon-box.php:304 components/twitter-feed.php:115
-msgid "Heading"
+#: components/hero-banner.php:305 components/hero-banner.php:584
+msgid "Text Color"
 msgstr ""
 
-#: components/hero-banner.php:244 components/highlight-box.php:120
-#: components/highlight-box.php:263 components/icon-box.php:310
-msgid "Paragraph Text"
+#: components/hero-banner.php:328 components/hero-banner.php:622
+msgid "Content Alignment"
 msgstr ""
 
-#: components/hero-banner.php:249
-msgid "Text Position"
+#: components/hero-banner.php:350 components/hero-banner.php:670
+msgid "Button Border Weight"
 msgstr ""
 
-#: components/hero-banner.php:259
-msgid "Button Type"
+#: components/hero-banner.php:363 components/hero-banner.php:680
+msgid "Button Corner Style"
 msgstr ""
 
-#: components/hero-banner.php:262
-msgid "Standard"
-msgstr ""
-
-#: components/hero-banner.php:263
-msgid "Video"
-msgstr ""
-
-#: components/hero-banner.php:279
-msgid "Video URL"
-msgstr ""
-
-#: components/hero-banner.php:298
-msgid "Default (solid)"
-msgstr ""
-
-#: components/hero-banner.php:299
-msgid "Ghost (transparent background, white border)"
-msgstr ""
-
-#: components/hero-banner.php:304
+#: components/hero-banner.php:369 components/hero-banner.php:690
 msgid "Button Color"
 msgstr ""
 
-#: components/hero-banner.php:308
-msgid "Pink"
+#: components/hero-banner.php:375 components/hero-banner.php:700
+msgid "Secondary Content"
 msgstr ""
 
-#: components/hero-banner.php:321
-msgid "Secondary Call to Action"
+#: components/hero-banner.php:377 components/hero-banner.php:701
+msgid "Outputs below the main button. Can include HTML markup."
 msgstr ""
 
-#: components/hero-banner.php:323
-msgid "Outputs below the main button, can include HTML markup."
+#: components/hero-banner.php:418
+msgid "A Hero Banner"
 msgstr ""
 
-#: components/highlight-box.php:106 mm-components.php:60
+#: components/hero-banner.php:423
+msgid "Mm Hero Banner"
+msgstr ""
+
+#: components/hero-banner.php:527
+msgid "Background Image:"
+msgstr ""
+
+#: components/hero-banner.php:528 functions.php:280
+msgid "Upload an image that is large enough to be output without stretching."
+msgstr ""
+
+#: components/hero-banner.php:594
+msgid "Hero Banner Heading"
+msgstr ""
+
+#: components/hero-banner.php:613
+msgid "Hero Banner Content"
+msgstr ""
+
+#: components/hero-banner.php:650
+msgid "Button Link Target"
+msgstr ""
+
+#: components/highlight-box.php:98 mm-components.php:60
 msgid "Highlight Box"
 msgstr ""
 
-#: components/highlight-box.php:125 components/highlight-box.php:271
-#: components/icon-box.php:320 components/polaroid.php:192
+#: components/highlight-box.php:106 components/icon-box.php:296
+msgid "Heading"
+msgstr ""
+
+#: components/highlight-box.php:112 components/highlight-box.php:257
+#: components/icon-box.php:302
+msgid "Paragraph Text"
+msgstr ""
+
+#: components/highlight-box.php:117 components/highlight-box.php:266
+#: components/icon-box.php:312 components/polaroid.php:184
 msgid "Link Text"
 msgstr ""
 
-#: components/highlight-box.php:130 components/icon-box.php:315
-#: components/polaroid-2.php:158 components/polaroid.php:199
+#: components/highlight-box.php:122 components/icon-box.php:307
+#: components/polaroid-2.php:150 components/polaroid.php:191
 msgid "Link URL"
 msgstr ""
 
-#: components/highlight-box.php:172
+#: components/highlight-box.php:164
 msgid "A Highlight Box"
 msgstr ""
 
-#: components/highlight-box.php:177
+#: components/highlight-box.php:169
 msgid "Mm Highlight Box"
 msgstr ""
 
@@ -532,51 +680,51 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
-#: components/icon-box.php:194 mm-components.php:61
+#: components/icon-box.php:186 mm-components.php:61
 msgid "Icon Box"
 msgstr ""
 
-#: components/icon-box.php:202
+#: components/icon-box.php:194
 msgid "Icon library"
 msgstr ""
 
-#: components/icon-box.php:204
+#: components/icon-box.php:196 components/social-icons.php:142
 msgid "Font Awesome"
 msgstr ""
 
-#: components/icon-box.php:205
+#: components/icon-box.php:197
 msgid "Open Iconic"
 msgstr ""
 
-#: components/icon-box.php:206
+#: components/icon-box.php:198
 msgid "Typicons"
 msgstr ""
 
-#: components/icon-box.php:207
+#: components/icon-box.php:199
 msgid "Entypo"
 msgstr ""
 
-#: components/icon-box.php:208
+#: components/icon-box.php:200
 msgid "Linecons"
 msgstr ""
 
-#: components/icon-box.php:209
+#: components/icon-box.php:201
 msgid "Pixel"
 msgstr ""
 
-#: components/icon-box.php:212
+#: components/icon-box.php:204
 msgid "Select icon library."
 msgstr ""
 
-#: components/icon-box.php:216 components/icon-box.php:230
-#: components/icon-box.php:245 components/icon-box.php:260
-#: components/icon-box.php:274 components/icon-box.php:289
+#: components/icon-box.php:208 components/icon-box.php:222
+#: components/icon-box.php:237 components/icon-box.php:252
+#: components/icon-box.php:266 components/icon-box.php:281
 msgid "Icon"
 msgstr ""
 
-#: components/icon-box.php:226 components/icon-box.php:241
-#: components/icon-box.php:256 components/icon-box.php:285
-#: components/icon-box.php:300
+#: components/icon-box.php:218 components/icon-box.php:233
+#: components/icon-box.php:248 components/icon-box.php:277
+#: components/icon-box.php:292
 msgid "Select icon from library."
 msgstr ""
 
@@ -642,7 +790,7 @@ msgstr ""
 msgid "Logo Strip"
 msgstr ""
 
-#: components/logo-strip.php:130 components/logo-strip.php:260
+#: components/logo-strip.php:130 components/logo-strip.php:261
 msgid "Title Alignment"
 msgstr ""
 
@@ -655,7 +803,7 @@ msgid "Logos"
 msgstr ""
 
 #: components/logo-strip.php:143
-msgid "The bigger the image size, the better"
+msgid "The bigger the image size, the better."
 msgstr ""
 
 #: components/logo-strip.php:148
@@ -670,36 +818,36 @@ msgstr ""
 msgid "Mm Logo Strip"
 msgstr ""
 
-#: components/logo-strip.php:273
+#: components/logo-strip.php:275 components/social-icons.php:143
 msgid "Images"
 msgstr ""
 
-#: components/logo-strip.php:281
+#: components/logo-strip.php:284 components/social-icons.php:182
 msgid "Image Size"
 msgstr ""
 
-#: components/polaroid-2.php:121 mm-components.php:65
+#: components/polaroid-2.php:113 mm-components.php:65
 msgid "Polaroid 2"
 msgstr ""
 
-#: components/polaroid-2.php:136 components/polaroid.php:178
+#: components/polaroid-2.php:128 components/polaroid.php:170
 msgid "Main Image"
 msgstr ""
 
-#: components/polaroid-2.php:143
+#: components/polaroid-2.php:135
 msgid "Caption"
 msgstr ""
 
-#: components/polaroid-2.php:149
+#: components/polaroid-2.php:141
 msgid "Caption Color"
 msgstr ""
 
-#: components/polaroid-2.php:152
+#: components/polaroid-2.php:144 functions.php:544
 #: integrations/visual-composer/vc-functions.php:40
 msgid "Light"
 msgstr ""
 
-#: components/polaroid-2.php:153
+#: components/polaroid-2.php:145 functions.php:546
 #: integrations/visual-composer/vc-functions.php:39
 msgid "Dark"
 msgstr ""
@@ -708,19 +856,19 @@ msgstr ""
 msgid "Visit campaign"
 msgstr ""
 
-#: components/polaroid.php:163 mm-components.php:64
+#: components/polaroid.php:155 mm-components.php:64
 msgid "Polaroid"
 msgstr ""
 
-#: components/polaroid.php:185
+#: components/polaroid.php:177
 msgid "Author Image"
 msgstr ""
 
-#: components/polaroid.php:195
+#: components/polaroid.php:187
 msgid "Defaults to \"Visit campaign\"."
 msgstr ""
 
-#: components/polaroid.php:205
+#: components/polaroid.php:197
 msgid "Text"
 msgstr ""
 
@@ -794,7 +942,7 @@ msgstr ""
 msgid "Page Numbers"
 msgstr ""
 
-#: components/posts/posts.php:823
+#: components/posts/posts.php:823 components/users/users.php:281
 msgid "Template"
 msgstr ""
 
@@ -840,98 +988,336 @@ msgid ""
 "content."
 msgstr ""
 
+#: components/posts/templates/image-grid.php:79
+msgid "Titles Inside Images?"
+msgstr ""
+
+#: components/posts/templates/image-grid.php:81
+msgid "Image Grid Option: This will position the post titles inside the images."
+msgstr ""
+
+#: components/posts/templates/image-grid.php:93
+msgid "No Gutter Mode?"
+msgstr ""
+
+#: components/posts/templates/image-grid.php:95
+msgid "Image Grid Option: This will remove the padding between the images."
+msgstr ""
+
 #: components/posts/templates/simple-list.php:14
 msgid "Simple List"
 msgstr ""
 
-#: components/restricted-content.php:84 mm-components.php:67
+#: components/restricted-content.php:130 mm-components.php:67
 msgid "Restricted Content"
 msgstr ""
 
-#: components/restricted-content.php:92
+#: components/restricted-content.php:138 components/restricted-content.php:300
+msgid "Restrict to specific user roles?"
+msgstr ""
+
+#: components/restricted-content.php:140 components/restricted-content.php:301
+msgid ""
+"By default only logged in users will see the restricted content. Check this "
+"to further restrict to specific user roles."
+msgstr ""
+
+#: components/restricted-content.php:147
 msgid "Allowed User Roles"
 msgstr ""
 
-#: components/restricted-content.php:94
-msgid "Which user role should be allowed to view this content?"
+#: components/restricted-content.php:149 components/restricted-content.php:313
+msgid ""
+"Select the user role(s) that should be allowed to view the restricted "
+"content."
 msgstr ""
 
-#: components/restricted-content.php:99
-msgid "Invalid User Message"
+#: components/restricted-content.php:158
+msgid "Alternate Content"
 msgstr ""
 
-#: components/restricted-content.php:101
-msgid "This message will be shown to users who do not have the specified role."
+#: components/restricted-content.php:160 components/restricted-content.php:332
+msgid ""
+"The content entered here will be shown to users who do not meet the "
+"criteria set above. HTML and shortcodes are allowed."
 msgstr ""
 
-#: components/twitter-feed.php:97
-msgid "Default (%s) - set via Fetch Tweets settings"
+#: components/restricted-content.php:209
+msgid "A Restricted Content Container"
 msgstr ""
 
-#: components/twitter-feed.php:107 mm-components.php:68
-msgid "Twitter Feed"
+#: components/restricted-content.php:214
+msgid "Mm Restricted Content"
 msgstr ""
 
-#: components/twitter-feed.php:118
-msgid "Heading to output above tweets"
+#: components/restricted-content.php:291
+msgid "Title:"
 msgstr ""
 
-#: components/twitter-feed.php:122
+#: components/restricted-content.php:312
+msgid "Allowed user roles."
+msgstr ""
+
+#: components/restricted-content.php:322
+msgid "Restricted content for users with the selected role(s):"
+msgstr ""
+
+#: components/restricted-content.php:331
+msgid "Optional content for all other users:"
+msgstr ""
+
+#: components/restricted-content.php:340
+msgid "Custom class:"
+msgstr ""
+
+#: components/social-icons.php:164
+msgid "Brand Colors"
+msgstr ""
+
+#: components/social-icons.php:169 mm-components.php:68
+msgid "Social Icons"
+msgstr ""
+
+#: components/social-icons.php:176
+msgid "Icon Type"
+msgstr ""
+
+#: components/social-icons.php:192
+msgid "Icon Alignment"
+msgstr ""
+
+#: components/social-icons.php:198
+msgid "Icon Style"
+msgstr ""
+
+#: components/social-icons.php:201
+msgid "Icon Only"
+msgstr ""
+
+#: components/social-icons.php:202
+msgid "Circle"
+msgstr ""
+
+#: components/social-icons.php:203
+msgid "Square"
+msgstr ""
+
+#: components/social-icons.php:204
+msgid "Rounded Square"
+msgstr ""
+
+#: components/social-icons.php:213
+msgid "Ghost Mode?"
+msgstr ""
+
+#: components/social-icons.php:215
+msgid "Colored icon and icon border with a transparent background"
+msgstr ""
+
+#: components/social-icons.php:230
+msgid "Icon Color"
+msgstr ""
+
+#: components/social-icons.php:240
+msgid "Icon Size"
+msgstr ""
+
+#: components/users/templates/user-table.php:14
+msgid "User Table"
+msgstr ""
+
+#: components/users/templates/user-table.php:83
+msgid "User"
+msgstr ""
+
+#: components/users/users.php:260
+msgid "All Users"
+msgstr ""
+
+#: components/users/users.php:266 mm-components.php:69
 msgid "Users"
 msgstr ""
 
-#: components/twitter-feed.php:126
-msgid "Comma separated list of user names (without the @ symbol). E.g. Mm, MmLife"
+#: components/users/users.php:274
+msgid "User Role"
 msgstr ""
 
-#: components/twitter-feed.php:130
-msgid "Output"
+#: components/users/users.php:276
+msgid "Select a specific user role to only include users with that role"
 msgstr ""
 
-#: components/twitter-feed.php:136
-msgid "Number of tweets to show"
+#: components/users/users.php:283
+msgid "Select a template"
 msgstr ""
 
-#: components/twitter-feed.php:138
-msgid "Defaults to 10"
+#: components/users/users.php:288
+msgid "Wrap Element"
 msgstr ""
 
-#: functions.php:35
-msgid "Upload an image that is large enough to be output without stretching."
+#: components/users/users.php:290
+msgid "Select a wrap element"
 msgstr ""
 
-#: functions.php:53
+#: components/users/users.php:295
+msgid "User ID"
+msgstr ""
+
+#: components/users/users.php:297
+msgid "Enter a user ID to display a single user"
+msgstr ""
+
+#: functions.php:149
+msgid "Post"
+msgstr ""
+
+#: functions.php:150
+msgid "Page"
+msgstr ""
+
+#: functions.php:192
+msgid "Category"
+msgstr ""
+
+#: functions.php:193
+msgid "Tag"
+msgstr ""
+
+#: functions.php:218
+msgid "Select a Taxonomy"
+msgstr ""
+
+#: functions.php:245
+msgid "Full"
+msgstr ""
+
+#: functions.php:298
 msgid ""
 "Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that "
 "it is not stretched."
 msgstr ""
 
-#: functions.php:181 functions.php:215
-msgid "Post"
+#: functions.php:468
+msgid "Facebook"
 msgstr ""
 
-#: functions.php:214
-msgid "Select a Post Type"
+#: functions.php:469
+msgid "Twitter"
 msgstr ""
 
-#: functions.php:241 functions.php:273
-msgid "Category"
+#: functions.php:470
+msgid "Instagram"
 msgstr ""
 
-#: functions.php:242 functions.php:274
-msgid "Tag"
+#: functions.php:471
+msgid "Pinterest"
 msgstr ""
 
-#: functions.php:272
-msgid "Select a Taxonomy"
+#: functions.php:472
+msgid "Youtube"
 msgstr ""
 
-#: functions.php:305 functions.php:333
-msgid "Full"
+#: functions.php:545 integrations/visual-composer/vc-functions.php:41
+msgid "Medium"
 msgstr ""
 
-#: functions.php:349
-msgid "Select a template"
+#: functions.php:578
+msgid "Center Center"
+msgstr ""
+
+#: functions.php:579
+msgid "Center Top"
+msgstr ""
+
+#: functions.php:580
+msgid "Center Bottom"
+msgstr ""
+
+#: functions.php:581
+msgid "Left Center"
+msgstr ""
+
+#: functions.php:582
+msgid "Left Top"
+msgstr ""
+
+#: functions.php:583
+msgid "Left Bottom"
+msgstr ""
+
+#: functions.php:584
+msgid "Right Center"
+msgstr ""
+
+#: functions.php:585
+msgid "Right Top"
+msgstr ""
+
+#: functions.php:586
+msgid "Right Bottom"
+msgstr ""
+
+#: functions.php:619
+msgid "White"
+msgstr ""
+
+#: functions.php:620
+msgid "Black"
+msgstr ""
+
+#: functions.php:652
+msgid "0.1"
+msgstr ""
+
+#: functions.php:653
+msgid "0.2"
+msgstr ""
+
+#: functions.php:654
+msgid "0.3"
+msgstr ""
+
+#: functions.php:655
+msgid "0.4"
+msgstr ""
+
+#: functions.php:656
+msgid "0.5"
+msgstr ""
+
+#: functions.php:657
+msgid "0.6"
+msgstr ""
+
+#: functions.php:658
+msgid "0.7"
+msgstr ""
+
+#: functions.php:659
+msgid "0.8"
+msgstr ""
+
+#: functions.php:660
+msgid "0.9"
+msgstr ""
+
+#: functions.php:716
+msgid "Select a heading level"
+msgstr ""
+
+#: functions.php:872
+msgid "Same window"
+msgstr ""
+
+#: functions.php:873
+msgid "New window"
+msgstr ""
+
+#: functions.php:874
+msgid "Parent window"
+msgstr ""
+
+#: functions.php:875
+msgid "Top window"
 msgstr ""
 
 #: integrations/visual-composer/vc-functions.php:29
@@ -942,10 +1328,6 @@ msgstr ""
 msgid "Text Color Scheme"
 msgstr ""
 
-#: integrations/visual-composer/vc-functions.php:41
-msgid "Medium"
-msgstr ""
-
 #: integrations/visual-composer/vc-functions.php:48
 msgid "Text Alignment"
 msgstr ""
@@ -954,8 +1336,70 @@ msgstr ""
 msgid "Custom Class"
 msgstr ""
 
-#: integrations/visual-composer/vc-functions.php:111
-msgid "Mm Components Demo"
+#: integrations/visual-composer/vc-templates.php:24
+msgid "Mm Components - All"
+msgstr ""
+
+#: integrations/visual-composer/vc-templates.php:56
+msgid "Mm Components - Button"
+msgstr ""
+
+#: integrations/visual-composer/vc-templates.php:116
+msgid "Mm Components - Restricted Content"
+msgstr ""
+
+#: integrations/visual-composer/vc-templates.php:128
+msgid "Mm Components - Social Icons"
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:493
+msgid "The jsDelivr API servers appear to be temporarily unavailable."
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:1042
+msgid "Insert Icon"
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:1062
+msgid "Better Font Awesome"
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:1068
+msgid "API Error"
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:1070
+msgid ""
+"The attempt to reach the jsDelivr API server failed with the following "
+"error: %s"
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:1080
+msgid "Remote CSS Error"
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:1082
+msgid ""
+"The attempt to fetch the remote Font Awesome stylesheet failed with the "
+"following error: %s %s The embedded fallback Font Awesome will be used "
+"instead (version: %s)."
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:1092
+msgid ""
+"<b>Don't worry! Better Font Awesome will still render using the included "
+"fallback version:</b> "
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:1096
+msgid "Solution"
+msgstr ""
+
+#: lib/better-font-awesome-library/better-font-awesome-library.php:1098
+msgid ""
+"This may be the result of a temporary server or connectivity issue which "
+"will resolve shortly. However if the problem persists please file a support "
+"ticket on the %splugin forum%s, citing the errors listed above. "
 msgstr ""
 
 #. Plugin Name of the plugin/theme

@@ -66,7 +66,6 @@ function mm_components_init_components() {
 		'posts'              => __( 'Posts', 'mm-components' ),
 		'restricted-content' => __( 'Restricted Content', 'mm-components' ),
 		'social-icons'       => __( 'Social Icons', 'mm-components' ),
-		'twitter-feed'       => __( 'Twitter Feed', 'mm-components' ),
 		'users'              => __( 'Users', 'mm-components' ),
 	);
 
@@ -123,9 +122,6 @@ function mm_components_init_components() {
 	}
 	if ( array_key_exists( 'social-icons', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/social-icons.php';
-	}
-	if ( array_key_exists( 'twitter-feed', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/twitter-feed.php';
 	}
 	if ( array_key_exists( 'users', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/users/users.php';
