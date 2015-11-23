@@ -498,8 +498,32 @@ a.mm-button {
 .mm-icon-box {
 	position: relative;
 	margin-top: 5em;
-	padding: 6em 20px 20px 20px;
-	border: 1px solid #d6dfe8;
+	padding: 3.6em 20px 20px 20px;
+	border: 1px solid $default-color;
+	&.icon-size-normal {
+		font-size: 16px;
+		padding-top: 3.6em;
+		.mm-icon {
+			font-size: 3.6em;
+		}
+	}
+	&.icon-size-large {
+		font-size: 19px;
+		padding-top: 4.5em;
+		.mm-icon {
+			font-size: 4.2em;
+		}
+		.icon-box-content p:last-child {
+			margin-bottom: 0.6em;
+		}
+	}
+	&.icon-size-small {
+		font-size: 14px;
+		padding-top: 3.2em;
+		.mm-icon {
+			font-size: 3.2em;
+		}
+	}
 	.mm-icon {
 		position: absolute;
 		top: -1em;
@@ -508,11 +532,13 @@ a.mm-button {
 		height: 2em;
 		margin-left: -1em;
 		background-color: #fff;
-		border: 1px solid #d6dfe8;
+		border: 1px solid $default-color;
 		border-radius: 100%;
-		font-size: 4.2em;
 		text-align: center;
 		line-height: 2em;
+	}
+	.icon-box-content p:last-child {
+		margin-bottom: 0;
 	}
 }
 
