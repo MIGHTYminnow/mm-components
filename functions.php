@@ -755,6 +755,41 @@ function mm_get_text_alignment_for_vc( $context = '' ) {
 }
 
 /**
+ * Return an array of available typeface choices.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of typeface options.
+ */
+function mm_get_font_options( $context = '' ) {
+
+	$font_options = array(
+		'default'    => __( 'Default', 'mm-components' ),
+		'sans-serif' => __( 'Sans Serif', 'mm-components' ),
+		'serif'      => __( 'Serif', 'mm-components' ),
+		'monospace'  => __( 'Monospace', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_get_font_options', $font_options, $context );
+}
+
+/**
+ * Return an array of available typeface choices for VC.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of typeface options.
+ */
+function mm_get_font_options_for_vc( $context = '' ) {
+
+	return array_flip( mm_get_font_options( $context ) );
+}
+
+/**
  * Return an array of button style options.
  *
  * @since   1.0.0

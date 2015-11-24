@@ -133,6 +133,12 @@ add_action( 'vc_before_init', 'mm_vc_custom_heading' );
  */
 function mm_vc_custom_heading() {
 
+	$heading_levels = mm_get_heading_levels_for_vc( 'mm-custom-heading' );
+	$font_options = mm_get_font_options_for_vc( 'mm-custom-heading' );
+	$colors = mm_get_available_colors_for_vc( 'mm-custom-heading' );
+	$text_alignment = mm_get_text_alignment_for_vc( 'mm-custom-heading' );
+
+
 	vc_map( array(
 		'name' => __( 'Custom Heading', 'mm-components' ),
 		'base' => 'mm_custom_heading',
@@ -152,14 +158,7 @@ function mm_vc_custom_heading() {
 				'heading' => __( 'Heading Level', 'mm-components' ),
 				'param_name' => 'heading',
 				'std' => 'h2', // Default
-				'value' => array(
-					__( 'h1', 'mm-components ') => 'h1',
-					__( 'h2', 'mm-components ') => 'h2',
-					__( 'h3', 'mm-components ') => 'h3',
-					__( 'h4', 'mm-components ') => 'h4',
-					__( 'h5', 'mm-components ') => 'h5',
-					__( 'h6', 'mm-components ') => 'h6',
-				),
+				'value' => $heading_levels,
 			),
 			array(
 				'type' => 'textfield',
@@ -170,11 +169,9 @@ function mm_vc_custom_heading() {
 			),
 			array(
 				'type' => 'dropdown',
-				'heading' => __( 'Font Family', 'mm-components' ),
+				'heading' => __( 'Font', 'mm-components' ),
 				'param_name' => 'font_family',
-				'value' => array(
-					__( 'Default', 'mm-components ') => 'default',
-				),
+				'value' => $font_options,
 			),
 			array(
 				'type' => 'dropdown',
@@ -197,9 +194,7 @@ function mm_vc_custom_heading() {
 				'type' => 'dropdown',
 				'heading' => __( 'Color', 'mm-components' ),
 				'param_name' => 'color',
-				'value' => array(
-					__( 'Default', 'mm-components ') => 'default',
-				),
+				'value' => $colors,
 			),
 			array(
 				'type' => 'dropdown',
@@ -214,12 +209,7 @@ function mm_vc_custom_heading() {
 				'type' => 'dropdown',
 				'heading' => __( 'Text Align', 'mm-components' ),
 				'param_name' => 'text_align',
-				'value' => array(
-					__( 'Default', 'mm-components ') => 'default',
-					__( 'Left', 'mm-components ') => 'left',
-					__( 'Center', 'mm-components ') => 'center',
-					__( 'Right ', 'mm-components ') => 'right',
-				),
+				'value' => $text_alignment,
 			),
 			array(
 				'type' => 'vc_link',
