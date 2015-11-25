@@ -233,6 +233,27 @@ function mm_hero_banner_shortcode( $atts = array(), $content = null ) {
 	return mm_hero_banner( $atts );
 }
 
+add_filter( 'mm_available_colors', 'mm_hero_banner_text_colors', 8, 2 );
+/**
+ * Add white and black as text color options.
+ *
+ * @since   1.0.0
+ *
+ * @param   array   $colors   The array of default colors.
+ * @param   string  $context  The context the colors are being used.
+ *
+ * @return  array             The updated array of colors.
+ */
+function mm_hero_banner_text_colors( $colors, $context ) {
+
+	if ( 'mm-hero-banner' == $context ) {
+		$colors['white'] = __( 'White', 'mm-components' );
+		$colors['black'] = __( 'Black', 'mm-components' );
+	}
+
+	return $colors;
+}
+
 add_action( 'vc_before_init', 'mm_vc_hero_banner' );
 /**
  * Visual Composer add-on.
@@ -247,10 +268,10 @@ function mm_vc_hero_banner() {
 	$text_colors            = mm_get_available_colors_for_vc( 'mm-hero-banner' );
 	$heading_levels         = mm_get_heading_levels_for_vc( 'mm-hero-banner' );
 	$text_alignments        = mm_get_text_alignment_for_vc( 'mm-hero-banner' );
-	$button_styles          = mm_get_button_styles_for_vc( 'mm-hero-banner' );
-	$button_border_weights  = mm_get_button_border_weights_for_vc( 'mm-hero-banner' );
-	$button_corner_styles   = mm_get_button_corner_styles_for_vc( 'mm-hero-banner' );
-	$button_colors          = mm_get_available_colors_for_vc( 'mm-hero-banner' );
+	$button_styles          = mm_get_button_styles_for_vc( 'mm-button' );
+	$button_border_weights  = mm_get_button_border_weights_for_vc( 'mm-button' );
+	$button_corner_styles   = mm_get_button_corner_styles_for_vc( 'mm-button' );
+	$button_colors          = mm_get_available_colors_for_vc( 'mm-button' );
 
 	vc_map( array(
 		'name'     => __( 'Hero Banner', 'mm-components' ),
@@ -708,7 +729,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 	/**
 	 * Update the widget settings.
 	 *
-	 * @since  1.0.0
+	 * @since   1.0.0
 	 *
 	 * @param   array  $new_instance  The new settings for the widget instance.
 	 * @param   array  $old_instance  The old settings for the widget instance.
@@ -717,7 +738,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance = $old_instance;
+		$instance                         = $old_instance;
 		$instance['background_image']     = sanitize_text_field( $new_instance['background_image'] );
 		$instance['background_position']  = sanitize_text_field( $new_instance['background_position'] );
 		$instance['full_height']          = ( isset( $new_instance['full_height'] ) ) ? sanitize_text_field( $new_instance['full_height'] ) : '';

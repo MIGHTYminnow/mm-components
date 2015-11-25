@@ -53,6 +53,14 @@
   color: #333;
 }
 
+.mm-text-color-black {
+  color: #121212;
+}
+
+.mm-text-color-white {
+  color: #fff;
+}
+
 .mm-bg-color-light {
   background-color: #999;
 }
@@ -63,6 +71,14 @@
 
 .mm-bg-color-dark {
   background-color: #333;
+}
+
+.mm-bg-color-black {
+  background-color: #121212;
+}
+
+.mm-bg-color-white {
+  background-color: #fff;
 }
 
 .mm-full-window-height {

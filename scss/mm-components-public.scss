@@ -16,6 +16,8 @@ $default-color: #99CCCC;
 $light-color: #999;
 $medium-color: #666;
 $dark-color: #333;
+$black-color: #121212;
+$white-color: #fff;
 
 $facebook-color: #3b5998;
 $twitter-color: #00aced;
@@ -300,6 +302,14 @@ $thick-border: 3px solid;
 	color: $dark-color;
 }
 
+.mm-text-color-black {
+	color: $black-color;
+}
+
+.mm-text-color-white {
+	color: $white-color;
+}
+
 .mm-bg-color-light {
 	background-color: $light-color;
 }
@@ -310,6 +320,14 @@ $thick-border: 3px solid;
 
 .mm-bg-color-dark {
 	background-color: $dark-color;
+}
+
+.mm-bg-color-black {
+	background-color: $black-color;
+}
+
+.mm-bg-color-white {
+	background-color: $white-color;
 }
 
 .mm-full-window-height {
