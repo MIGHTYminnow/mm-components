@@ -24,12 +24,12 @@ function mm_custom_heading( $args ) {
 	//Set our defaults and use them as needed.
 	$defaults = array(
 		'heading_text'  => '',
-		'heading'       => '',
+		'heading'       => 'h2',
 		'font_family'   => '',
 		'size'          => '',
 		'weight'        => '',
 		'transform'     => '',
-		'alignment'     => '',
+		'alignment'     => 'left',
 		'color'         => '',
 		'margin_bottom' => '',
 		'link'          => '',
@@ -81,21 +81,14 @@ function mm_custom_heading( $args ) {
 
 	// Set up custom heading classes.
 	$classes = array();
-	$classes[] = 'mm-custom-heading';
 	if ( ! empty( $args['font_family'] ) ) {
 		$classes[] = $args['font_family'];
-	}
-	if ( ! empty( $args['size'] ) ) {
-		$classes[] = $args['size'];
 	}
 	if ( ! empty( $args['weight'] ) ) {
 		$classes[] = $args['weight'];
 	}
 	if ( ! empty( $args['transform'] ) ) {
 		$classes[] = $args['transform'];
-	}
-	if ( ! empty( $args['alignment'] ) ) {
-		$classes[] = $args['alignment'];
 	}
 	if ( ! empty( $args['color'] ) ) {
 		$classes[] = $args['color'];
@@ -110,6 +103,9 @@ function mm_custom_heading( $args ) {
 	$styles = array();
 	if ( ! empty( $args['margin_bottom'] ) ) {
 		$styles[] = 'margin-bottom: ' . (int)$args['margin_bottom'] . 'px;';
+	}
+	if ( ! empty( $args['size'] ) ) {
+		$styles[] = 'font-size: ' . (int)$args['size'] . 'px;';
 	}
 
 	// Build our string of styles.
@@ -169,82 +165,82 @@ function mm_vc_custom_heading() {
 
 
 	vc_map( array(
-		'name' => __( 'Custom Heading', 'mm-components' ),
-		'base' => 'mm_custom_heading',
-		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+		'name'     => __( 'Custom Heading', 'mm-components' ),
+		'base'     => 'mm_custom_heading',
+		'class'    => '',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
-		'params' => array(
+		'params'   => array(
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Heading Text', 'mm-components' ),
-				'param_name' => 'content',
+				'type'        => 'textfield',
+				'heading'     => __( 'Heading Text', 'mm-components' ),
+				'param_name'  => 'content',
 				'admin_label' => true,
-				'value' => '',
+				'value'       => '',
 			),
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Heading Level', 'mm-components' ),
-				'param_name' => 'heading',
-				'std' => 'h2', // Default
-				'value' => $heading_levels,
+				'type'        => 'dropdown',
+				'heading'     => __( 'Heading Level', 'mm-components' ),
+				'param_name'  => 'heading',
+				'std'         => 'h2', // Default
+				'value'       => $heading_levels,
 			),
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Margin Bottom', 'mm-components' ),
-				'param_name' => 'margin_bottom',
-				'value' => '',
-				'description' => __( 'Leave blank for default or use a number value (number of pixels). Example: 16', 'mm-components' ),
+				'type'        => 'dropdown',
+				'heading'     => __( 'Font', 'mm-components' ),
+				'param_name'  => 'font_family',
+				'value'       => $font_options,
 			),
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Font', 'mm-components' ),
-				'param_name' => 'font_family',
-				'value' => $font_options,
+				'type'        => 'textfield',
+				'heading'     => __( 'Font Size', 'mm-components' ),
+				'param_name'  => 'size',
+				'value'       => '',
+				'description' => __( 'Leave blank for default heading size, or use a numeric value (number of pixels, e.g. 16)', 'mm-components' ),
 			),
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Font Size', 'mm-components' ),
-				'param_name' => 'font_size',
-				'value' => array(
-					__( 'Default', 'mm-components ') => 'default',
-					__( '50px', 'mm-components ') => '50px',
-					__( '48px', 'mm-components ') => '48px',
-					__( '40px', 'mm-components ') => '40px',
-					__( '36px', 'mm-components ') => '36px',
-					__( '30px', 'mm-components ') => '30px',
-					__( '24px', 'mm-components ') => '24px',
-					__( '16px', 'mm-components ') => '16px',
-					__( '14px', 'mm-components ') => '14px',
-					__( '12px', 'mm-components ') => '12px',
+				'type'       => 'dropdown',
+				'heading'    => __( 'Font Weight', 'mm-components' ),
+				'param_name' => 'weight',
+				'value'      => array(
+					__( 'Normal', 'mm-components' ) => 'normal',
+					__( 'Thin', 'mm-components' )   => 'thin',
+					__( 'Bold', 'mm-components' )   => 'bold',
 				),
 			),
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Color', 'mm-components' ),
-				'param_name' => 'color',
-				'value' => $colors,
-			),
-			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Text Transform', 'mm-components' ),
+				'type'       => 'dropdown',
+				'heading'    => __( 'Text Transform', 'mm-components' ),
 				'param_name' => 'text_transform',
-				'value' => array(
+				'value'      => array(
 					__( 'None', 'mm-components ') => 'none',
 					__( 'Uppercase', 'mm-components ') => 'uppercase',
 				),
 			),
 			array(
-				'type' => 'dropdown',
-				'heading' => __( 'Text Align', 'mm-components' ),
-				'param_name' => 'text_align',
-				'value' => $text_alignment,
+				'type'       => 'dropdown',
+				'heading'    => __( 'Text Align', 'mm-components' ),
+				'param_name' => 'alignment',
+				'value'      => $text_alignment,
 			),
 			array(
-				'type' => 'vc_link',
-				'heading' => __( 'Heading Link', 'mm-components' ),
+				'type'       => 'dropdown',
+				'heading'    => __( 'Color', 'mm-components' ),
+				'param_name' => 'color',
+				'value'      => $colors,
+			),
+			array(
+				'type'        => 'textfield',
+				'heading'     => __( 'Margin Bottom', 'mm-components' ),
+				'param_name'  => 'margin_bottom',
+				'value'       => '',
+				'description' => __( 'Leave blank for default margin, or use a numeric value (number of pixels, e.g. 16).', 'mm-components' ),
+			),
+			array(
+				'type'       => 'vc_link',
+				'heading'    => __( 'Heading Link', 'mm-components' ),
 				'param_name' => 'link',
-				'value' => '',
+				'value'      => '',
 			),
 		),
 	) );
