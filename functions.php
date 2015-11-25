@@ -546,7 +546,7 @@ function mm_get_available_colors( $context = '' ) {
 		'dark'    => __( 'Dark', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_available_colors', $colors, $context );
+	return apply_filters( 'mm_available_colors', $colors, $context );
 }
 
 /**
@@ -586,7 +586,7 @@ function mm_get_background_position( $context = '' ) {
 		'right bottom'  => __( 'Right Bottom', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_background_position', $position, $context );
+	return apply_filters( 'mm_background_position', $position, $context );
 }
 
 /**
@@ -620,7 +620,7 @@ function mm_get_overlay_colors( $context = '' ) {
 		'black' => __( 'Black', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_overlay_colors', $colors, $context );
+	return apply_filters( 'mm_overlay_colors', $colors, $context );
 }
 
 /**
@@ -661,7 +661,7 @@ function mm_get_overlay_opacity_values( $context = '' ) {
 		'1'   => __( '1', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_overlay_opacity_values', $values, $context );
+	return apply_filters( 'mm_overlay_opacity_values', $values, $context );
 }
 
 /**
@@ -698,7 +698,7 @@ function mm_get_heading_levels( $context = '' ) {
 		'h6' => __( 'h6', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_heading_levels', $heading_levels, $context );
+	return apply_filters( 'mm_heading_levels', $heading_levels, $context );
 }
 
 /**
@@ -737,7 +737,7 @@ function mm_get_text_alignment( $context = '' ) {
 		'right'   => __( 'Right', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_text_alignment', $text_alignment, $context );
+	return apply_filters( 'mm_text_alignment', $text_alignment, $context );
 }
 
 /**
@@ -773,7 +773,7 @@ function mm_get_button_styles( $context = '' ) {
 		'gradient'       => __( 'Gradient', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_button_styles', $button_style, $context );
+	return apply_filters( 'mm_button_styles', $button_style, $context );
 }
 
 /**
@@ -807,7 +807,7 @@ function mm_get_button_border_weights( $context = '' ) {
 		'thick'   => __( 'Thick', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_button_border_weights', $button_border_weights, $context );
+	return apply_filters( 'mm_button_border_weights', $button_border_weights, $context );
 }
 
 /**
@@ -841,7 +841,7 @@ function mm_get_button_corner_styles( $context = '' ) {
 		'pill'    => __( 'Pill', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_button_corner_styles', $button_corner_styles, $context );
+	return apply_filters( 'mm_button_corner_styles', $button_corner_styles, $context );
 }
 
 /**
