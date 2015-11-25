@@ -640,7 +640,7 @@ a.mm-button {
 	.hero-heading {
 		margin-top: 0;
 		margin-bottom: 10px;
-		line-height: 1.4;
+		line-height: 1.2;
 	}
 	.hero-content {
 		margin-bottom: 24px;
@@ -648,6 +648,9 @@ a.mm-button {
 	.hero-secondary-content {
 		margin-top: 20px;
 		margin-bottom: 0;
+		p:last-child {
+			margin-bottom: 0;
+		}
 	}
 }
 

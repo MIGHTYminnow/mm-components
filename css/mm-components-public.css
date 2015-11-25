@@ -530,7 +530,7 @@ a.mm-button.full-width {
 .mm-hero-banner .hero-heading {
   margin-top: 0;
   margin-bottom: 10px;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .mm-hero-banner .hero-content {
@@ -539,6 +539,10 @@ a.mm-button.full-width {
 
 .mm-hero-banner .hero-secondary-content {
   margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.mm-hero-banner .hero-secondary-content p:last-child {
   margin-bottom: 0;
 }
 
