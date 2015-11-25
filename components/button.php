@@ -141,8 +141,11 @@ add_action( 'vc_before_init', 'mm_vc_button' );
  */
 function mm_vc_button() {
 
-	$colors = mm_get_available_colors_for_vc();
-	$text_alignment = mm_get_text_alignment_for_vc();
+	$button_style = mm_get_button_styles_for_vc( 'mm-button' );
+	$button_border_weights = mm_get_button_border_weights_for_vc( 'mm-button' );
+	$button_corner_styles = mm_get_button_corner_styles_for_vc( 'mm-button' );
+	$colors = mm_get_available_colors_for_vc( 'mm-button' );
+	$text_alignment = mm_get_text_alignment_for_vc( 'mm-button' );
 
 	vc_map( array(
 		'name'     => __( 'Button', 'mm-components' ),
@@ -161,22 +164,13 @@ function mm_vc_button() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Button Style', 'mm-components' ),
 				'param_name' => 'style',
-				'value'      => array(
-					__( 'Default', 'mm-components' )        => 'default',
-					__( 'Ghost', 'mm-components' )          => 'ghost',
-					__( 'Solid to Ghost', 'mm-components' ) => 'solid-to-ghost',
-					__( '3D', 'mm-components' )             => 'three-d',
-					__( 'Gradient', 'mm-components' )       => 'gradient',
-				),
+				'value'      => $button_style,
 			),
 			array(
 				'type'       => 'dropdown',
 				'heading'    => __( 'Border Weight', 'mm-components' ),
 				'param_name' => 'border_weight',
-				'value'      => array(
-					__( 'Thin', 'mm-components' )   => 'thin',
-					__( 'Thick', 'mm-components' )  => 'thick',
-				),
+				'value'      => $button_border_weights,
 				'dependency' => array(
 					'element' => 'style',
 					'value'   => array(
@@ -189,11 +183,7 @@ function mm_vc_button() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Corner Style', 'mm-components' ),
 				'param_name' => 'corner_style',
-				'value'      => array(
-					__( 'Pointed', 'mm-components' ) => 'pointed',
-					__( 'Rounded', 'mm-components' ) => 'rounded',
-					__( 'Pill', 'mm-components' )    => 'pill',
-				),
+				'value'      => $button_corner_styles,
 			),
 			array(
 				'type'       => 'dropdown',
