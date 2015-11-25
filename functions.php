@@ -802,8 +802,9 @@ function mm_get_button_styles_for_vc( $context = '' ) {
 function mm_get_button_border_weights( $context = '' ) {
 
 	$button_border_weights = array(
-		'thin'  => __( 'Thin', 'mm-components' ),
-		'thick' => __( 'Thick', 'mm-components' ),
+		'default' => __( 'Default', 'mm-components' ),
+		'thin'    => __( 'Thin', 'mm-components' ),
+		'thick'   => __( 'Thick', 'mm-components' ),
 	);
 
 	return apply_filters( 'mm_get_button_border_weights', $button_border_weights, $context );

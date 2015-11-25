@@ -29,7 +29,9 @@ $flickr-color: #ff0084;
 $vimeo-color: #aad450;
 
 $thin-border: 1px solid;
-$thick-border: 2px solid;
+$default-border: 2px solid;
+$thick-border: 3px solid;
+
 
 /* Mixins
 --------------------------------------------- */
@@ -340,6 +342,9 @@ a.mm-button {
 		&.thin {
 			border: $thin-border;
 		}
+		&.default {
+			border: $default-border;
+		}
 		&.thick {
 			border: $thick-border;
 		}
@@ -407,6 +412,7 @@ a.mm-button {
 
 a.mm-button.ghost {
 	&.thin,
+	&.default,
 	&.thick {
 		background-color: transparent !important;
 		color: $default-color !important;

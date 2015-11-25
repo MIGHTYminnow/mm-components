@@ -30,7 +30,7 @@ function mm_hero_banner( $args ) {
 		'button_link_target'   => '_self',
 		'button_text'          => '',
 		'button_style'         => '',
-		'button_border_weight' => '',
+		'button_border_weight' => 'default',
 		'button_corner_style'  => '',
 		'button_color'         => '',
 	);
@@ -452,7 +452,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			'button_link_target'   => '_self',
 			'button_text'          => '',
 			'button_style'         => '',
-			'button_border_weight' => '',
+			'button_border_weight' => 'default',
 			'button_corner_style'  => '',
 			'button_color'         => '',
 		);
@@ -493,7 +493,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			'button_link_target'   => '_self',
 			'button_text'          => '',
 			'button_style'         => '',
-			'button_border_weight' => '',
+			'button_border_weight' => 'default',
 			'button_corner_style'  => '',
 			'button_color'         => '',
 		);
