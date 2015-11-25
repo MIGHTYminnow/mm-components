@@ -93,10 +93,10 @@ add_action( 'vc_before_init', 'mm_vc_countdown' );
 function mm_vc_countdown() {
 
 	// Add a custom param for selecting the date
-	add_shortcode_param( 'date', 'mm_vc_date_param' );
+	vc_add_shortcode_param( 'date', 'mm_vc_date_param' );
 
 	// Add a custom param for selecting the TimeZone
-	add_shortcode_param( 'timezone', 'mm_vc_timezone_param' );
+	vc_add_shortcode_param( 'timezone', 'mm_vc_timezone_param' );
 
 	vc_map( array(
 		'name'     => __( 'Countdown', 'mm-components' ),
