@@ -69,15 +69,9 @@ function mm_custom_heading( $args ) {
 			esc_url( $link_url ),
 			esc_attr( $link_title ),
 			esc_attr( $link_target ),
-			wp_kses_post( $content )
+			wp_kses_post( $output )
 		);
 	}
-
-	// Build the alignment class.
-	$alignment = 'mm-text-align-' . $args['alignment'];
-
-	// Set up the heading.
-	$heading = ( '' !== $args['heading'] ) ? (string)$args['heading'] : 'h2';
 
 	// Set up custom heading classes.
 	$classes = array();
@@ -88,10 +82,13 @@ function mm_custom_heading( $args ) {
 		$classes[] = $args['weight'];
 	}
 	if ( ! empty( $args['transform'] ) ) {
-		$classes[] = $args['transform'];
+		$classes[] = 'mm-text-transform-' . $args['transform'];
+	}
+	if ( ! empty( $args['alignment'] ) ) {
+		$classes[] = 'mm-text-align-' . $args['alignment'];
 	}
 	if ( ! empty( $args['color'] ) ) {
-		$classes[] = $args['color'];
+		$classes[] = 'mm-text-color-' . $args['color'];
 	}
 
 	$classes = implode( ' ', $classes );
@@ -112,9 +109,11 @@ function mm_custom_heading( $args ) {
 	$styles = implode( ' ', $styles );
 	$style = ( '' !== $styles ) ? 'style="' . $styles .'"' : '';
 
+	// Set up the heading.
+	$heading = ( '' !== $args['heading'] ) ? (string)$args['heading'] : 'h2';
+
 	// Do something with the heading text.
 	$heading_text = sanitize_text_field( $args['heading_text'] );
-
 
 	// Generate the output.
 	$output = sprintf( '<%s class="%s %s %s" %s>%s</%s>',
@@ -128,7 +127,6 @@ function mm_custom_heading( $args ) {
 	);
 
 	return $output;
-
 }
 
 add_shortcode( 'mm_custom_heading', 'mm_custom_heading_shortcode' );

@@ -481,6 +481,27 @@ a.mm-button {
 	}
 }
 
+/* Custom Heading
+--------------------------------------------- */
+
+.mm-custom-heading {
+	&.sans-serif {
+		font-family: sans-serif;
+	}
+	&.serif {
+		font-family: serif;
+	}
+	&.monospace {
+		font-family: monospace;
+	}
+	&.thin {
+		font-weight: 300;
+	}
+	&.bold {
+		font-weight: 600;
+	}
+}
+
 /* Expandable Content
 --------------------------------------------- */
 

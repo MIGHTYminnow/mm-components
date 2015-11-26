@@ -360,6 +360,28 @@ a.mm-button.full-width {
   font-weight: bold;
 }
 
+/* Custom Heading
+--------------------------------------------- */
+.mm-custom-heading.sans-serif {
+  font-family: sans-serif;
+}
+
+.mm-custom-heading.serif {
+  font-family: serif;
+}
+
+.mm-custom-heading.monospace {
+  font-family: monospace;
+}
+
+.mm-custom-heading.thin {
+  font-weight: 300;
+}
+
+.mm-custom-heading.bold {
+  font-weight: 600;
+}
+
 /* Expandable Content
 --------------------------------------------- */
 .mm-expandable-content-trigger:hover {
