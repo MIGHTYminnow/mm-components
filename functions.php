@@ -537,7 +537,7 @@ function mm_get_user_roles_for_vc( $context = '' ) {
  *
  * @return  array             The array of colors.
  */
-function mm_get_available_colors( $context = '' ) {
+function mm_get_colors( $context = '' ) {
 
 	$colors = array(
 		'default' => __( 'Default', 'mm-components' ),
@@ -546,7 +546,7 @@ function mm_get_available_colors( $context = '' ) {
 		'dark'    => __( 'Dark', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_available_colors', $colors, $context );
+	return apply_filters( 'mm_colors', $colors, $context );
 }
 
 /**
@@ -558,9 +558,9 @@ function mm_get_available_colors( $context = '' ) {
  *
  * @return  array             The array of colors.
  */
-function mm_get_available_colors_for_vc( $context = '' ) {
+function mm_get_colors_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_available_colors( $context ) );
+	return array_flip( mm_get_colors( $context ) );
 }
 
 /**

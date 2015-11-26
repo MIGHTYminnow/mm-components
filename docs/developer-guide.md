@@ -25,10 +25,10 @@ function xxx_enable_specific_components( $components ) {
 ```
 
 #### Setting Color Options
-In order to keep a site's branding consistent, it is often a good idea to limit the available colors. This can be achieved using the `mm_get_available_colors_for_vc` filter in the theme's `functions.php`:
+In order to keep a site's branding consistent, it is often a good idea to limit the available colors. This can be achieved using the `mm_colors` filter in the theme's `functions.php`:
 
 ```php
-add_filter( 'mm_get_available_colors_for_vc', 'xxx_set_theme_colors' );
+add_filter( 'mm_colors', 'xxx_set_theme_colors' );
 /*
  * Set theme color options for Mm components.
  *
@@ -37,9 +37,9 @@ add_filter( 'mm_get_available_colors_for_vc', 'xxx_set_theme_colors' );
 function xxx_set_theme_colors() {
 
 	$colors = array(
-		__( 'Default', 'xxx-theme' ) => 'default',
-		__( 'Blue', 'xxx-theme' )    => 'blue',
-		__( 'Green', 'xxx-theme' )  => 'green',
+		'default' => __( 'Default', 'xxx-theme' ),
+		'blue'    => __( 'Blue', 'xxx-theme' ),
+		'green'   => __( 'Green', 'xxx-theme' ),
 	);
 
 	return $colors;

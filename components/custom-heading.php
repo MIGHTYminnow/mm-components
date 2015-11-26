@@ -152,7 +152,7 @@ function mm_vc_custom_heading() {
 	$heading_levels = mm_get_heading_levels_for_vc( 'mm-custom-heading' );
 	$fonts          = mm_get_fonts_for_vc( 'mm-custom-heading' );
 	$font_weights   = mm_get_font_weights_for_vc( 'mm-custom-heading' );
-	$colors         = mm_get_available_colors_for_vc( 'mm-custom-heading' );
+	$colors         = mm_get_colors_for_vc( 'mm-custom-heading' );
 	$text_alignment = mm_get_text_alignment_for_vc( 'mm-custom-heading' );
 
 	vc_map( array(

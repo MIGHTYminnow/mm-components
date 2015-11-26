@@ -265,13 +265,13 @@ function mm_vc_hero_banner() {
 	$background_positions   = mm_get_background_position_for_vc( 'mm-hero-banner' );
 	$overlay_colors         = mm_get_overlay_colors_for_vc( 'mm-hero-banner' );
 	$overlay_opacity_values = mm_get_overlay_opacity_values_for_vc( 'mm-hero-banner' );
-	$text_colors            = mm_get_available_colors_for_vc( 'mm-hero-banner' );
+	$text_colors            = mm_get_colors_for_vc( 'mm-hero-banner' );
 	$heading_levels         = mm_get_heading_levels_for_vc( 'mm-hero-banner' );
 	$text_alignments        = mm_get_text_alignment_for_vc( 'mm-hero-banner' );
 	$button_styles          = mm_get_button_styles_for_vc( 'mm-button' );
 	$button_border_weights  = mm_get_button_border_weights_for_vc( 'mm-button' );
 	$button_corner_styles   = mm_get_button_corner_styles_for_vc( 'mm-button' );
-	$button_colors          = mm_get_available_colors_for_vc( 'mm-button' );
+	$button_colors          = mm_get_colors_for_vc( 'mm-button' );
 
 	vc_map( array(
 		'name'     => __( 'Hero Banner', 'mm-components' ),
@@ -607,7 +607,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-text-color widefat',
 			'text_color',
 			$text_color,
-			mm_get_available_colors( 'mm-hero-banner' )
+			mm_get_colors( 'mm-hero-banner' )
 		);
 
 		// Heading text.
@@ -673,7 +673,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-link-target widefat',
 			'button_link_target',
 			$button_link_target,
-			mm_get_link_targets( 'mm-hero-banner' )
+			mm_get_link_targets( 'mm-button' )
 		);
 
 		// Button style.
@@ -683,7 +683,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-button-style widefat',
 			'button_style',
 			$button_style,
-			mm_get_button_styles( 'mm-hero-banner' )
+			mm_get_button_styles( 'mm-button' )
 		);
 
 		// Button border weight.
@@ -693,7 +693,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-button-border-weight widefat',
 			'button_border_weight',
 			$button_border_weight,
-			mm_get_button_border_weights( 'mm-hero-banner' )
+			mm_get_button_border_weights( 'mm-button' )
 		);
 
 		// Button corner style.
@@ -703,7 +703,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-button-corner-style widefat',
 			'button_corner_style',
 			$button_corner_style,
-			mm_get_button_corner_styles( 'mm-hero-banner' )
+			mm_get_button_corner_styles( 'mm-button' )
 		);
 
 		// Button color.
@@ -713,7 +713,7 @@ class Mm_Hero_Banner_Widget extends Mm_Components_Widget {
 			$classname . '-button-color widefat',
 			'button_color',
 			$button_color,
-			mm_get_available_colors( 'mm-hero-banner' )
+			mm_get_colors( 'mm-button' )
 		);
 
 		// Secondary content.

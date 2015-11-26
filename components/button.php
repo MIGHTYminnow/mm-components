@@ -141,11 +141,11 @@ add_action( 'vc_before_init', 'mm_vc_button' );
  */
 function mm_vc_button() {
 
-	$button_style = mm_get_button_styles_for_vc( 'mm-button' );
+	$button_style          = mm_get_button_styles_for_vc( 'mm-button' );
 	$button_border_weights = mm_get_button_border_weights_for_vc( 'mm-button' );
-	$button_corner_styles = mm_get_button_corner_styles_for_vc( 'mm-button' );
-	$colors = mm_get_available_colors_for_vc( 'mm-button' );
-	$text_alignment = mm_get_text_alignment_for_vc( 'mm-button' );
+	$button_corner_styles  = mm_get_button_corner_styles_for_vc( 'mm-button' );
+	$colors                = mm_get_colors_for_vc( 'mm-button' );
+	$text_alignment        = mm_get_text_alignment_for_vc( 'mm-button' );
 
 	vc_map( array(
 		'name'     => __( 'Button', 'mm-components' ),
@@ -196,9 +196,9 @@ function mm_vc_button() {
 				'heading'    => __( 'Button Size', 'mm-components' ),
 				'param_name' => 'size',
 				'value'      => array(
-					__( 'Normal', 'mm-components' )      => 'normal-size',
-					__( 'Small', 'mm-components' )       => 'small',
-					__( 'Large', 'mm-components' )       => 'large',
+					__( 'Normal', 'mm-components' ) => 'normal-size',
+					__( 'Small', 'mm-components' )  => 'small',
+					__( 'Large', 'mm-components' )  => 'large',
 				),
 			),
 			array(

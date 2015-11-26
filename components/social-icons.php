@@ -156,7 +156,7 @@ function mm_vc_social_icons() {
 	$social_icons_types = mm_get_mm_social_icons_types();
 	$image_sizes        = mm_get_image_sizes_for_vc();
 	$text_alignment     = mm_get_text_alignment_for_vc();
-	$colors             = mm_get_available_colors_for_vc();
+	$colors             = mm_get_colors_for_vc();
 	$social_networks    = mm_get_social_networks_for_vc();
 
 	// Add our brand colors option.
