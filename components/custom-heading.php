@@ -47,7 +47,7 @@ function mm_custom_heading( $args ) {
 
 		if ( 'url' === substr( $args['link'], 0, 3 ) ) {
 
-			if (function_exists( 'vc_build_link' ) ) {
+			if ( function_exists( 'vc_build_link' ) ) {
 
 				$link_array  = vc_build_link( $args['link'] );
 				$link_url    = $link_array['url'];
@@ -69,7 +69,7 @@ function mm_custom_heading( $args ) {
 			esc_url( $link_url ),
 			esc_attr( $link_title ),
 			esc_attr( $link_target ),
-			wp_kses_post( $output )
+			wp_kses_post( $content )
 		);
 	}
 
@@ -107,7 +107,7 @@ function mm_custom_heading( $args ) {
 
 	// Build our string of styles.
 	$styles = implode( ' ', $styles );
-	$style = ( '' !== $styles ) ? 'style="' . $styles .'"' : '';
+	$style = ( '' !== $styles ) ? 'style="' . $styles . '"' : '';
 
 	// Set up the heading.
 	$heading = ( '' !== $args['heading'] ) ? (string)$args['heading'] : 'h2';
@@ -116,11 +116,9 @@ function mm_custom_heading( $args ) {
 	$heading_text = sanitize_text_field( $args['heading_text'] );
 
 	// Generate the output.
-	$output = sprintf( '<%s class="%s %s %s" %s>%s</%s>',
+	$output = sprintf( '<%s class="%s" %s>%s</%s>',
 		$heading,
-		$mm_classes,
-		$classes,
-		$alignment,
+		$mm_classes . ' ' . $classes . ' ' $alignment,
 		$style,
 		$heading_text,
 		$heading
