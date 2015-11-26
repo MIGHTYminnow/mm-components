@@ -21,7 +21,7 @@ function mm_custom_heading( $args ) {
 
 	$component = 'mm-custom-heading';
 
-	//Set our defaults and use them as needed.
+	// Set our defaults and use them as needed.
 	$defaults = array(
 		'heading_text'  => '',
 		'heading'       => 'h2',
@@ -38,7 +38,7 @@ function mm_custom_heading( $args ) {
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
-	//Handle a raw link or VC link array.
+	// Handle a raw link or VC link array.
 	$link_url    = '';
 	$link_title  = '';
 	$link_target = '';
@@ -79,7 +79,6 @@ function mm_custom_heading( $args ) {
 	if ( ! empty( $args['color'] ) ) {
 		$classes[] = 'mm-text-color-' . $args['color'];
 	}
-
 	$classes = implode( ' ', $classes );
 
 	// Get Mm classes.
@@ -105,8 +104,6 @@ function mm_custom_heading( $args ) {
 	$heading_text = sanitize_text_field( $args['heading_text'] );
 
 	// Generate the output.
-
-	//Generate the markup & output.
 	$output = sprintf( '<%s class="%s" %s>%s</%s>',
 		$heading,
 		$mm_classes . ' ' . $classes,
@@ -160,8 +157,8 @@ add_action( 'vc_before_init', 'mm_vc_custom_heading' );
 function mm_vc_custom_heading() {
 
 	$heading_levels = mm_get_heading_levels_for_vc( 'mm-custom-heading' );
-	$font_options = mm_get_font_options_for_vc( 'mm-custom-heading' );
-	$colors = mm_get_available_colors_for_vc( 'mm-custom-heading' );
+	$font_options   = mm_get_font_options_for_vc( 'mm-custom-heading' );
+	$colors         = mm_get_available_colors_for_vc( 'mm-custom-heading' );
 	$text_alignment = mm_get_text_alignment_for_vc( 'mm-custom-heading' );
 
 
@@ -180,17 +177,17 @@ function mm_vc_custom_heading() {
 				'value'       => '',
 			),
 			array(
-				'type'        => 'dropdown',
-				'heading'     => __( 'Heading Level', 'mm-components' ),
-				'param_name'  => 'heading',
-				'std'         => 'h2', // Default
-				'value'       => $heading_levels,
+				'type'       => 'dropdown',
+				'heading'    => __( 'Heading Level', 'mm-components' ),
+				'param_name' => 'heading',
+				'std'        => 'h2', // Default
+				'value'      => $heading_levels,
 			),
 			array(
-				'type'        => 'dropdown',
-				'heading'     => __( 'Font', 'mm-components' ),
-				'param_name'  => 'font_family',
-				'value'       => $font_options,
+				'type'       => 'dropdown',
+				'heading'    => __( 'Font', 'mm-components' ),
+				'param_name' => 'font_family',
+				'value'      => $font_options,
 			),
 			array(
 				'type'        => 'textfield',
@@ -214,7 +211,7 @@ function mm_vc_custom_heading() {
 				'heading'    => __( 'Text Transform', 'mm-components' ),
 				'param_name' => 'text_transform',
 				'value'      => array(
-					__( 'None', 'mm-components ') => 'none',
+					__( 'None', 'mm-components ')      => 'none',
 					__( 'Uppercase', 'mm-components ') => 'uppercase',
 				),
 			),
