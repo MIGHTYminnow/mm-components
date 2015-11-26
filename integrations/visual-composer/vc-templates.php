@@ -107,6 +107,16 @@ CONTENT;
 [/vc_column_text][mm_button link="url:%23||" style="gradient" corner_style="rounded" color="dark" alignment="center"]Juicy Click Target  [icon name="fighter-jet" class="" unprefixed_class=""][/mm_button][/vc_column_inner][/vc_row_inner][/vc_column][/vc_row][vc_row][vc_column][vc_empty_space height="35px"][/vc_column][/vc_row]
 CONTENT;
 
+	// Demo template for Mm Custom Heading.
+	$custom_heading                 = array();
+	$custom_heading['name']         = __( 'Mm Components - Custom Heading', 'mm-components' );
+	$custom_heading['weight']       = 99;
+	$custom_heading['image_path']   = MM_COMPONENTS_ASSETS_URL . 'template-icon.php';
+	$custom_heading['custom_class'] = 'mm_components_custom_heading_template';
+	$custom_heading['content']      = <<<CONTENT
+	[vc_row][vc_column][vc_text_separator title="Headings"][mm_custom_heading heading_text="This is an h1" heading="h1"][mm_custom_heading heading_text="This is an h2"][mm_custom_heading heading_text="This is an h3" heading="h3"][mm_custom_heading heading_text="This is an h4" heading="h4"][mm_custom_heading heading_text="This is an h5" heading="h5"][mm_custom_heading heading_text="This is an h6" heading="h6"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Font Weights"][mm_custom_heading heading_text="This is light weight" heading="h1" weight="light"][mm_custom_heading heading_text="This is normal weight" heading="h1"][mm_custom_heading heading_text="This is semi-bold weight" heading="h1" weight="semi-bold"][mm_custom_heading heading_text="This is bold weight" heading="h1" weight="bold"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Text Transform"][mm_custom_heading heading_text="This is uppercase" heading="h1" text_transform="uppercase"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Alignment"][mm_custom_heading heading_text="This is left aligned" alignment="left"][mm_custom_heading heading_text="This is center aligned" alignment="center"][mm_custom_heading heading_text="This is right aligned" alignment="right"][/vc_column][/vc_row][vc_row][vc_column][vc_text_separator title="Colors"][mm_custom_heading heading_text="This is default color"][mm_custom_heading heading_text="This is light color" color="light"][mm_custom_heading heading_text="This is medium color" color="medium"][mm_custom_heading heading_text="This is dark color" color="dark"][/vc_column][/vc_row]
+CONTENT;
+
 	// Demo template for Mm Hero Banner.
 	$hero_banner                 = array();
 	$hero_banner['name']         = __( 'Mm Components - Hero Banner', 'mm-components' );
@@ -271,6 +281,7 @@ CONTENT;
 
 	$templates[] = $all;
 	$templates[] = $button;
+	$templates[] = $custom_heading;
 	$templates[] = $hero_banner;
 	$templates[] = $social_icons;
 	$templates[] = $restricted_content;
