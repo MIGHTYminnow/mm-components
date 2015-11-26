@@ -290,23 +290,49 @@ $thick-border: 3px solid;
 	text-transform: capitalize;
 }
 
-.mm-text-color-light {
+.mm-font-weight-light {
+	font-weight: 300;
+}
+
+.mm-font-weight-normal {
+	font-weight: 500;
+}
+
+.mm-font-weight-semi-bold {
+	font-weight: 600;
+}
+
+.mm-font-weight-bold {
+	font-weight: 700;
+}
+
+.mm-text-color-light,
+.mm-text-color-light a,
+.mm-text-color-light a:visited {
 	color: $light-color;
 }
 
-.mm-text-color-medium {
+.mm-text-color-medium,
+.mm-text-color-medium a,
+.mm-text-color-medium a:visited {
 	color: $medium-color;
 }
 
-.mm-text-color-dark {
+.mm-text-color-dark,
+.mm-text-color-dark a,
+.mm-text-color-dark a:visited {
 	color: $dark-color;
 }
 
-.mm-text-color-black {
+.mm-text-color-black,
+.mm-text-color-black a,
+.mm-text-color-black a:visited {
 	color: $black-color;
 }
 
-.mm-text-color-white {
+.mm-text-color-white,
+.mm-text-color-white a,
+.mm-text-color-white a:visited {
 	color: $white-color;
 }
 
@@ -502,27 +528,6 @@ a.mm-button {
 			size: 30px;
 			weight: bold;
 		}
-	}
-}
-
-/* Custom Heading
---------------------------------------------- */
-
-.mm-custom-heading {
-	&.sans-serif {
-		font-family: sans-serif;
-	}
-	&.serif {
-		font-family: serif;
-	}
-	&.monospace {
-		font-family: monospace;
-	}
-	&.thin {
-		font-weight: 300;
-	}
-	&.bold {
-		font-weight: 600;
 	}
 }
 

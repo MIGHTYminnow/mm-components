@@ -761,18 +761,15 @@ function mm_get_text_alignment_for_vc( $context = '' ) {
  *
  * @param   string  $context  The context to pass to our filter.
  *
- * @return  array             The array of typeface options.
+ * @return  array             The array of fonts.
  */
-function mm_get_font_options( $context = '' ) {
+function mm_get_fonts( $context = '' ) {
 
-	$font_options = array(
-		'default'    => __( 'Default', 'mm-components' ),
-		'sans-serif' => __( 'Sans Serif', 'mm-components' ),
-		'serif'      => __( 'Serif', 'mm-components' ),
-		'monospace'  => __( 'Monospace', 'mm-components' ),
+	$fonts = array(
+		'default' => __( 'Default', 'mm-components' ),
 	);
 
-	return apply_filters( 'mm_get_font_options', $font_options, $context );
+	return apply_filters( 'mm_fonts', $fonts, $context );
 }
 
 /**
@@ -782,11 +779,50 @@ function mm_get_font_options( $context = '' ) {
  *
  * @param   string  $context  The context to pass to our filter.
  *
- * @return  array             The array of typeface options.
+ * @return  array             The array of fonts.
  */
-function mm_get_font_options_for_vc( $context = '' ) {
+function mm_get_fonts_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_font_options( $context ) );
+	return array_flip( mm_get_fonts( $context ) );
+}
+
+/**
+ * Return an array of font weights.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of font weights.
+ */
+function mm_get_font_weights( $context = '' ) {
+
+	$font_weights = array(
+		'normal'    => __( 'Normal', 'mm-components' ),
+		'light'     => __( 'Light', 'mm-components' ),
+		'semi-bold' => __( 'Semi-bold', 'mm-components' ),
+		'bold'      => __( 'Bold', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_font_weights', $font_weights, $context );
+}
+
+/**
+ * Return an array of font weights for VC.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of font weights.
+ */
+function mm_get_font_weights_for_vc( $context = '' ) {
+
+	$empty_option = array(
+		__( 'Default' ) => '',
+	);
+
+	return $empty_option + array_flip( mm_get_font_weights( $context ) );
 }
 
 /**

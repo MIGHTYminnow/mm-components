@@ -11,7 +11,7 @@
 /**
  * Build and return the Custom Heading component.
  *
- * @since 1.0.0
+ * @since   1.0.0
  *
  * @param   array  $args  The args.
  *
@@ -23,127 +23,120 @@ function mm_custom_heading( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'heading_text'  => '',
-		'heading'       => 'h2',
-		'font_family'   => '',
-		'size'          => '',
-		'weight'        => '',
-		'transform'     => '',
-		'alignment'     => 'left',
-		'color'         => '',
-		'margin_bottom' => '',
-		'link'          => '',
-		'link_title'    => '',
-		'link_target'   => '',
+		'heading_text'   => '',
+		'heading'        => 'h2',
+		'font_family'    => '',
+		'size'           => '',
+		'weight'         => '',
+		'text_transform' => '',
+		'alignment'      => 'left',
+		'color'          => '',
+		'margin_bottom'  => '',
+		'link'           => '',
+		'link_title'     => '',
+		'link_target'    => '',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
-	// Handle a raw link or VC link array.
-	$link_url    = '';
-	$link_title  = '';
-	$link_target = '';
+	// Get clean param values.
+	$heading_text   = $args['heading_text'];
+	$heading        = $args['heading'];
+	$font_family    = $args['font_family'];
+	$size           = $args['size'];
+	$weight         = $args['weight'];
+	$text_transform = $args['text_transform'];
+	$alignment      = $args['alignment'];
+	$color          = $args['color'];
+	$margin_bottom  = $args['margin_bottom'];
+	$link           = $args['link'];
+	$link_title     = $args['link_title'];
+	$link_target    = $args['link_target'];
 
-	if ( ! empty( $args['link'] ) ) {
+	// Only allow valid headings.
+	if ( ! in_array( $heading, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ) ) ) {
+		$heading = 'h2';
+	}
 
-		if ( 'url' === substr( $args['link'], 0, 3 ) ) {
-
-			if ( function_exists( 'vc_build_link' ) ) {
-
-				$link_array  = vc_build_link( $args['link'] );
-				$link_url    = $link_array['url'];
-				$link_title  = $link_array['title'];
-				$link_target = $link_array['target'];
-			}
-		} else {
-
-			$link_url    = $args['link'];
-			$link_title  = $args['link_title'];
-			$link_target = $args['link_target'];
+	// Handle a VC link.
+	if ( ! empty( $link ) ) {
+		if ( 'url' === substr( $link, 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+			$link_array  = vc_build_link( $link );
+			$link        = $link_array['url'];
+			$link_title  = $link_array['title'];
+			$link_target = $link_array['target'];
 		}
 	}
 
-	// Set up custom heading classes.
+	// Set up our classes.
 	$classes = array();
-	if ( ! empty( $args['font_family'] ) ) {
-		$classes[] = $args['font_family'];
+	if ( ! empty( $font_family ) ) {
+		$classes[] = 'mm-font-family-' . $font_family;
 	}
-	if ( ! empty( $args['weight'] ) ) {
-		$classes[] = $args['weight'];
+	if ( ! empty( $weight ) ) {
+		$classes[] = 'mm-font-weight-' . $weight;
 	}
-	if ( ! empty( $args['transform'] ) ) {
-		$classes[] = 'mm-text-transform-' . $args['transform'];
+	if ( ! empty( $text_transform ) ) {
+		$classes[] = 'mm-text-transform-' . $text_transform;
 	}
-	if ( ! empty( $args['alignment'] ) ) {
-		$classes[] = 'mm-text-align-' . $args['alignment'];
+	if ( ! empty( $alignment ) ) {
+		$classes[] = 'mm-text-align-' . $alignment;
 	}
-	if ( ! empty( $args['color'] ) ) {
-		$classes[] = 'mm-text-color-' . $args['color'];
+	if ( ! empty( $color ) ) {
+		$classes[] = 'mm-text-color-' . $color;
 	}
 	$classes = implode( ' ', $classes );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
-	// Set up our styles array.
+	// Set up our inline styles.
 	$styles = array();
-	if ( ! empty( $args['margin_bottom'] ) ) {
-		$styles[] = 'margin-bottom: ' . (int)$args['margin_bottom'] . 'px;';
+	if ( 1 < (int)$margin_bottom ) {
+		$styles[] = 'margin-bottom: ' . (int)$margin_bottom . 'px;';
 	}
-	if ( ! empty( $args['size'] ) ) {
-		$styles[] = 'font-size: ' . (int)$args['size'] . 'px;';
+	if ( 1 < (int)$size ) {
+		$styles[] = 'font-size: ' . (int)$size . 'px;';
 	}
-
-	// Build our string of styles.
 	$styles = implode( ' ', $styles );
-	$style = ( '' !== $styles ) ? 'style="' . $styles . '"' : '';
 
-	// Set up the heading.
-	$heading = ( '' !== $args['heading'] ) ? (string)$args['heading'] : 'h2';
+	$style_attr = ( ! empty( $styles ) ) ? ' style="' . esc_attr( $styles ) . '"' : '';
 
-	// Do something with the heading text.
-	$heading_text = sanitize_text_field( $args['heading_text'] );
+	// Escape and maybe wrap the heading text in a link.
+	if ( ! empty( $link ) ) {
+		$heading_text = sprintf(
+			'<a href="%s" title="%s" target="%s">%s</a>',
+			esc_url( $link ),
+			esc_attr( $link_title ),
+			esc_attr( $link_target ),
+			esc_html( $heading_text )
+		);
+	} else {
+		$heading_text = esc_html( $heading_text );
+	}
 
-	// Generate the output.
-	$output = sprintf( '<%s class="%s" %s>%s</%s>',
+	// Generate the heading HTML.
+	$output = sprintf( '<%s class="%s"%s>%s</%s>',
 		$heading,
-		$mm_classes . ' ' . $classes,
-		$style,
+		esc_attr( $mm_classes . ' ' . $classes ),
+		$style_attr,
 		$heading_text,
 		$heading
 	);
 
-	// Wrap the heading in a link if one was passed in.
-	if ( ! empty( $link_url ) ) {
-		$content = sprintf(
-			'<a href="%s" title="%s" target="%s">%s</a>',
-			esc_url( $link_url ),
-			esc_attr( $link_title ),
-			esc_attr( $link_target ),
-			$output
-		);
-
-		return $content;
-	} else {
-
-		return $output;
-	}
+	return $output;
 }
 
 add_shortcode( 'mm_custom_heading', 'mm_custom_heading_shortcode' );
 /**
  * Custom Heading shortcode.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
  * @param   array  $atts  Shortcode attributes.
  *
  * @return  string        Shortcode output.
  */
-function mm_custom_heading_shortcode( $atts = array(), $content = null ) {
-
-	if ( $content ) {
-		$atts['heading_text'] = $content;
-	}
+function mm_custom_heading_shortcode( $atts = array() ) {
 
 	return mm_custom_heading( $atts );
 }
@@ -157,10 +150,10 @@ add_action( 'vc_before_init', 'mm_vc_custom_heading' );
 function mm_vc_custom_heading() {
 
 	$heading_levels = mm_get_heading_levels_for_vc( 'mm-custom-heading' );
-	$font_options   = mm_get_font_options_for_vc( 'mm-custom-heading' );
+	$fonts          = mm_get_fonts_for_vc( 'mm-custom-heading' );
+	$font_weights   = mm_get_font_weights_for_vc( 'mm-custom-heading' );
 	$colors         = mm_get_available_colors_for_vc( 'mm-custom-heading' );
 	$text_alignment = mm_get_text_alignment_for_vc( 'mm-custom-heading' );
-
 
 	vc_map( array(
 		'name'     => __( 'Custom Heading', 'mm-components' ),
@@ -172,7 +165,7 @@ function mm_vc_custom_heading() {
 			array(
 				'type'        => 'textfield',
 				'heading'     => __( 'Heading Text', 'mm-components' ),
-				'param_name'  => 'content',
+				'param_name'  => 'heading_text',
 				'admin_label' => true,
 				'value'       => '',
 			),
@@ -187,31 +180,27 @@ function mm_vc_custom_heading() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Font', 'mm-components' ),
 				'param_name' => 'font_family',
-				'value'      => $font_options,
+				'value'      => $fonts,
 			),
 			array(
 				'type'        => 'textfield',
 				'heading'     => __( 'Font Size', 'mm-components' ),
 				'param_name'  => 'size',
 				'value'       => '',
-				'description' => __( 'Leave blank for default heading size, or use a numeric value (number of pixels, e.g. 16)', 'mm-components' ),
+				'description' => __( 'Leave blank to use default heading size, or specify a number of pixels. Example: 16', 'mm-components' ),
 			),
 			array(
 				'type'       => 'dropdown',
 				'heading'    => __( 'Font Weight', 'mm-components' ),
 				'param_name' => 'weight',
-				'value'      => array(
-					__( 'Normal', 'mm-components' ) => 'normal',
-					__( 'Thin', 'mm-components' )   => 'thin',
-					__( 'Bold', 'mm-components' )   => 'bold',
-				),
+				'value'      => $font_weights,
 			),
 			array(
 				'type'       => 'dropdown',
 				'heading'    => __( 'Text Transform', 'mm-components' ),
 				'param_name' => 'text_transform',
 				'value'      => array(
-					__( 'None', 'mm-components ')      => 'none',
+					__( 'None', 'mm-components ')      => '',
 					__( 'Uppercase', 'mm-components ') => 'uppercase',
 				),
 			),
@@ -232,7 +221,7 @@ function mm_vc_custom_heading() {
 				'heading'     => __( 'Margin Bottom', 'mm-components' ),
 				'param_name'  => 'margin_bottom',
 				'value'       => '',
-				'description' => __( 'Leave blank for default margin, or use a numeric value (number of pixels, e.g. 16).', 'mm-components' ),
+				'description' => __( 'Leave blank to use default margin, or specify a number of pixels. Example: 16', 'mm-components' ),
 			),
 			array(
 				'type'       => 'vc_link',
