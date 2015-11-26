@@ -62,17 +62,6 @@ function mm_custom_heading( $args ) {
 		}
 	}
 
-	// Wrap the heading in a link if one was passed in.
-	if ( ! empty( $link_url ) ) {
-		$content = sprintf(
-			'<a href="%s" title="%s" target="%s">%s</a>',
-			esc_url( $link_url ),
-			esc_attr( $link_title ),
-			esc_attr( $link_target ),
-			wp_kses_post( $content )
-		);
-	}
-
 	// Set up custom heading classes.
 	$classes = array();
 	if ( ! empty( $args['font_family'] ) ) {
@@ -116,15 +105,31 @@ function mm_custom_heading( $args ) {
 	$heading_text = sanitize_text_field( $args['heading_text'] );
 
 	// Generate the output.
+
+	//Generate the markup & output.
 	$output = sprintf( '<%s class="%s" %s>%s</%s>',
 		$heading,
-		$mm_classes . ' ' . $classes . ' ' $alignment,
+		$mm_classes . ' ' . $classes,
 		$style,
 		$heading_text,
 		$heading
 	);
 
-	return $output;
+	// Wrap the heading in a link if one was passed in.
+	if ( ! empty( $link_url ) ) {
+		$content = sprintf(
+			'<a href="%s" title="%s" target="%s">%s</a>',
+			esc_url( $link_url ),
+			esc_attr( $link_title ),
+			esc_attr( $link_target ),
+			$output
+		);
+
+		return $content;
+	} else {
+
+		return $output;
+	}
 }
 
 add_shortcode( 'mm_custom_heading', 'mm_custom_heading_shortcode' );
