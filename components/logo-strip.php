@@ -24,7 +24,7 @@ function mm_logo_strip( $args ) {
 	// Set our defaults and use them as needed.
 	$defaults = array(
 		'title'           => '',
-		'title_alignment' => '',
+		'title_alignment' => 'center',
 		'images'          => '',
 		'image_size'      => 'full',
 	);
@@ -44,21 +44,15 @@ function mm_logo_strip( $args ) {
 	// Create array from comma-separated image list.
 	$images = explode( ',', ltrim( $images ) );
 
-	// Count how many images we have.
-	$image_count = count( $images );
-	$image_count = 'logo-count-' . (int)$image_count;
-
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
-	// Set up the title alignment.
-	if ( '' === $title_alignment || 'center' === $title_alignment ) {
-		$title_class = 'mm-text-align-center';
-	} elseif( 'right' === $title_alignment ) {
-		$title_class = 'mm-text-align-right';
-	} else {
-		$title_class = 'mm-text-align-left';
-	}
+	// Set up the title alignment class.
+	$title_class = 'mm-text-align-' . $title_alignment;
+
+	// Count how many images we have.
+	$image_count = count( $images );
+	$image_count = 'logo-count-' . (int)$image_count;
 
 	ob_start();
 
@@ -67,7 +61,9 @@ function mm_logo_strip( $args ) {
 	<div class="<?php echo esc_attr( $mm_classes ); ?> <?php echo esc_attr( $image_count ); ?>">
 
 		<?php if ( $title ) : ?>
-			<h4 class="<?php echo esc_attr( $title_class ); ?>"><?php echo esc_html( $title ); ?></h4>
+			<h4 class="<?php echo esc_attr( $title_class ); ?>">
+				<?php echo esc_html( $title ); ?>
+			</h4>
 		<?php endif; ?>
 
 		<?php
@@ -130,10 +126,9 @@ function mm_vc_logo_strip() {
 				'heading'    => __( 'Title Alignment', 'mm-components' ),
 				'param_name' => 'title_alignment',
 				'value'      => array(
-					__( 'Select a Title Alignment', 'mm-components' ) => '',
-					__( 'Left', 'mm-components' )                     => 'left',
-					__( 'Center', 'mm-components' )                   => 'center',
-					__( 'Right', 'mm-components' )                    => 'right',
+					__( 'Center', 'mm-components' ) => 'center',
+					__( 'Left', 'mm-components' )   => 'left',
+					__( 'Right', 'mm-components' )  => 'right',
 				),
 			),
 			array(
