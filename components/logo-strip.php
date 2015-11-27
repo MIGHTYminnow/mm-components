@@ -64,10 +64,10 @@ function mm_logo_strip( $args ) {
 
 	?>
 
-	<div class="<?php echo $mm_classes; ?> <?php echo $image_count ?>">
+	<div class="<?php echo esc_attr( $mm_classes ); ?> <?php echo esc_attr( $image_count ); ?>">
 
 		<?php if ( $title ) : ?>
-			<h4 class="<?php echo $title_class; ?>"><?php echo esc_html( $title ); ?></h4>
+			<h4 class="<?php echo esc_attr( $title_class ); ?>"><?php echo esc_html( $title ); ?></h4>
 		<?php endif; ?>
 
 		<?php
