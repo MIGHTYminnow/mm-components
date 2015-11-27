@@ -24,14 +24,16 @@ function mm_logo_strip( $args ) {
 	// Set our defaults and use them as needed.
 	$defaults = array(
 		'title'           => '',
-		'title_alignment' => '',
+		'title_heading'   => 'h2',
+		'title_alignment' => 'center',
 		'images'          => '',
-		'image_size'      => 'full',
+		'image_size'      => 'medium',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
 	$title           = $args['title'];
+	$title_heading   = $args['title_heading'];
 	$title_alignment = $args['title_alignment'];
 	$images          = $args['images'];
 	$image_size      = $args['image_size'];
@@ -44,31 +46,36 @@ function mm_logo_strip( $args ) {
 	// Create array from comma-separated image list.
 	$images = explode( ',', ltrim( $images ) );
 
-	// Count how many images we have.
-	$image_count = count( $images );
-	$image_count = 'logo-count-' . (int)$image_count;
+	// Only allow valid headings.
+	if ( ! in_array( $title_heading, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ) ) ) {
+		$title_heading = 'h2';
+	}
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
-	// Set up the title alignment.
-	if ( '' === $title_alignment || 'center' === $title_alignment ) {
-		$title_class = 'mm-text-align-center';
-	} elseif( 'right' === $title_alignment ) {
-		$title_class = 'mm-text-align-right';
-	} else {
-		$title_class = 'mm-text-align-left';
-	}
+	// Set up the title classes.
+	$title_class = 'mm-logo-strip-heading mm-text-align-' . $title_alignment;
+
+	// Count how many images we have.
+	$image_count = count( $images );
+	$image_count = 'logo-count-' . (int)$image_count;
 
 	ob_start();
 
 	?>
 
-	<div class="<?php echo $mm_classes; ?> <?php echo $image_count ?>">
+	<div class="<?php echo esc_attr( $mm_classes ); ?> <?php echo esc_attr( $image_count ); ?>">
 
-		<?php if ( $title ) : ?>
-			<h4 class="<?php echo $title_class; ?>"><?php echo esc_html( $title ); ?></h4>
-		<?php endif; ?>
+		<?php if ( $title ) {
+			printf(
+				'<%s class="%s">%s</%s>',
+				$title_heading,
+				esc_attr( $title_class ),
+				esc_html( $title ),
+				$title_heading
+			);
+		} ?>
 
 		<?php
 			foreach ( $images as $image ) {
@@ -109,7 +116,8 @@ add_action( 'vc_before_init', 'mm_vc_logo_strip' );
  */
 function mm_vc_logo_strip() {
 
-	$image_sizes = mm_get_image_sizes_for_vc();
+	$image_sizes    = mm_get_image_sizes_for_vc( 'mm-logo-strip' );
+	$heading_levels = mm_get_heading_levels_for_vc( 'mm-logo-strip' );
 
 	vc_map( array(
 		'name'     => __( 'Logo Strip', 'mm-components' ),
@@ -127,13 +135,18 @@ function mm_vc_logo_strip() {
 			),
 			array(
 				'type'       => 'dropdown',
+				'heading'    => __( 'Title Heading Level', 'mm-components' ),
+				'param_name' => 'title_heading',
+				'value'      => $heading_levels,
+			),
+			array(
+				'type'       => 'dropdown',
 				'heading'    => __( 'Title Alignment', 'mm-components' ),
 				'param_name' => 'title_alignment',
 				'value'      => array(
-					__( 'Select a Title Alignment', 'mm-components' ) => '',
-					__( 'Left', 'mm-components' )                     => 'left',
-					__( 'Center', 'mm-components' )                   => 'center',
-					__( 'Right', 'mm-components' )                    => 'right',
+					__( 'Center', 'mm-components' ) => 'center',
+					__( 'Left', 'mm-components' )   => 'left',
+					__( 'Right', 'mm-components' )  => 'right',
 				),
 			),
 			array(
@@ -245,7 +258,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		$images          = $instance['images'];
 		$image_size      = $instance['image_size'];
 		$classname       = $this->options['classname'];
-		$image_sizes     = mm_get_image_sizes();
+		$image_sizes     = mm_get_image_sizes( 'mm-logo-strip' );
 
 		// Title.
 		$this->field_text(
@@ -293,7 +306,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 	/**
 	 * Update the widget settings.
 	 *
-	 * @since  1.0.0
+	 * @since   1.0.0
 	 *
 	 * @param   array  $new_instance  The new settings for the widget instance.
 	 * @param   array  $old_instance  The old settings for the widget instance.
