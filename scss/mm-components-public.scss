@@ -641,10 +641,20 @@ a.mm-button {
 .mm-logo-strip {
 	text-align: center;
 	.logo {
-		display: inline-block;
-		padding: 0 15px 15px;
+		display: block;
+		@media( min-width: 600px ) {
+			padding: 0 15px 15px;
+			display: inline-block;
+		}
 		img {
 			display: block;
+			max-width: 50%;
+			margin: 1.5rem auto;
+			@media( min-width: 600px ) {
+				max-height: 50px;
+				max-width: 100%;
+				margin: 0;
+			}
 		}
 	}
 }
