@@ -221,8 +221,20 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
+		$defaults = array(
+			'title'           => '',
+			'title_heading'   => 'h2',
+			'title_alignment' => 'center',
+			'images'          => '',
+			'image_size'      => 'medium',
+		);
+
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
+
 		// At this point all instance options have been sanitized.
 		$title           = apply_filters( 'widget_title', $instance['title'] );
+		$title_heading   = $instance['title_heading'];
 		$title_alignment = $instance['title_alignment'];
 		$images          = $instance['images'];
 		$image_size      = $instance['image_size'];
@@ -245,20 +257,23 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 
 		$defaults = array(
 			'title'           => '',
-			'title_alignment' => '',
+			'title_heading'   => 'h2',
+			'title_alignment' => 'center',
 			'images'          => '',
-			'image_size'      => '',
+			'image_size'      => 'medium',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
 		$title           = $instance['title'];
+		$title_heading   = $instance['title_heading'];
 		$title_alignment = $instance['title_alignment'];
 		$images          = $instance['images'];
 		$image_size      = $instance['image_size'];
 		$classname       = $this->options['classname'];
 		$image_sizes     = mm_get_image_sizes( 'mm-logo-strip' );
+		$heading_levels  = mm_get_heading_levels( 'mm-logo-strip' );
 
 		// Title.
 		$this->field_text(
@@ -269,7 +284,17 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 			$title
 		);
 
-		// Title Alignment.
+		// Title heading.
+		$this->field_select(
+			__( 'Title Heading Level', 'mm-components' ),
+			'',
+			$classname . '-title-heading widefat',
+			'title_heading',
+			$title_heading,
+			$heading_levels
+		);
+
+		// Title alignment.
 		$this->field_select(
 			__( 'Title Alignment', 'mm-components' ),
 			'',
@@ -292,7 +317,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 			$images
 		);
 
-		// Image Size.
+		// Image size.
 		$this->field_select(
 			__( 'Image Size', 'mm-components' ),
 			'',
@@ -317,6 +342,7 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 
 		$instance                    = $old_instance;
 		$instance['title']           = wp_kses_post( $new_instance['title'] );
+		$instance['title_heading']   = sanitize_text_field( $new_instance['title_heading'] );
 		$instance['title_alignment'] = sanitize_text_field( $new_instance['title_alignment'] );
 		$instance['images']          = wp_kses_post( $new_instance['images'] );
 		$instance['image_size']      = sanitize_text_field( $new_instance['image_size'] );

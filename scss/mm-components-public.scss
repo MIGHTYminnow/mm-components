@@ -641,6 +641,9 @@ a.mm-button {
 .mm-logo-strip {
 	text-align: center;
 	box-sizing: border-box;
+	.mm-logo-strip-heading {
+		margin-bottom: 5px;
+	}
 	.logo {
 		display: inline-block;
 		padding: 10px;
