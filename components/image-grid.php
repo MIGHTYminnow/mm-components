@@ -50,7 +50,7 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 
 	ob_start(); ?>
 
-	<div class="<?php echo $mm_classes; ?>">
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
 		<?php if ( $title ) : ?>
 			<h4><?php echo esc_html( $title ); ?></h4>
@@ -64,12 +64,10 @@ function mm_image_grid_shortcode( $atts, $content = null, $tag ) {
 
 	<?php
 
-	$output = ob_get_clean();
-
 	// Reset global style variable in case of multiple Image Grids on a single page.
 	$mm_image_grid_style = '';
 
-	return $output;
+	return ob_get_clean();
 }
 
 add_shortcode( 'mm_image_grid_image', 'mm_image_grid_image_shortcode' );
@@ -147,7 +145,7 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 
 	ob_start(); ?>
 
-	<div class="<?php echo $mm_classes; ?>">
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
 		<?php if ( ! empty( $link_url ) ) : ?>
 			<a href="<?php echo esc_attr( $link_url ); ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>">
@@ -179,9 +177,7 @@ function mm_image_grid_image_shortcode( $atts, $content = null, $tag ) {
 
 	<?php
 
-	$output = ob_get_clean();
-
-	return $output;
+	return ob_get_clean();
 }
 
 add_action( 'vc_before_init', 'mm_vc_image_grid' );
@@ -285,5 +281,4 @@ function mm_vc_image_grid() {
 		class WPBakeryShortCode_Mm_Image_Grid_Image extends WPBakeryShortCode {
 		}
 	}
-
 }

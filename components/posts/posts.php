@@ -761,10 +761,10 @@ function mm_vc_posts() {
 		return;
 	}
 
-	$post_types  = mm_get_post_types_for_vc();
-	$taxonomies  = mm_get_taxonomies_for_vc();
-	$image_sizes = mm_get_image_sizes_for_vc();
-	$templates   = mm_get_mm_posts_templates_for_vc();
+	$post_types  = mm_get_post_types_for_vc( 'mm-posts' );
+	$taxonomies  = mm_get_taxonomies_for_vc( 'mm-posts' );
+	$image_sizes = mm_get_image_sizes_for_vc( 'mm-posts' );
+	$templates   = mm_get_mm_posts_templates_for_vc( 'mm-posts' );
 
 	vc_map( array(
 		'name'     => __( 'Posts', 'mm-components' ),

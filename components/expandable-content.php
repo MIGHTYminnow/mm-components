@@ -39,7 +39,7 @@ function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
 
 	// Add our extra classes.
-	$mm_classes .= esc_attr( $atts['class'] );
+	$mm_classes .= ( ! empty( $atts['class'] ) ) ? ' ' . $atts['class'] : '';
 
 	$link_alignment = ( 'left' == $atts['link_alignment'] || 'center' == $atts['link_alignment'] || 'right' == $atts['link_alignment'] ) ? 'mm-text-align-' . $atts['link_alignment'] : '';
 
@@ -49,9 +49,9 @@ function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag
 
 	ob_start(); ?>
 
-	<div class="<?php echo $mm_classes; ?>">
-		<div class="mm-expandable-content-trigger <?php echo $link_alignment . ' ' . $fade; ?>">
-			<a class="mm-expandable-content-trigger-link <?php echo $link_style; ?>" title="<?php echo esc_attr( $atts['link_text'] ); ?>"><?php echo esc_html( $atts['link_text'] ); ?></a>
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
+		<div class="mm-expandable-content-trigger <?php echo esc_attr( $link_alignment ) . ' ' . esc_attr( $fade ); ?>">
+			<a class="mm-expandable-content-trigger-link <?php echo esc_attr( $link_style ); ?>" title="<?php echo esc_attr( $atts['link_text'] ); ?>"><?php echo esc_html( $atts['link_text'] ); ?></a>
 		</div>
 		<div class="mm-expandable-content-target">
 			<?php echo do_shortcode( $content ); ?>
@@ -60,10 +60,7 @@ function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag
 
 	<?php
 
-	$output = ob_get_clean();
-
-	return $output;
-
+	return ob_get_clean();
 }
 
 add_action( 'vc_before_init', 'mm_vc_expandable_content' );

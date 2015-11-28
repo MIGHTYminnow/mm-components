@@ -48,7 +48,7 @@ function mm_social_icons( $args ) {
 	$ghost           = $args['ghost'];
 	$color           = $args['color'];
 	$size            = $args['size'];
-	$social_networks = mm_get_social_networks();
+	$social_networks = mm_get_social_networks( 'mm-social-icons' );
 
 	// Set up the icon classes.
 	$classes = array();
@@ -153,11 +153,11 @@ add_action( 'vc_before_init', 'mm_vc_social_icons' );
  */
 function mm_vc_social_icons() {
 
-	$social_icons_types = mm_get_mm_social_icons_types();
-	$image_sizes        = mm_get_image_sizes_for_vc();
-	$text_alignment     = mm_get_text_alignment_for_vc();
-	$colors             = mm_get_colors_for_vc();
-	$social_networks    = mm_get_social_networks_for_vc();
+	$social_icons_types = mm_get_mm_social_icons_types( 'mm-social-icons' );
+	$image_sizes        = mm_get_image_sizes_for_vc( 'mm-social-icons' );
+	$text_alignment     = mm_get_text_alignment_for_vc( 'mm-social-icons' );
+	$colors             = mm_get_colors_for_vc( 'mm-social-icons' );
+	$social_networks    = mm_get_social_networks_for_vc( 'mm-social-icons' );
 
 	// Add our brand colors option.
 	$brand_colors = array(

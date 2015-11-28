@@ -121,7 +121,7 @@ add_action( 'vc_before_init', 'mm_vc_restricted_content' );
  */
 function mm_vc_restricted_content() {
 
-	$roles = mm_get_user_roles_for_vc();
+	$roles = mm_get_user_roles_for_vc( 'mm-restricted-content' );
 
 	/**
 	 * Restricted Content.
@@ -314,7 +314,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 			$classname . '-roles widefat',
 			'roles',
 			$roles,
-			mm_get_user_roles()
+			mm_get_user_roles( 'mm-restricted-content' )
 		);
 
 		// Restricted content.

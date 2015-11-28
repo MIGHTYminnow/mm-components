@@ -332,8 +332,8 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 		$full_width     = mm_true_or_false( $instance['full_width'] );
 		$alignment      = $instance['alignment'];
 		$classname      = $this->options['classname'];
-		$colors         = mm_get_colors();
-		$text_alignment = mm_get_text_alignment();
+		$colors         = mm_get_colors( 'mm-button' );
+		$text_alignment = mm_get_text_alignment( 'mm-button' );
 
 		// Handle the case of a newly added widget that doesn't yet have button text set.
 		$preview_instance = $instance;

@@ -254,7 +254,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	/**
 	 * Update the widget settings.
 	 *
-	 * @since  1.0.0
+	 * @since   1.0.0
 	 *
 	 * @param   array  $new_instance  The new settings for the widget instance.
 	 * @param   array  $old_instance  The old settings for the widget instance.
@@ -267,7 +267,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 		$instance['title']    = wp_kses_post( $new_instance['title'] );
 		$instance['quote']    = wp_kses_post( $new_instance['quote'] );
 		$instance['citation'] = sanitize_text_field( $new_instance['citation'] );
-		$instance['image_id'] = ( isset( $new_instance['image_id'] ) && '' !== $new_instance['image_id'] ) ? intval( $new_instance['image_id'] ) : '';
+		$instance['image_id'] = ( ! empty( $new_instance['image_id'] ) ) ? intval( $new_instance['image_id'] ) : '';
 
 		return $instance;
 	}

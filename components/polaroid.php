@@ -62,12 +62,12 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 	}
 
 	// Get clean params.
-	$title = $atts['title'];
-	$image = $atts['image'];
+	$title        = $atts['title'];
+	$image        = $atts['image'];
 	$author_image = $atts['author_image'];
-	$link_text = $atts['link_text'];
-	$banner_text = $atts['banner_text'];
-	$class = $atts['class'];
+	$link_text    = $atts['link_text'];
+	$banner_text  = $atts['banner_text'];
+	$class        = $atts['class'];
 
 	/**
 	 * Parse images.
@@ -94,7 +94,7 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 
 	ob_start(); ?>
 
-	<div class="<?php echo $mm_classes; ?>">
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
 		<?php if ( $title ) : ?>
 			<h4><?php echo esc_html( $title ); ?></h4>
@@ -138,9 +138,7 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 
 	<?php
 
-	$output = ob_get_clean();
-
-	return $output;
+	return ob_get_clean();
 }
 
 add_action( 'vc_before_init', 'mm_vc_polaroid' );

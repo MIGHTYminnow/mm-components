@@ -56,9 +56,9 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 	}
 
 	// Get clean params.
-	$title = $atts['title'];
-	$image = $atts['image'];
-	$caption = $atts['caption'];
+	$title         = $atts['title'];
+	$image         = $atts['image'];
+	$caption       = $atts['caption'];
 	$caption_color = $atts['caption_color'];
 
 	// Get Mm classes
@@ -66,14 +66,14 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 
 	ob_start(); ?>
 
-	<div class="<?php echo $mm_classes; ?>">
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
 		<?php if ( ! empty( $link_url ) ) : ?>
 			<a href="<?php echo esc_url( $link_url ); ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>">
 		<?php endif; ?>
 
 		<?php if ( $title ) : ?>
-			<h3><?php echo $title; ?></h3>
+			<h3><?php echo esc_html( $title ); ?></h3>
 		<?php endif; ?>
 
 		<div class="polaroid-wrap">
@@ -83,7 +83,7 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 
 			<?php if ( $caption ) : ?>
 				<div class="caption <?php echo esc_attr( $caption_color ); ?>">
-					<h3><?php echo esc_html( $caption ); ?></h3>
+					<h4><?php echo esc_html( $caption ); ?></h4>
 				</div>
 			<?php endif; ?>
 		</div>
@@ -96,9 +96,7 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 
 	<?php
 
-	$output = ob_get_clean();
-
-	return $output;
+	return ob_get_clean();
 }
 
 add_action( 'vc_before_init', 'mm_vc_polaroid_2' );

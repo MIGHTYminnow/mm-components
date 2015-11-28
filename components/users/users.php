@@ -93,7 +93,7 @@ function mm_users( $args ) {
 				<?php printf(
 					'<%s id="user-%s">',
 					$element,
-					$user->ID
+					esc_attr( $user->ID )
 				); ?>
 
 					<?php do_action( 'mm_users_header', $user, $context, $args ); ?>
@@ -252,9 +252,9 @@ add_action( 'vc_before_init', 'mm_vc_users' );
  */
 function mm_vc_users() {
 
-	$roles = mm_get_user_roles_for_vc();
-	$templates = mm_get_mm_users_templates_for_vc();
-	$wrap_elements = mm_get_wrap_elements_for_vc();
+	$roles         = mm_get_user_roles_for_vc( 'mm-users' );
+	$templates     = mm_get_mm_users_templates_for_vc( 'mm-users' );
+	$wrap_elements = mm_get_wrap_elements_for_vc( 'mm-users' );
 
 	$empty_option = array(
 		__( 'All Users', 'mm-components' ) => '',
