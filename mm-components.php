@@ -77,40 +77,40 @@ function mm_components_init_components() {
 
 	// Include active components.
 	if ( array_key_exists( 'blockquote', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/blockquote.php';
+		require_once MM_COMPONENTS_PATH . 'components/blockquote/blockquote.php';
 	}
 	if ( array_key_exists( 'button', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/button.php';
+		require_once MM_COMPONENTS_PATH . 'components/button/button.php';
 	}
 	if ( array_key_exists( 'countdown', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/countdown/countdown.php';
 	}
 	if ( array_key_exists( 'custom-heading', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/custom-heading.php';
+		require_once MM_COMPONENTS_PATH . 'components/custom-heading/custom-heading.php';
 	}
 	if ( array_key_exists( 'expandable-content', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/expandable-content.php';
+		require_once MM_COMPONENTS_PATH . 'components/expandable-content/expandable-content.php';
 	}
 	if ( array_key_exists( 'hero-banner', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/hero-banner.php';
+		require_once MM_COMPONENTS_PATH . 'components/hero-banner/hero-banner.php';
 	}
 	if ( array_key_exists( 'highlight-box', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/highlight-box.php';
+		require_once MM_COMPONENTS_PATH . 'components/highlight-box/highlight-box.php';
 	}
 	if ( array_key_exists( 'icon-box', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/icon-box.php';
+		require_once MM_COMPONENTS_PATH . 'components/icon-box/icon-box.php';
 	}
 	if ( array_key_exists( 'image-grid', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/image-grid.php';
+		require_once MM_COMPONENTS_PATH . 'components/image-grid/image-grid.php';
 	}
 	if ( array_key_exists( 'logo-strip', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/logo-strip.php';
+		require_once MM_COMPONENTS_PATH . 'components/logo-strip/logo-strip.php';
 	}
 	if ( array_key_exists( 'polaroid', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/polaroid.php';
+		require_once MM_COMPONENTS_PATH . 'components/polaroid/polaroid.php';
 	}
 	if ( array_key_exists( 'polaroid-2', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/polaroid-2.php';
+		require_once MM_COMPONENTS_PATH . 'components/polaroid-2/polaroid-2.php';
 	}
 	if ( array_key_exists( 'posts', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/posts/posts.php';
@@ -118,10 +118,10 @@ function mm_components_init_components() {
 		require_once MM_COMPONENTS_PATH . 'components/posts/templates/simple-list.php';
 	}
 	if ( array_key_exists( 'restricted-content', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/restricted-content.php';
+		require_once MM_COMPONENTS_PATH . 'components/restricted-content/restricted-content.php';
 	}
 	if ( array_key_exists( 'social-icons', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/social-icons.php';
+		require_once MM_COMPONENTS_PATH . 'components/social-icons/social-icons.php';
 	}
 	if ( array_key_exists( 'users', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/users/users.php';
@@ -137,7 +137,7 @@ function mm_components_init_components() {
 
 	// Maybe include our demo component.
 	if ( true === WP_DEBUG ) {
-		require_once MM_COMPONENTS_PATH . 'components/demo.php';
+		require_once MM_COMPONENTS_PATH . 'components/demo/demo.php';
 	}
 }
 
