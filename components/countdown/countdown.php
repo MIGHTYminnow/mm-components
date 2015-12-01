@@ -31,24 +31,24 @@ function mm_countdown( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$date      = $args['date'];
-	$time      = $args['time'];
+	$date     = $args['date'];
+	$time     = $args['time'];
 	$timezone = $args['timezone'];
 
 	// Enqueue pre-registerd 3rd party countdown script.
-	wp_enqueue_script( 'mm-countdown' );
+	wp_enqueue_script( 'mm-jquery-countdown' );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
 	// Create new date object.
-	$date_obj = new DateTime( $date . ' ' . $time . ' ' . $timezone );
+	$date_obj      = new DateTime( $date . ' ' . $time . ' ' . $timezone );
 	$utc_date_ojb  = new DateTime( $date . ' ' . $time );
 
 	// Get timezone offset.
 	$timezone_offset = $date_obj->getTimezone()->getOffset( $utc_date_ojb ) / 3600;
 
-	// Pass date as comma-separated list.
+	// Pass data to JS as data attributes.
 	$year   = $date_obj->format( 'Y' );
 	$month  = $date_obj->format( 'n' );
 	$day    = $date_obj->format( 'j' );
@@ -56,23 +56,21 @@ function mm_countdown( $args ) {
 	$minute = $date_obj->format( 'i' );
 	$second = $date_obj->format( 's' );
 
-	$output = sprintf( '<div class="%s" data-year="%s" data-month="%s" data-day="%s" data-hour="%s" data-minute="%s" data-second="%s" data-timezone-offset="%s"></div>',
-		$mm_classes,
-		$year,
-		$month,
-		$day,
-		$hour,
-		$minute,
-		$second,
-		$timezone_offset
+	return sprintf( '<div class="%s" data-year="%s" data-month="%s" data-day="%s" data-hour="%s" data-minute="%s" data-second="%s" data-timezone-offset="%s"></div>',
+		esc_attr( $mm_classes ),
+		esc_attr( $year ),
+		esc_attr( $month ),
+		esc_attr( $day ),
+		esc_attr( $hour ),
+		esc_attr( $minute ),
+		esc_attr( $second ),
+		esc_attr( $timezone_offset )
 	);
-
-	return $output;
 }
 
 add_shortcode( 'mm_countdown', 'mm_countdown_shortcode' );
 /**
- * Output Countdown.
+ * Countdown shortcode.
  *
  * @since   1.0.0
  *
@@ -89,7 +87,6 @@ function mm_countdown_shortcode( $atts = array(), $content = null ) {
 	return mm_countdown( $atts );
 }
 
-
 add_action( 'vc_before_init', 'mm_vc_countdown' );
 /**
  * Visual Composer add-on.
@@ -98,10 +95,10 @@ add_action( 'vc_before_init', 'mm_vc_countdown' );
  */
 function mm_vc_countdown() {
 
-	// Add a custom param for selecting the date
+	// Add a custom param for selecting the date.
 	vc_add_shortcode_param( 'date', 'mm_vc_date_param' );
 
-	$timezone = mm_get_timezone_for_vc(  'mm-countdown' );
+	$timezones = mm_get_timezones_for_vc( 'mm-countdown' );
 
 	vc_map( array(
 		'name'     => __( 'Countdown', 'mm-components' ),
@@ -128,24 +125,10 @@ function mm_vc_countdown() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Time Zone', 'mm-components' ),
 				'param_name' => 'timezone',
-				'value'      => $timezone,
+				'value'      => $timezones,
 			),
 		)
 	) );
-}
-
-add_action( 'wp_enqueue_scripts', 'mm_countdown_enqueue_scripts' );
-/**
- * Enqueue the countdown script.
- */
-function mm_countdown_enqueue_scripts() {
-
-	/**
-	 * 3rd party countdown script.
-	 *
-	 * @see  http://hilios.github.io/jQuery.countdown/
-	 */
-	wp_register_script( 'mm-countdown', plugins_url( '/js/jquery.countdown.js', __FILE__ ), array( 'jquery' ), null, true );
 }
 
 add_action( 'widgets_init', 'mm_components_register_countdown_widget' );
@@ -204,6 +187,7 @@ class Mm_Countdown_Widget extends Mm_Components_Widget {
 	public function widget( $args, $instance ) {
 
 		$defaults = array(
+			'title'    => '',
 			'date'     => '',
 			'time'     => '',
 			'timezone' => '',
@@ -212,7 +196,13 @@ class Mm_Countdown_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
+		$title = apply_filters( 'widget_title', $instance['title'] );
+
 		echo $args['before_widget'];
+
+		if ( ! empty( $title ) ) {
+			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
+		}
 
 		echo mm_countdown( $instance );
 
@@ -229,18 +219,29 @@ class Mm_Countdown_Widget extends Mm_Components_Widget {
 	public function form( $instance ) {
 
 		$defaults = array(
+			'title'    => '',
 			'date'     => '',
-			'time'     => 'center center',
+			'time'     => '',
 			'timezone' => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
+		$title     = $instance['title'];
 		$date      = $instance['date'];
 		$time      = $instance['time'];
 		$timezone  = $instance['timezone'];
 		$classname = $this->options['classname'];
+
+		// Title.
+		$this->field_text(
+			__( 'Title', 'mm-components' ),
+			'',
+			$classname . '-title widefat',
+			'title',
+			$title
+		);
 
 		// Date.
 		$this->field_text(
@@ -267,14 +268,14 @@ class Mm_Countdown_Widget extends Mm_Components_Widget {
 			$classname . '-timezone widefat',
 			'timezone',
 			$timezone,
-			mm_get_timezone( 'mm-countdown' )
+			mm_get_timezones( 'mm-countdown' )
 		);
 	}
 
 	/**
 	 * Update the widget settings.
 	 *
-	 * @since  1.0.0
+	 * @since   1.0.0
 	 *
 	 * @param   array  $new_instance  The new settings for the widget instance.
 	 * @param   array  $old_instance  The old settings for the widget instance.
@@ -283,7 +284,8 @@ class Mm_Countdown_Widget extends Mm_Components_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance = $old_instance;
+		$instance             = $old_instance;
+		$instance['title']    = sanitize_text_field( $new_instance['title'] );
 		$instance['date']     = sanitize_text_field( $new_instance['date'] );
 		$instance['time']     = sanitize_text_field( $new_instance['time'] );
 		$instance['timezone'] = sanitize_text_field( $new_instance['timezone'] );

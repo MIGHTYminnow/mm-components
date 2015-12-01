@@ -454,74 +454,6 @@ function mm_get_mm_social_icons_types( $context = '' ) {
 }
 
 /**
- * Return an array of timezones.
- *
- * @since   1.0.0
- *
- * @param   string  $context  The context to pass to out filter.
- *
- * @return  array             The array of timezones.
- */
-function mm_get_timezone( $context = '' ) {
-
-	$timezones = array(
-		__('GMT-1200', 'mm-components' ) => '(GMT -12:00) Eniwetok, Kwajalein',
-		__('GMT-1100', 'mm-components' ) => '(GMT -11:00) Midway Island, Samoa',
-		__('GMT-1000', 'mm-components' ) => '(GMT -10:00) Hawaii',
-		__('GMT-0900', 'mm-components' ) => '(GMT -9:00) Alaska',
-		__('GMT-0800', 'mm-components' ) => '(GMT -8:00) Pacific Time (US &amp; Canada)',
-		__('GMT-0700', 'mm-components' ) => '(GMT -7:00) Mountain Time (US &amp; Canada)',
-		__('GMT-0600', 'mm-components' ) => '(GMT -6:00) Central Time (US &amp; Canada), Mexico City',
-		__('GMT-0500', 'mm-components' ) => '(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima',
-		__('GMT-0430', 'mm-components' ) => '(GMT -4:30) Caracas',
-		__('GMT-0400', 'mm-components' ) => '(GMT -4:00) Atlantic Time (Canada), La Paz, Santiago',
-		__('GMT-0330', 'mm-components' ) => '(GMT -3:30) Newfoundland',
-		__('GMT-0300', 'mm-components' ) => '(GMT -3:00) Brazil, Buenos Aires, Georgetown',
-		__('GMT-0200', 'mm-components' ) => '(GMT -2:00) Mid-Atlantic',
-		__('GMT-0100', 'mm-components' ) => '(GMT -1:00 hour) Azores, Cape Verde Islands',
-		__('GMT', 'mm-components' )      => '(GMT) Western Europe Time, London, Lisbon, Casablanca, Greenwich',
-		__('GMT+0100', 'mm-components' ) => '(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris',
-		__('GMT+0200', 'mm-components' ) => '(GMT +2:00) Kaliningrad, South Africa, Cairo',
-		__('GMT+0300', 'mm-components' ) => '(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg',
-		__('GMT+0330', 'mm-components' ) => '(GMT +3:30) Tehran',
-		__('GMT+0400', 'mm-components' ) => '(GMT +4:00) Abu Dhabi, Muscat, Yerevan, Baku, Tbilisi',
-		__('GMT+0430', 'mm-components' ) => '(GMT +4:30) Kabul',
-		__('GMT+0500', 'mm-components' ) => '(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent',
-		__('GMT+0530', 'mm-components' ) => '(GMT +5:30) Mumbai, Kolkata, Chennai, New Delhi',
-		__('GMT+0545', 'mm-components' ) => '(GMT +5:45) Kathmandu',
-		__('GMT+0600', 'mm-components' ) => '(GMT +6:00) Almaty, Dhaka, Colombo',
-		__('GMT+0630', 'mm-components' ) => '(GMT +6:30) Yangon, Cocos Islands',
-		__('GMT+0700', 'mm-components' ) => '(GMT +7:00) Bangkok, Hanoi, Jakarta',
-		__('GMT+0800', 'mm-components' ) => '(GMT +8:00) Beijing, Perth, Singapore, Hong Kong',
-		__('GMT+0900', 'mm-components' ) => '(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk',
-		__('GMT+0930', 'mm-components' ) => '(GMT +9:30) Adelaide, Darwin',
-		__('GMT+1000', 'mm-components' ) => '(GMT +10:00) Eastern Australia, Guam, Vladivostok',
-		__('GMT+1100', 'mm-components' ) => '(GMT +11:00) Magadan, Solomon Islands, New Caledonia',
-		__('GMT+1200', 'mm-components' ) => '(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka',
-	);
-
-	return apply_filters( 'mm_timezone', $timezones, $context );
-}
-
-/**
- * Return an array of timezones for use in a visual composer element.
- *
- * @since   1.0.0
- *
- * @param   string  $context  The context to pass to out filter.
- *
- * @return  array             The array of timezones.
- */
-function mm_get_timezone_for_vc( $context = '') {
-
-	$empty_option = array(
-		__( 'Select A Timezone', 'mm-components' ) => '',
-	);
-
-	return $empty_option + array_flip( mm_get_timezone( $context ) );
-}
-
-/**
  * Return an array of registered social networks.
  *
  * @since   1.0.0
@@ -555,6 +487,74 @@ function mm_get_social_networks( $context = '' ) {
 function mm_get_social_networks_for_vc( $context = '' ) {
 
 	return array_flip( mm_get_social_networks( $context ) );
+}
+
+/**
+ * Return an array of timezones.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of timezones.
+ */
+function mm_get_timezones( $context = '' ) {
+
+	$timezones = array(
+		'GMT-1200' => __( '(GMT -12:00) Eniwetok, Kwajalein', 'mm-components' ),
+		'GMT-1100' => __( '(GMT -11:00) Midway Island, Samoa', 'mm-components' ),
+		'GMT-1000' => __( '(GMT -10:00) Hawaii', 'mm-components' ),
+		'GMT-0900' => __( '(GMT -9:00) Alaska', 'mm-components' ),
+		'GMT-0800' => __( '(GMT -8:00) Pacific Time (US & Canada)', 'mm-components' ),
+		'GMT-0700' => __( '(GMT -7:00) Mountain Time (US & Canada)', 'mm-components' ),
+		'GMT-0600' => __( '(GMT -6:00) Central Time (US & Canada), Mexico City', 'mm-components' ),
+		'GMT-0500' => __( '(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima', 'mm-components' ),
+		'GMT-0430' => __( '(GMT -4:30) Caracas', 'mm-components' ),
+		'GMT-0400' => __( '(GMT -4:00) Atlantic Time (Canada), La Paz, Santiago', 'mm-components' ),
+		'GMT-0330' => __( '(GMT -3:30) Newfoundland', 'mm-components' ),
+		'GMT-0300' => __( '(GMT -3:00) Brazil, Buenos Aires, Georgetown', 'mm-components' ),
+		'GMT-0200' => __( '(GMT -2:00) Mid-Atlantic', 'mm-components' ),
+		'GMT-0100' => __( '(GMT -1:00 hour) Azores, Cape Verde Islands', 'mm-components' ),
+		'GMT'      => __( '(GMT) Western Europe Time, London, Lisbon, Casablanca, Greenwich', 'mm-components' ),
+		'GMT+0100' => __( '(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris', 'mm-components' ),
+		'GMT+0200' => __( '(GMT +2:00) Kaliningrad, South Africa, Cairo', 'mm-components' ),
+		'GMT+0300' => __( '(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg', 'mm-components' ),
+		'GMT+0330' => __( '(GMT +3:30) Tehran', 'mm-components' ),
+		'GMT+0400' => __( '(GMT +4:00) Abu Dhabi, Muscat, Yerevan, Baku, Tbilisi', 'mm-components' ),
+		'GMT+0430' => __( '(GMT +4:30) Kabul', 'mm-components' ),
+		'GMT+0500' => __( '(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent', 'mm-components' ),
+		'GMT+0530' => __( '(GMT +5:30) Mumbai, Kolkata, Chennai, New Delhi', 'mm-components' ),
+		'GMT+0545' => __( '(GMT +5:45) Kathmandu', 'mm-components' ),
+		'GMT+0600' => __( '(GMT +6:00) Almaty, Dhaka, Colombo', 'mm-components' ),
+		'GMT+0630' => __( '(GMT +6:30) Yangon, Cocos Islands', 'mm-components' ),
+		'GMT+0700' => __( '(GMT +7:00) Bangkok, Hanoi, Jakarta', 'mm-components' ),
+		'GMT+0800' => __( '(GMT +8:00) Beijing, Perth, Singapore, Hong Kong', 'mm-components' ),
+		'GMT+0900' => __( '(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk', 'mm-components' ),
+		'GMT+0930' => __( '(GMT +9:30) Adelaide, Darwin', 'mm-components' ),
+		'GMT+1000' => __( '(GMT +10:00) Eastern Australia, Guam, Vladivostok', 'mm-components' ),
+		'GMT+1100' => __( '(GMT +11:00) Magadan, Solomon Islands, New Caledonia', 'mm-components' ),
+		'GMT+1200' => __( '(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_timezones', $timezones, $context );
+}
+
+/**
+ * Return an array of timezones for use in a visual composer element.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of timezones.
+ */
+function mm_get_timezones_for_vc( $context = '' ) {
+
+	$empty_option = array(
+		__( 'Select A Timezone', 'mm-components' ) => '',
+	);
+
+	return $empty_option + array_flip( mm_get_timezones( $context ) );
 }
 
 /**

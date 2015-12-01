@@ -192,6 +192,15 @@ function mm_components_scripts_and_styles() {
 		true
 	);
 
+	// Register jQuery countdown.
+	wp_register_script(
+		'mm-jquery-countdown',
+		MM_COMPONENTS_URL . 'lib/jquery-countdown/jquery.countdown.js',
+		array( 'jquery' ),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
 	// General styles.
 	wp_enqueue_style(
 		'mm-components',
