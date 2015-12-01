@@ -341,7 +341,7 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 	public function update( $new_instance, $old_instance ) {
 
 		$instance                         = $old_instance;
-		$instance['title']                = wp_kses_post( $new_instance['title'] );
+		$instance['title']                = sanitize_text_field( $new_instance['title'] );
 		$instance['text_field']           = wp_kses_post( $new_instance['text_field'] );
 		$instance['text_area_field']      = wp_kses_post( $new_instance['text_area_field'] );
 		$instance['select_field']         = sanitize_text_field( $new_instance['select_field'] );

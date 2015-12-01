@@ -300,6 +300,34 @@ class Mm_Components_Widget extends WP_Widget {
 	}
 
 	/**
+	 * Output a date input.
+	 *
+	 * @since  1.0.0
+	 */
+	public function field_date( $label = '', $description = '', $classes = '', $key = '', $value = '' ) {
+
+		echo '<p class="mm-date-field-wrap">';
+
+			echo '<label>' . esc_html( $label ) . '</label><br />';
+
+			printf(
+				'<input type="date" class="%s" name="%s" value="%s" />',
+				esc_attr( $classes ),
+				$this->get_field_name( $key ),
+				esc_attr( $value )
+			);
+
+			if ( '' !== $description) {
+				printf(
+					'<small class="mm-description-text">%s</small>',
+					esc_html( $description )
+				);
+			}
+
+		echo '</p>';
+	}
+
+	/**
 	 * Output an alpha color picker.
 	 *
 	 * @since  1.0.0

@@ -244,7 +244,7 @@ class Mm_Countdown_Widget extends Mm_Components_Widget {
 		);
 
 		// Date.
-		$this->field_text(
+		$this->field_date(
 			__( 'Date', 'mm-components' ),
 			__( 'Must be in the format MM/DD/YYYY. Example: 12/25/2015 would be Christmas of 2015.', 'mm-components' ),
 			$classname . '-date widefat',
