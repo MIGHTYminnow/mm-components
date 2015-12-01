@@ -160,23 +160,12 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		// At this point all instance options have been sanitized.
-		$title                = apply_filters( 'widget_title', $instance['title'] );
-		$text_field           = $instance['text_field'];
-		$text_area_field      = $instance['text_area_field'];
-		$select_field         = $instance['select_field'];
-		$checkbox_field       = $instance['checkbox_field'];
-		$multi_checkbox_field = $instance['multi_checkbox_field'];
-		$radio_field          = $instance['radio_field'];
-		$alpha_color_field    = $instance['alpha_color_field'];
-		$single_media_field   = $instance['single_media_field'];
-		$multi_media_field    = $instance['multi_media_field'];
-		$custom_field         = $instance['custom_field'];
+		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
 
 		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
 		}
 
 		echo mm_demo( $instance );
