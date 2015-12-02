@@ -11,7 +11,7 @@
 /**
  * Output Expandable Content.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
  * @param   array   $args  The args.
  *
@@ -52,42 +52,46 @@ function mm_expandable_content( $args ) {
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
-	$mm_classes .= ' mm-link-style-' . $args['link_style'];
-	$mm_classes .= ' mm-link-test-' . $args['link_text'];
-	$mm_classes .= ' mm-link-alignment-' . $args['link_alignment'];
-	$mm_classes .= ' mm-fade-' . $args['fade'];
 
-	$trigger_link_output = sprintf(
-		'<a class="mm-expandable-content-trigger-link %s" title="%s">%s</a>',
-		esc_attr( $link_style ),
-		esc_attr( $link_text ),
-		esc_html( $link_text )
-	);
+	// Build the trigger classes.
+	$trigger_classes = 'mm-expandable-content-trigger mm-text-align-' . $link_alignment;
+	$trigger_classes .= ( $fade ) ? ' ' . $fade : '';
 
-	// Build the button shortcode.
+	// Build the target classes.
+	$target_classes = 'mm-expandable-content-target mm-text-align-' . $link_alignment;
+
+	// Build the button or link trigger output.
 	if ( 'button' === $link_style ) {
 
 		$button_args = array(
 			'button_text'   => $link_text,
-			'class'         => '',
+			'class'         => 'mm-expandable-content-trigger-button',
 			'style'         => $button_style,
 			'corner_style'  => $button_corner_style,
 			'border_weight' => $button_border_weight,
 			'color'         => $button_color,
+			'alignment'     => $link_alignment,
 		);
 
 		$trigger_link_output = mm_button( $button_args );
+
+	} else {
+
+		$trigger_link_output = sprintf(
+			'<a class="mm-expandable-content-trigger-link %s" title="%s">%s</a>',
+			esc_attr( $link_style ),
+			esc_attr( $link_text ),
+			esc_html( $link_text )
+		);
 	}
 
 	ob_start(); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
-		<div class="mm-expandable-content-trigger mm-text-align-<?php echo esc_attr( $link_alignment ) . ' ' . esc_attr( $fade ); ?>">
-		<?php
-			echo $trigger_link_output;
-		?>
+		<div class="<?php echo esc_attr( $trigger_classes ); ?>">
+			<?php echo $trigger_link_output; ?>
 		</div>
-		<div class="mm-expandable-content-target mm-text-align-<?php echo esc_attr( $link_alignment ) ?>">
+		<div class="<?php echo esc_attr( $target_classes ); ?>">
 			<?php echo do_shortcode( $content ); ?>
 		</div>
 	</div>
@@ -125,11 +129,11 @@ add_action( 'vc_before_init', 'mm_vc_expandable_content' );
  */
 function mm_vc_expandable_content() {
 
-	$button_styles          = mm_get_button_styles_for_vc( 'mm-expandable-content' );
-	$button_border_weights  = mm_get_button_border_weights_for_vc( 'mm-expandable-content' );
-	$button_corner_styles   = mm_get_button_corner_styles_for_vc( 'mm-expandable-content' );
-	$button_colors          = mm_get_colors_for_vc( 'mm-expandable-content' );
-	$alignment              = mm_get_text_alignment_for_vc( 'mm-expandable-content' );
+	$button_styles         = mm_get_button_styles_for_vc( 'mm-expandable-content' );
+	$button_border_weights = mm_get_button_border_weights_for_vc( 'mm-expandable-content' );
+	$button_corner_styles  = mm_get_button_corner_styles_for_vc( 'mm-expandable-content' );
+	$button_colors         = mm_get_colors_for_vc( 'mm-expandable-content' );
+	$alignment             = mm_get_text_alignment_for_vc( 'mm-expandable-content' );
 
 	/**
 	 * Expandable Content.
@@ -200,7 +204,6 @@ function mm_vc_expandable_content() {
 				'heading'     => __( 'Button/Link Text', 'mm-components' ),
 				'param_name'  => 'link_text',
 				'description' => __( 'The text for the button/link', 'mm-components' ),
-				'default'     => '',
 				'value'       => '',
 			),
 			array(
@@ -213,7 +216,7 @@ function mm_vc_expandable_content() {
 				'type'       => 'checkbox',
 				'heading'    => __( 'Fade in?', 'mm-components' ),
 				'param_name' => 'fade',
-				'value' => array(
+				'value'      => array(
 					__( 'Yes', 'mm-components' ) => 'fade',
 				),
 			),
