@@ -166,7 +166,9 @@
 			var $trigger = $( this ).find( '.mm-expandable-content-trigger' );
 			var $target = $( this ).find( '.mm-expandable-content-target' );
 
-			$trigger.on( 'click', function() {
+			$trigger.on( 'click', function( e ) {
+
+				e.preventDefault();
 
 				$trigger.toggleClass( 'open' );
 
