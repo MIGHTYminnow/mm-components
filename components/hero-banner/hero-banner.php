@@ -65,7 +65,7 @@ function mm_hero_banner( $args ) {
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
-	$mm_classes .= ' mm-text-align-' . $args['content_align'];
+	$mm_classes .= ' mm-text-align-' . $content_align;
 
 	if ( mm_true_or_false( $full_height ) ) {
 		$mm_classes .= ' mm-full-window-height';
@@ -143,26 +143,25 @@ function mm_hero_banner( $args ) {
 		$content_output = sprintf(
 			'<div class="hero-content %s">%s</div>',
 			esc_attr( 'mm-text-color-' . $text_color ),
-			wp_kses_post( $content_output )
+			$content_output
 		);
 	}
 
-	// Build the button shortcode.
+	// Build the button output.
 	if ( $button_text ) {
 
-	$button_args = array(
-		'link'          => $button_link,
-		'link_title'    => $button_text,
-		'link_target'   => $button_link_target,
-		'button_text'   => $button_text,
-		'style'         => $button_style,
-		'corner_style'  => $button_corner_style,
-		'border_weight' => $button_border_weight,
-		'color'         => $button_color,
-	);
+		$button_args = array(
+			'link'          => $button_link,
+			'link_title'    => $button_text,
+			'link_target'   => $button_link_target,
+			'button_text'   => $button_text,
+			'style'         => $button_style,
+			'corner_style'  => $button_corner_style,
+			'border_weight' => $button_border_weight,
+			'color'         => $button_color,
+		);
 
-	$button_output = mm_button( $button_args );
-
+		$button_output = mm_button( $button_args );
 	}
 
 	// Handle $secondary_content being HTML, plain text, or a base64 encoded string.
@@ -217,7 +216,7 @@ function mm_hero_banner( $args ) {
 
 add_shortcode( 'mm_hero_banner', 'mm_hero_banner_shortcode' );
 /**
- * Output Hero Banner.
+ * Hero Banner shortcode.
  *
  * @since   1.0.0
  *
