@@ -150,18 +150,19 @@ function mm_hero_banner( $args ) {
 	// Build the button shortcode.
 	if ( $button_text ) {
 
-		$button_shortcode = sprintf(
-			'[mm_button style="%s" border_weight="%s" corner_style="%s" alignment="%s" color="%s" link="%s" link_title="%s" link_target="%s"]%s[/mm_button]',
-			$button_style,
-			$button_border_weight,
-			$button_corner_style,
-			$content_align,
-			$button_color,
-			$button_link,
-			$button_text,
-			$button_link_target,
-			$button_text
-		);
+	$button_args = array(
+		'link'          => $button_link,
+		'link_title'    => $button_text,
+		'link_target'   => $button_link_target,
+		'button_text'   => $button_text,
+		'style'         => $button_style,
+		'corner_style'  => $button_corner_style,
+		'border_weight' => $button_border_weight,
+		'color'         => $button_color,
+	);
+
+	$button_output = mm_button( $button_args );
+
 	}
 
 	// Handle $secondary_content being HTML, plain text, or a base64 encoded string.
@@ -202,7 +203,7 @@ function mm_hero_banner( $args ) {
 
 			<?php echo wp_kses_post( do_shortcode( $content_output ) ); ?>
 
-			<?php echo wp_kses_post( do_shortcode( $button_shortcode ) ); ?>
+			<?php echo wp_kses_post( $button_output ); ?>
 
 			<?php echo wp_kses_post( do_shortcode( $secondary_content_output ) ); ?>
 
