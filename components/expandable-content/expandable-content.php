@@ -8,27 +8,42 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'mm_expandable_content', 'mm_expandable_content_shortcode' );
 /**
  * Output Expandable Content.
  *
  * @since  1.0.0
  *
- * @param   array    $atts     Shortcode attributes.
- * @param   string   $content  Shortcode content.
- * @param   string   $tag      Shortcode tag.
+ * @param   array   $args  The args.
  *
- * @return  string             Shortcode output.
+ * @return  string         The HTML.
  */
-function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag = '' ) {
+function mm_expandable_content( $args ) {
 
-	$atts = mm_shortcode_atts( array(
-		'link_style'     => '',
-		'link_text'      => '',
-		'link_alignment' => '',
-		'fade'           => '',
-		'class'          => '',
-	), $atts );
+	$component = 'mm-expandable-content';
+
+	$defaults = array(
+		'link_style'           => '',
+		'link_text'            => '',
+		'link_alignment'       => 'left',
+		'fade'                 => '',
+		'button_style'         => '',
+		'button_border_weight' => '',
+		'button_corner_style'  => '',
+		'button_color'         => '',
+		'content'              => '',
+	);
+	$args = wp_parse_args( (array)$args, $defaults );
+
+	// Get clean param values.
+	$link_style           = $args['link_style'];
+	$link_text            = $args['link_text'];
+	$link_alignment       = $args['link_alignment'];
+	$fade                 = $args['fade'];
+	$button_style         = $args['button_style'];
+	$button_border_weight = $args['button_border_weight'];
+	$button_corner_style  = $args['button_corner_style'];
+	$button_color         = $args['button_color'];
+	$content              = $args['content'];
 
 	// Fix wpautop issues in $content.
 	if ( function_exists( 'wpb_js_remove_wpautop' ) ) {
@@ -36,24 +51,43 @@ function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag
 	}
 
 	// Get Mm classes.
-	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
+	$mm_classes .= ' mm-link-style-' . $args['link_style'];
+	$mm_classes .= ' mm-link-test-' . $args['link_text'];
+	$mm_classes .= ' mm-link-alignment-' . $args['link_alignment'];
+	$mm_classes .= ' mm-fade-' . $args['fade'];
 
-	// Add our extra classes.
-	$mm_classes .= ( ! empty( $atts['class'] ) ) ? ' ' . $atts['class'] : '';
+	$trigger_link_output = sprintf(
+		'<a class="mm-expandable-content-trigger-link %s" title="%s">%s</a>',
+		esc_attr( $link_style ),
+		esc_attr( $link_text ),
+		esc_html( $link_text )
+	);
 
-	$link_alignment = ( 'left' == $atts['link_alignment'] || 'center' == $atts['link_alignment'] || 'right' == $atts['link_alignment'] ) ? 'mm-text-align-' . $atts['link_alignment'] : '';
+	// Build the button shortcode.
+	if ( 'button' === $link_style ) {
 
-	$link_style = ( 'button' == $atts['link_style'] || 'link' == $atts['link_style'] ) ? $atts['link_style'] : '';
+		$button_args = array(
+			'button_text'   => $link_text,
+			'class'         => '',
+			'style'         => $button_style,
+			'corner_style'  => $button_corner_style,
+			'border_weight' => $button_border_weight,
+			'color'         => $button_color,
+		);
 
-	$fade = ( mm_true_or_false( $atts['fade'] ) ) ? 'fade': '';
+		$trigger_link_output = mm_button( $button_args );
+	}
 
 	ob_start(); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
-		<div class="mm-expandable-content-trigger <?php echo esc_attr( $link_alignment ) . ' ' . esc_attr( $fade ); ?>">
-			<a class="mm-expandable-content-trigger-link <?php echo esc_attr( $link_style ); ?>" title="<?php echo esc_attr( $atts['link_text'] ); ?>"><?php echo esc_html( $atts['link_text'] ); ?></a>
+		<div class="mm-expandable-content-trigger mm-text-align-<?php echo esc_attr( $link_alignment ) . ' ' . esc_attr( $fade ); ?>">
+		<?php
+			echo $trigger_link_output;
+		?>
 		</div>
-		<div class="mm-expandable-content-target">
+		<div class="mm-expandable-content-target mm-text-align-<?php echo esc_attr( $link_alignment ) ?>">
 			<?php echo do_shortcode( $content ); ?>
 		</div>
 	</div>
@@ -63,6 +97,26 @@ function mm_expandable_content_shortcode( $atts = array(), $content = null, $tag
 	return ob_get_clean();
 }
 
+add_shortcode( 'mm_expandable_content', 'mm_expandable_content_shortcode' );
+/**
+ * Restricted Content shortcode.
+ *
+ * @since   1.0.0
+ *
+ * @param   array   $atts     Shortcode attributes.
+ * @param   string  $content  Shortcode content.
+ *
+ * @return  string            Shortcode output.
+ */
+function mm_expandable_content_shortcode( $atts = array(), $content = null ) {
+
+	if ( $content ) {
+		$atts['content'] = $content;
+	}
+
+	return mm_expandable_content( $atts );
+}
+
 add_action( 'vc_before_init', 'mm_vc_expandable_content' );
 /**
  * Visual Composer add-on.
@@ -70,6 +124,12 @@ add_action( 'vc_before_init', 'mm_vc_expandable_content' );
  * @since  1.0.0
  */
 function mm_vc_expandable_content() {
+
+	$button_styles          = mm_get_button_styles_for_vc( 'mm-expandable-content' );
+	$button_border_weights  = mm_get_button_border_weights_for_vc( 'mm-expandable-content' );
+	$button_corner_styles   = mm_get_button_corner_styles_for_vc( 'mm-expandable-content' );
+	$button_colors          = mm_get_colors_for_vc( 'mm-expandable-content' );
+	$alignment              = mm_get_text_alignment_for_vc( 'mm-expandable-content' );
 
 	/**
 	 * Expandable Content.
@@ -93,6 +153,49 @@ function mm_vc_expandable_content() {
 				),
 			),
 			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Button Style', 'mm-components' ),
+				'param_name' => 'button_style',
+				'value'      => $button_styles,
+				'dependency' => array(
+					'element' => 'link_style',
+					'value'   => 'button'
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Border Weight', 'mm-components' ),
+				'param_name' => 'button_border_weight',
+				'value'      => $button_border_weights,
+				'dependency' => array(
+					'element' => 'button_style',
+					'value'   => array(
+						'ghost',
+						'solid-to-ghost',
+					)
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Corner Style', 'mm-components' ),
+				'param_name' => 'button_corner_style',
+				'value'      => $button_corner_styles,
+				'dependency' => array(
+					'element' => 'link_style',
+					'value'   => 'button'
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Color', 'mm-components' ),
+				'param_name' => 'button_color',
+				'value'      => $button_colors,
+				'dependency' => array(
+					'element' => 'link_style',
+					'value'   => 'button'
+				),
+			),
+			array(
 				'type'        => 'textfield',
 				'heading'     => __( 'Button/Link Text', 'mm-components' ),
 				'param_name'  => 'link_text',
@@ -104,19 +207,14 @@ function mm_vc_expandable_content() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Button/Link Alignment', 'mm-components' ),
 				'param_name' => 'link_alignment',
-				'value' => array(
-					__( 'Select Left, Center, or Right', 'mm-components' ),
-					__( 'Left', 'mm-components' )   => 'left',
-					__( 'Center', 'mm-components' ) => 'center',
-					__( 'Right', 'mm-components' )  => 'right',
-				),
+				'value'      => $alignment,
 			),
 			array(
 				'type'       => 'checkbox',
 				'heading'    => __( 'Fade in?', 'mm-components' ),
 				'param_name' => 'fade',
 				'value' => array(
-					__( 'Yes', 'mm-components' ) => 1,
+					__( 'Yes', 'mm-components' ) => 'fade',
 				),
 			),
 			array(
