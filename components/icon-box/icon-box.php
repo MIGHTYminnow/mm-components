@@ -49,29 +49,16 @@ function mm_icon_box( $args ) {
 	$icon_size        = $args['icon_size'];
 	$heading_text     = $args['heading_text'];
 	$content          = $args['content'];
-	$link_url         = '';
-	$link_title       = '';
-	$link_target      = '';
+	$link_url         = $args['link'];
+	$link_title       = $args['link_title'];
+	$link_target      = $args['link_target'];
 
-	// Handle a raw link or a VC link array.
-	if ( ! empty( $args['link'] ) ) {
-
-		if ( 'url' === substr( $args['link'], 0, 3 ) ) {
-
-			if ( function_exists( 'vc_build_link' ) ) {
-
-				$link_array  = vc_build_link( $args['link'] );
-				$link_url    = $link_array['url'];
-				$link_title  = $link_array['title'];
-				$link_target = $link_array['target'];
-			}
-
-		} else {
-
-			$link_url    = $args['link'];
-			$link_title  = $args['link_title'];
-			$link_target = $args['link_target'];
-		}
+	// Handle a VC link array.
+	if ( 'url' === substr( $args['link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+		$link_array  = vc_build_link( $args['link'] );
+		$link_url    = $link_array['url'];
+		$link_title  = $link_array['title'];
+		$link_target = $link_array['target'];
 	}
 
 	// Fix wpautop issues in $content.

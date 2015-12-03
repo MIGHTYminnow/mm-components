@@ -35,6 +35,7 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 	$link_title     = $atts['link_text'];
 	$link_target    = $atts['link_target'];
 
+	// Handle a VC link array.
 	if ( 'url' === substr( $atts['link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
 		$link_array  = vc_build_link( $atts['link'] );
 		$link_url    = $link_array['url'];

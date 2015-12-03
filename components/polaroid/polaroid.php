@@ -31,36 +31,6 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 		'class'        => '',
 	), $atts );
 
-	// Fix wpautop issues in $content.
-	if ( function_exists( 'wpb_js_remove_wpautop' ) ) {
-		$content = wpb_js_remove_wpautop( $content, true );
-	}
-
-	// Handle a raw link or a VC link array.
-	$link_url    = '';
-	$link_title  = '';
-	$link_target = '';
-
-	if ( ! empty( $atts['link'] ) ) {
-
-		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
-
-			if ( function_exists( 'vc_build_link' ) ) {
-
-				$link_array  = vc_build_link( $atts['link'] );
-				$link_url    = $link_array['url'];
-				$link_title  = $link_array['title'];
-				$link_target = $link_array['target'];
-			}
-
-		} else {
-
-			$link_url    = $atts['link'];
-			$link_title  = $atts['link_title'];
-			$link_target = $atts['link_target'];
-		}
-	}
-
 	// Get clean params.
 	$title        = $atts['title'];
 	$image        = $atts['image'];
@@ -68,6 +38,22 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 	$link_text    = $atts['link_text'];
 	$banner_text  = $atts['banner_text'];
 	$class        = $atts['class'];
+	$link_url     = $atts['link'];
+	$link_title   = $atts['link_title'];
+	$link_target  = $atts['link_target'];
+
+	// Handle a VC link array.
+	if ( 'url' === substr( $atts['link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+		$link_array  = vc_build_link( $atts['link'] );
+		$link_url    = $link_array['url'];
+		$link_title  = $link_array['title'];
+		$link_target = $link_array['target'];
+	}
+
+	// Fix wpautop issues in $content.
+	if ( function_exists( 'wpb_js_remove_wpautop' ) ) {
+		$content = wpb_js_remove_wpautop( $content, true );
+	}
 
 	/**
 	 * Parse images.
@@ -79,13 +65,13 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 	// Main image.
 	if ( is_numeric( $image ) ) {
 		$image_array = wp_get_attachment_image_src( $image, 'polaroid' );
-		$image = $image_array[0];
+		$image       = $image_array[0];
 	}
 
 	// Author image.
 	if ( is_numeric( $author_image ) ) {
 		$author_image_array = wp_get_attachment_image_src( $author_image, 'thumbnail' );
-		$author_image = $author_image_array[0];
+		$author_image       = $author_image_array[0];
 	}
 
 	// Get Mm classes.
@@ -150,51 +136,51 @@ add_action( 'vc_before_init', 'mm_vc_polaroid' );
 function mm_vc_polaroid() {
 
 	vc_map( array(
-		'name' => __( 'Polaroid', 'mm-components' ),
-		'base' => 'mm_polaroid',
-		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+		'name'     => __( 'Polaroid', 'mm-components' ),
+		'base'     => 'mm_polaroid',
+		'class'    => '',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
-		'params' => array(
+		'params'   => array(
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Title', 'mm-components' ),
-				'param_name' => 'title',
+				'type'        => 'textfield',
+				'heading'     => __( 'Title', 'mm-components' ),
+				'param_name'  => 'title',
 				'admin_label' => true,
-				'value' => '',
+				'value'       => '',
 			),
 			array(
-				'type' => 'attach_image',
-				'heading' => __( 'Main Image', 'mm-components' ),
-				'param_name' => 'image',
-				'value' => '',
+				'type'                   => 'attach_image',
+				'heading'                => __( 'Main Image', 'mm-components' ),
+				'param_name'             => 'image',
+				'value'                  => '',
 				'mm_image_size_for_desc' => 'polaroid',
 			),
 			array(
-				'type' => 'attach_image',
-				'heading' => __( 'Author Image', 'mm-components' ),
-				'param_name' => 'author_image',
-				'value' => '',
+				'type'                   => 'attach_image',
+				'heading'                => __( 'Author Image', 'mm-components' ),
+				'param_name'             => 'author_image',
+				'value'                  => '',
 				'mm_image_size_for_desc' => 'thumbnail',
 			),
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Link Text', 'mm-components' ),
-				'param_name' => 'link_text',
-				'value' => '',
+				'type'        => 'textfield',
+				'heading'     => __( 'Link Text', 'mm-components' ),
+				'param_name'  => 'link_text',
+				'value'       => '',
 				'description' => __( 'Defaults to "Visit campaign".', 'mm-components' )
 			),
 			array(
-				'type' => 'vc_link',
-				'heading' => __( 'Link URL', 'mm-components' ),
+				'type'       => 'vc_link',
+				'heading'    => __( 'Link URL', 'mm-components' ),
 				'param_name' => 'link',
-				'value' => '',
+				'value'      => '',
 			),
 			array(
-				'type' => 'textarea_html',
-				'heading' => __( 'Text', 'mm-components' ),
+				'type'       => 'textarea_html',
+				'heading'    => __( 'Text', 'mm-components' ),
 				'param_name' => 'content',
-				'value' => '',
+				'value'      => '',
 			)
 		)
 	) );

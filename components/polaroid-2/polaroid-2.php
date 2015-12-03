@@ -30,36 +30,22 @@ function mm_polaroid_2_shortcode( $atts, $content = null, $tag ) {
 		'link_target'   => '',
 	), $atts );
 
-	// Handle a raw link or a VC link array.
-	$link_url    = '';
-	$link_title  = '';
-	$link_target = '';
-
-	if ( ! empty( $atts['link'] ) ) {
-
-		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
-
-			if ( function_exists( 'vc_build_link' ) ) {
-
-				$link_array  = vc_build_link( $atts['link'] );
-				$link_url    = $link_array['url'];
-				$link_title  = $link_array['title'];
-				$link_target = $link_array['target'];
-			}
-
-		} else {
-
-			$link_url    = $atts['link'];
-			$link_title  = $atts['link_title'];
-			$link_target = $atts['link_target'];
-		}
-	}
-
 	// Get clean params.
 	$title         = $atts['title'];
 	$image         = $atts['image'];
 	$caption       = $atts['caption'];
 	$caption_color = $atts['caption_color'];
+	$link_url      = $atts['link'];
+	$link_title    = $atts['link_title'];
+	$link_target   = $atts['link_target'];
+
+	// Handle a VC link array.
+	if ( 'url' === substr( $atts['link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+		$link_array  = vc_build_link( $atts['link'] );
+		$link_url    = $link_array['url'];
+		$link_title  = $link_array['title'];
+		$link_target = $link_array['target'];
+	}
 
 	// Get Mm classes
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
