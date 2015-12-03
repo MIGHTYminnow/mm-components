@@ -43,15 +43,11 @@ function mm_button( $args ) {
 	$link_target = $args['link_target'];
 
 	// Handle a VC link array.
-	if ( 'url' === substr( $args['link'], 0, 3 ) ) {
-
-		if ( function_exists( 'vc_build_link' ) ) {
-
-			$link_array  = vc_build_link( $args['link'] );
-			$link_url    = $link_array['url'];
-			$link_title  = $link_array['title'];
-			$link_target = $link_array['target'];
-		}
+	if ( 'url' === substr( $args['link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+		$link_array  = vc_build_link( $args['link'] );
+		$link_url    = $link_array['url'];
+		$link_title  = $link_array['title'];
+		$link_target = $link_array['target'];
 	}
 
 	// Build the alignment class.
