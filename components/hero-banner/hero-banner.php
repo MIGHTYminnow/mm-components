@@ -60,7 +60,7 @@ function mm_hero_banner( $args ) {
 	$heading_output           = '';
 	$content_output           = '';
 	$overlay_output           = '';
-	$button_shortcode         = '';
+	$button_output            = '';
 	$secondary_content_output = '';
 
 	// Get Mm classes.
@@ -143,7 +143,7 @@ function mm_hero_banner( $args ) {
 		$content_output = sprintf(
 			'<div class="hero-content %s">%s</div>',
 			esc_attr( 'mm-text-color-' . $text_color ),
-			$content_output
+			do_shortcode( $content_output )
 		);
 	}
 
@@ -186,7 +186,7 @@ function mm_hero_banner( $args ) {
 		$secondary_content_output = sprintf(
 			'<div class="hero-secondary-content %s">%s</div>',
 			esc_attr( 'mm-text-color-' . $text_color ),
-			wp_kses_post( $secondary_content_output )
+			do_shortcode( $secondary_content_output )
 		);
 	}
 
@@ -200,11 +200,11 @@ function mm_hero_banner( $args ) {
 
 			<?php echo wp_kses_post( $heading_output ); ?>
 
-			<?php echo wp_kses_post( do_shortcode( $content_output ) ); ?>
+			<?php echo wp_kses_post( $content_output ); ?>
 
 			<?php echo wp_kses_post( $button_output ); ?>
 
-			<?php echo wp_kses_post( do_shortcode( $secondary_content_output ) ); ?>
+			<?php echo wp_kses_post( $secondary_content_output ); ?>
 
 		</div>
 	</div>
