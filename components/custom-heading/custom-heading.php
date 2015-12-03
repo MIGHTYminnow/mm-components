@@ -58,13 +58,11 @@ function mm_custom_heading( $args ) {
 	}
 
 	// Handle a VC link.
-	if ( ! empty( $link ) ) {
-		if ( 'url' === substr( $link, 0, 3 ) && function_exists( 'vc_build_link' ) ) {
-			$link_array  = vc_build_link( $link );
-			$link        = $link_array['url'];
-			$link_title  = $link_array['title'];
-			$link_target = $link_array['target'];
-		}
+	if ( 'url' === substr( $link, 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+		$link_array  = vc_build_link( $link );
+		$link        = $link_array['url'];
+		$link_title  = $link_array['title'];
+		$link_target = $link_array['target'];
 	}
 
 	// Set up our classes.
