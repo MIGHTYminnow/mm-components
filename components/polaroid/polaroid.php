@@ -39,7 +39,7 @@ function mm_polaroid_shortcode( $atts, $content = null, $tag ) {
 	$banner_text  = $atts['banner_text'];
 	$class        = $atts['class'];
 	$link_url     = $atts['link'];
-	$link_title   = $atts['link_title'];
+	$link_title   = $atts['link_text'];
 	$link_target  = $atts['link_target'];
 
 	// Handle a VC link array.
