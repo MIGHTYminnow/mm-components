@@ -191,11 +191,11 @@ function mm_users_output_username( $user, $context, $args ) {
 /**
  * Return a user's first name.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
- * @param  int  $user_id  The user ID.
+ * @param   int  $user_id  The user ID.
  *
- * @return  string        The user's first name.
+ * @return  string         The user's first name.
  */
 function mm_users_get_first_name( $user_id = 0 ) {
 
@@ -209,11 +209,11 @@ function mm_users_get_first_name( $user_id = 0 ) {
 /**
  * Return a user's last name.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
- * @param  int  $user_id  The user ID.
+ * @param   int  $user_id  The user ID.
  *
- * @return  string        The user's first name.
+ * @return  string         The user's first name.
  */
 function mm_users_get_last_name( $user_id = 0 ) {
 
