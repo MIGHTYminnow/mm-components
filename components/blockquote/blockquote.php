@@ -30,9 +30,9 @@ function mm_blockquote( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$quote    = (string)$args['quote'];
-	$citation = (string)$args['citation'];
-	$image_id = (int)$args['image_id'];
+	$quote    = $args['quote'];
+	$citation = $args['citation'];
+	$image_id = $args['image_id'];
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -41,14 +41,14 @@ function mm_blockquote( $args ) {
 
 	<blockquote class="<?php echo esc_attr( $mm_classes ); ?>">
 
-		<?php if ( is_int( $image_id ) && 0 !== $image_id ) : ?>
-			<?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?>
+		<?php if ( 0 !== (int)$image_id ) : ?>
+			<?php echo wp_get_attachment_image( (int)$image_id, 'thumbnail' ); ?>
 		<?php endif; ?>
 
-		<?php echo '<p>' . wp_kses_post( $quote ) . '</p>'; ?>
+		<?php echo '<p>' . esc_html( $quote ) . '</p>'; ?>
 
 		<?php if ( ! empty( $citation ) ) : ?>
-			<cite><?php echo wp_kses_post( $citation ); ?></cite>
+			<cite><?php echo esc_html( $citation ); ?></cite>
 		<?php endif; ?>
 
 	</blockquote>
