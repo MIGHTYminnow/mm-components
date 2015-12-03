@@ -23,34 +23,23 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 	$atts = mm_shortcode_atts( array(
 		'heading_text'   => '',
 		'paragraph_text' => '',
-		'link_text'      => '',
 		'link'           => '',
+		'link_text'      => '',
 		'link_target'    => '',
 	), $atts );
 
-	// Handle a raw link or a VC link array.
-	$link_url    = '';
-	$link_title  = '';
-	$link_target = '';
+	$heading_text   = $atts['heading_text'];
+	$paragraph_text = $atts['paragraph_text'];
+	$link_url       = $atts['link'];
+	$link_text      = $atts['link_text'];
+	$link_title     = $atts['link_text'];
+	$link_target    = $atts['link_target'];
 
-	if ( ! empty( $atts['link'] ) ) {
-
-		if ( 'url' === substr( $atts['link'], 0, 3 ) ) {
-
-			if ( function_exists( 'vc_build_link' ) ) {
-
-				$link_array  = vc_build_link( $atts['link'] );
-				$link_url    = $link_array['url'];
-				$link_title  = $link_array['title'];
-				$link_target = $link_array['target'];
-			}
-
-		} else {
-
-			$link_url    = $atts['link'];
-			$link_title  = $atts['link_title'];
-			$link_target = $atts['link_target'];
-		}
+	if ( 'url' === substr( $atts['link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+		$link_array  = vc_build_link( $atts['link'] );
+		$link_url    = $link_array['url'];
+		$link_title  = $link_array['title'];
+		$link_target = $link_array['target'];
 	}
 
 	// Get Mm classes.
@@ -58,22 +47,22 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 
 	ob_start(); ?>
 
-	<div class="<?php echo $mm_classes; ?>">
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
-		<?php if ( ! empty( $atts['heading_text'] ) ) : ?>
-			<h3><?php echo $atts['heading_text']; ?></h3>
+		<?php if ( ! empty( $heading_text ) ) : ?>
+			<h3><?php echo esc_html( $heading_text ); ?></h3>
 		<?php endif; ?>
 
-		<?php if ( ! empty( $atts['paragraph_text'] ) ) : ?>
-			<p><?php echo $atts['paragraph_text']; ?></p>
+		<?php if ( ! empty( $paragraph_text ) ) : ?>
+			<p><?php echo esc_html( $paragraph_text ); ?></p>
 		<?php endif; ?>
 
-		<?php if ( ! empty( $link_url ) && ! empty( $atts['link_text'] ) ) {
+		<?php if ( ! empty( $link_url ) && ! empty( $link_text ) ) {
 			printf( '<a href="%s" title="%s" target="%s">%s</a>',
 				esc_url( $link_url ),
 				esc_attr( $link_title ),
 				esc_attr( $link_target ),
-				esc_html( $atts['link_text'] )
+				esc_html( $link_text )
 			);
 		} ?>
 
@@ -81,9 +70,7 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 
 	<?php
 
-	$output = ob_get_clean();
-
-	return $output;
+	return ob_get_clean();
 }
 
 add_action( 'vc_before_init', 'mm_vc_highlight_box' );
@@ -95,31 +82,31 @@ add_action( 'vc_before_init', 'mm_vc_highlight_box' );
 function mm_vc_highlight_box() {
 
 	vc_map( array(
-		'name' => __( 'Highlight Box', 'mm-components' ),
-		'base' => 'mm_highlight_box',
-		'class' => '',
-		'icon' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+		'name'     => __( 'Highlight Box', 'mm-components' ),
+		'base'     => 'mm_highlight_box',
+		'class'    => '',
+		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
-		'params' => array(
+		'params'   => array(
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Heading', 'mm-components' ),
-				'param_name' => 'heading_text',
+				'type'        => 'textfield',
+				'heading'     => __( 'Heading', 'mm-components' ),
+				'param_name'  => 'heading_text',
 				'admin_label' => true,
 			),
 			array(
-				'type' => 'textarea',
-				'heading' => __( 'Paragraph Text', 'mm-components' ),
+				'type'       => 'textarea',
+				'heading'    => __( 'Paragraph Text', 'mm-components' ),
 				'param_name' => 'paragraph_text',
 			),
 			array(
-				'type' => 'textfield',
-				'heading' => __( 'Link Text', 'mm-components' ),
+				'type'       => 'textfield',
+				'heading'    => __( 'Link Text', 'mm-components' ),
 				'param_name' => 'link_text',
 			),
 			array(
-				'type' => 'vc_link',
-				'heading' => __( 'Link URL', 'mm-components' ),
+				'type'       => 'vc_link',
+				'heading'    => __( 'Link URL', 'mm-components' ),
 				'param_name' => 'link',
 			),
 		)
@@ -199,7 +186,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		echo $args['before_widget'];
 
 		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
 		}
 
 		echo do_shortcode( $shortcode );
@@ -288,16 +275,16 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 	 * @param   array  $new_instance  The new settings for the widget instance.
 	 * @param   array  $old_instance  The old settings for the widget instance.
 	 *
-	 * @return  array  The sanitized settings.
+	 * @return  array                 The sanitized settings.
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance = $old_instance;
+		$instance                   = $old_instance;
 		$instance['title']          = wp_kses_post( $new_instance['title'] );
 		$instance['heading_text']   = wp_kses_post( $new_instance['heading_text'] );
 		$instance['paragraph_text'] = wp_kses_post( $new_instance['paragraph_text'] );
 		$instance['link_text']      = sanitize_text_field( $new_instance['link_text'] );
-		$instance['link']           = ( '' !== $new_instance['link'] ) ? esc_url( $new_instance['link'] ) : '';
+		$instance['link']           = sanitize_text_field( $new_instance['link'] );
 
 		return $instance;
 	}
