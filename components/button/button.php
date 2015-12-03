@@ -38,28 +38,19 @@ function mm_button( $args ) {
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
-	// Handle a raw link or a VC link array.
-	$link_url    = '';
-	$link_title  = '';
-	$link_target = '';
+	$link_url    = $args['link'];
+	$link_title  = $args['link_title'];
+	$link_target = $args['link_target'];
 
-	if ( ! empty( $args['link'] ) ) {
+	// Handle a VC link array.
+	if ( 'url' === substr( $args['link'], 0, 3 ) ) {
 
-		if ( 'url' === substr( $args['link'], 0, 3 ) ) {
+		if ( function_exists( 'vc_build_link' ) ) {
 
-			if ( function_exists( 'vc_build_link' ) ) {
-
-				$link_array  = vc_build_link( $args['link'] );
-				$link_url    = $link_array['url'];
-				$link_title  = $link_array['title'];
-				$link_target = $link_array['target'];
-			}
-
-		} else {
-
-			$link_url    = $args['link'];
-			$link_title  = $args['link_title'];
-			$link_target = $args['link_target'];
+			$link_array  = vc_build_link( $args['link'] );
+			$link_url    = $link_array['url'];
+			$link_title  = $link_array['title'];
+			$link_target = $link_array['target'];
 		}
 	}
 
