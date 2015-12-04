@@ -53,22 +53,6 @@ function mm_expandable_content( $args ) {
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
-	if ( strpos( $content, '<' ) ) {
-
-		/* We have HTML */
-		$content = ( function_exists( 'wpb_js_remove_wpautop' ) ) ? wpb_js_remove_wpautop( $content, true ) : $content;
-
-	} elseif ( mm_is_base64( $content ) ) {
-
-		/* We have a base64 encoded string */
-		$content = rawurldecode( base64_decode( $content ) );
-
-	} else {
-
-		/* We have a non-HTML string */
-		$content = $content;
-	}
-
 	// Build the trigger classes.
 	$trigger_classes = 'mm-expandable-content-trigger mm-text-align-' . $link_alignment;
 	$trigger_classes .= ( $fade ) ? ' ' . $fade : '';
