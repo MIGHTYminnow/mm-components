@@ -440,6 +440,56 @@ function mm_get_wrap_elements_for_vc( $context = '' ) {
 }
 
 /**
+ * Return an array of icon styles.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of icon styles.
+ */
+function mm_get_icon_styles( $context = '' ) {
+
+	// Add an empty first option.
+	$icon_style = array(
+		''               => __( 'Icon Only', 'mm-components' ),
+		'circle'         => __( 'Circle', 'mm-components' ),
+		'square'         =>	__( 'Square', 'mm-components' ),
+		'rounded-square' =>	__( 'Rounded Square', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_get_icon_styles', $icon_style, $context );
+}
+
+/**
+ * Return an array of icon styles for use in a Visual Composer param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of social networks.
+ */
+function mm_get_icon_styles_for_vc( $context = '' ) {
+
+	return array_flip( mm_get_icon_styles( $context ) );
+}
+
+/**
+ * Return an array of Mm Social Icons types for use in Visual Composer.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of type names.
+ */
+function mm_get_social_icons_types_for_vc( $context = '' ) {
+
+	return apply_filters( 'mm_social_icons_types', array(), $context );
+}
+
+/**
  * Return an array of Mm Social Icons types.
  *
  * @since   1.0.0
@@ -448,9 +498,9 @@ function mm_get_wrap_elements_for_vc( $context = '' ) {
  *
  * @return  array             The array of type names.
  */
-function mm_get_mm_social_icons_types( $context = '' ) {
+function mm_get_social_icons_types( $context = '' ) {
 
-	return apply_filters( 'mm_social_icons_types', array(), $context );
+	return array_flip( mm_get_social_icons_types_for_vc( $context ) );
 }
 
 /**
