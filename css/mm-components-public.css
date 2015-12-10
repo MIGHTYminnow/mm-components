@@ -1768,4 +1768,44 @@ a.mm-button.full-width {
   width: 48px;
 }
 
+/* Users
+--------------------------------------------- */
+.mm-users .pagination-wrap {
+  clear: both;
+  width: 100%;
+}
+
+.mm-users .pagination-wrap::after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.mm-users .pagination-wrap .pagination-link {
+  padding: 4px 10px;
+  display: inline-block;
+  margin: 0 2px;
+}
+
+.mm-users .pagination-wrap .pagination-link:first-child {
+  margin-left: 0;
+}
+
+.mm-users .pagination-wrap .pagination-link:last-child {
+  margin-right: 0;
+}
+
+.mm-users .pagination-wrap .pagination-link.prev {
+  float: left;
+}
+
+.mm-users .pagination-wrap .pagination-link.next {
+  float: right;
+}
+
+.mm-users .pagination-wrap span {
+  display: inline-block;
+  margin: 0 6px;
+}
+
 /*# sourceMappingURL=mm-components-public.css.map */

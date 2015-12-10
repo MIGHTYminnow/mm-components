@@ -896,3 +896,38 @@ a.mm-button {
 		}
 	}
 }
+
+/* Users
+--------------------------------------------- */
+
+.mm-users {
+	.pagination-wrap {
+		clear: both;
+		width: 100%;
+		&::after {
+			@include clearfix;
+		}
+		.pagination-link {
+			padding: 4px 10px;
+			display: inline-block;
+			margin: 0 2px;
+			&:first-child {
+				margin-left: 0;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+			&.prev {
+				float: left;
+			}
+			&.next {
+				float: right;
+			}
+		}
+		span {
+			display: inline-block;
+			margin: 0 6px;
+		}
+	}
+}
+
