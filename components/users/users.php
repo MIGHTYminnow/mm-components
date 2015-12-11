@@ -190,7 +190,7 @@ function mm_users_output_pagination( $query, $context, $args ) {
 	$page = ( get_query_var( 'page' ) ) ? (int)get_query_var( 'page' ) : 1;
 
 	// Calculate number of pages to show.
-	$total_pages = intval( $query->total_users / $args['number'] ) + 1;
+	$total_pages = ceil( $query->total_users / $args['number'] );
 
 	// Bail if we don't have any additional pages to show.
 	if ( 1 >= $total_pages ) {
