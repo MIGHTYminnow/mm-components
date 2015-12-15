@@ -28,6 +28,9 @@
 
 		// Set up field dependencies for Mm Hero Banner.
 		$( '.widget[id*="mm_expandable_content_widget"]' ).mmExpandableContentFields();
+
+		// Set up field dependencies for Mm Hero Banner.
+		$( '.widget[id*="mm_social_icons_widget"]' ).mmSocialIconsFields();
 	});
 
 	// Reset or initialize certain fields when widgets are added or updated.
@@ -48,6 +51,10 @@
 
 		if ( $( data[0] ).is( '.widget[id*="mm_expandable_content_widget"]' ) ) {
 			$( data[0] ).mmExpandableContentFields();
+		}
+
+		if ( $( data[0] ).is( '.widget[id*="mm_social_icons_widget"]' ) ) {
+			$( data[0] ).mmSocialIconsFields();
 		}
 	});
 
@@ -249,7 +256,7 @@
 	}
 
 	/**
-	 * Dependency for dropdown widget fields.
+	 * Dependency for Hero Banner dropdown widget fields.
 	 *
 	 * @since  1.0.0
 	 */
@@ -291,7 +298,7 @@
 		});
 	}
 
-		/**
+	/**
 	 * Dependency for Expandable Content dropdown widget fields.
 	 *
 	 * @since  1.0.0
@@ -331,11 +338,11 @@
 					$buttonStyleWrap.removeClass( 'mm-hidden' );
 					$buttonCornerWrap.removeClass( 'mm-hidden' );
 					$buttonColorWrap.removeClass( 'mm-hidden' ); 
-					
+
 					if ( 'ghost' === $buttonStyle.find('option:selected').attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' )) {
 						$buttonBorderWrap.removeClass( 'mm-hidden' );
 					}
-					
+
 				} else {
 					$buttonStyleWrap.addClass( 'mm-hidden' );
 					$buttonBorderWrap.addClass( 'mm-hidden' );
@@ -352,6 +359,53 @@
 				$buttonColorWrap.addClass( 'mm-hidden' );
 			}
 
+		});
+	}
+
+	/**
+	 * Dependency for Social Icons fields.
+	 *
+	 * @since  1.0.0
+	 */
+	$.fn.mmSocialIconsFields = function() {
+
+		return this.each( function() {
+
+			var $widget        = $( this );
+			var $iconType      = $widget.find( '.mm-social-icons-widget-icon-type');
+			var $iconStyle     = $widget.find( '.mm-social-icons-widget-style' );
+			var $iconImageWrap = $widget.find( '.mm-single-media-field-wrap' ).has('.mm-single-media-image');
+			var $ghostModeWrap = $widget.find( '.mm-multi-checkbox-field-wrap' ).has( '.mm-social-icons-widget-ghost-mode' );
+
+			/**if ( 'ghost' === $buttonStyle.find( 'option:selected' ).attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' ) ) {
+				$buttonBorderWrap.removeClass( 'mm-hidden' );
+			} else {
+				$buttonBorderWrap.addClass( 'mm-hidden' );
+			}**/
+
+			if ( '' === $iconStyle.find( 'option:selected' ).attr( 'value' ) ) {
+				$ghostModeWrap.addClass( 'mm-hidden' );
+			}
+
+			if ( 'images' === $iconType.find( 'option:selected' ).attr( 'value' ) ) {
+				$iconImageWrap.addClass( 'mm-hidden' );
+			}
+
+			$iconStyle.on( 'change', function() {
+				if ( '' !== $iconStyle.find('option:selected').attr( 'value' ) ) {
+					$ghostModeWrap.removeClass( 'mm-hidden' );
+				} else {
+					$ghostModeWrap.addClass( 'mm-hidden' );
+				}
+			});
+
+			$iconType.on( 'change', function() {
+				if ( 'images' === $iconType.find('option:selected').attr( 'value' ) ) {
+					$iconImageWrap.addClass( 'mm-hidden' );
+				} else {
+					$iconImageWrap.removeClass( 'mm-hidden' );
+				}
+			});
 		});
 	}
 

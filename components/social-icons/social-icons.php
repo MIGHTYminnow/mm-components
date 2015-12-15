@@ -92,7 +92,16 @@ function mm_social_icons( $args ) {
 
 			if ( $link ) {
 
-				$icon = ( 'images' == $icon_type && (int)$image ) ? wp_get_attachment_image( (int)$image, $image_size ) : '<i class="icon fa fa-' . esc_attr( $social_network ) . '"></i>';
+				if ( 'images' == $icon_type && (int)$image ) {
+					$icon = wp_get_attachment_image( (int)$image, $image_size );
+				} else {
+					$icon_class = 'fa fa-' . $social_network;
+					$icon_class = apply_filters( 'mm_social_icons_icon_class', $icon_class, $social_network, $args );
+					$icon       = sprintf(
+						'<i class="icon %s"></i>',
+						$icon_class
+					);
+				}
 
 				printf(
 					'<a href="%s" class="%s">%s</a>',
@@ -108,6 +117,32 @@ function mm_social_icons( $args ) {
 	<?php
 
 	return ob_get_clean();
+}
+
+add_filter( 'mm_social_icons_icon_class', 'mm_social_icons_modify_some_icons', 10, 3 );
+/**
+ * Modify some of the icon classes to use the best icons available
+ * in Font Awesome for each social network.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $icon_class      The original icon class.
+ * @param   string  $social_network  The social network.
+ * @param   array   $args            The array of component args.
+ *
+ * @return  string                   The new icon class.
+ */
+function mm_social_icons_modify_some_icons( $icon_class, $social_network, $args ) {
+
+	if ( 'pinterest' == $social_network ) {
+		$icon_class = 'fa fa-pinterest-p';
+	}
+
+	if ( 'youtube' == $social_network ) {
+		$icon_class = 'fa fa-youtube-play';
+	}
+
+	return $icon_class;
 }
 
 add_shortcode( 'mm_social_icons', 'mm_social_icons_shortcode' );
@@ -153,7 +188,8 @@ add_action( 'vc_before_init', 'mm_vc_social_icons' );
  */
 function mm_vc_social_icons() {
 
-	$social_icons_types = mm_get_mm_social_icons_types( 'mm-social-icons' );
+	$social_icons_types = mm_get_social_icons_types_for_vc( 'mm-social-icons' );
+	$icon_styles        = mm_get_icon_styles_for_vc( 'mm-social-icons' );
 	$image_sizes        = mm_get_image_sizes_for_vc( 'mm-social-icons' );
 	$text_alignment     = mm_get_text_alignment_for_vc( 'mm-social-icons' );
 	$colors             = mm_get_colors_for_vc( 'mm-social-icons' );
@@ -197,12 +233,7 @@ function mm_vc_social_icons() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Icon Style', 'mm-components' ),
 				'param_name' => 'style',
-				'value'      => array(
-					__( 'Icon Only', 'mm-components' )      => '',
-					__( 'Circle', 'mm-components' )         => 'circle',
-					__( 'Square', 'mm-components' )         => 'square',
-					__( 'Rounded Square', 'mm-components' ) => 'rounded-square',
-				),
+				'value'      => $icon_styles,
 				'dependency' => array(
 					'element' => 'icon_type',
 					'value'   => 'fontawesome',
@@ -271,4 +302,254 @@ function mm_vc_social_icons() {
 	}
 
 	vc_add_params( 'mm_social_icons', $social_network_params );
+}
+
+add_action( 'widgets_init', 'mm_components_register_social_icons_widget' );
+/**
+ * Register the widget.
+ *
+ * @since  1.0.0
+ */
+function mm_components_register_social_icons_widget() {
+
+	register_widget( 'mm_social_icons_widget' );
+}
+
+/**
+ * Social Icons widget.
+ *
+ * @since  1.0.0
+ */
+class Mm_Social_Icons_Widget extends Mm_Components_Widget {
+
+	/**
+	 * Global options for this widget.
+	 *
+	 * @since  1.0.0
+	 */
+	protected $options;
+
+	/**
+	 * Initialize an instance of the widget.
+	 *
+	 * @since  1.0.0
+	 */
+	public function __construct() {
+
+		// Set up the options to pass to the WP_Widget constructor.
+		$this->options = array(
+			'classname'   => 'mm-social-icons-widget',
+			'description' => __( 'A Social Icons Section', 'mm-components' ),
+		);
+
+		parent::__construct(
+			'mm_social_icons_widget',
+			__( 'Mm Social Icons', 'mm-components' ),
+			$this->options
+		);
+	}
+
+	/**
+	 * Output the widget.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  array  $args      The global options for the widget.
+	 * @param  array  $instance  The options for the widget instance.
+	 */
+	public function widget( $args, $instance ) {
+
+		$defaults = array(
+			'icon_type'  => 'fontawesome',
+			'image_size' => 'thumbnail',
+			'alignment'  => 'left',
+			'style'      => 'icon-only',
+			'ghost'      => '',
+			'color'      => '',
+			'size'       => 'normal-size',
+			'social_networks' => '',
+		);
+
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
+
+		// At this point all instance options have been sanitized.
+		$icon_type    = $instance['icon_type'];
+		$image_size   = $instance['image_size'];
+		$alignment    = $instance['alignment'];
+		$style        = $instance['style'];
+		$ghost        = $instance['ghost'];
+		$color        = $instance['color'];
+		$size         = $instance['size'];
+		$social_networks = $instance['social_networks'];
+
+		echo $args['before_widget'];
+
+		if ( ! empty( $title ) ) {
+			echo $args['before_title'] . $title . $args['after_title'];
+		}
+
+		echo mm_social_icons( $instance );
+
+		echo $args['after_widget'];
+	}
+
+	/**
+	 * Output the Widget settings form.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param  array  $instance  The options for the widget instance.
+	 */
+	public function form( $instance ) {
+
+		$defaults = array(
+			'icon_type'       => 'fontawesome',
+			'image_size'      => 'thumbnail',
+			'alignment'       => 'left',
+			'style'           => 'icon-only',
+			'ghost'           => '',
+			'color'           => '',
+			'size'            => 'normal-size',
+			'mm_custom_class' => '',
+		);
+
+		$social_networks = mm_get_social_networks( 'mm-social-icons' );
+
+		foreach ( $social_networks as $social_network => $social_network_label ) {
+			$defaults[ $social_network . '_link' ] = '';
+			$defaults[ $social_network . '_image' ] = '';
+		}
+
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
+
+		$icon_type       = $instance['icon_type'];
+		$image_size      = $instance['image_size'];
+		$alignment       = $instance['alignment'];
+		$style           = $instance['style'];
+		$ghost           = $instance['ghost'];
+		$color           = $instance['color'];
+		$size            = $instance['size'];
+		$classname       = $this->options['classname'];
+
+		// Icon Type.
+		$this->field_select(
+			__( 'Icon Type', 'mm-components' ),
+			'',
+			$classname . '-icon-type widefat',
+			'icon_type',
+			$icon_type,
+			mm_get_social_icons_types( 'mm-social-icons' )
+		);
+
+		// Image Size.
+		$this->field_select(
+			__( 'Image Size', 'mm-components' ),
+			'',
+			$classname . '-image-size widefat',
+			'image_size',
+			$image_size,
+			mm_get_image_sizes( 'mm-social-icons' )
+		);
+
+		// Icon Alignment.
+		$this->field_select(
+			__( 'Icon Alignment', 'mm-components' ),
+			'',
+			$classname . '-alignment widefat',
+			'alignment',
+			$alignment,
+			mm_get_text_alignment( 'mm-social-icons' )
+		);
+
+		// Icon Style.
+		$this->field_select(
+			__( 'Icon Style', 'mm-components' ),
+			'',
+			$classname . '-style widefat',
+			'style',
+			$style,
+			mm_get_icon_styles( 'mm-social-icons' )
+		);
+
+		// Ghost Mode.
+		$this->field_multi_checkbox(
+			__( 'Ghost Mode', 'mm-components' ),
+			'',
+			$classname . '-ghost-mode widefat',
+			'ghost',
+			$ghost,
+			array(
+				'yes' => __( 'Yes', 'mm-components' ),
+			)
+		);
+
+		// Icon color.
+		$this->field_select(
+			__( 'Icon Size', 'mm-components' ),
+			'',
+			$classname . '-color widefat',
+			'size',
+			$size,
+			array(
+				''      => __( 'Normal', 'mm-components' ),
+				'small' => __( 'Small', 'mm-components' ),
+				'large'	=> __( 'Large', 'mm-components' ),
+			)
+		);
+
+		foreach ( $social_networks as $social_network => $social_network_label ) {
+
+			// Social Network Link.
+			$this->field_text(
+				__( $social_network_label . ' URL', 'mm-components' ),
+				'',
+				$classname . '-social-network-link widefat',
+				$social_network . '_link',
+				$instance[ $social_network . '_link' ]
+			);
+
+			// Social Network Image.
+			$this->field_single_media(
+				__( $social_network_label . ' Image', 'mm-components' ),
+				'',
+				$classname . '-social-network-image widefat',
+				$social_network . '_image',
+				$instance[ $social_network . '_image' ]
+			);
+
+		}
+	}
+
+	/**
+	 * Update the widget settings.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param   array  $new_instance  The new settings for the widget instance.
+	 * @param   array  $old_instance  The old settings for the widget instance.
+	 *
+	 * @return  array                 The sanitized settings.
+	 */
+	public function update( $new_instance, $old_instance ) {
+
+		$social_networks             = mm_get_social_networks( 'mm-social-icons' );
+		$instance                    = $old_instance;
+		$instance['icon_type']       = sanitize_text_field( $new_instance['icon_type'] );
+		$instance['image_size']      = sanitize_text_field( $new_instance['image_size'] );
+		$instance['alignment']       = sanitize_text_field( $new_instance['alignment'] );
+		$instance['style']           = sanitize_text_field( $new_instance['style'] );
+		$instance['ghost']           = sanitize_text_field( $new_instance['ghost'] );
+		$instance['color']           = sanitize_text_field( $new_instance['color'] );
+		$instance['size']            = sanitize_text_field( $new_instance['size'] );
+		$instance['mm_custom_class'] = sanitize_text_field( $new_instance['mm_custom_class'] );
+
+		foreach ( $social_networks as $social_network => $social_network_label ) {
+			$instance[ $social_network . '_link' ] = sanitize_text_field( $new_instance[ $social_network . '_link' ] );
+			$instance[ $social_network . '_image' ] = sanitize_text_field( $new_instance[ $social_network . '_image' ] );
+		}
+
+		return $instance;
+	}
 }
