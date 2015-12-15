@@ -36,7 +36,6 @@ function mm_users( $args ) {
 	$user_id    = (int)$args['user_id'];
 	$role       = sanitize_text_field( $args['role'] );
 	$number     = (int)$args['number'];
-	$pagination = sanitize_text_field( $args['pagination'] );
 	$template   = $args['template'];
 	$element    = $args['wrap_element'];
 

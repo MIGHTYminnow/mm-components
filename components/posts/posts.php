@@ -45,7 +45,6 @@ function mm_posts( $args ) {
 	$taxonomy   = sanitize_text_field( $args['taxonomy'] );
 	$term       = sanitize_text_field( $args['term'] );
 	$per_page   = (int)$args['per_page'];
-	$pagination = sanitize_text_field( $args['pagination'] );
 	$template   = sanitize_text_field( $args['template'] );
 	$masonry    = mm_true_or_false( $args['masonry'] );
 
