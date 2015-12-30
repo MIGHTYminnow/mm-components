@@ -147,11 +147,11 @@ add_action( 'vc_before_init', 'mm_vc_custom_heading' );
  */
 function mm_vc_custom_heading() {
 
-	$heading_levels = mm_get_heading_levels_for_vc( 'mm-custom-heading' );
-	$fonts          = mm_get_fonts_for_vc( 'mm-custom-heading' );
-	$font_weights   = mm_get_font_weights_for_vc( 'mm-custom-heading' );
-	$colors         = mm_get_colors_for_vc( 'mm-custom-heading' );
-	$text_alignment = mm_get_text_alignment_for_vc( 'mm-custom-heading' );
+	$heading_levels  = mm_get_heading_levels_for_vc( 'mm-custom-heading' );
+	$fonts           = mm_get_fonts_for_vc( 'mm-custom-heading' );
+	$font_weights    = mm_get_font_weights_for_vc( 'mm-custom-heading' );
+	$colors          = mm_get_colors_for_vc( 'mm-custom-heading' );
+	$text_alignments = mm_get_text_alignment_for_vc( 'mm-custom-heading' );
 
 	vc_map( array(
 		'name'     => __( 'Custom Heading', 'mm-components' ),
@@ -206,7 +206,7 @@ function mm_vc_custom_heading() {
 				'type'       => 'dropdown',
 				'heading'    => __( 'Text Align', 'mm-components' ),
 				'param_name' => 'alignment',
-				'value'      => $text_alignment,
+				'value'      => $text_alignments,
 			),
 			array(
 				'type'       => 'dropdown',
@@ -229,4 +229,101 @@ function mm_vc_custom_heading() {
 			),
 		),
 	) );
+}
+
+add_action( 'register_shortcode_ui', 'mm_components_mm_custom_heading_shortcode_ui' );
+/**
+ * Register UI for Shortcake.
+ *
+ * @since  1.0.0
+ */
+function mm_components_mm_custom_heading_shortcode_ui() {
+
+	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+		return;
+	}
+
+	$heading_levels  = mm_get_heading_levels( 'mm-custom-heading' );
+	$fonts           = mm_get_fonts( 'mm-custom-heading' );
+	$font_weights    = mm_get_font_weights( 'mm-custom-heading' );
+	$colors          = mm_get_colors( 'mm-custom-heading' );
+	$text_alignments = mm_get_text_alignment( 'mm-custom-heading' );
+	$link_targets    = mm_get_link_targets( 'mm-custom-heading' );
+
+	shortcode_ui_register_for_shortcode(
+		'mm_custom_heading',
+		array(
+			'label'         => esc_html__( 'Mm Custom Heading', 'mm-components' ),
+			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+			'attrs'         => array(
+				array(
+					'label' => esc_html__( 'Heading Text', 'mm-components' ),
+					'attr'  => 'heading_text',
+					'type'  => 'text',
+				),
+				array(
+					'label'   => esc_html__( 'Heading Level', 'mm-components' ),
+					'attr'    => 'heading',
+					'type'    => 'select',
+					'options' => $heading_levels,
+				),
+				array(
+					'label'   => esc_html__( 'Font', 'mm-components' ),
+					'attr'    => 'font_family',
+					'type'    => 'select',
+					'options' => $fonts,
+				),
+				array(
+					'label'       => esc_html__( 'Font Size', 'mm-components' ),
+					'description' => esc_html__( 'Leave blank to use default heading size, or specify a number of pixels. Example: 16', 'mm-components' ),
+					'attr'        => 'size',
+					'type'        => 'text',
+				),
+				array(
+					'label'   => esc_html__( 'Font Weight', 'mm-components' ),
+					'attr'    => 'weight',
+					'type'    => 'select',
+					'options' => $font_weights,
+				),
+				array(
+					'label'   => esc_html__( 'Text Transform', 'mm-components' ),
+					'attr'    => 'text_transform',
+					'type'    => 'select',
+					'options' => array(
+						''          => esc_html__( 'None', 'mm-components '),
+						'uppercase' => esc_html__( 'Uppercase', 'mm-components '),
+					),
+				),
+				array(
+					'label'   => esc_html__( 'Text Align', 'mm-components' ),
+					'attr'    => 'alignment',
+					'type'    => 'select',
+					'options' => $text_alignments,
+				),
+				array(
+					'heading' => esc_html__( 'Color', 'mm-components' ),
+					'attr'    => 'color',
+					'type'    => 'select',
+					'options' => $colors,
+				),
+				array(
+					'label'       => esc_html__( 'Margin Bottom', 'mm-components' ),
+					'description' => esc_html__( 'Leave blank to use default margin, or specify a number of pixels. Example: 16', 'mm-components' ),
+					'attr'        => 'margin_bottom',
+					'type'        => 'text',
+				),
+				array(
+					'label' => esc_html__( 'Heading Link', 'mm-components' ),
+					'attr'  => 'link',
+					'type'  => 'url',
+				),
+				array(
+					'label'   => esc_html__( 'Heading Link Target', 'mm-components' ),
+					'attr'    => 'link_target',
+					'type'    => 'select',
+					'options' => $link_targets,
+				),
+			),
+		)
+	);
 }
