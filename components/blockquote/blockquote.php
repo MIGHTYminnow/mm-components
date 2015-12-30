@@ -126,12 +126,12 @@ function mm_components_mm_blockquote_shortcode_ui() {
 			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 			'attrs'         => array(
 				array(
-					'label'       => esc_html__( 'Image', 'shortcode-ui' ),
+					'label'       => esc_html__( 'Image', 'mm-components' ),
 					'attr'        => 'image_id',
 					'type'        => 'attachment',
 					'libraryType' => array( 'image' ),
-					'addButton'   => esc_html__( 'Select Image', 'shortcode-ui' ),
-					'frameTitle'  => esc_html__( 'Select Image', 'shortcode-ui ' ),
+					'addButton'   => esc_html__( 'Select Image', 'mm-components' ),
+					'frameTitle'  => esc_html__( 'Select Image', 'mm-components' ),
 				),
 				array(
 					'label' => esc_html__( 'Quote', 'mm-components' ),

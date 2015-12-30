@@ -159,6 +159,7 @@ function mm_hero_banner( $args ) {
 			'corner_style'  => $button_corner_style,
 			'border_weight' => $button_border_weight,
 			'color'         => $button_color,
+			'alignment'     => $content_align,
 		);
 
 		$button_output = mm_button( $button_args );
@@ -399,6 +400,151 @@ function mm_vc_hero_banner() {
 			),
 		),
 	) );
+}
+
+add_action( 'register_shortcode_ui', 'mm_components_mm_hero_banner_shortcode_ui' );
+/**
+ * Register UI for Shortcake.
+ *
+ * @since  1.0.0
+ */
+function mm_components_mm_hero_banner_shortcode_ui() {
+
+	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+		return;
+	}
+
+	$background_positions   = mm_get_background_position( 'mm-hero-banner' );
+	$overlay_colors         = mm_get_overlay_colors( 'mm-hero-banner' );
+	$overlay_opacity_values = mm_get_overlay_opacity_values( 'mm-hero-banner' );
+	$text_colors            = mm_get_colors( 'mm-hero-banner' );
+	$heading_levels         = mm_get_heading_levels( 'mm-hero-banner' );
+	$text_alignments        = mm_get_text_alignment( 'mm-hero-banner' );
+	$link_targets           = mm_get_link_targets( 'mm-hero-banner' );
+	$button_styles          = mm_get_button_styles( 'mm-button' );
+	$button_border_weights  = mm_get_button_border_weights( 'mm-button' );
+	$button_corner_styles   = mm_get_button_corner_styles( 'mm-button' );
+	$button_colors          = mm_get_colors( 'mm-button' );
+
+	shortcode_ui_register_for_shortcode(
+		'mm_hero_banner',
+		array(
+			'label'         => esc_html__( 'Mm Hero Banner', 'mm-components' ),
+			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+			'inner_content' => array(
+				'label' => esc_html__( 'Content', 'mm-components' ),
+			),
+			'attrs'         => array(
+				array(
+					'label'       => esc_html__( 'Background Image', 'mm-components' ),
+					'attr'        => 'background_image',
+					'type'        => 'attachment',
+					'libraryType' => array( 'image' ),
+					'addButton'   => esc_html__( 'Select Background Image', 'mm-components' ),
+					'frameTitle'  => esc_html__( 'Select Background Image', 'mm-components' ),
+				),
+				array(
+					'label'   => esc_html__( 'Background Position', 'mm-components' ),
+					'attr'    => 'background_position',
+					'type'    => 'select',
+					'options' => $background_positions,
+				),
+				array(
+					'label'       => esc_html__( 'Full Height', 'mm-components' ),
+					'description' => esc_html__( 'Check this to make the Hero Banner as tall as the window.', 'mm-components' ),
+					'attr'        => 'full_height',
+					'type'        => 'checkbox',
+				),
+				array(
+					'label'       => esc_html__( 'Minimum Height', 'mm-components' ),
+					'description' => esc_html__( 'Specify a number of pixels. Default is 360.', 'mm-components' ),
+					'attr'        => 'min_height',
+					'type'        => 'text',
+				),
+				array(
+					'label'   => esc_html__( 'Overlay Color', 'mm-components' ),
+					'attr'    => 'overlay_color',
+					'type'    => 'select',
+					'options' => $overlay_colors,
+				),
+				array(
+					'label'   => esc_html__( 'Overlay Opacity', 'mm-components' ),
+					'attr'    => 'overlay_opacity',
+					'type'    => 'select',
+					'options' => $overlay_opacity_values,
+				),
+				array(
+					'label'   => esc_html__( 'Text Color', 'mm-components' ),
+					'attr'    => 'text_color',
+					'type'    => 'select',
+					'options' => $text_colors,
+				),
+				array(
+					'label' => esc_html__( 'Heading Text', 'mm-components' ),
+					'attr'  => 'heading_text',
+					'type'  => 'text',
+				),
+				array(
+					'label'   => esc_html__( 'Heading Level', 'mm-components' ),
+					'attr'    => 'heading_level',
+					'type'    => 'select',
+					'options' => $heading_levels,
+				),
+				array(
+					'label'   => esc_html__( 'Content Alignment', 'mm-components' ),
+					'attr'    => 'content_align',
+					'type'    => 'select',
+					'options' => $text_alignments,
+				),
+				array(
+					'label' => esc_html__( 'Button URL', 'mm-components' ),
+					'attr'  => 'button_link',
+					'type'  => 'url',
+				),
+				array(
+					'label'   => esc_html__( 'Button Link Target', 'mm-components' ),
+					'attr'    => 'button_link_target',
+					'type'    => 'select',
+					'options' => $link_targets,
+				),
+				array(
+					'label' => esc_html__( 'Button Text', 'mm-components' ),
+					'attr'  => 'button_text',
+					'type'  => 'text',
+				),
+				array(
+					'label'   => esc_html__( 'Button Style', 'mm-components' ),
+					'attr'    => 'button_style',
+					'type'    => 'select',
+					'options' => $button_styles,
+				),
+				array(
+					'label'   => esc_html__( 'Button Border Weight', 'mm-components' ),
+					'attr'    => 'button_border_weight',
+					'type'    => 'select',
+					'options' => $button_border_weights,
+				),
+				array(
+					'label'   => esc_html__( 'Button Corner Style', 'mm-components' ),
+					'attr'    => 'button_corner_style',
+					'type'    => 'select',
+					'options' => $button_corner_styles,
+				),
+				array(
+					'label'   => esc_html__( 'Button Color', 'mm-components' ),
+					'attr'    => 'button_color',
+					'type'    => 'select',
+					'options' => $button_colors,
+				),
+				array(
+					'label'       => esc_html__( 'Secondary Content', 'mm-components' ),
+					'description' => esc_html__( 'Outputs below the main button. Can include HTML markup.', 'mm-components' ),
+					'attr'        => 'secondary_content',
+					'type'        => 'textarea',
+				),
+			),
+		)
+	);
 }
 
 add_action( 'widgets_init', 'mm_components_register_hero_banner_widget' );

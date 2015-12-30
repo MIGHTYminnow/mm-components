@@ -241,15 +241,15 @@ function mm_components_mm_button_shortcode_ui() {
 			'attrs'         => array(
 				array(
 					'label'       => esc_html( 'Button Text', 'mm-components' ),
+					'description' => esc_html__( 'Enter the button text.', 'mm-components' ),
 					'attr'        => 'button_text',
 					'type'        => 'text',
-					'description' => esc_html__( 'Enter the button text.', 'mm-components' ),
 				),
 				array(
 					'label'       => esc_html__( 'URL', 'mm-components' ),
+					'description' => esc_html__( 'Enter the full URL for the button.', 'mm-components' ),
 					'attr'        => 'link',
 					'type'        => 'url',
-					'description' => esc_html__( 'Enter the full URL for the button.', 'mm-components' ),
 				),
 				array(
 					'label' => esc_html( 'Link Title', 'mm-components' ),
@@ -304,15 +304,15 @@ function mm_components_mm_button_shortcode_ui() {
 				),
 				array(
 					'label'       => esc_html__( 'Full Width Button?', 'mm-button' ),
+					'description' => esc_html__( 'Choosing full-width will make the button take up the width of its container', 'mm-components' ),
 					'attr'        => 'full_width',
 					'type'        => 'checkbox',
-					'description' => esc_html__( 'Choosing full-width will make the button take up the width of its container', 'mm-components' ),
 				),
 				array(
 					'label'       => esc_html( 'Class', 'mm-components' ),
+					'description' => esc_html__( 'List any CSS classes you would like to add.', 'mm-components' ),
 					'attr'        => 'class',
 					'type'        => 'text',
-					'description' => esc_html__( 'List any CSS classes you would like to add.', 'mm-components' ),
 				),
 			),
 		)
