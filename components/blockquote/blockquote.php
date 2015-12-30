@@ -107,6 +107,47 @@ function mm_vc_blockquote() {
 	) );
 }
 
+add_action( 'register_shortcode_ui', 'mm_components_mm_blockquote_shortcode_ui' );
+/**
+ * Register UI for Shortcake.
+ *
+ * @since  1.0.0
+ */
+function mm_components_mm_blockquote_shortcode_ui() {
+
+	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+		return;
+	}
+
+	shortcode_ui_register_for_shortcode(
+		'mm_blockquote',
+		array(
+			'label'         => esc_html__( 'Mm Blockquote', 'mm-components' ),
+			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+			'attrs'         => array(
+				array(
+					'label'       => esc_html__( 'Image', 'shortcode-ui' ),
+					'attr'        => 'image_id',
+					'type'        => 'attachment',
+					'libraryType' => array( 'image' ),
+					'addButton'   => esc_html__( 'Select Image', 'shortcode-ui' ),
+					'frameTitle'  => esc_html__( 'Select Image', 'shortcode-ui ' ),
+				),
+				array(
+					'label' => esc_html__( 'Quote', 'mm-components' ),
+					'attr'  => 'quote',
+					'type'  => 'textarea',
+				),
+				array(
+					'label' => esc_html__( 'Citation', 'mm-components' ),
+					'attr'  => 'citation',
+					'type'  => 'text',
+				),
+			),
+		)
+	);
+}
+
 add_action( 'widgets_init', 'mm_components_register_blockquote_widget' );
 /**
  * Register the widget.

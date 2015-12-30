@@ -214,13 +214,13 @@ function mm_vc_button() {
 	) );
 }
 
-add_action( 'register_shortcode_ui', 'shortcode_ui_for_mm_button');
+add_action( 'register_shortcode_ui', 'mm_components_mm_button_shortcode_ui' );
 /**
  * Register UI for Shortcake.
  *
  * @since  1.0.0
  */
-function shortcode_ui_for_mm_button() {
+function mm_components_mm_button_shortcode_ui() {
 
 	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
 		return;
