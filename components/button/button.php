@@ -232,10 +232,9 @@ function shortcode_ui_for_mm_button() {
 		shortcode_ui_register_for_shortcode(
 			'mm_button',
 			array(
-				'label' => esc_html__( 'Mm Button', 'mm-components' ),
+				'label'         => esc_html__( 'Mm Button', 'mm-components' ),
 				'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
-				'post_type'     => array( 'post', 'page' ),
-				'attrs'             => array(
+				'attrs'         => array(
 					array(
 						'label'       => esc_html__( 'URL', 'mm-components' ),
 						'attr'        => 'link',
@@ -289,9 +288,9 @@ function shortcode_ui_for_mm_button() {
 						'attr'        => 'size',
 						'type'        => 'select',
 							'options' => array(
-								esc_html__( 'Normal', 'mm-components' ) => 'normal-size',
-								esc_html__( 'Small', 'mm-components' )  => 'small',
-								esc_html__( 'Large', 'mm-components' )  => 'large',
+								'normal-size' => esc_html__( 'Normal', 'mm-components' ),
+								'small'       => esc_html__( 'Small', 'mm-components' ),
+								'large'       => esc_html__( 'Large', 'mm-components' ),
 							),
 					),
 					array(
