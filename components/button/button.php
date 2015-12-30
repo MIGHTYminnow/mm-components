@@ -449,6 +449,15 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 			'<div class="mm-button-preview-wrap">' . mm_button( $preview_instance ) . '</div>'
 		);
 
+		// Button text.
+		$this->field_text(
+			__( 'Button Text', 'mm-components' ),
+			'',
+			$classname . '-button-text widefat',
+			'button_text',
+			$button_text
+		);
+
 		// Link.
 		$this->field_text(
 			__( 'Button Link', 'mm-components' ),
@@ -456,15 +465,6 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 			$classname . '-link widefat',
 			'link',
 			$link
-		);
-
-		// Link title.
-		$this->field_text(
-			__( 'Button Text', 'mm-components' ),
-			'',
-			$classname . '-button-text widefat',
-			'button_text',
-			$button_text
 		);
 
 		// Button style.
