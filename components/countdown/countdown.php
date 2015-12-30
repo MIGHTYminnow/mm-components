@@ -131,6 +131,49 @@ function mm_vc_countdown() {
 	) );
 }
 
+add_action( 'register_shortcode_ui', 'mm_components_mm_countdown_shortcode_ui' );
+/**
+ * Register UI for Shortcake.
+ *
+ * @since  1.0.0
+ */
+function mm_components_mm_countdown_shortcode_ui() {
+
+	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+		return;
+	}
+
+	$timezones = mm_get_timezones( 'mm-countdown' );
+
+	shortcode_ui_register_for_shortcode(
+		'mm_countdown',
+		array(
+			'label'         => esc_html__( 'Mm Countdown', 'mm-components' ),
+			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+			'attrs'         => array(
+				array(
+					'label'       => esc_html__( 'Date', 'mm-components' ),
+					'description' => esc_html__( 'Must be in the format MM/DD/YYYY. Example: 12/25/2016 would be Christmas of 2016.', 'mm-components' ),
+					'attr'        => 'date',
+					'type'        => 'date',
+				),
+				array(
+					'label'       => esc_html__( 'Time', 'mm-components' ),
+					'description' => esc_html__( 'Must be in the format HH:MM:SS. Example: 18:30:00 would be 6:30 PM.', 'mm-components' ),
+					'attr'        => 'time',
+					'type'        => 'text',
+				),
+				array(
+					'label'   => esc_html__( 'Time Zone', 'mm-components' ),
+					'attr'    => 'timezone',
+					'type'    => 'select',
+					'options' => $timezones,
+				),
+			),
+		)
+	);
+}
+
 add_action( 'widgets_init', 'mm_components_register_countdown_widget' );
 /**
  * Register the widget.
