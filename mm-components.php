@@ -219,6 +219,17 @@ function mm_components_scripts_and_styles() {
 	);
 }
 
+add_action( 'admin_init', 'mm_components_editor_style' );
+/**
+ * Add our stylesheet to TinyMCE previews.
+ *
+ * @since  1.0.0
+ */
+function mm_components_editor_style() {
+
+	add_editor_style( MM_COMPONENTS_URL . 'css/mm-components-public.css' );
+}
+
 add_filter( 'mm_components_custom_classes', 'mm_components_custom_classes', 10, 3 );
 /**
  * Add custom component classes.
