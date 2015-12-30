@@ -25,7 +25,7 @@ function mm_button( $args ) {
 	$defaults = array(
 		'link'          => '',
 		'link_title'    => '',
-		'link_target'   => '',
+		'link_target'   => '_self',
 		'button_text'   => '',
 		'class'         => '',
 		'style'         => '',
