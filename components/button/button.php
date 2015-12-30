@@ -216,17 +216,18 @@ function mm_vc_button() {
 
 add_action( 'register_shortcode_ui', 'shortcode_ui_for_mm_button');
 /**
- * Shortcake UI add-on.
+ * Register UI for Shortcake.
  *
  * @since  1.0.0
  */
 function shortcode_ui_for_mm_button() {
 
+	$link_targets          = mm_get_link_targets( 'mm-button' );
 	$button_styles         = mm_get_button_styles( 'mm-button' );
 	$button_border_weights = mm_get_button_border_weights( 'mm-button' );
 	$button_corner_styles  = mm_get_button_corner_styles( 'mm-button' );
 	$colors                = mm_get_colors( 'mm-button' );
-	$text_alignment        = mm_get_text_alignment( 'mm-button' );
+	$text_alignments       = mm_get_text_alignment( 'mm-button' );
 
 	if ( function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
 		shortcode_ui_register_for_shortcode(
@@ -236,62 +237,67 @@ function shortcode_ui_for_mm_button() {
 				'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 				'attrs'         => array(
 					array(
+						'label'       => esc_html( 'Button Text', 'mm-components' ),
+						'attr'        => 'button_text',
+						'type'        => 'text',
+						'description' => esc_html__( 'Enter the button text.', 'mm-components' ),
+					),
+					array(
 						'label'       => esc_html__( 'URL', 'mm-components' ),
 						'attr'        => 'link',
 						'type'        => 'url',
 						'description' => esc_html__( 'Enter the full URL for the button.', 'mm-components' ),
 					),
 					array(
-						'label'       => esc_html( 'Link Title', 'mm-components' ),
-						'attr'        => 'link_title',
-						'type'        => 'text',
-						'description' => esc_html__( 'Enter the link title (optional)', 'mm-components' ),
+						'label' => esc_html( 'Link Title', 'mm-components' ),
+						'attr'  => 'link_title',
+						'type'  => 'text',
 					),
 					array(
-						'label'       => esc_html( 'Link Target', 'mm-components' ),
-						'attr'        => 'link_target',
-						'type'        => 'text',
-						'description' => esc_html__( 'Enter the link target (optional)', 'mm-components' ),
+						'label'   => esc_html( 'Link Target', 'mm-components' ),
+						'attr'    => 'link_target',
+						'type'    => 'select',
+						'options' => $link_targets,
 					),
 					array(
-						'label'       => esc_html( 'Class', 'mm-components' ),
-						'attr'        => 'class',
-						'type'        => 'text',
-						'description' => esc_html__( 'List any CSS classes you would like to add.', 'mm-components' ),
+						'label'   => esc_html__( 'Style', 'mm-components' ),
+						'attr'    => 'style',
+						'type'    => 'select',
+						'options' => $button_styles,
 					),
 					array(
-						'label'       => esc_html__( 'Style', 'mm-components' ),
-						'attr'        => 'style',
-						'type'        => 'select',
-							'options' => $button_styles,
+						'label'   => esc_html__( 'Border Weight', 'mm-components' ),
+						'attr'    => 'border_weight',
+						'type'    => 'select',
+						'options' => $button_border_weights,
 					),
 					array(
-						'label'       => esc_html__( 'Border Weight', 'mm-components' ),
-						'attr'        => 'border_weight',
-						'type'        => 'select',
-							'options' => $button_border_weights,
+						'label'   => esc_html__( 'Corner Style', 'mm-components' ),
+						'attr'    => 'corner_style',
+						'type'    => 'select',
+						'options' => $button_corner_styles,
 					),
 					array(
-						'label'       => esc_html__( 'Corner Style', 'mm-components' ),
-						'attr'        => 'corner_style',
-						'type'        => 'select',
-							'options' => $button_corner_styles,
+						'label'   => esc_html__( 'Color', 'mm-components' ),
+						'attr'    => 'color',
+						'type'    => 'select',
+						'options' => $colors,
 					),
 					array(
-						'label'       => esc_html__( 'Color', 'mm-components' ),
-						'attr'        => 'color',
-						'type'        => 'select',
-							'options' => $colors,
+						'label'   => esc_html__( 'Button Size', 'mm-components' ),
+						'attr'    => 'size',
+						'type'    => 'select',
+						'options' => array(
+							'normal-size' => esc_html__( 'Normal', 'mm-components' ),
+							'small'       => esc_html__( 'Small', 'mm-components' ),
+							'large'       => esc_html__( 'Large', 'mm-components' ),
+						),
 					),
 					array(
-						'label'       => esc_html__( 'Button Size', 'mm-components' ),
-						'attr'        => 'size',
-						'type'        => 'select',
-							'options' => array(
-								'normal-size' => esc_html__( 'Normal', 'mm-components' ),
-								'small'       => esc_html__( 'Small', 'mm-components' ),
-								'large'       => esc_html__( 'Large', 'mm-components' ),
-							),
+						'label'   => esc_html__( 'Button Alignment', 'mm-components' ),
+						'attr'    => 'alignment',
+						'type'    => 'select',
+						'options' => $text_alignments,
 					),
 					array(
 						'label'       => esc_html__( 'Full Width Button?', 'mm-button' ),
@@ -300,16 +306,10 @@ function shortcode_ui_for_mm_button() {
 						'description' => esc_html__( 'Choosing full-width will make the button take up the width of its container', 'mm-components' ),
 					),
 					array(
-						'label'       => esc_html__( 'Button Alignment', 'mm-components' ),
-						'attr'        => 'alignment',
-						'type'        => 'select',
-							'options' => $text_alignment,
-					),
-					array(
-						'label'       => esc_html( 'Button Text', 'mm-components' ),
-						'attr'        => 'button_text',
+						'label'       => esc_html( 'Class', 'mm-components' ),
+						'attr'        => 'class',
 						'type'        => 'text',
-						'description' => esc_html__( 'Enter the button text.', 'mm-components' ),
+						'description' => esc_html__( 'List any CSS classes you would like to add.', 'mm-components' ),
 					),
 				),
 			)
