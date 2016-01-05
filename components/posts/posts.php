@@ -884,3 +884,116 @@ function mm_vc_posts() {
 	// so that any templates adding extra params have a better hook to add them on.
 	do_action( 'mm_posts_register_extra_vc_params' );
 }
+
+add_action( 'register_shortcode_ui', 'mm_components_mm_posts_shortcode_ui' );
+/**
+ * Register UI for Shortcake.
+ *
+ * @since  1.0.0
+*/
+function mm_components_mm_posts_shortcode_ui() {
+
+	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+		return;
+	}
+
+	$post_types  = mm_get_post_types( 'mm-posts' );
+	$image_sizes = mm_get_image_sizes( 'mm-posts' );
+	$taxonomies  = mm_get_taxonomies( 'mm-posts' );
+	$templates   = mm_get_mm_posts_templates( 'mm-posts' );
+
+	shortcode_ui_register_for_shortcode(
+		'mm_posts',
+		array(
+			'label'         => esc_html__( 'Mm Posts', 'mm-components' ),
+			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+			'attrs'         => array(
+				array(
+					'label'       => esc_html( 'Post ID', 'mm-components' ),
+					'description' => esc_html__( 'Enter a post ID to display a single post', 'mm-components' ),
+					'attr'        => 'post_id',
+					'type'        => 'text',
+				),
+				array(
+					'label'       => esc_html__( 'Post Type', 'mm-components' ),
+					'description' => esc_html__( 'Select a post type to display multiple posts', 'mm-components' ),
+					'attr'        => 'post_type',
+					'type'        => 'select',
+					'options'     => $post_types,
+				),
+				array(
+					'label'       => esc_html__( 'Taxonomy', 'mm-components' ),
+					'description' => esc_html__( 'Select a taxonomy and term to only include posts that have the term', 'mm-components' ),
+					'attr'        => 'taxonomy',
+					'type'        => 'select',
+					'options'     => $taxonomies,
+				),
+				array(
+					'label'       => esc_html__( 'Term', 'mm-components' ),
+					'description' => esc_html__( 'Specify a term in the selected taxonomy to only include posts that have the term', 'mm-components' ),
+					'attr'        => 'term',
+					'type'        => 'text',
+				),
+				array(
+					'label'       => esc_html__( 'Posts Per Page', 'mm-components' ),
+					'description' => esc_html__( 'Specify the maximum number of posts to show at once', 'mm-components' ),
+					'value'       => '10',
+					'attr'        => 'per_page',
+					'type'        => 'text',
+				),
+				array(
+					'label'       => esc_html__( 'Pagination', 'mm-components' ),
+					'attr'        => 'pagination',
+					'type'        => 'select',
+					'options'     => array(
+						''             => esc_html__( 'None', 'mm-components' ),
+						'next-prev'    => esc_html__( 'Next/Prev', 'mm-components' ),
+						'page-numbers' => esc_html__( 'Page Numbers', 'mm-components' ),
+					),
+				),
+				array(
+					'label'       => esc_html__( 'Template', 'mm-components' ),
+					'description' => esc_html__( 'Select a custom template for custom output', 'mm-components' ),
+					'attr'        => 'template',
+					'type'        => 'select',
+					'options'     => $templates,
+				),
+				array(
+					'label'       => esc_html__( 'Use Masonry?', 'mm-button' ),
+					'attr'        => 'masonry',
+					'type'        => 'checkbox',
+				),
+				array(
+					'label'       => esc_html__( 'Show the Featured Image?', 'mm-button' ),
+					'attr'        => 'show_featured_image',
+					'type'        => 'checkbox',
+				),
+				array(
+					'label'       => esc_html__( 'Featured Image Size', 'mm-components' ),
+					'attr'        => 'featured_image_size',
+					'type'        => 'select',
+					'options'     => $image_sizes,
+				),
+				array(
+					'label'       => esc_html__( 'Show post info?', 'mm-button' ),
+					'description' => esc_html__( 'Default post info output includes post date and author.', 'mm-components' ),
+					'attr'        => 'show_post_info',
+					'type'        => 'checkbox',
+				),
+				array(
+					'label'       => esc_html__( 'Show post meta?', 'mm-button' ),
+					'description' => esc_html__( 'Default post meta output includes category and tag links.', 'mm-components' ),
+					'attr'        => 'show_post_meta',
+					'type'        => 'checkbox',
+				),
+				array(
+					'label'       => esc_html__( 'Use full post content?', 'mm-button' ),
+					'description' => esc_html__( 'By default the excerpt will be used. Check this to output the full post content.', 'mm-components' ),
+					'attr'        => 'use_post_content',
+					'type'        => 'checkbox',
+				),
+			),
+		)
+	);
+}
+
