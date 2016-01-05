@@ -114,6 +114,50 @@ function mm_vc_highlight_box() {
 	) );
 }
 
+add_action( 'register_shortcode_ui', 'mm_components_mm_highlight_box_shortcode_ui' );
+/**
+ * Register UI for Shortcake.
+ *
+ * @since  1.0.0
+*/
+function mm_components_mm_highlight_box_shortcode_ui() {
+
+	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+		return;
+	}
+
+	shortcode_ui_register_for_shortcode(
+		'mm_highlight_box',
+		array(
+			'label'         => esc_html__( 'Mm Highlight Box', 'mm-components' ),
+			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+			'attrs'         => array(
+				array(
+					'label' => esc_html__( 'Heading', 'mm-components' ),
+					'attr'  => 'heading_text',
+					'type'  => 'text',
+				),
+				array(
+					'label' => esc_html__( 'Paragraph Text', 'mm-components' ),
+					'attr'  => 'paragraph_text',
+					'type'  => 'textarea',
+				),
+				array(
+					'label' => esc_html__( 'Link Text', 'mm-components' ),
+					'attr'  => 'link_text',
+					'type'  => 'text',
+				),
+				array(
+					'label'       => esc_html__( 'Link URL', 'mm-components' ),
+					'description' => esc_html__( 'Enter the full URL for the link.', 'mm-components' ),
+					'attr'        => 'link',
+					'type'        => 'url',
+				),
+			),
+		)
+	);
+}
+
 add_action( 'widgets_init', 'mm_components_register_highlight_box_widget' );
 /**
  * Register the widget.
