@@ -300,7 +300,7 @@ function mm_components_mm_icon_box_shortcode_ui() {
 	}
 
 	shortcode_ui_register_for_shortcode(
-		'mm_expandable_content',
+		'mm_icon_box',
 		array(
 			'label'         => esc_html__( 'Mm Icon Box', 'mm-components' ),
 			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
