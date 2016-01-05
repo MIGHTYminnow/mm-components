@@ -166,6 +166,66 @@ function mm_vc_logo_strip() {
 	) );
 }
 
+add_action( 'register_shortcode_ui', 'mm_components_mm_logo_strip_shortcode_ui' );
+/**
+ * Register UI for Shortcake.
+ *
+ * @since  1.0.0
+*/
+function mm_components_mm_logo_strip_shortcode_ui() {
+
+	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+		return;
+	}
+
+	$heading_levels  = mm_get_heading_levels( 'mm-logo-strip' );
+	$image_sizes     = mm_get_image_sizes( 'mm-logo-strip' );
+	$text_alignments = mm_get_text_alignment( 'mm-logo-strip' );
+
+	shortcode_ui_register_for_shortcode(
+		'mm_logo_strip',
+		array(
+			'label'         => esc_html__( 'Mm Logo Strip', 'mm-components' ),
+			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+			'attrs'         => array(
+				array(
+					'label'       => esc_html__( 'Title', 'mm-components' ),
+					'attr'        => 'title',
+					'type'        => 'text',
+				),
+				array(
+					'label'       => esc_html__( 'Title Heading Level', 'mm-components' ),
+					'attr'        => 'title_heading',
+					'type'        => 'select',
+					'options'     => $heading_levels,
+				),
+				array(
+					'label'       => esc_html__( 'Title Alignment', 'mm-components' ),
+					'attr'        => 'title_alignment',
+					'type'        => 'select',
+					'options'     => $text_alignments,
+				),
+				array(
+					'label'       => esc_html__( 'Logos', 'mm-components' ),
+					'description' => esc_html__( 'The bigger the image size, the better.', 'mm-components' ),
+					'attr'        => 'images',
+					'type'        => 'attachment',
+					'libraryType' => array( 'image' ),
+					'addButton'   => esc_html__( 'Select Logo Image', 'mm-components' ),
+					'frameTitle'  => esc_html__( 'Select Logo Image', 'mm-components' ),
+				),
+				array(
+					'label'       => esc_html__( 'Logo Image Size', 'mm-components' ),
+					'attr'        => 'image_size',
+					'type'        => 'select',
+					'options'     => $image_sizes,
+				),
+			),
+		)
+	);
+}
+
+
 add_action( 'widgets_init', 'mm_components_register_logo_strip_widget' );
 /**
  * Register the widget.
