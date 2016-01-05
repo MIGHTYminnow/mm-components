@@ -1083,6 +1083,26 @@ function mm_get_link_targets_for_vc( $context = '' ) {
 }
 
 /**
+ * Return an array of link style options.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of link style options.
+ */
+function mm_get_link_styles( $context = '' ) {
+
+	$styles = array(
+			''       => __( 'Select Button or Link', 'mm-components' ),
+			'button' => __( 'Button', 'mm-components' ),
+			'link'   => __( 'Link', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_link_styles', $styles, $context );
+}
+
+/**
  * Output an opening <table> element.
  *
  * @since  1.0.0
