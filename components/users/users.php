@@ -520,3 +520,74 @@ function mm_vc_users() {
 		)
 	) );
 }
+
+add_action( 'register_shortcode_ui', 'mm_components_mm_users_shortcode_ui' );
+/**
+ * Register UI for Shortcake.
+ *
+ * @since  1.0.0
+*/
+function mm_components_mm_users_shortcode_ui() {
+
+	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+		return;
+	}
+
+	$roles         = mm_get_user_roles( 'mm-users' );
+	$templates     = mm_get_mm_users_templates( 'mm-users' );
+	$wrap_elements = mm_get_wrap_elements( 'mm-users' );
+
+	shortcode_ui_register_for_shortcode(
+		'mm_users',
+		array(
+			'label'         => esc_html__( 'Mm Users', 'mm-components' ),
+			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+			'attrs'         => array(
+				array(
+					'label'       => esc_html__( 'User Role', 'mm-components' ),
+					'description' => esc_html__( 'Select a specific user role to only include users with that role', 'mm-components' ),
+					'attr'        => 'role',
+					'type'        => 'select',
+					'options'     => $roles,
+				),
+				array(
+					'label'       => esc_html( 'Users Per Page', 'mm-components' ),
+					'description' => esc_html__( 'Specify the maximum number of users to show at once.', 'mm-components' ),
+					'attr'        => 'number',
+					'value'       => 10,
+					'type'        => 'text',
+				),
+				array(
+					'label'       => esc_html__( 'Pagination', 'mm-components' ),
+					'attr'        => 'pagination',
+					'type'        => 'select',
+					'options'     => array(
+						''             => esc_html__( 'None', 'mm-components' ),
+						'next-prev'    => esc_html__( 'Next/Prev', 'mm-components' ),
+						'page-numbers' => esc_html__( 'Page Numbers', 'mm-components' ),
+					),
+				),
+				array(
+					'label'       => esc_html__( 'Template', 'mm-components' ),
+					'description' => esc_html__( 'Select a template', 'mm-components' ),
+					'attr'        => 'template',
+					'type'        => 'select',
+					'options'     => $templates,
+				),
+				array(
+					'label'       => esc_html__( 'Wrap Element', 'mm-components' ),
+					'description' => esc_html__( 'Select a wrap element', 'mm-components' ),
+					'attr'        => 'wrap_element',
+					'type'        => 'select',
+					'options'     => $wrap_elements,
+				),
+				array(
+					'label'       => esc_html( 'User ID', 'mm-components' ),
+					'description' => esc_html__( 'Enter a user ID to display a single user', 'mm-components' ),
+					'attr'        => 'user_id',
+					'type'        => 'text',
+				),
+			),
+		)
+	);
+}
