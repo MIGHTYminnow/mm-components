@@ -252,7 +252,7 @@ function mm_posts_output_post_header( $post, $context, $args ) {
 
 	mm_posts_output_post_title( $post, $context, $args );
 
-	if ( 1 === (int)$args['show_post_info'] ) {
+	if ( mm_true_or_false( $args['show_post_info'] ) ) {
 		mm_posts_output_post_info( $post, $context, $args );
 	}
 
@@ -396,7 +396,7 @@ function mm_posts_output_post_content( $post, $context, $args ) {
 
 	echo '<div class="entry-content" itemprop="text">';
 
-	if ( 1 === (int)$args['use_post_content'] ) {
+	if ( mm_true_or_false( $args['use_post_content'] ) ) {
 
 		the_content();
 
