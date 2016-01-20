@@ -59,10 +59,7 @@ function mm_components_init_components() {
 		'hero-banner'        => __( 'Hero Banner', 'mm-components' ),
 		'highlight-box'      => __( 'Highlight Box', 'mm-components' ),
 		'icon-box'           => __( 'Icon Box', 'mm-components' ),
-		'image-grid'         => __( 'Image Grid', 'mm-components' ),
 		'logo-strip'         => __( 'Logo Strip', 'mm-components' ),
-		'polaroid'           => __( 'Polaroid', 'mm-components' ),
-		'polaroid-2'         => __( 'Polaroid 2', 'mm-components' ),
 		'posts'              => __( 'Posts', 'mm-components' ),
 		'restricted-content' => __( 'Restricted Content', 'mm-components' ),
 		'social-icons'       => __( 'Social Icons', 'mm-components' ),
@@ -100,17 +97,8 @@ function mm_components_init_components() {
 	if ( array_key_exists( 'icon-box', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/icon-box/icon-box.php';
 	}
-	if ( array_key_exists( 'image-grid', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/image-grid/image-grid.php';
-	}
 	if ( array_key_exists( 'logo-strip', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/logo-strip/logo-strip.php';
-	}
-	if ( array_key_exists( 'polaroid', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/polaroid/polaroid.php';
-	}
-	if ( array_key_exists( 'polaroid-2', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/polaroid-2/polaroid-2.php';
 	}
 	if ( array_key_exists( 'posts', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/posts/posts.php';
