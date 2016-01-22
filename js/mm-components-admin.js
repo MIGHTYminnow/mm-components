@@ -363,7 +363,7 @@
 	}
 
 	/**
-	 * Dependency for Social Icons fields.
+	 * Dependency for Social Icons Fields.
 	 *
 	 * @since  1.0.0
 	 */
@@ -383,12 +383,10 @@
 				$buttonBorderWrap.addClass( 'mm-hidden' );
 			}**/
 
+			$iconImageWrap.addClass('mm-hidden');
+
 			if ( '' === $iconStyle.find( 'option:selected' ).attr( 'value' ) ) {
 				$ghostModeWrap.addClass( 'mm-hidden' );
-			}
-
-			if ( 'images' === $iconType.find( 'option:selected' ).attr( 'value' ) ) {
-				$iconImageWrap.addClass( 'mm-hidden' );
 			}
 
 			$iconStyle.on( 'change', function() {
@@ -399,11 +397,15 @@
 				}
 			});
 
+			if ( 'images' === $iconType.find( 'option:selected' ).attr( 'value' ) ) {
+				$iconImageWrap.removeClass( 'mm-hidden' );
+			}
+
 			$iconType.on( 'change', function() {
 				if ( 'images' === $iconType.find('option:selected').attr( 'value' ) ) {
-					$iconImageWrap.addClass( 'mm-hidden' );
-				} else {
 					$iconImageWrap.removeClass( 'mm-hidden' );
+				} else {
+					$iconImageWrap.addClass( 'mm-hidden' );
 				}
 			});
 		});
