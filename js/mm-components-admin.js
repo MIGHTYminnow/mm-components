@@ -373,7 +373,9 @@
 
 			var $widget        = $( this );
 			var $iconType      = $widget.find( '.mm-social-icons-widget-icon-type');
+			var $imageSizeWrap = $widget.find( '.mm-select-field-wrap').has( '.mm-social-icons-widget-image-size');
 			var $iconStyle     = $widget.find( '.mm-social-icons-widget-style' );
+			var $iconStyleWrap = $widget.find( '.mm-select-field-wrap').has( '.mm-social-icons-widget-style');
 			var $iconImageWrap = $widget.find( '.mm-single-media-field-wrap' ).has('.mm-single-media-image');
 			var $ghostModeWrap = $widget.find( '.mm-multi-checkbox-field-wrap' ).has( '.mm-social-icons-widget-ghost-mode' );
 
@@ -384,6 +386,24 @@
 			}**/
 
 			$iconImageWrap.addClass('mm-hidden');
+			$imageSizeWrap.addClass( 'mm-hidden');
+
+			$iconType.on( 'change', function() {
+				if ( 'images' === $iconType.find('option:selected').attr( 'value' ) ) {
+					$iconImageWrap.removeClass( 'mm-hidden' );
+					$iconStyleWrap.addClass( 'mm-hidden' );
+					$ghostModeWrap.addClass( 'mm-hidden' );
+				} else {
+					$iconImageWrap.addClass( 'mm-hidden' );
+					$iconStyleWrap.removeClass( 'mm-hidden' );
+				}
+
+				$iconType.on( 'change', function() {
+					if ( '' !== $iconStyle.find( 'option:selected' ).attr( 'value' ) ) {
+						$ghostModeWrap.removeClass( 'mm-hidden' );
+					}
+				});
+			});
 
 			if ( '' === $iconStyle.find( 'option:selected' ).attr( 'value' ) ) {
 				$ghostModeWrap.addClass( 'mm-hidden' );
@@ -399,15 +419,9 @@
 
 			if ( 'images' === $iconType.find( 'option:selected' ).attr( 'value' ) ) {
 				$iconImageWrap.removeClass( 'mm-hidden' );
+				$iconStyleWrap.removeClass( 'mm-hidden' );
+				$imageSizeWrap.removeClass( 'mm-hidden' );
 			}
-
-			$iconType.on( 'change', function() {
-				if ( 'images' === $iconType.find('option:selected').attr( 'value' ) ) {
-					$iconImageWrap.removeClass( 'mm-hidden' );
-				} else {
-					$iconImageWrap.addClass( 'mm-hidden' );
-				}
-			});
 		});
 	}
 
