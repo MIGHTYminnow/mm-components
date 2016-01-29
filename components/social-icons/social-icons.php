@@ -360,6 +360,7 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 	public function widget( $args, $instance ) {
 
 		$defaults = array(
+			'title'           => '',
 			'icon_type'       => 'fontawesome',
 			'image_size'      => 'thumbnail',
 			'alignment'       => 'left',
@@ -373,15 +374,8 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		// At this point all instance options have been sanitized.
-		$icon_type       = $instance['icon_type'];
-		$image_size      = $instance['image_size'];
-		$alignment       = $instance['alignment'];
-		$style           = $instance['style'];
-		$ghost           = $instance['ghost'];
-		$color           = $instance['color'];
-		$size            = $instance['size'];
-		$social_networks = $instance['social_networks'];
+		// Grab the title and run it through the right filter.
+		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
 
@@ -404,6 +398,7 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 	public function form( $instance ) {
 
 		$defaults = array(
+			'title'           => '',
 			'icon_type'       => 'fontawesome',
 			'image_size'      => 'thumbnail',
 			'alignment'       => 'left',
@@ -424,6 +419,7 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
+		$title      = $instance['title'];
 		$icon_type  = $instance['icon_type'];
 		$image_size = $instance['image_size'];
 		$alignment  = $instance['alignment'];
@@ -432,6 +428,15 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 		$color      = $instance['color'];
 		$size       = $instance['size'];
 		$classname  = $this->options['classname'];
+
+		// Title.
+		$this->field_text(
+			__( 'Title', 'mm-components' ),
+			'',
+			$classname . '-title widefat',
+			'title',
+			$title
+		);
 
 		// Icon Type.
 		$this->field_select(
@@ -533,8 +538,8 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$social_networks             = mm_get_social_networks( 'mm-social-icons' );
 		$instance                    = $old_instance;
+		$instance['title']           = sanitize_text_field( $new_instance['title'] );
 		$instance['icon_type']       = sanitize_text_field( $new_instance['icon_type'] );
 		$instance['image_size']      = sanitize_text_field( $new_instance['image_size'] );
 		$instance['alignment']       = sanitize_text_field( $new_instance['alignment'] );
@@ -543,6 +548,7 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 		$instance['color']           = sanitize_text_field( $new_instance['color'] );
 		$instance['size']            = sanitize_text_field( $new_instance['size'] );
 		$instance['mm_custom_class'] = sanitize_text_field( $new_instance['mm_custom_class'] );
+		$social_networks             = mm_get_social_networks( 'mm-social-icons' );
 
 		foreach ( $social_networks as $social_network => $social_network_label ) {
 			$instance[ $social_network . '_link' ]  = sanitize_text_field( $new_instance[ $social_network . '_link' ] );
