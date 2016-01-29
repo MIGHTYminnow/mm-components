@@ -23,7 +23,6 @@ function mm_restricted_content( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'title'              => '',
 		'specific_roles'     => '',
 		'roles'              => '',
 		'restricted_content' => '',
@@ -32,13 +31,11 @@ function mm_restricted_content( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults);
 
 	// Get clean param values.
-	$title              = $args['title'];
 	$specific_roles     = $args['specific_roles'];
 	$roles              = ( strpos( $args['roles'], ',' ) ) ? explode( ',', $args['roles'] ) : (array)$args['roles'];
 	$restricted_content = $args['restricted_content'];
 	$other_content      = $args['other_content'];
-
-	$valid_user = false;
+	$valid_user         = false;
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -238,13 +235,8 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		// At this point all instance options have been sanitized.
-		$title              = apply_filters( 'widget_title', $instance['title'] );
-		$specific_roles     = $instance['specific_roles'];
-		$roles              = $instance['roles'];
-		$restricted_content = $instance['restricted_content'];
-		$other_content      = $instance['other_content'];
-		$mm_custom_class    = $instance['mm_custom_class'];
+		// Grab the title and run it through the right filter.
+		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
 
@@ -358,7 +350,7 @@ class Mm_Restricted_Content_Widget extends Mm_Components_Widget {
 	public function update( $new_instance, $old_instance ) {
 
 		$instance = $old_instance;
-		$instance['title']              = wp_kses_post( $new_instance['title'] );
+		$instance['title']              = sanitize_text_field( $new_instance['title'] );
 		$instance['roles']              = sanitize_text_field( $new_instance['roles'] );
 		$instance['specific_roles']     = sanitize_text_field( $new_instance['specific_roles'] );
 		$instance['restricted_content'] = wp_kses_post( $new_instance['restricted_content'] );
