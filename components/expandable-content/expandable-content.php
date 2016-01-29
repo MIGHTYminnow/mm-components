@@ -308,22 +308,7 @@ class Mm_Expandable_Content_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		// At this point all instance options have been sanitized.
-		$link_style           = $instance['link_style'];
-		$link_text            = $instance['link_text'];
-		$link_alignment       = $instance['link_alignment'];
-		$fade                 = $instance['fade'];
-		$button_style         = $instance['button_style'];
-		$button_border_weight = $instance['button_border_weight'];
-		$button_corner_style  = $instance['button_corner_style'];
-		$button_color         = $instance['button_color'];
-		$content              = $instance['content'];
-
 		echo $args['before_widget'];
-
-		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . $title . $args['after_title'];
-		}
 
 		echo mm_expandable_content( $instance );
 
