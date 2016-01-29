@@ -160,6 +160,7 @@ class Mm_Demo_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
+		// Grab the title and run it through the right filter.
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
