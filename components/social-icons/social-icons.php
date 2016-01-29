@@ -339,7 +339,7 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 		// Set up the options to pass to the WP_Widget constructor.
 		$this->options = array(
 			'classname'   => 'mm-social-icons-widget',
-			'description' => __( 'A Social Icons Section', 'mm-components' ),
+			'description' => __( 'A Row of Social Icons', 'mm-components' ),
 		);
 
 		parent::__construct(
