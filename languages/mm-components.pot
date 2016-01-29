@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MIGHTYminnow Components 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mm-components\n"
-"POT-Creation-Date: 2016-01-29 01:00:52+00:00\n"
+"POT-Creation-Date: 2016-01-29 01:50:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -54,7 +54,7 @@ msgid "Blockquote"
 msgstr ""
 
 #: components/blockquote/blockquote.php:88 components/button/button.php:142
-#: components/countdown/countdown.php:107
+#: components/count-up/count-up.php:82 components/countdown/countdown.php:107
 #: components/custom-heading/custom-heading.php:161
 #: components/hero-banner/hero-banner.php:281
 #: components/hero-banner/hero-banner.php:345
@@ -100,7 +100,7 @@ msgid "A Blockquote"
 msgstr ""
 
 #: components/blockquote/blockquote.php:257 components/button/button.php:454
-#: components/countdown/countdown.php:283
+#: components/count-up/count-up.php:229 components/countdown/countdown.php:283
 #: components/logo-strip/logo-strip.php:131
 #: components/logo-strip/logo-strip.php:276
 #: components/social-icons/social-icons.php:434
@@ -299,7 +299,53 @@ msgstr ""
 msgid "Full Width"
 msgstr ""
 
-#: components/countdown/countdown.php:104 mm-components.php:56
+#: components/count-up/count-up.php:79 mm-components.php:56
+msgid "Count Up"
+msgstr ""
+
+#: components/count-up/count-up.php:86 components/count-up/count-up.php:238
+msgid "Before Text"
+msgstr ""
+
+#: components/count-up/count-up.php:90 components/count-up/count-up.php:239
+msgid "Enter any text that should appear before the number. Example: $"
+msgstr ""
+
+#: components/count-up/count-up.php:94 components/count-up/count-up.php:247
+msgid "After Text"
+msgstr ""
+
+#: components/count-up/count-up.php:98 components/count-up/count-up.php:248
+msgid "Enter any text that should appear after the number. Example: %"
+msgstr ""
+
+#: components/count-up/count-up.php:102 components/count-up/count-up.php:256
+msgid "Number"
+msgstr ""
+
+#: components/count-up/count-up.php:106 components/count-up/count-up.php:257
+msgid "Enter the number that will be counted up to."
+msgstr ""
+
+#: components/count-up/count-up.php:110 components/count-up/count-up.php:265
+msgid "Duration"
+msgstr ""
+
+#: components/count-up/count-up.php:114 components/count-up/count-up.php:266
+msgid ""
+"Enter the duration it should take for the counting to complete in seconds. "
+"Example: 2"
+msgstr ""
+
+#: components/count-up/count-up.php:155
+msgid "An Animated Count Up"
+msgstr ""
+
+#: components/count-up/count-up.php:160
+msgid "Mm Count Up"
+msgstr ""
+
+#: components/countdown/countdown.php:104 mm-components.php:57
 msgid "Countdown"
 msgstr ""
 
@@ -352,7 +398,7 @@ msgstr ""
 msgid "Timezone"
 msgstr ""
 
-#: components/custom-heading/custom-heading.php:157 mm-components.php:57
+#: components/custom-heading/custom-heading.php:157 mm-components.php:58
 msgid "Custom Heading"
 msgstr ""
 
@@ -549,7 +595,7 @@ msgid "This custom field can support <em>any</em> html."
 msgstr ""
 
 #: components/expandable-content/expandable-content.php:142
-#: mm-components.php:58
+#: mm-components.php:59
 msgid "Expandable Content"
 msgstr ""
 
@@ -655,7 +701,7 @@ msgstr ""
 msgid "Black"
 msgstr ""
 
-#: components/hero-banner/hero-banner.php:278 mm-components.php:59
+#: components/hero-banner/hero-banner.php:278 mm-components.php:60
 msgid "Hero Banner"
 msgstr ""
 
@@ -765,7 +811,7 @@ msgstr ""
 msgid "Hero Banner Content"
 msgstr ""
 
-#: components/highlight-box/highlight-box.php:103 mm-components.php:60
+#: components/highlight-box/highlight-box.php:103 mm-components.php:61
 msgid "Highlight Box"
 msgstr ""
 
@@ -799,7 +845,7 @@ msgstr ""
 msgid "Mm Highlight Box"
 msgstr ""
 
-#: components/icon-box/icon-box.php:162 mm-components.php:61
+#: components/icon-box/icon-box.php:162 mm-components.php:62
 msgid "Icon Box"
 msgstr ""
 
@@ -851,7 +897,7 @@ msgstr ""
 msgid "Select a general size for the icon box"
 msgstr ""
 
-#: components/logo-strip/logo-strip.php:123 mm-components.php:62
+#: components/logo-strip/logo-strip.php:123 mm-components.php:63
 msgid "Logo Strip"
 msgstr ""
 
@@ -928,7 +974,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: components/posts/posts.php:769 mm-components.php:63
+#: components/posts/posts.php:769 mm-components.php:64
 msgid "Posts"
 msgstr ""
 
@@ -1057,7 +1103,7 @@ msgid "Simple List"
 msgstr ""
 
 #: components/restricted-content/restricted-content.php:127
-#: mm-components.php:64
+#: mm-components.php:65
 msgid "Restricted Content"
 msgstr ""
 
@@ -1123,7 +1169,7 @@ msgstr ""
 msgid "Brand Colors"
 msgstr ""
 
-#: components/social-icons/social-icons.php:205 mm-components.php:65
+#: components/social-icons/social-icons.php:205 mm-components.php:66
 msgid "Social Icons"
 msgstr ""
 
@@ -1183,7 +1229,7 @@ msgstr ""
 msgid "All Users"
 msgstr ""
 
-#: components/users/users.php:469 mm-components.php:66
+#: components/users/users.php:469 mm-components.php:67
 msgid "Users"
 msgstr ""
 

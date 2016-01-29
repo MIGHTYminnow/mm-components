@@ -53,6 +53,7 @@ function mm_components_init_components() {
 	$mm_components = array(
 		'blockquote'         => __( 'Blockquote', 'mm-components' ),
 		'button'             => __( 'Button', 'mm-components' ),
+		'count-up'           => __( 'Count Up', 'mm-components' ),
 		'countdown'          => __( 'Countdown', 'mm-components' ),
 		'custom-heading'     => __( 'Custom Heading', 'mm-components' ),
 		'expandable-content' => __( 'Expandable Content', 'mm-components' ),
@@ -78,6 +79,9 @@ function mm_components_init_components() {
 	}
 	if ( array_key_exists( 'button', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/button/button.php';
+	}
+	if ( array_key_exists( 'count-up', $mm_active_components ) ) {
+		require_once MM_COMPONENTS_PATH . 'components/count-up/count-up.php';
 	}
 	if ( array_key_exists( 'countdown', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/countdown/countdown.php';
