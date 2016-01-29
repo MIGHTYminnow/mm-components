@@ -232,12 +232,8 @@ class Mm_Logo_Strip_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		// At this point all instance options have been sanitized.
-		$title           = apply_filters( 'widget_title', $instance['title'] );
-		$title_heading   = $instance['title_heading'];
-		$title_alignment = $instance['title_alignment'];
-		$images          = $instance['images'];
-		$image_size      = $instance['image_size'];
+		// Grab the title and run it through the right filter.
+		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
 
