@@ -8,43 +8,45 @@
  * @since   1.0.0
  */
 
-add_shortcode( 'mm_highlight_box', 'mm_highlight_box_shortcode' );
 /**
- * Output Highlight Box.
+ * Build and return the Highlight Box component.
  *
- * @since  1.0.0
+ * @since   1.0.0
  *
- * @param   array  $atts  Shortcode attributes.
+ * @param   array  $args  The args.
  *
- * @return  string        Shortcode output.
+ * @return  string        The HTML.
  */
-function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
+function mm_highlight_box( $args ) {
 
-	$atts = mm_shortcode_atts( array(
+	$component = 'mm-highlight-box';
+
+	$defaults = array(
 		'heading_text'   => '',
 		'paragraph_text' => '',
 		'link'           => '',
 		'link_text'      => '',
 		'link_target'    => '',
-	), $atts );
+	);
+	$args = wp_parse_args( (array)$args, $defaults );
 
-	$heading_text   = $atts['heading_text'];
-	$paragraph_text = $atts['paragraph_text'];
-	$link_url       = $atts['link'];
-	$link_text      = $atts['link_text'];
-	$link_title     = $atts['link_text'];
-	$link_target    = $atts['link_target'];
+	$heading_text   = $args['heading_text'];
+	$paragraph_text = $args['paragraph_text'];
+	$link_url       = $args['link'];
+	$link_text      = $args['link_text'];
+	$link_title     = $args['link_text'];
+	$link_target    = $args['link_target'];
 
 	// Handle a VC link array.
-	if ( 'url' === substr( $atts['link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
-		$link_array  = vc_build_link( $atts['link'] );
+	if ( 'url' === substr( $link_url, 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+		$link_array  = vc_build_link( $link_url );
 		$link_url    = $link_array['url'];
 		$link_title  = $link_array['title'];
 		$link_target = $link_array['target'];
 	}
 
 	// Get Mm classes.
-	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $tag, $atts );
+	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
 	ob_start(); ?>
 
@@ -72,6 +74,21 @@ function mm_highlight_box_shortcode( $atts, $content = null, $tag ) {
 	<?php
 
 	return ob_get_clean();
+}
+
+add_shortcode( 'mm_highlight_box', 'mm_highlight_box_shortcode' );
+/**
+ * Highlight Box shortcode.
+ *
+ * @since   1.0.0
+ *
+ * @param   array  $atts  Shortcode attributes.
+ *
+ * @return  string        Shortcode output.
+ */
+function mm_highlight_box_shortcode( $atts ) {
+
+	return mm_highlight_box( $atts );
 }
 
 add_action( 'vc_before_init', 'mm_vc_highlight_box' );
@@ -169,28 +186,19 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		// At this point all instance options have been sanitized.
-		$title          = apply_filters( 'widget_title', $instance['title'] );
-		$heading_text   = $instance['heading_text'];
-		$paragraph_text = $instance['paragraph_text'];
-		$link_text      = $instance['link_text'];
-		$link           = $instance['link'];
-
-		$shortcode = sprintf(
-			'[mm_highlight_box heading_text="%s" paragraph_text="%s" link_text="%s" link="%s"]',
-			$heading_text,
-			$paragraph_text,
-			$link_text,
-			$link
+		$defaults = array(
+			'heading_text'   => '',
+			'paragraph_text' => '',
+			'link_text'      => '',
+			'link'           => '',
 		);
+
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
 
 		echo $args['before_widget'];
 
-		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
-		}
-
-		echo do_shortcode( $shortcode );
+		echo mm_highlight_box( $instance );
 
 		echo $args['after_widget'];
 	}
@@ -215,21 +223,11 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		$title          = $instance['title'];
 		$heading_text   = $instance['heading_text'];
 		$paragraph_text = $instance['paragraph_text'];
 		$link_text      = $instance['link_text'];
 		$link           = $instance['link'];
 		$classname      = $this->options['classname'];
-
-		// Title.
-		$this->field_text(
-			__( 'Title', 'mm-components' ),
-			'',
-			$classname . '-title widefat',
-			'title',
-			$title
-		);
 
 		// Heading Text.
 		$this->field_text(
@@ -281,7 +279,6 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 	public function update( $new_instance, $old_instance ) {
 
 		$instance                   = $old_instance;
-		$instance['title']          = wp_kses_post( $new_instance['title'] );
 		$instance['heading_text']   = wp_kses_post( $new_instance['heading_text'] );
 		$instance['paragraph_text'] = wp_kses_post( $new_instance['paragraph_text'] );
 		$instance['link_text']      = sanitize_text_field( $new_instance['link_text'] );

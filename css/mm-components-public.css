@@ -424,6 +424,12 @@ a.mm-button.full-width {
   display: none;
 }
 
+/* Highlight Box
+--------------------------------------------- */
+.mm-highlight-box p {
+  font-size: 2em;
+}
+
 /* Icon Box
 --------------------------------------------- */
 .mm-icon-box {

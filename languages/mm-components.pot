@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MIGHTYminnow Components 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mm-components\n"
-"POT-Creation-Date: 2016-01-20 00:23:23+00:00\n"
+"POT-Creation-Date: 2016-01-29 01:00:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -59,7 +59,7 @@ msgstr ""
 #: components/hero-banner/hero-banner.php:281
 #: components/hero-banner/hero-banner.php:345
 #: components/hero-banner/hero-banner.php:435
-#: components/highlight-box/highlight-box.php:90
+#: components/highlight-box/highlight-box.php:107
 #: components/icon-box/icon-box.php:166
 #: components/logo-strip/logo-strip.php:127 components/posts/posts.php:773
 #: components/social-icons/social-icons.php:208 components/users/users.php:473
@@ -68,25 +68,25 @@ msgstr ""
 
 #: components/blockquote/blockquote.php:92
 #: components/blockquote/blockquote.php:129
-#: components/blockquote/blockquote.php:287
+#: components/blockquote/blockquote.php:284
 #: components/social-icons/social-icons.php:295
 msgid "Image"
 msgstr ""
 
 #: components/blockquote/blockquote.php:94
-#: components/blockquote/blockquote.php:288
+#: components/blockquote/blockquote.php:285
 msgid "Select an image from the library."
 msgstr ""
 
 #: components/blockquote/blockquote.php:98
 #: components/blockquote/blockquote.php:137
-#: components/blockquote/blockquote.php:269
+#: components/blockquote/blockquote.php:266
 msgid "Quote"
 msgstr ""
 
 #: components/blockquote/blockquote.php:103
 #: components/blockquote/blockquote.php:142
-#: components/blockquote/blockquote.php:278
+#: components/blockquote/blockquote.php:275
 msgid "Citation"
 msgstr ""
 
@@ -99,17 +99,17 @@ msgstr ""
 msgid "A Blockquote"
 msgstr ""
 
-#: components/blockquote/blockquote.php:260 components/button/button.php:438
-#: components/countdown/countdown.php:282
-#: components/highlight-box/highlight-box.php:227
+#: components/blockquote/blockquote.php:257 components/button/button.php:454
+#: components/countdown/countdown.php:283
 #: components/logo-strip/logo-strip.php:131
-#: components/logo-strip/logo-strip.php:280
+#: components/logo-strip/logo-strip.php:276
+#: components/social-icons/social-icons.php:434
 msgid "Title"
 msgstr ""
 
 #: components/button/button.php:138
 #: components/expandable-content/expandable-content.php:155
-#: components/expandable-content/expandable-content.php:379
+#: components/expandable-content/expandable-content.php:364
 #: mm-components.php:55
 msgid "Button"
 msgstr ""
@@ -119,9 +119,9 @@ msgstr ""
 msgid "Button URL"
 msgstr ""
 
-#: components/button/button.php:152 components/button/button.php:472
+#: components/button/button.php:152 components/button/button.php:488
 #: components/expandable-content/expandable-content.php:161
-#: components/expandable-content/expandable-content.php:417
+#: components/expandable-content/expandable-content.php:402
 #: components/hero-banner/hero-banner.php:366
 #: components/hero-banner/hero-banner.php:516
 #: components/hero-banner/hero-banner.php:827
@@ -129,17 +129,17 @@ msgid "Button Style"
 msgstr ""
 
 #: components/button/button.php:158 components/button/button.php:272
-#: components/button/button.php:502
+#: components/button/button.php:518
 msgid "Border Weight"
 msgstr ""
 
 #: components/button/button.php:171 components/button/button.php:278
-#: components/button/button.php:488
+#: components/button/button.php:504
 msgid "Corner Style"
 msgstr ""
 
 #: components/button/button.php:177 components/button/button.php:284
-#: components/button/button.php:515
+#: components/button/button.php:531
 #: components/custom-heading/custom-heading.php:213
 #: components/custom-heading/custom-heading.php:304
 msgid "Color"
@@ -150,23 +150,23 @@ msgid "Button Size"
 msgstr ""
 
 #: components/button/button.php:186 components/button/button.php:294
-#: components/button/button.php:531 components/icon-box/icon-box.php:260
+#: components/button/button.php:547 components/icon-box/icon-box.php:260
 #: components/social-icons/social-icons.php:274
-#: components/social-icons/social-icons.php:496 functions.php:919
+#: components/social-icons/social-icons.php:501 functions.php:919
 msgid "Normal"
 msgstr ""
 
 #: components/button/button.php:187 components/button/button.php:295
-#: components/button/button.php:532 components/icon-box/icon-box.php:262
+#: components/button/button.php:548 components/icon-box/icon-box.php:262
 #: components/social-icons/social-icons.php:275
-#: components/social-icons/social-icons.php:497
+#: components/social-icons/social-icons.php:502
 msgid "Small"
 msgstr ""
 
 #: components/button/button.php:188 components/button/button.php:296
-#: components/button/button.php:533 components/icon-box/icon-box.php:261
+#: components/button/button.php:549 components/icon-box/icon-box.php:261
 #: components/social-icons/social-icons.php:276
-#: components/social-icons/social-icons.php:498
+#: components/social-icons/social-icons.php:503
 msgid "Large"
 msgstr ""
 
@@ -174,7 +174,7 @@ msgstr ""
 msgid "Full Width Button"
 msgstr ""
 
-#: components/button/button.php:195 components/button/button.php:540
+#: components/button/button.php:195 components/button/button.php:556
 msgid "Choosing full-width will make the button take up the width of its container."
 msgstr ""
 
@@ -185,19 +185,19 @@ msgstr ""
 #: components/posts/posts.php:868 components/posts/posts.php:877
 #: components/posts/templates/image-grid.php:83
 #: components/posts/templates/image-grid.php:97
-#: components/restricted-content/restricted-content.php:142
+#: components/restricted-content/restricted-content.php:139
 #: components/social-icons/social-icons.php:248
-#: components/social-icons/social-icons.php:484
+#: components/social-icons/social-icons.php:489
 msgid "Yes"
 msgstr ""
 
 #: components/button/button.php:202 components/button/button.php:300
-#: components/button/button.php:548
+#: components/button/button.php:564
 msgid "Button Alignment"
 msgstr ""
 
-#: components/button/button.php:208 components/button/button.php:433
-#: components/button/button.php:454 components/hero-banner/hero-banner.php:361
+#: components/button/button.php:208 components/button/button.php:449
+#: components/button/button.php:470 components/hero-banner/hero-banner.php:361
 #: components/hero-banner/hero-banner.php:511
 #: components/hero-banner/hero-banner.php:799
 msgid "Button Text"
@@ -239,15 +239,15 @@ msgstr ""
 msgid "A Button"
 msgstr ""
 
-#: components/button/button.php:447
+#: components/button/button.php:463
 msgid "Button Preview"
 msgstr ""
 
-#: components/button/button.php:463 components/hero-banner/hero-banner.php:808
+#: components/button/button.php:479 components/hero-banner/hero-banner.php:808
 msgid "Button Link"
 msgstr ""
 
-#: components/button/button.php:478 functions.php:263 functions.php:361
+#: components/button/button.php:494 functions.php:263 functions.php:361
 #: functions.php:395 functions.php:436 functions.php:661 functions.php:852
 #: functions.php:887 functions.php:940 functions.php:958 functions.php:994
 #: integrations/visual-composer/vc-functions.php:38
@@ -255,47 +255,47 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: components/button/button.php:479 functions.php:959
+#: components/button/button.php:495 functions.php:959
 msgid "Ghost"
 msgstr ""
 
-#: components/button/button.php:480 functions.php:960
+#: components/button/button.php:496 functions.php:960
 msgid "Solid to Ghost"
 msgstr ""
 
-#: components/button/button.php:481 functions.php:961
+#: components/button/button.php:497 functions.php:961
 msgid "3D"
 msgstr ""
 
-#: components/button/button.php:482 functions.php:962
+#: components/button/button.php:498 functions.php:962
 msgid "Gradient"
 msgstr ""
 
-#: components/button/button.php:494 functions.php:1028
+#: components/button/button.php:510 functions.php:1028
 msgid "Pointed"
 msgstr ""
 
-#: components/button/button.php:495 functions.php:1029
+#: components/button/button.php:511 functions.php:1029
 msgid "Rounded"
 msgstr ""
 
-#: components/button/button.php:496 functions.php:1030
+#: components/button/button.php:512 functions.php:1030
 msgid "Pill"
 msgstr ""
 
-#: components/button/button.php:508 functions.php:995
+#: components/button/button.php:524 functions.php:995
 msgid "Thin"
 msgstr ""
 
-#: components/button/button.php:509 functions.php:996
+#: components/button/button.php:525 functions.php:996
 msgid "Thick"
 msgstr ""
 
-#: components/button/button.php:525
+#: components/button/button.php:541
 msgid "Size"
 msgstr ""
 
-#: components/button/button.php:539
+#: components/button/button.php:555
 msgid "Full Width"
 msgstr ""
 
@@ -305,12 +305,12 @@ msgstr ""
 
 #: components/countdown/countdown.php:111
 #: components/countdown/countdown.php:155
-#: components/countdown/countdown.php:291
+#: components/countdown/countdown.php:292
 msgid "Date"
 msgstr ""
 
 #: components/countdown/countdown.php:115
-#: components/countdown/countdown.php:292
+#: components/countdown/countdown.php:293
 msgid ""
 "Must be in the format MM/DD/YYYY. Example: 12/25/2015 would be Christmas of "
 "2015."
@@ -318,13 +318,13 @@ msgstr ""
 
 #: components/countdown/countdown.php:119
 #: components/countdown/countdown.php:161
-#: components/countdown/countdown.php:300
+#: components/countdown/countdown.php:301
 msgid "Time"
 msgstr ""
 
 #: components/countdown/countdown.php:122
 #: components/countdown/countdown.php:162
-#: components/countdown/countdown.php:301
+#: components/countdown/countdown.php:302
 msgid "Must be in the format HH:MM:SS. Example: 18:30:00 would be 6:30 PM."
 msgstr ""
 
@@ -348,7 +348,7 @@ msgstr ""
 msgid "A Countdown"
 msgstr ""
 
-#: components/countdown/countdown.php:309
+#: components/countdown/countdown.php:310
 msgid "Timezone"
 msgstr ""
 
@@ -360,7 +360,7 @@ msgstr ""
 #: components/custom-heading/custom-heading.php:260
 #: components/hero-banner/hero-banner.php:333
 #: components/hero-banner/hero-banner.php:483
-#: components/highlight-box/highlight-box.php:236
+#: components/highlight-box/highlight-box.php:234
 msgid "Heading Text"
 msgstr ""
 
@@ -489,62 +489,62 @@ msgstr ""
 msgid "Mm Demo"
 msgstr ""
 
-#: components/demo/demo.php:218
+#: components/demo/demo.php:219
 msgid "Text Field"
 msgstr ""
 
-#: components/demo/demo.php:227
+#: components/demo/demo.php:228
 msgid "Text Area Field"
 msgstr ""
 
-#: components/demo/demo.php:236
+#: components/demo/demo.php:237
 msgid "Select Field"
-msgstr ""
-
-#: components/demo/demo.php:242 components/demo/demo.php:265
-#: components/demo/demo.php:279
-msgid "Option 1"
 msgstr ""
 
 #: components/demo/demo.php:243 components/demo/demo.php:266
 #: components/demo/demo.php:280
-msgid "Option 2"
+msgid "Option 1"
 msgstr ""
 
 #: components/demo/demo.php:244 components/demo/demo.php:267
 #: components/demo/demo.php:281
+msgid "Option 2"
+msgstr ""
+
+#: components/demo/demo.php:245 components/demo/demo.php:268
+#: components/demo/demo.php:282
 msgid "Option 3"
 msgstr ""
 
-#: components/demo/demo.php:250
+#: components/demo/demo.php:251
 msgid "Checkbox Field"
 msgstr ""
 
-#: components/demo/demo.php:259
+#: components/demo/demo.php:260
 msgid "Multi Checkbox Field"
 msgstr ""
 
-#: components/demo/demo.php:273
+#: components/demo/demo.php:274
 msgid "Radio Field"
 msgstr ""
 
-#: components/demo/demo.php:287
+#: components/demo/demo.php:288
 msgid "Alpha Color Field"
 msgstr ""
 
-#: components/demo/demo.php:307
+#: components/demo/demo.php:308
 msgid "Single Media Field"
 msgstr ""
 
-#: components/demo/demo.php:316
+#: components/demo/demo.php:317
 msgid "Multi Media Field"
 msgstr ""
 
-#: components/demo/demo.php:325
+#: components/demo/demo.php:326
 msgid "Custom Field"
 msgstr ""
 
-#: components/demo/demo.php:327
+#: components/demo/demo.php:328
 msgid "This custom field can support <em>any</em> html."
 msgstr ""
 
@@ -554,7 +554,7 @@ msgid "Expandable Content"
 msgstr ""
 
 #: components/expandable-content/expandable-content.php:150
-#: components/expandable-content/expandable-content.php:372
+#: components/expandable-content/expandable-content.php:357
 msgid "Button or Link?"
 msgstr ""
 
@@ -563,19 +563,19 @@ msgid "Should the trigger be a button or a link?"
 msgstr ""
 
 #: components/expandable-content/expandable-content.php:154
-#: components/expandable-content/expandable-content.php:378
+#: components/expandable-content/expandable-content.php:363
 msgid "Select Button or Link"
 msgstr ""
 
 #: components/expandable-content/expandable-content.php:156
-#: components/expandable-content/expandable-content.php:380
-#: components/highlight-box/highlight-box.php:263
+#: components/expandable-content/expandable-content.php:365
+#: components/highlight-box/highlight-box.php:261
 #: components/social-icons/social-icons.php:288
 msgid "Link"
 msgstr ""
 
 #: components/expandable-content/expandable-content.php:171
-#: components/expandable-content/expandable-content.php:427
+#: components/expandable-content/expandable-content.php:412
 #: components/hero-banner/hero-banner.php:372
 #: components/hero-banner/hero-banner.php:522
 #: components/hero-banner/hero-banner.php:837
@@ -583,7 +583,7 @@ msgid "Button Border Weight"
 msgstr ""
 
 #: components/expandable-content/expandable-content.php:184
-#: components/expandable-content/expandable-content.php:437
+#: components/expandable-content/expandable-content.php:422
 #: components/hero-banner/hero-banner.php:385
 #: components/hero-banner/hero-banner.php:528
 #: components/hero-banner/hero-banner.php:847
@@ -591,7 +591,7 @@ msgid "Button Corner Style"
 msgstr ""
 
 #: components/expandable-content/expandable-content.php:194
-#: components/expandable-content/expandable-content.php:447
+#: components/expandable-content/expandable-content.php:432
 #: components/hero-banner/hero-banner.php:391
 #: components/hero-banner/hero-banner.php:534
 #: components/hero-banner/hero-banner.php:857
@@ -599,7 +599,7 @@ msgid "Button Color"
 msgstr ""
 
 #: components/expandable-content/expandable-content.php:204
-#: components/expandable-content/expandable-content.php:386
+#: components/expandable-content/expandable-content.php:371
 msgid "Button/Link Text"
 msgstr ""
 
@@ -612,7 +612,7 @@ msgid "Button/Link Alignment"
 msgstr ""
 
 #: components/expandable-content/expandable-content.php:217
-#: components/expandable-content/expandable-content.php:405
+#: components/expandable-content/expandable-content.php:390
 msgid "Fade in?"
 msgstr ""
 
@@ -634,16 +634,16 @@ msgstr ""
 msgid "Mm Expandable Content"
 msgstr ""
 
-#: components/expandable-content/expandable-content.php:395
+#: components/expandable-content/expandable-content.php:380
 msgid "Link Alignment"
 msgstr ""
 
-#: components/expandable-content/expandable-content.php:457
+#: components/expandable-content/expandable-content.php:442
 msgid "Content to be expanded"
 msgstr ""
 
-#: components/expandable-content/expandable-content.php:466
-#: components/restricted-content/restricted-content.php:340
+#: components/expandable-content/expandable-content.php:451
+#: components/restricted-content/restricted-content.php:332
 msgid "Custom class:"
 msgstr ""
 
@@ -765,37 +765,37 @@ msgstr ""
 msgid "Hero Banner Content"
 msgstr ""
 
-#: components/highlight-box/highlight-box.php:86 mm-components.php:60
+#: components/highlight-box/highlight-box.php:103 mm-components.php:60
 msgid "Highlight Box"
 msgstr ""
 
-#: components/highlight-box/highlight-box.php:94
+#: components/highlight-box/highlight-box.php:111
 #: components/icon-box/icon-box.php:267
 msgid "Heading"
 msgstr ""
 
-#: components/highlight-box/highlight-box.php:100
-#: components/highlight-box/highlight-box.php:245
+#: components/highlight-box/highlight-box.php:117
+#: components/highlight-box/highlight-box.php:243
 #: components/icon-box/icon-box.php:273
 msgid "Paragraph Text"
 msgstr ""
 
-#: components/highlight-box/highlight-box.php:105
-#: components/highlight-box/highlight-box.php:254
+#: components/highlight-box/highlight-box.php:122
+#: components/highlight-box/highlight-box.php:252
 #: components/icon-box/icon-box.php:283
 msgid "Link Text"
 msgstr ""
 
-#: components/highlight-box/highlight-box.php:110
+#: components/highlight-box/highlight-box.php:127
 #: components/icon-box/icon-box.php:278
 msgid "Link URL"
 msgstr ""
 
-#: components/highlight-box/highlight-box.php:152
+#: components/highlight-box/highlight-box.php:169
 msgid "A Highlight Box"
 msgstr ""
 
-#: components/highlight-box/highlight-box.php:157
+#: components/highlight-box/highlight-box.php:174
 msgid "Mm Highlight Box"
 msgstr ""
 
@@ -856,29 +856,29 @@ msgid "Logo Strip"
 msgstr ""
 
 #: components/logo-strip/logo-strip.php:138
-#: components/logo-strip/logo-strip.php:289
+#: components/logo-strip/logo-strip.php:285
 msgid "Title Heading Level"
 msgstr ""
 
 #: components/logo-strip/logo-strip.php:144
-#: components/logo-strip/logo-strip.php:299
+#: components/logo-strip/logo-strip.php:295
 msgid "Title Alignment"
 msgstr ""
 
 #: components/logo-strip/logo-strip.php:147
-#: components/logo-strip/logo-strip.php:306 functions.php:854
+#: components/logo-strip/logo-strip.php:302 functions.php:854
 #: integrations/visual-composer/vc-functions.php:54
 msgid "Center"
 msgstr ""
 
 #: components/logo-strip/logo-strip.php:148
-#: components/logo-strip/logo-strip.php:305 functions.php:853
+#: components/logo-strip/logo-strip.php:301 functions.php:853
 #: integrations/visual-composer/vc-functions.php:53
 msgid "Left"
 msgstr ""
 
 #: components/logo-strip/logo-strip.php:149
-#: components/logo-strip/logo-strip.php:307 functions.php:855
+#: components/logo-strip/logo-strip.php:303 functions.php:855
 #: integrations/visual-composer/vc-functions.php:55
 msgid "Right"
 msgstr ""
@@ -903,14 +903,14 @@ msgstr ""
 msgid "Mm Logo Strip"
 msgstr ""
 
-#: components/logo-strip/logo-strip.php:313
+#: components/logo-strip/logo-strip.php:309
 #: components/social-icons/social-icons.php:178
 msgid "Images"
 msgstr ""
 
-#: components/logo-strip/logo-strip.php:322
+#: components/logo-strip/logo-strip.php:318
 #: components/social-icons/social-icons.php:218
-#: components/social-icons/social-icons.php:448
+#: components/social-icons/social-icons.php:453
 msgid "Image Size"
 msgstr ""
 
@@ -1056,66 +1056,66 @@ msgstr ""
 msgid "Simple List"
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:130
+#: components/restricted-content/restricted-content.php:127
 #: mm-components.php:64
 msgid "Restricted Content"
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:138
-#: components/restricted-content/restricted-content.php:300
+#: components/restricted-content/restricted-content.php:135
+#: components/restricted-content/restricted-content.php:292
 msgid "Restrict to specific user roles?"
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:140
-#: components/restricted-content/restricted-content.php:301
+#: components/restricted-content/restricted-content.php:137
+#: components/restricted-content/restricted-content.php:293
 msgid ""
 "By default only logged in users will see the restricted content. Check this "
 "to further restrict to specific user roles."
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:147
+#: components/restricted-content/restricted-content.php:144
 msgid "Allowed User Roles"
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:149
-#: components/restricted-content/restricted-content.php:313
+#: components/restricted-content/restricted-content.php:146
+#: components/restricted-content/restricted-content.php:305
 msgid ""
 "Select the user role(s) that should be allowed to view the restricted "
 "content."
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:158
+#: components/restricted-content/restricted-content.php:155
 msgid "Alternate Content"
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:160
-#: components/restricted-content/restricted-content.php:332
+#: components/restricted-content/restricted-content.php:157
+#: components/restricted-content/restricted-content.php:324
 msgid ""
 "The content entered here will be shown to users who do not meet the "
 "criteria set above. HTML and shortcodes are allowed."
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:209
+#: components/restricted-content/restricted-content.php:206
 msgid "A Restricted Content Container"
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:214
+#: components/restricted-content/restricted-content.php:211
 msgid "Mm Restricted Content"
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:291
+#: components/restricted-content/restricted-content.php:283
 msgid "Title:"
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:312
+#: components/restricted-content/restricted-content.php:304
 msgid "Allowed user roles."
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:322
+#: components/restricted-content/restricted-content.php:314
 msgid "Restricted content for users with the selected role(s):"
 msgstr ""
 
-#: components/restricted-content/restricted-content.php:331
+#: components/restricted-content/restricted-content.php:323
 msgid "Optional content for all other users:"
 msgstr ""
 
@@ -1128,17 +1128,17 @@ msgid "Social Icons"
 msgstr ""
 
 #: components/social-icons/social-icons.php:212
-#: components/social-icons/social-icons.php:438
+#: components/social-icons/social-icons.php:443
 msgid "Icon Type"
 msgstr ""
 
 #: components/social-icons/social-icons.php:228
-#: components/social-icons/social-icons.php:458
+#: components/social-icons/social-icons.php:463
 msgid "Icon Alignment"
 msgstr ""
 
 #: components/social-icons/social-icons.php:234
-#: components/social-icons/social-icons.php:468
+#: components/social-icons/social-icons.php:473
 msgid "Icon Style"
 msgstr ""
 
@@ -1155,19 +1155,19 @@ msgid "Icon Color"
 msgstr ""
 
 #: components/social-icons/social-icons.php:271
-#: components/social-icons/social-icons.php:490
+#: components/social-icons/social-icons.php:495
 msgid "Icon Size"
 msgstr ""
 
 #: components/social-icons/social-icons.php:342
-msgid "A Social Icons Section"
+msgid "A Row of Social Icons"
 msgstr ""
 
 #: components/social-icons/social-icons.php:347
 msgid "Mm Social Icons"
 msgstr ""
 
-#: components/social-icons/social-icons.php:478
+#: components/social-icons/social-icons.php:483
 msgid "Ghost Mode"
 msgstr ""
 
