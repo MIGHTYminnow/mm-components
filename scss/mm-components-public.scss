@@ -731,6 +731,9 @@ a.mm-button {
 			&.next {
 				float: right;
 			}
+			&.selected {
+				color: $default-color;
+			}
 		}
 		span {
 			display: inline-block;
