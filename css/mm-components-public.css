@@ -641,6 +641,10 @@ a.mm-button.full-width {
   float: right;
 }
 
+.mm-posts .pagination-wrap .pagination-link.selected {
+  color: #99CCCC;
+}
+
 .mm-posts .pagination-wrap span {
   display: inline-block;
   margin: 0 6px;
