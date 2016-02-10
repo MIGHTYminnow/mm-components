@@ -409,6 +409,14 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 			'mm_custom_class' => '',
 		);
 
+		$colors = mm_get_colors( 'mm-social-icons' );
+
+		// Add our brand colors option.
+		$brand_colors = array(
+			'brand-colors' => __( 'Brand Colors', 'mm-components' )
+		);
+		$colors = array_merge( $colors, $brand_colors );
+
 		$social_networks = mm_get_social_networks( 'mm-social-icons' );
 
 		foreach ( $social_networks as $social_network => $social_network_label ) {
@@ -511,7 +519,7 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 			$classname . '-color widefat',
 			'color',
 			$color,
-			mm_get_colors( 'mm-social-icons' )
+			$colors
 		);
 
 		foreach ( $social_networks as $social_network => $social_network_label ) {
