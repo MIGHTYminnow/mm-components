@@ -378,6 +378,7 @@
 			var $iconStyleWrap = $widget.find( '.mm-select-field-wrap').has( '.mm-social-icons-widget-style');
 			var $iconImageWrap = $widget.find( '.mm-single-media-field-wrap' ).has('.mm-single-media-image');
 			var $ghostModeWrap = $widget.find( '.mm-multi-checkbox-field-wrap' ).has( '.mm-social-icons-widget-ghost-mode' );
+			var $iconColorWrap = $widget.find( '.mm-select-field-wrap' ).has( '.mm-social-icons-widget-color' );
 
 			/**if ( 'ghost' === $buttonStyle.find( 'option:selected' ).attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' ) ) {
 				$buttonBorderWrap.removeClass( 'mm-hidden' );
@@ -393,9 +394,11 @@
 					$iconImageWrap.removeClass( 'mm-hidden' );
 					$iconStyleWrap.addClass( 'mm-hidden' );
 					$ghostModeWrap.addClass( 'mm-hidden' );
+					$iconColorWrap.addClass( 'mm-hidden' );
 				} else {
 					$iconImageWrap.addClass( 'mm-hidden' );
 					$iconStyleWrap.removeClass( 'mm-hidden' );
+					$iconColorWrap.removeClass( 'mm-hidden' );
 				}
 
 				$iconType.on( 'change', function() {
@@ -419,8 +422,9 @@
 
 			if ( 'images' === $iconType.find( 'option:selected' ).attr( 'value' ) ) {
 				$iconImageWrap.removeClass( 'mm-hidden' );
-				$iconStyleWrap.removeClass( 'mm-hidden' );
+				$iconStyleWrap.addClass( 'mm-hidden' );
 				$imageSizeWrap.removeClass( 'mm-hidden' );
+				$iconColorWrap.addClass( 'mm-hidden' );
 			}
 		});
 	}
