@@ -490,11 +490,11 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 			)
 		);
 
-		// Icon color.
+		// Icon size.
 		$this->field_select(
 			__( 'Icon Size', 'mm-components' ),
 			'',
-			$classname . '-color widefat',
+			$classname . '-size widefat',
 			'size',
 			$size,
 			array(
@@ -502,6 +502,16 @@ class Mm_Social_Icons_Widget extends Mm_Components_Widget {
 				'small' => __( 'Small', 'mm-components' ),
 				'large'	=> __( 'Large', 'mm-components' ),
 			)
+		);
+
+		// Icon color.
+		$this->field_select(
+			__( 'Icon Color', 'mm-components' ),
+			'',
+			$classname . '-color widefat',
+			'color',
+			$color,
+			mm_get_colors( 'mm-social-icons' )
 		);
 
 		foreach ( $social_networks as $social_network => $social_network_label ) {
