@@ -826,7 +826,7 @@ function mm_get_wrapper_elements( $context = '' ) {
 function mm_get_wrapper_elements_for_vc( $context = '' ) {
 
 	$empty_option = array(
-			__( 'Select an element', 'mm-components' ),
+		__( 'Select an element', 'mm-components' ),
 	);
 
 	return $empty_option + array_flip( mm_get_wrapper_elements( $context ) );
