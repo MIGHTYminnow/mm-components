@@ -686,6 +686,18 @@ a.mm-button {
 	opacity: 1;
 }
 
+/* Image Card
+--------------------------------------------- */
+
+.mm-image-card-wrap {
+	line-height: 0;
+}
+
+.mm-image-card-wrap .mm-button {
+	width: 100%;
+	line-height: 1;
+}
+
 /* Posts
 --------------------------------------------- */
 
