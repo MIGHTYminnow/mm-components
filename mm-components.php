@@ -61,6 +61,7 @@ function mm_components_init_components() {
 		'hero-banner'        => __( 'Hero Banner', 'mm-components' ),
 		'highlight-box'      => __( 'Highlight Box', 'mm-components' ),
 		'icon-box'           => __( 'Icon Box', 'mm-components' ),
+		'image-card'         => __( 'Image Card', 'mm-components'),
 		'logo-strip'         => __( 'Logo Strip', 'mm-components' ),
 		'posts'              => __( 'Posts', 'mm-components' ),
 		'restricted-content' => __( 'Restricted Content', 'mm-components' ),
@@ -104,6 +105,9 @@ function mm_components_init_components() {
 	}
 	if ( array_key_exists( 'icon-box', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/icon-box/icon-box.php';
+	}
+	if ( array_key_exists( 'image-card', $mm_active_components ) ) {
+		require_once MM_COMPONENTS_PATH . 'components/image-card/image-card.php';
 	}
 	if ( array_key_exists( 'logo-strip', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/logo-strip/logo-strip.php';
