@@ -218,7 +218,7 @@ function mm_components_register_image_card_widget() {
 }
 
 /**
- * Hero Banner widget.
+ * Image Card widget.
  *
  * @since  1.0.0
  */
