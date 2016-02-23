@@ -540,6 +540,40 @@ function mm_get_social_networks_for_vc( $context = '' ) {
 }
 
 /**
+ * Return an array of image card styles.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of image card styles.
+ */
+function mm_get_image_card_styles( $context = '' ) {
+
+	// Add an empty first option.
+	$image_card_styles = array(
+		'button'      => __( 'Button', 'mm-components' ),
+		'text-inside' => __( 'Text Inside', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_get_image_card_styles', $image_card_styles, $context );
+}
+
+/**
+ * Return an array of image card styles for use in a Visual Composer param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of image card styles.
+ */
+function mm_get_image_card_styles_for_vc( $context = '' ) {
+
+	return array_flip( mm_get_image_card_styles( $context ) );
+}
+
+/**
  * Return an array of timezones.
  *
  * @since   1.0.0
