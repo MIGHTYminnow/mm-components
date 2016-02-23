@@ -691,11 +691,21 @@ a.mm-button {
 
 .mm-image-card-wrap {
 	line-height: 0;
+	position: relative;
 }
 
 .mm-image-card-wrap .mm-button {
 	width: 100%;
 	line-height: 1;
+}
+
+.mm-image-card-text {
+	position: absolute;
+    width: 100%;
+    line-height: 1;
+    bottom: 0;
+    padding: 20px;
+    text-align: center;
 }
 
 /* Posts
