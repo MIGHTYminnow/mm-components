@@ -472,13 +472,14 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
             $link_image
         );
 
-        // Button text.
-        $this->field_text(
-            __( 'Button Text', 'mm-components' ),
+        // Link target.
+        $this->field_select(
+            __( 'Link Target', 'mm-components' ),
             '',
-            $classname . '-heading widefat',
-            'button_text',
-            $button_text
+            $classname . '-link-target widefat',
+            'button_link_target',
+            $button_link_target,
+            mm_get_link_targets( 'mm-button' )
         );
 
         // Content align.
@@ -491,14 +492,13 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
             mm_get_text_alignment( 'mm-image-card' )
         );
 
-        // Button link target.
-        $this->field_select(
-            __( 'Button Link Target', 'mm-components' ),
+        // Button text.
+        $this->field_text(
+            __( 'Button Text', 'mm-components' ),
             '',
-            $classname . '-link-target widefat',
-            'button_link_target',
-            $button_link_target,
-            mm_get_link_targets( 'mm-button' )
+            $classname . '-button-text widefat',
+            'button_text',
+            $button_text
         );
 
         // Button style.
