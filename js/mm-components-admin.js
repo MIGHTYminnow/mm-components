@@ -26,11 +26,14 @@
 		// Set up field dependencies for Mm Hero Banner.
 		$( '.widget[id*="mm_hero_banner_widget"]' ).mmHeroBannerFields();
 
-		// Set up field dependencies for Mm Hero Banner.
+		// Set up field dependencies for Mm Expandable Content Banner.
 		$( '.widget[id*="mm_expandable_content_widget"]' ).mmExpandableContentFields();
 
-		// Set up field dependencies for Mm Hero Banner.
+		// Set up field dependencies for Mm Social Icons.
 		$( '.widget[id*="mm_social_icons_widget"]' ).mmSocialIconsFields();
+
+		// Set up field dependencies for Mm Image Card.
+		$( '.widget[id*="mm_image_card_widget"]' ).mmImageCardFields();
 	});
 
 	// Reset or initialize certain fields when widgets are added or updated.
@@ -55,6 +58,10 @@
 
 		if ( $( data[0] ).is( '.widget[id*="mm_social_icons_widget"]' ) ) {
 			$( data[0] ).mmSocialIconsFields();
+		}
+
+		if ( $( data[0] ).is( '.widget[id*="mm_image_card_widget"]' ) ) {
+			$( data[0] ).mmImageCardFields();
 		}
 	});
 
@@ -380,12 +387,6 @@
 			var $ghostModeWrap = $widget.find( '.mm-multi-checkbox-field-wrap' ).has( '.mm-social-icons-widget-ghost-mode' );
 			var $iconColorWrap = $widget.find( '.mm-select-field-wrap' ).has( '.mm-social-icons-widget-color' );
 
-			/**if ( 'ghost' === $buttonStyle.find( 'option:selected' ).attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' ) ) {
-				$buttonBorderWrap.removeClass( 'mm-hidden' );
-			} else {
-				$buttonBorderWrap.addClass( 'mm-hidden' );
-			}**/
-
 			$iconImageWrap.addClass('mm-hidden');
 			$imageSizeWrap.addClass( 'mm-hidden');
 
@@ -426,6 +427,105 @@
 				$imageSizeWrap.removeClass( 'mm-hidden' );
 				$iconColorWrap.addClass( 'mm-hidden' );
 			}
+		});
+	}
+
+	/**
+	 * Dependency for Expandable Content dropdown widget fields.
+	 *
+	 * @since  1.0.0
+	 */
+	$.fn.mmImageCardFields = function() {
+
+		return this.each( function() {
+
+			var $widget             = $( this );
+			var $imageCardStyle     = $widget.find( '.mm-image-card-widget-image-card-style' );
+			var $imageTextWrap      = $widget.find( '.mm-text-field-wrap').has( '.mm-image-card-widget-image-text' );
+			var $imageTextColorWrap = $widget.find( '.mm-select-field-wrap' ).has( '.mm-image-card-widget-image-text-color' );
+			var $linkImage          = $widget.find( '.mm-image-card-widget-link-image' );
+			var $linkTargetWrap     = $widget.find( '.mm-select-field-wrap').has( '.mm-image-card-widget-link-target' );
+			var $buttonTextWrap     = $widget.find( '.mm-text-field-wrap').has( '.mm-image-card-widget-button-text' );
+			var $buttonStyle        = $widget.find( '.mm-image-card-widget-button-style' );
+			var $buttonStyleWrap    = $widget.find( '.mm-select-field-wrap').has( '.mm-image-card-widget-button-style' );
+			var $buttonBorderWrap   = $widget.find( '.mm-select-field-wrap' ).has( '.mm-image-card-widget-button-border-weight' );
+			var $buttonColorWrap    = $widget.find( '.mm-select-field-wrap' ).has( '.mm-image-card-widget-button-color' );
+
+			if( $linkImage.is( ':checked' ) ) {
+				$linkTargetWrap.removeClass( 'mm-hidden' );
+			} else {
+				$linkTargetWrap.addClass( 'mm-hidden' );
+			}
+
+			$linkImage.on( 'click', function() {
+				$linkTargetWrap.toggleClass( 'mm-hidden' );
+			});
+
+			if ( 'text-inside' === $imageCardStyle.find( 'option:selected').attr( 'value' ) ) {
+				$buttonTextWrap.addClass( 'mm-hidden' );
+				$buttonStyleWrap.addClass( 'mm-hidden' );
+				$buttonBorderWrap.addClass( 'mm-hidden' );
+				$buttonColorWrap.addClass( 'mm-hidden' );
+				$imageTextWrap.removeClass( 'mm-hidden' );
+				$imageTextColorWrap.removeClass( 'mm-hidden' );
+
+				if ( 'ghost' === $buttonStyle.find( 'option:selected' ).attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' ) ) {
+					$buttonBorderWrap.addClass( 'mm-hidden' );
+				}
+			}
+
+			if ( 'button-bottom' === $imageCardStyle.find( 'option:selected').attr( 'value' ) ) {
+				$buttonTextWrap.removeClass( 'mm-hidden' );
+				$buttonStyleWrap.removeClass( 'mm-hidden' );
+				$buttonBorderWrap.removeClass( 'mm-hidden' );
+				$buttonColorWrap.removeClass( 'mm-hidden' );
+				$imageTextWrap.addClass( 'mm-hidden' );
+				$imageTextColorWrap.addClass( 'mm-hidden' );
+
+				if ( 'ghost' === $buttonStyle.find( 'option:selected' ).attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' ) ) {
+					$buttonBorderWrap.removeClass( 'mm-hidden' );
+				} else {
+					$buttonBorderWrap.addClass( 'mm-hidden' );
+				}
+
+				$buttonStyle.on( 'change', function() {
+					if ( 'ghost' === $buttonStyle.find( 'option:selected' ).attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' ) ) {
+						$buttonBorderWrap.removeClass( 'mm-hidden' );
+					} else {
+						$buttonBorderWrap.addClass( 'mm-hidden' );
+					}
+				});
+			}
+
+			$imageCardStyle.on( 'change', function() {
+
+				if ( 'text-inside' === $imageCardStyle.find( 'option:selected').attr( 'value' ) ) {
+					$buttonTextWrap.addClass( 'mm-hidden' );
+					$buttonStyleWrap.addClass( 'mm-hidden' );
+					$buttonBorderWrap.addClass( 'mm-hidden' );
+					$buttonColorWrap.addClass( 'mm-hidden' );
+					$imageTextWrap.removeClass( 'mm-hidden' );
+					$imageTextColorWrap.removeClass( 'mm-hidden' );
+				}
+
+				if ( 'button-bottom' === $imageCardStyle.find( 'option:selected').attr( 'value' ) ) {
+					$buttonTextWrap.removeClass( 'mm-hidden' );
+					$buttonStyleWrap.removeClass( 'mm-hidden' );
+					$buttonBorderWrap.removeClass( 'mm-hidden' );
+					$buttonColorWrap.removeClass( 'mm-hidden' );
+					$imageTextWrap.addClass( 'mm-hidden' );
+					$imageTextColorWrap.addClass( 'mm-hidden' );
+
+					$buttonStyle.on( 'change', function() {
+						if ( 'ghost' === $buttonStyle.find( 'option:selected' ).attr( 'value' ) || 'solid-to-ghost' === $buttonStyle.find('option:selected').attr( 'value' ) ) {
+							$buttonBorderWrap.removeClass( 'mm-hidden' );
+						} else {
+							$buttonBorderWrap.addClass( 'mm-hidden' );
+						}
+					});
+				}
+			});
+
 		});
 	}
 
