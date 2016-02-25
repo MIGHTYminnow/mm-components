@@ -9,6 +9,7 @@ function mm_image_card( $args ) {
         'title'                => '',
         'image'                => '',
         'image_card_style'     => 'button-bottom',
+        'image_size'           => '',
         'image_text'           => '',
         'image_text_color'     => '',
         'link_image'           => '',
@@ -29,6 +30,7 @@ function mm_image_card( $args ) {
     $title                = $args['title'];
     $image                = $args['image'];
     $image_card_style     = $args['image_card_style'];
+    $image_size           = $args['image_size'];
     $image_text           = $args['image_text'];
     $image_text_color     = $args['image_text_color'];
     $link                 = $args['link'];
@@ -63,9 +65,13 @@ function mm_image_card( $args ) {
         $link_target = $button_link_target;
     }
 
+    if ( ! $image_size ) {
+        $image_size = 'full';
+    }
+
     // Support the image being an ID or a URL.
     if ( is_numeric( $image ) ) {
-        $image_array = wp_get_attachment_image_src( $image, 'full' );
+        $image_array = wp_get_attachment_image_src( $image, $image_size );
         $image_url   = $image_array[0];
     } else {
         $image_url = esc_url( $image );
@@ -202,6 +208,12 @@ function mm_vc_image_card() {
                 'heading'    => __( 'Image Card Style', 'mm-components' ),
                 'param_name' => 'image_card_style',
                 'value'      => $image_card_styles,
+            ),
+            array(
+                'type'        => 'textfield',
+                'heading'     => __( 'Image Size', 'mm-components' ),
+                'param_name'  => 'image_size',
+                'description' => __( "If left blank, image size will default to 'full'.", 'mm-components'),
             ),
             array(
                 'type'       => 'textfield',
@@ -342,6 +354,7 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
         $defaults = array(
             'image'                => '',
             'image_card_style'     => 'button-bottom',
+            'image_size'           => '',
             'image_text'           => '',
             'image_text_color'     => '',
             'link_image'           => '',
@@ -381,6 +394,7 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
         $defaults = array(
             'image'                => '',
             'image_card_style'     => 'button-bottom',
+            'image_size'           => '',
             'image_text'           => '',
             'image_text_color'     => '',
             'link_image'           => '',
@@ -401,6 +415,7 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
 
         $image                = $instance['image'];
         $image_card_style     = $instance['image_card_style'];
+        $image_size           = $instance['image_size'];
         $image_text           = $instance['image_text'];
         $image_text_color     = $instance['image_text_color'];
         $link_image           = $instance['link_image'];
@@ -442,6 +457,15 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
             $classname . '-link widefat',
             'link',
             $link
+        );
+
+        // Image Size.
+        $this->field_text(
+            __( 'Image Size', 'mm-components' ),
+            __( "If left blank, image size will default to 'full'", 'mm-components' ),
+            $classname . '-image-size widefat',
+            'image_size',
+            $image_size
         );
 
         // Image Text.
@@ -547,6 +571,7 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
         $instance                         = $old_instance;
         $instance['image']                = sanitize_text_field( $new_instance['image'] );
         $instance['image_card_style']     = sanitize_text_field( $new_instance['image_card_style'] );
+        $instance['image_size']           = sanitize_text_field( $new_instance['image_size'] );
         $instance['image_text']           = sanitize_text_field( $new_instance['image_text'] );
         $instance['image_text_color']     = sanitize_text_field( $new_instance['image_text_color'] );
         $instance['link_image']           = sanitize_text_field( $new_instance['link_image'] );
