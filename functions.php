@@ -219,8 +219,6 @@ function mm_get_taxonomies_for_vc( $context = '' ) {
 	);
 
 	return $empty_option + array_flip( mm_get_taxonomies( $context ) );
-
-		error_log( print_r( mm_get_taxonomies( $context ), true ) );
 }
 
 /**
