@@ -263,7 +263,7 @@ function mm_get_image_sizes_for_vc( $context = '' ) {
 		__( 'Default', 'mm-components' ) => '',
 	);
 
-	return $empty_option + mm_get_image_sizes( $context );
+	return $empty_option + array_flip( mm_get_image_sizes( $context ) );
 }
 
 /**

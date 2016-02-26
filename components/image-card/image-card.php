@@ -86,6 +86,10 @@ function mm_image_card( $args ) {
         );
     }
 
+    // Set container width to be the same as the image width.
+    $image_data = wp_get_attachment_image_src( $image, $image_size );
+    $image_width = $image_data[1];
+
     if ( $link_image ) {
         $content_output = sprintf(
             '%s<a href="%s" title="%s" target="%s"><img class="%s" src="%s"></a>',
@@ -131,7 +135,7 @@ function mm_image_card( $args ) {
 
     <div class="<?php echo esc_attr( $mm_classes ); ?>">
 
-        <div class="mm-image-card-wrap">
+        <div class="mm-image-card-wrap" style="max-width:<?php echo esc_attr( $image_width );?>px">
 
         <?php
 
@@ -186,6 +190,7 @@ function mm_vc_image_card() {
 
     $text_alignments        = mm_get_text_alignment_for_vc( 'mm-image-card' );
     $image_card_styles      = mm_get_image_card_styles_for_vc( 'mm-image-card' );
+    $image_sizes            = mm_get_image_sizes_for_vc( 'mm-image-card' );
     $image_text_colors      = mm_get_colors_for_vc( 'mm-image-card' );
     $button_styles          = mm_get_button_styles_for_vc( 'mm-button' );
     $button_border_weights  = mm_get_button_border_weights_for_vc( 'mm-button' );
@@ -210,10 +215,10 @@ function mm_vc_image_card() {
                 'value'      => $image_card_styles,
             ),
             array(
-                'type'        => 'textfield',
+                'type'        => 'dropdown',
                 'heading'     => __( 'Image Size', 'mm-components' ),
                 'param_name'  => 'image_size',
-                'description' => __( "If left blank, image size will default to 'full'.", 'mm-components'),
+                'value'       => $image_sizes,
             ),
             array(
                 'type'       => 'textfield',
@@ -460,12 +465,13 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
         );
 
         // Image Size.
-        $this->field_text(
+        $this->field_select(
             __( 'Image Size', 'mm-components' ),
-            __( "If left blank, image size will default to 'full'", 'mm-components' ),
+            '',
             $classname . '-image-size widefat',
             'image_size',
-            $image_size
+            $image_size,
+            mm_get_image_sizes( 'mm-image-card' )
         );
 
         // Image Text.
