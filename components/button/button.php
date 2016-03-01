@@ -194,7 +194,7 @@ function mm_vc_button() {
 				'param_name'  => 'full_width',
 				'description' => __( 'Choosing full-width will make the button take up the width of its container.', 'mm-components' ),
 				'value'       => array(
-					__( 'Yes', 'mm-components' ) => 'full-width',
+					__( 'Yes', 'mm-components' ) => 'true',
 				),
 			),
 			array(
