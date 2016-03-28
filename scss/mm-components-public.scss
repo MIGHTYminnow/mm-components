@@ -542,6 +542,13 @@ a.mm-button {
 	display: none;
 }
 
+/* Highlight Box
+--------------------------------------------- */
+
+.mm-highlight-box p {
+	font-size: 2em;
+}
+
 /* Icon Box
 --------------------------------------------- */
 
@@ -592,49 +599,6 @@ a.mm-button {
 	}
 }
 
-/* Image Grid
---------------------------------------------- */
-
-.mm-image-grid {
-	overflow: hidden;
-}
-
-.mm-image-grid.max-in-row-1 .mm-image-grid-image {
-	width: 100%;
-}
-
-.mm-image-grid.max-in-row-2 .mm-image-grid-image {
-	width: 50%;
-}
-
-.mm-image-grid.max-in-row-3 .mm-image-grid-image {
-	width: 33.33%;
-}
-
-.mm-image-grid.max-in-row-4 .mm-image-grid-image {
-	width: 25%;
-}
-
-.mm-image-grid.max-in-row-5 .mm-image-grid-image {
-	width: 20%;
-}
-
-.mm-image-grid.max-in-row-6 .mm-image-grid-image {
-	width: 16.65%;
-}
-
-.mm-image-grid-image {
-	text-align: center;
-	float: left;
-	a,
-	img {
-		display: block;
-	}
-	.caption {
-		margin-top: 10px;
-	}
-}
-
 /* Logo Strip
 --------------------------------------------- */
 
@@ -661,7 +625,6 @@ a.mm-button {
 		max-width: 180px;
 	}
 }
-
 
 /* Hero Banner
 --------------------------------------------- */
@@ -723,6 +686,27 @@ a.mm-button {
 	opacity: 1;
 }
 
+/* Image Card
+--------------------------------------------- */
+
+.mm-image-card-wrap {
+	line-height: 0;
+	position: relative;
+}
+
+.mm-image-card-wrap .mm-button {
+	width: 100%;
+	line-height: 1;
+}
+
+.mm-image-card-text {
+	position: absolute;
+    width: 100%;
+    line-height: 1;
+    bottom: 0;
+    padding: 20px;
+}
+
 /* Posts
 --------------------------------------------- */
 
@@ -767,6 +751,9 @@ a.mm-button {
 			}
 			&.next {
 				float: right;
+			}
+			&.selected {
+				color: $default-color;
 			}
 		}
 		span {
@@ -1084,4 +1071,3 @@ a.mm-button {
 		}
 	}
 }
-

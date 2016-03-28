@@ -53,16 +53,16 @@ function mm_components_init_components() {
 	$mm_components = array(
 		'blockquote'         => __( 'Blockquote', 'mm-components' ),
 		'button'             => __( 'Button', 'mm-components' ),
+		'count-up'           => __( 'Count Up', 'mm-components' ),
 		'countdown'          => __( 'Countdown', 'mm-components' ),
+		'custom-content'     => __( 'Custom Content', 'mm-components' ),
 		'custom-heading'     => __( 'Custom Heading', 'mm-components' ),
 		'expandable-content' => __( 'Expandable Content', 'mm-components' ),
 		'hero-banner'        => __( 'Hero Banner', 'mm-components' ),
 		'highlight-box'      => __( 'Highlight Box', 'mm-components' ),
 		'icon-box'           => __( 'Icon Box', 'mm-components' ),
-		'image-grid'         => __( 'Image Grid', 'mm-components' ),
+		'image-card'         => __( 'Image Card', 'mm-components'),
 		'logo-strip'         => __( 'Logo Strip', 'mm-components' ),
-		'polaroid'           => __( 'Polaroid', 'mm-components' ),
-		'polaroid-2'         => __( 'Polaroid 2', 'mm-components' ),
 		'posts'              => __( 'Posts', 'mm-components' ),
 		'restricted-content' => __( 'Restricted Content', 'mm-components' ),
 		'social-icons'       => __( 'Social Icons', 'mm-components' ),
@@ -82,8 +82,14 @@ function mm_components_init_components() {
 	if ( array_key_exists( 'button', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/button/button.php';
 	}
+	if ( array_key_exists( 'count-up', $mm_active_components ) ) {
+		require_once MM_COMPONENTS_PATH . 'components/count-up/count-up.php';
+	}
 	if ( array_key_exists( 'countdown', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/countdown/countdown.php';
+	}
+	if ( array_key_exists( 'custom-content', $mm_active_components ) ) {
+		require_once MM_COMPONENTS_PATH . 'components/custom-content/custom-content.php';
 	}
 	if ( array_key_exists( 'custom-heading', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/custom-heading/custom-heading.php';
@@ -100,17 +106,11 @@ function mm_components_init_components() {
 	if ( array_key_exists( 'icon-box', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/icon-box/icon-box.php';
 	}
-	if ( array_key_exists( 'image-grid', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/image-grid/image-grid.php';
+	if ( array_key_exists( 'image-card', $mm_active_components ) ) {
+		require_once MM_COMPONENTS_PATH . 'components/image-card/image-card.php';
 	}
 	if ( array_key_exists( 'logo-strip', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/logo-strip/logo-strip.php';
-	}
-	if ( array_key_exists( 'polaroid', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/polaroid/polaroid.php';
-	}
-	if ( array_key_exists( 'polaroid-2', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/polaroid-2/polaroid-2.php';
 	}
 	if ( array_key_exists( 'posts', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/posts/posts.php';

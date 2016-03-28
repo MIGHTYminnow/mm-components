@@ -30,23 +30,23 @@ function mm_posts( $args ) {
 		'per_page'            => 10,
 		'pagination'          => '',
 		'template'            => '',
-		'show_featured_image' => '',
-		'featured_image_size' => '',
-		'show_post_info'      => '',
-		'show_post_meta'      => '',
-		'use_post_content'    => '',
-		'masonry'             => '',
+		'show_featured_image' => false,
+		'featured_image_size' => 'thumbnail',
+		'show_post_info'      => false,
+		'show_post_meta'      => false,
+		'use_post_content'    => false,
+		'masonry'             => false,
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$post_id    = (int)$args['post_id'];
-	$post_type  = sanitize_text_field( $args['post_type'] );
-	$taxonomy   = sanitize_text_field( $args['taxonomy'] );
-	$term       = sanitize_text_field( $args['term'] );
-	$per_page   = (int)$args['per_page'];
-	$template   = sanitize_text_field( $args['template'] );
-	$masonry    = mm_true_or_false( $args['masonry'] );
+	$post_id   = (int)$args['post_id'];
+	$post_type = sanitize_text_field( $args['post_type'] );
+	$taxonomy  = sanitize_text_field( $args['taxonomy'] );
+	$term      = sanitize_text_field( $args['term'] );
+	$per_page  = (int)$args['per_page'];
+	$template  = sanitize_text_field( $args['template'] );
+	$masonry   = mm_true_or_false( $args['masonry'] );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );

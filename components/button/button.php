@@ -194,7 +194,7 @@ function mm_vc_button() {
 				'param_name'  => 'full_width',
 				'description' => __( 'Choosing full-width will make the button take up the width of its container.', 'mm-components' ),
 				'value'       => array(
-					__( 'Yes', 'mm-components' ) => 'full-width',
+					__( 'Yes', 'mm-components' ) => 'true',
 				),
 			),
 			array(
@@ -374,7 +374,23 @@ class Mm_Button_Widget extends Mm_Components_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		// At this point, all instance options have been sanitized.
+		$defaults = array(
+			'title'         => '',
+			'link'          => '',
+			'button_text'   => '',
+			'style'         => '',
+			'corner_style'  => '',
+			'border_weight' => '',
+			'color'         => '',
+			'size'          => '',
+			'full_width'    => '',
+			'alignment'     => '',
+		);
+
+		// Use our instance args if they are there, otherwise use the defaults.
+		$instance = wp_parse_args( $instance, $defaults );
+
+		// Grab the title and run it through the right filter.
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];

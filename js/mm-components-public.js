@@ -8,27 +8,110 @@
 
 ( function( $ ) {
 
+	var $window = $( window );
+	var $body   = $( 'body' );
+
 	/**
 	 * Reusable utility functions.
 	 */
 
 	// Debouncing function from John Hann
 	// http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
-	var debounce = function( func, threshold ) {
+	function mmDebounce( func, threshold ) {
 		var timeout;
-		return function debounced() {
+
+		return function mmDebounced() {
 			var obj = this;
 			var args = arguments;
-			function delayed() {
+
+			function mmDelayed() {
 				func.apply( obj, args );
 				timeout = null;
 			}
+
 			if ( timeout ) {
 				clearTimeout( timeout );
 			}
-			timeout = setTimeout( delayed, threshold || 50 );
+
+			timeout = setTimeout( mmDelayed, threshold || 50 );
 		};
 	};
+
+	// Return the number of digits after the decimal point that a float has.
+	function mmDecimalPlaces( num ) {
+		var match = ( '' + num ).match( /(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/ );
+		if ( ! match ) { return 0; }
+		return Math.max(
+			0,
+			// Number of digits right of decimal point.
+			( match[1] ? match[1].length : 0 )
+			// Adjust for scientific notation.
+			- ( match[2] ? +match[2] : 0 )
+		);
+	}
+
+	// Utility function for getting the height of the document across all browsers.
+	function mmGetDocHeight() {
+		var D = document;
+
+		return Math.max(
+			D.body.scrollHeight, D.documentElement.scrollHeight,
+			D.body.offsetHeight, D.documentElement.offsetHeight,
+			D.body.clientHeight, D.documentElement.clientHeight
+		);
+	}
+
+	// Utility function for getting the height of the viewport across all browsers.
+	function mmGetViewportHeight() {
+		var height = window.innerHeight; // Safari, Opera
+		var mode = document.compatMode;
+
+		if ( ( mode || ! $.support.boxModel ) ) { // IE, Gecko
+			height = ( mode == 'CSS1Compat' ) ?
+			document.documentElement.clientHeight : // Standards
+			document.body.clientHeight; // Quirks
+		}
+
+		return height;
+	}
+
+	// Scroll callback function for detecting when elements enter and exit the viewport.
+	// Author: Remy Sharp - http://remysharp.com/2009/01/26/element-in-view-event-plugin/
+	function mmScrollCallback() {
+		var vpH = mmGetViewportHeight(),
+			scrolltop = ( document.documentElement.scrollTop ?
+				document.documentElement.scrollTop :
+				document.body.scrollTop ),
+			elems = [];
+
+		// naughty, but this is how it knows which elements to check for
+		$.each( $.cache, function () {
+			if ( this.events && this.events.inview ) {
+				elems.push( this.handle.elem );
+			}
+		});
+
+		if ( elems.length ) {
+			$( elems ).each( function () {
+				var $el = $( this ),
+					top = $el.offset().top,
+					height = $el.height(),
+					inview = $el.data( 'inview' ) || false;
+
+				if ( scrolltop > ( top + height ) || scrolltop + vpH < top ) {
+					if ( inview ) {
+						$el.data( 'inview', false );
+						$el.trigger( 'inview', [ false ] );
+					}
+				} else if ( scrolltop < ( top + height ) ) {
+					if ( ! inview ) {
+						$el.data( 'inview', true );
+						$el.trigger( 'inview', [ true ] );
+					}
+				}
+			});
+		}
+	}
 
 	// Function to initialize vertical centering.
 	$.fn.mmInitVerticalCenter = function( offset ) {
@@ -78,7 +161,7 @@
 			if ( ! eventSet ) {
 
 				// Debounce it to be safe.
-				$( window ).on( eventName, debounce( mmTriggerVerticalCenter ) );
+				$( window ).on( eventName, mmDebounce( mmTriggerVerticalCenter ) );
 			}
 		});
 
@@ -94,7 +177,6 @@
 
 		// Loop through each object in our global and call doVerticalCenter.
 		$.each( window.mmVerticalCenterItems, function( selector, offset ) {
-
 			$( selector ).mmDoVerticalCenter( offset );
 		});
 	}
@@ -122,12 +204,66 @@
 	}
 
 	/**
-	 * Countdown Component.
+	 * Count Up.
+	 */
+	function mmSetupCountUps() {
+
+		var $countUps = $( '.mm-count-up' );
+
+		if ( $countUps.length ) {
+
+			// Trigger the counting when the element enters the viewport.
+			$countUps.on( 'inview', function( event, visible ) {
+				if ( visible == true ) {
+					$( this ).trigger( 'mmTriggerCountUp' );
+				}
+			});
+
+			// Set up scrolling detection for when Count Ups come into the viewport.
+			$window.on( 'scroll', mmScrollCallback );
+		}
+
+		$countUps.each( function() {
+
+			var $this = $( this );
+
+			$this.on( 'mmTriggerCountUp', function() {
+
+				// Only count up once for each instance.
+				if ( $this.hasClass( 'done-counting' ) ) {
+					return;
+				}
+
+				var $numberWrap = $this.find( '.mm-count-up-number-wrap' );
+				var number      = $this.attr( 'data-number' );
+				var duration    = $this.attr( 'data-duration' ) * 1000;
+				var floatDigits = mmDecimalPlaces( number );
+
+				$( { Counter: 0 } ).animate( { Counter: number }, {
+					duration: duration,
+					easing: 'swing',
+					step: function () {
+						if ( 0 === floatDigits ) {
+							$numberWrap.text( Math.ceil( this.Counter ) );
+						} else if ( 1 === floatDigits ) {
+							$numberWrap.text( ( Math.round( ( this.Counter ) * 10 ) / 10 ).toFixed( 1 ) );
+						} else if ( 2 === floatDigits ) {
+							$numberWrap.text( ( Math.round( ( this.Counter ) * 100 ) / 100 ).toFixed( 2 ) );
+						}
+					},
+					complete: function() {
+						$this.addClass( 'done-counting' );
+					}
+				});
+			});
+		});
+	}
+
+	/**
+	 * Countdown.
 	 */
 	function mmStartCountdowns() {
-		var $targets = $( '.mm-countdown' );
-
-		$targets.each( function() {
+		$( '.mm-countdown' ).each( function() {
 
 			var $this = $( this );
 			var year = parseInt( $this.data( 'year' ) );
@@ -178,7 +314,6 @@
 					$target.toggleClass( 'open' ).toggle();
 				}
 			});
-
 		});
 	};
 
@@ -186,7 +321,6 @@
 	 * Hero Banner.
 	 */
 	function mmSetupHeroBanners() {
-
 		$( '.mm-hero-banner .hero-content-wrap' ).mmInitVerticalCenter();
 	}
 
@@ -223,9 +357,14 @@
 	 * Start the party.
 	 */
 	$( document ).ready( function() {
+		mmSetupCountUps();
 		mmStartCountdowns();
 		mmSetupExpandableContent();
 		mmPostsInitMasonry();
+
+		// Trigger the scroll event once to ensure our inview listeners fire
+		// if their elements are initially in view.
+		$window.trigger( 'scroll' );
 	});
 
 	/**
@@ -236,5 +375,3 @@
 	});
 
 })( jQuery );
-
-

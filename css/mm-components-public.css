@@ -416,6 +416,12 @@ a.mm-button.full-width {
   display: none;
 }
 
+/* Highlight Box
+--------------------------------------------- */
+.mm-highlight-box p {
+  font-size: 2em;
+}
+
 /* Icon Box
 --------------------------------------------- */
 .mm-icon-box {
@@ -472,50 +478,6 @@ a.mm-button.full-width {
 
 .mm-icon-box .icon-box-content p:last-child {
   margin-bottom: 0;
-}
-
-/* Image Grid
---------------------------------------------- */
-.mm-image-grid {
-  overflow: hidden;
-}
-
-.mm-image-grid.max-in-row-1 .mm-image-grid-image {
-  width: 100%;
-}
-
-.mm-image-grid.max-in-row-2 .mm-image-grid-image {
-  width: 50%;
-}
-
-.mm-image-grid.max-in-row-3 .mm-image-grid-image {
-  width: 33.33%;
-}
-
-.mm-image-grid.max-in-row-4 .mm-image-grid-image {
-  width: 25%;
-}
-
-.mm-image-grid.max-in-row-5 .mm-image-grid-image {
-  width: 20%;
-}
-
-.mm-image-grid.max-in-row-6 .mm-image-grid-image {
-  width: 16.65%;
-}
-
-.mm-image-grid-image {
-  text-align: center;
-  float: left;
-}
-
-.mm-image-grid-image a,
-.mm-image-grid-image img {
-  display: block;
-}
-
-.mm-image-grid-image .caption {
-  margin-top: 10px;
 }
 
 /* Logo Strip
@@ -612,6 +574,26 @@ a.mm-button.full-width {
   opacity: 1;
 }
 
+/* Image Card
+--------------------------------------------- */
+.mm-image-card-wrap {
+  line-height: 0;
+  position: relative;
+}
+
+.mm-image-card-wrap .mm-button {
+  width: 100%;
+  line-height: 1;
+}
+
+.mm-image-card-text {
+  position: absolute;
+  width: 100%;
+  line-height: 1;
+  bottom: 0;
+  padding: 20px;
+}
+
 /* Posts
 --------------------------------------------- */
 .mm-posts .entry-image {
@@ -669,6 +651,10 @@ a.mm-button.full-width {
 
 .mm-posts .pagination-wrap .pagination-link.next {
   float: right;
+}
+
+.mm-posts .pagination-wrap .pagination-link.selected {
+  color: #99CCCC;
 }
 
 .mm-posts .pagination-wrap span {
