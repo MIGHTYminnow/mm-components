@@ -41,13 +41,13 @@ function mm_posts( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$post_ids   = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
-	$post_type  = sanitize_text_field( $args['post_type'] );
-	$taxonomy   = sanitize_text_field( $args['taxonomy'] );
-	$term       = sanitize_text_field( $args['term'] );
-	$per_page   = (int)$args['per_page'];
-	$template   = sanitize_text_field( $args['template'] );
-	$masonry    = mm_true_or_false( $args['masonry'] );
+	$post_ids  = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
+	$post_type = sanitize_text_field( $args['post_type'] );
+	$taxonomy  = sanitize_text_field( $args['taxonomy'] );
+	$term      = sanitize_text_field( $args['term'] );
+	$per_page  = (int)$args['per_page'];
+	$template  = sanitize_text_field( $args['template'] );
+	$masonry   = mm_true_or_false( $args['masonry'] );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -790,7 +790,7 @@ function mm_vc_posts() {
 				'type'        => 'textfield',
 				'heading'     => __( 'Post IDs', 'mm-components' ),
 				'param_name'  => 'post_ids',
-				'description' => __( 'Enter post IDs to display (separated by comma)', 'mm-components' ),
+				'description' => __( 'Enter post IDs to display (separated by commas)', 'mm-components' ),
 				'value'       => '',
 			),
 			array(
