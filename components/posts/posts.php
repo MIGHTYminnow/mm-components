@@ -23,7 +23,7 @@ function mm_posts( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'post_id'             => '',
+		'post_ids'            => '',
 		'post_type'           => 'post',
 		'taxonomy'            => '',
 		'term'                => '',
@@ -35,12 +35,13 @@ function mm_posts( $args ) {
 		'show_post_info'      => false,
 		'show_post_meta'      => false,
 		'use_post_content'    => false,
+		'unlink_title'        => false,
 		'masonry'             => false,
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$post_id   = (int)$args['post_id'];
+	$post_ids  = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
 	$post_type = sanitize_text_field( $args['post_type'] );
 	$taxonomy  = sanitize_text_field( $args['taxonomy'] );
 	$term      = sanitize_text_field( $args['term'] );
@@ -79,9 +80,10 @@ function mm_posts( $args ) {
 	);
 
 	// Add to our query if additional params have been passed.
-	if ( $post_id ) {
+	if ( $post_ids ) {
 
-		$query_args['p'] = $post_id;
+		$query_args['post__in'] = $post_ids;
+		$query_args['orderby']  = 'post__in';
 
 	} elseif ( $taxonomy && $term ) {
 
@@ -277,12 +279,24 @@ function mm_posts_output_post_title( $post, $context, $args ) {
 		return;
 	}
 
-	printf(
-		'<h1 class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></h1>',
-		get_permalink( $post->ID ),
-		get_the_title( $post->ID ),
-		get_the_title( $post->ID )
-	);
+	$unlink_title = mm_true_or_false( $args['unlink_title'] );
+
+	if ( $unlink_title ) {
+
+		printf(
+			'<h1 class="entry-title" itemprop="headline">%s</h1>',
+			get_the_title( $post->ID )
+		);
+
+	} else {
+
+		printf(
+			'<h1 class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></h1>',
+			get_permalink( $post->ID ),
+			get_the_title( $post->ID ),
+			get_the_title( $post->ID )
+		);
+	}
 }
 
 /**
@@ -774,9 +788,9 @@ function mm_vc_posts() {
 		'params'   => array(
 			array(
 				'type'        => 'textfield',
-				'heading'     => __( 'Post ID', 'mm-components' ),
-				'param_name'  => 'post_id',
-				'description' => __( 'Enter a post ID to display a single post', 'mm-components' ),
+				'heading'     => __( 'Post IDs', 'mm-components' ),
+				'param_name'  => 'post_ids',
+				'description' => __( 'Enter post IDs to display (separated by commas)', 'mm-components' ),
 				'value'       => '',
 			),
 			array(
@@ -823,6 +837,14 @@ function mm_vc_posts() {
 				'param_name'  => 'template',
 				'description' => __( 'Select a custom template for custom output', 'mm-components' ),
 				'value'       => $templates,
+			),
+			array(
+				'type'       => 'checkbox',
+				'heading'    => __( 'Unlink Title?', 'mm-components' ),
+				'param_name' => 'unlink_title',
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
 			),
 			array(
 				'type'       => 'checkbox',
