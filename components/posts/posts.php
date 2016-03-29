@@ -23,7 +23,7 @@ function mm_posts( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'post_id'             => '',
+		'post_ids'            => '',
 		'post_type'           => 'post',
 		'taxonomy'            => '',
 		'term'                => '',
@@ -41,7 +41,7 @@ function mm_posts( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$post_id    = (int)$args['post_id'];
+	$post_ids   = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
 	$post_type  = sanitize_text_field( $args['post_type'] );
 	$taxonomy   = sanitize_text_field( $args['taxonomy'] );
 	$term       = sanitize_text_field( $args['term'] );
@@ -80,9 +80,10 @@ function mm_posts( $args ) {
 	);
 
 	// Add to our query if additional params have been passed.
-	if ( $post_id ) {
+	if ( $post_ids ) {
 
-		$query_args['p'] = $post_id;
+		$query_args['post__in'] = $post_ids;
+		$query_args['orderby']  = 'post__in';
 
 	} elseif ( $taxonomy && $term ) {
 
@@ -787,9 +788,9 @@ function mm_vc_posts() {
 		'params'   => array(
 			array(
 				'type'        => 'textfield',
-				'heading'     => __( 'Post ID', 'mm-components' ),
-				'param_name'  => 'post_id',
-				'description' => __( 'Enter a post ID to display a single post', 'mm-components' ),
+				'heading'     => __( 'Post IDs', 'mm-components' ),
+				'param_name'  => 'post_ids',
+				'description' => __( 'Enter post IDs to display (separated by comma)', 'mm-components' ),
 				'value'       => '',
 			),
 			array(
