@@ -35,7 +35,7 @@ function mm_posts( $args ) {
 		'show_post_info'      => false,
 		'show_post_meta'      => false,
 		'use_post_content'    => false,
-		'unlink_title'        => false,
+		'link_title'          => true,
 		'masonry'             => false,
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
@@ -279,21 +279,21 @@ function mm_posts_output_post_title( $post, $context, $args ) {
 		return;
 	}
 
-	$unlink_title = mm_true_or_false( $args['unlink_title'] );
+	$link_title = mm_true_or_false( $args['link_title'] );
 
-	if ( $unlink_title ) {
+	if ( $link_title ) {
 
 		printf(
-			'<h1 class="entry-title" itemprop="headline">%s</h1>',
+			'<h1 class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></h1>',
+			get_permalink( $post->ID ),
+			get_the_title( $post->ID ),
 			get_the_title( $post->ID )
 		);
 
 	} else {
 
 		printf(
-			'<h1 class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></h1>',
-			get_permalink( $post->ID ),
-			get_the_title( $post->ID ),
+			'<h1 class="entry-title" itemprop="headline">%s</h1>',
 			get_the_title( $post->ID )
 		);
 	}
@@ -840,8 +840,9 @@ function mm_vc_posts() {
 			),
 			array(
 				'type'       => 'checkbox',
-				'heading'    => __( 'Unlink Title?', 'mm-components' ),
-				'param_name' => 'unlink_title',
+				'heading'    => __( 'Link Title?', 'mm-components' ),
+				'param_name' => 'link_title',
+				'std'        => 1,
 				'value'      => array(
 					__( 'Yes', 'mm-components' ) => 1,
 				),
