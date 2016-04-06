@@ -27,6 +27,7 @@ function mm_posts( $args ) {
 		'post_type'           => 'post',
 		'taxonomy'            => '',
 		'term'                => '',
+		'heading_level'       => 'h1',
 		'per_page'            => 10,
 		'pagination'          => '',
 		'template'            => '',
@@ -41,13 +42,14 @@ function mm_posts( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$post_ids  = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
-	$post_type = sanitize_text_field( $args['post_type'] );
-	$taxonomy  = sanitize_text_field( $args['taxonomy'] );
-	$term      = sanitize_text_field( $args['term'] );
-	$per_page  = (int)$args['per_page'];
-	$template  = sanitize_text_field( $args['template'] );
-	$masonry   = mm_true_or_false( $args['masonry'] );
+	$post_ids      = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
+	$post_type     = sanitize_text_field( $args['post_type'] );
+	$taxonomy      = sanitize_text_field( $args['taxonomy'] );
+	$term          = sanitize_text_field( $args['term'] );
+	$heading_level = sanitize_text_field( $args['heading_level'] );
+	$per_page      = (int)$args['per_page'];
+	$template      = sanitize_text_field( $args['template'] );
+	$masonry       = mm_true_or_false( $args['masonry'] );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -279,12 +281,13 @@ function mm_posts_output_post_title( $post, $context, $args ) {
 		return;
 	}
 
-	$link_title = mm_true_or_false( $args['link_title'] );
+	$heading_level = $args['heading_level'];
+	$link_title    = mm_true_or_false( $args['link_title'] );
 
 	if ( $link_title ) {
 
 		printf(
-			'<h1 class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></h1>',
+			'<' . $heading_level . ' class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></' . $heading_level .'>',
 			get_permalink( $post->ID ),
 			get_the_title( $post->ID ),
 			get_the_title( $post->ID )
@@ -293,7 +296,7 @@ function mm_posts_output_post_title( $post, $context, $args ) {
 	} else {
 
 		printf(
-			'<h1 class="entry-title" itemprop="headline">%s</h1>',
+			'<' . $heading_level . ' class="entry-title" itemprop="headline">%s</' . $heading_level .'>',
 			get_the_title( $post->ID )
 		);
 	}
@@ -774,10 +777,11 @@ function mm_vc_posts() {
 		return;
 	}
 
-	$post_types  = mm_get_post_types_for_vc( 'mm-posts' );
-	$taxonomies  = mm_get_taxonomies_for_vc( 'mm-posts' );
-	$image_sizes = mm_get_image_sizes_for_vc( 'mm-posts' );
-	$templates   = mm_get_mm_posts_templates_for_vc( 'mm-posts' );
+	$post_types     = mm_get_post_types_for_vc( 'mm-posts' );
+	$taxonomies     = mm_get_taxonomies_for_vc( 'mm-posts' );
+	$heading_levels = mm_get_heading_levels_for_vc( 'mm-posts' );
+	$image_sizes    = mm_get_image_sizes_for_vc( 'mm-posts' );
+	$templates      = mm_get_mm_posts_templates_for_vc( 'mm-posts' );
 
 	vc_map( array(
 		'name'     => __( 'Posts', 'mm-components' ),
@@ -813,6 +817,13 @@ function mm_vc_posts() {
 				'param_name'  => 'term',
 				'description' => __( 'Specify a term in the selected taxonomy to only include posts that have the term', 'mm-components' ),
 				'value'       => '',
+			),
+			array(
+				'type'        => 'dropdown',
+				'heading'     => __( 'Heading Level', 'mm-components' ),
+				'param_name'  => 'heading_level',
+				'description' => __( 'Select the post title heading level', 'mm-components' ),
+				'value'       => $heading_levels,
 			),
 			array(
 				'type'        => 'textfield',
