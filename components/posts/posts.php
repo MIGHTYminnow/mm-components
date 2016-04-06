@@ -130,7 +130,7 @@ function mm_posts( $args ) {
 
 			<?php setup_postdata( $query->post ); ?>
 
-			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
 
 				<?php do_action( 'mm_posts_header', $query->post, $context, $args ); ?>
 
