@@ -832,22 +832,22 @@ function mm_vc_posts() {
 				),
 			),
 			array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Show the Featured Image?', 'mm-components' ),
-					'param_name' => 'show_featured_image',
-					'value'      => array(
-							__( 'Yes', 'mm-components' ) => 1,
-					),
+				'type'       => 'checkbox',
+				'heading'    => __( 'Show the Featured Image?', 'mm-components' ),
+				'param_name' => 'show_featured_image',
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
 			),
 			array(
-					'type'       => 'dropdown',
-					'heading'    => __( 'Featured Image Size', 'mm-components' ),
-					'param_name' => 'featured_image_size',
-					'value'      => $image_sizes,
-					'dependency' => array(
-							'element'   => 'show_featured_image',
-							'not_empty' => true,
-					),
+				'type'       => 'dropdown',
+				'heading'    => __( 'Featured Image Size', 'mm-components' ),
+				'param_name' => 'featured_image_size',
+				'value'      => $image_sizes,
+				'dependency' => array(
+					'element'   => 'show_featured_image',
+					'not_empty' => true,
+				),
 			),
 			array(
 				'type'        => 'dropdown',
@@ -857,12 +857,12 @@ function mm_vc_posts() {
 				'value'       => $templates,
 			),
 			array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Use Masonry?', 'mm-components' ),
-					'param_name' => 'masonry',
-					'value'      => array(
-							__( 'Yes', 'mm-components' ) => 1,
-					),
+				'type'       => 'checkbox',
+				'heading'    => __( 'Use Masonry?', 'mm-components' ),
+				'param_name' => 'masonry',
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
 			),
 			array(
 				'type'       => 'checkbox',
