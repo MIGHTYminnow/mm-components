@@ -287,17 +287,21 @@ function mm_posts_output_post_title( $post, $context, $args ) {
 	if ( $link_title ) {
 
 		printf(
-			'<' . $heading_level . ' class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></' . $heading_level .'>',
+			'<%s class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></%s>',
+			esc_attr( $heading_level ),
 			get_permalink( $post->ID ),
 			get_the_title( $post->ID ),
-			get_the_title( $post->ID )
+			get_the_title( $post->ID ),
+			esc_attr( $heading_level )
 		);
 
 	} else {
 
 		printf(
-			'<' . $heading_level . ' class="entry-title" itemprop="headline">%s</' . $heading_level .'>',
-			get_the_title( $post->ID )
+			'<%s class="entry-title" itemprop="headline">%s</%s>',
+			esc_attr( $heading_level ),
+			get_the_title( $post->ID ),
+			esc_attr( $heading_level )
 		);
 	}
 }
