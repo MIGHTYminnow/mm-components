@@ -27,6 +27,7 @@ function mm_posts( $args ) {
 		'post_type'           => 'post',
 		'taxonomy'            => '',
 		'term'                => '',
+		'heading_level'       => 'h1',
 		'per_page'            => 10,
 		'pagination'          => '',
 		'template'            => '',
@@ -41,13 +42,14 @@ function mm_posts( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$post_ids  = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
-	$post_type = sanitize_text_field( $args['post_type'] );
-	$taxonomy  = sanitize_text_field( $args['taxonomy'] );
-	$term      = sanitize_text_field( $args['term'] );
-	$per_page  = (int)$args['per_page'];
-	$template  = sanitize_text_field( $args['template'] );
-	$masonry   = mm_true_or_false( $args['masonry'] );
+	$post_ids      = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
+	$post_type     = sanitize_text_field( $args['post_type'] );
+	$taxonomy      = sanitize_text_field( $args['taxonomy'] );
+	$term          = sanitize_text_field( $args['term'] );
+	$heading_level = sanitize_text_field( $args['heading_level'] );
+	$per_page      = (int)$args['per_page'];
+	$template      = sanitize_text_field( $args['template'] );
+	$masonry       = mm_true_or_false( $args['masonry'] );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -128,7 +130,7 @@ function mm_posts( $args ) {
 
 			<?php setup_postdata( $query->post ); ?>
 
-			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
 
 				<?php do_action( 'mm_posts_header', $query->post, $context, $args ); ?>
 
@@ -279,22 +281,27 @@ function mm_posts_output_post_title( $post, $context, $args ) {
 		return;
 	}
 
-	$link_title = mm_true_or_false( $args['link_title'] );
+	$heading_level = $args['heading_level'];
+	$link_title    = mm_true_or_false( $args['link_title'] );
 
 	if ( $link_title ) {
 
 		printf(
-			'<h1 class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></h1>',
+			'<%s class="entry-title" itemprop="headline"><a href="%s" title="%s" rel="bookmark">%s</a></%s>',
+			esc_attr( $heading_level ),
 			get_permalink( $post->ID ),
 			get_the_title( $post->ID ),
-			get_the_title( $post->ID )
+			get_the_title( $post->ID ),
+			esc_attr( $heading_level )
 		);
 
 	} else {
 
 		printf(
-			'<h1 class="entry-title" itemprop="headline">%s</h1>',
-			get_the_title( $post->ID )
+			'<%s class="entry-title" itemprop="headline">%s</%s>',
+			esc_attr( $heading_level ),
+			get_the_title( $post->ID ),
+			esc_attr( $heading_level )
 		);
 	}
 }
@@ -774,10 +781,11 @@ function mm_vc_posts() {
 		return;
 	}
 
-	$post_types  = mm_get_post_types_for_vc( 'mm-posts' );
-	$taxonomies  = mm_get_taxonomies_for_vc( 'mm-posts' );
-	$image_sizes = mm_get_image_sizes_for_vc( 'mm-posts' );
-	$templates   = mm_get_mm_posts_templates_for_vc( 'mm-posts' );
+	$post_types     = mm_get_post_types_for_vc( 'mm-posts' );
+	$taxonomies     = mm_get_taxonomies_for_vc( 'mm-posts' );
+	$heading_levels = mm_get_heading_levels_for_vc( 'mm-posts' );
+	$image_sizes    = mm_get_image_sizes_for_vc( 'mm-posts' );
+	$templates      = mm_get_mm_posts_templates_for_vc( 'mm-posts' );
 
 	vc_map( array(
 		'name'     => __( 'Posts', 'mm-components' ),
@@ -815,6 +823,13 @@ function mm_vc_posts() {
 				'value'       => '',
 			),
 			array(
+				'type'        => 'dropdown',
+				'heading'     => __( 'Heading Level', 'mm-components' ),
+				'param_name'  => 'heading_level',
+				'description' => __( 'Select the post title heading level', 'mm-components' ),
+				'value'       => $heading_levels,
+			),
+			array(
 				'type'        => 'textfield',
 				'heading'     => __( 'Posts Per Page', 'mm-components' ),
 				'param_name'  => 'per_page',
@@ -832,22 +847,22 @@ function mm_vc_posts() {
 				),
 			),
 			array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Show the Featured Image?', 'mm-components' ),
-					'param_name' => 'show_featured_image',
-					'value'      => array(
-							__( 'Yes', 'mm-components' ) => 1,
-					),
+				'type'       => 'checkbox',
+				'heading'    => __( 'Show the Featured Image?', 'mm-components' ),
+				'param_name' => 'show_featured_image',
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
 			),
 			array(
-					'type'       => 'dropdown',
-					'heading'    => __( 'Featured Image Size', 'mm-components' ),
-					'param_name' => 'featured_image_size',
-					'value'      => $image_sizes,
-					'dependency' => array(
-							'element'   => 'show_featured_image',
-							'not_empty' => true,
-					),
+				'type'       => 'dropdown',
+				'heading'    => __( 'Featured Image Size', 'mm-components' ),
+				'param_name' => 'featured_image_size',
+				'value'      => $image_sizes,
+				'dependency' => array(
+					'element'   => 'show_featured_image',
+					'not_empty' => true,
+				),
 			),
 			array(
 				'type'        => 'dropdown',
@@ -857,12 +872,12 @@ function mm_vc_posts() {
 				'value'       => $templates,
 			),
 			array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Use Masonry?', 'mm-components' ),
-					'param_name' => 'masonry',
-					'value'      => array(
-							__( 'Yes', 'mm-components' ) => 1,
-					),
+				'type'       => 'checkbox',
+				'heading'    => __( 'Use Masonry?', 'mm-components' ),
+				'param_name' => 'masonry',
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
 			),
 			array(
 				'type'       => 'checkbox',
