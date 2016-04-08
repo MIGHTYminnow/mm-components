@@ -711,6 +711,9 @@ a.mm-button {
 --------------------------------------------- */
 
 .mm-posts {
+	article {
+		overflow: auto;	
+	}
 	.entry-image {
 		max-width: 150px;
 		float: left;

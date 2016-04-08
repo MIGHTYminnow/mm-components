@@ -596,6 +596,10 @@ a.mm-button.full-width {
 
 /* Posts
 --------------------------------------------- */
+.mm-posts article {
+  overflow: auto;
+}
+
 .mm-posts .entry-image {
   max-width: 150px;
   float: left;
