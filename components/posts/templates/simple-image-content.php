@@ -34,7 +34,10 @@ function mm_posts_simple_image_content_hooks( $context, $args ) {
 	remove_action( 'mm_posts_footer', 'mm_posts_output_post_meta', 10 );
 
 	// Include our custom output.
-	add_action( 'mm_posts_content', 'mm_posts_output_post_image', 8, 3 );
+	if ( mm_true_or_false( $args['show_featured_image'] ) ) {
+		add_action( 'mm_posts_content', 'mm_posts_output_post_image', 8, 3 );
+	}
+
 	add_action( 'mm_posts_content', 'mm_posts_output_post_title', 10, 3 );
 
 	if ( mm_true_or_false( $args['show_post_meta'] ) ) {
