@@ -711,6 +711,9 @@ a.mm-button {
 --------------------------------------------- */
 
 .mm-posts {
+	article {
+		overflow: auto;	
+	}
 	.entry-image {
 		max-width: 150px;
 		float: left;
@@ -886,6 +889,19 @@ a.mm-button {
 		width: 0%;
 	}
 }
+
+/* Simple Image & Content */
+
+.mm-posts.simple-image-content {
+	.entry-meta-wrap {
+		clear: none;
+	}
+	
+	.entry-image {
+		margin: 0 15px 0 0;
+	}	
+}
+
 
 /* Social Icons
 --------------------------------------------- */

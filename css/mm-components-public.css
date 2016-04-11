@@ -596,6 +596,10 @@ a.mm-button.full-width {
 
 /* Posts
 --------------------------------------------- */
+.mm-posts article {
+  overflow: auto;
+}
+
 .mm-posts .entry-image {
   max-width: 150px;
   float: left;
@@ -783,6 +787,15 @@ a.mm-button.full-width {
   .mm-posts.image-grid.mm-masonry.no-gutter .mm-posts-masonry-gutter {
     width: 0%;
   }
+}
+
+/* Simple Image & Content */
+.mm-posts.simple-image-content .entry-meta-wrap {
+  clear: none;
+}
+
+.mm-posts.simple-image-content .entry-image {
+  margin: 0 15px 0 0;
 }
 
 /* Social Icons
