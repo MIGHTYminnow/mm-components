@@ -789,6 +789,15 @@ a.mm-button.full-width {
   }
 }
 
+/* Simple Image & Content */
+.mm-posts.simple-image-content .entry-meta-wrap {
+  clear: none;
+}
+
+.mm-posts.simple-image-content .entry-image {
+  margin: 0 15px 0 0;
+}
+
 /* Social Icons
 --------------------------------------------- */
 /* Defaults */

@@ -116,6 +116,7 @@ function mm_components_init_components() {
 		require_once MM_COMPONENTS_PATH . 'components/posts/posts.php';
 		require_once MM_COMPONENTS_PATH . 'components/posts/templates/image-grid.php';
 		require_once MM_COMPONENTS_PATH . 'components/posts/templates/simple-list.php';
+		require_once MM_COMPONENTS_PATH . 'components/posts/templates/simple-image-content.php';
 	}
 	if ( array_key_exists( 'restricted-content', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/restricted-content/restricted-content.php';
