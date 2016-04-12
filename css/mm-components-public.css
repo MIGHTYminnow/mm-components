@@ -790,7 +790,7 @@ a.mm-button.full-width {
 }
 
 /* Simple Image & Content */
-.mm-posts.simple-image-content .entry-meta-wrap {
+.mm-posts.simple-image-content .entry-title, .mm-posts.simple-image-content .entry-meta-wrap {
   clear: none;
 }
 
