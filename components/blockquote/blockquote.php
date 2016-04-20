@@ -23,16 +23,30 @@ function mm_blockquote( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'quote'    => '',
-		'citation' => '',
-		'image_id' => '',
+		'quote'                => '',
+		'citation'             => '',
+		'citation_link'        => '',
+		'citation_link_title'  => '',
+		'citation_link_target' => '_self',
+		'image_id'             => '',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$quote    = $args['quote'];
-	$citation = $args['citation'];
-	$image_id = $args['image_id'];
+	$quote                = $args['quote'];
+	$citation             = $args['citation'];
+	$citation_link        = $args['citation_link'];
+	$citation_link_target = $args['citation_link_target'];
+	$citation_link_title  = $args['citation_link_title'];
+	$image_id             = $args['image_id'];
+
+	// Handle a VC link array.
+	if ( 'url' === substr( $args['citation_link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+		$link_array           = vc_build_link( $args['citation_link'] );
+		$citation_link        = $link_array['url'];
+		$citation_link_target = $link_array['target'];
+		$citation_link_title  = $link_array['title'];
+	}
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -45,10 +59,16 @@ function mm_blockquote( $args ) {
 			<?php echo wp_get_attachment_image( (int)$image_id, 'thumbnail' ); ?>
 		<?php endif; ?>
 
-		<?php echo '<p>' . esc_html( $quote ) . '</p>'; ?>
+		<?php echo wp_kses_post( $quote ); ?>
 
 		<?php if ( ! empty( $citation ) ) : ?>
-			<cite><?php echo esc_html( $citation ); ?></cite>
+
+			<?php if ( ! empty( $citation_link ) ) : ?>
+				<a href="<?php echo esc_url( $citation_link ) ?>" title="<?php echo esc_attr( $citation_link_title ); ?>" target="<?php echo esc_attr( $citation_link_target ); ?>"><cite><?php echo esc_html( $citation ); ?></cite></a>
+			<?php else : ?>
+				<cite><?php echo esc_html( $citation ); ?></cite>
+			<?php endif; ?>
+
 		<?php endif; ?>
 
 	</blockquote>
@@ -94,7 +114,7 @@ function mm_vc_blockquote() {
 				'description' => __( 'Select an image from the library.', 'mm-components' ),
 			),
 			array(
-				'type'       => 'textarea',
+				'type'       => 'textarea_html',
 				'heading'    => __( 'Quote', 'mm-components' ),
 				'param_name' => 'quote',
 			),
@@ -102,6 +122,11 @@ function mm_vc_blockquote() {
 				'type'       => 'textfield',
 				'heading'    => __( 'Citation', 'mm-components' ),
 				'param_name' => 'citation',
+			),
+			array(
+				'type'       => 'vc_link',
+				'heading'    => __( 'Citation URL', 'mm-components' ),
+				'param_name' => 'citation_link',
 			),
 		)
 	) );
