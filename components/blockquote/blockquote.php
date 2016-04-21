@@ -35,7 +35,7 @@ function mm_blockquote( $args ) {
 	// Get clean param values.
 	$quote                = $args['quote'];
 	$citation             = $args['citation'];
-	$citation_link        = $args['citation_link'];
+	$citation_link        = $args['citation_link'] == '||' ? '' : $args['citation_link'];
 	$citation_link_target = $args['citation_link_target'];
 	$citation_link_title  = $args['citation_link_title'];
 	$image_id             = $args['image_id'];
@@ -63,7 +63,7 @@ function mm_blockquote( $args ) {
 
 		<?php if ( ! empty( $citation ) ) : ?>
 
-			<?php if ( filter_var( $citation_link, FILTER_VALIDATE_URL ) !== FALSE ) : ?>
+			<?php if ( ! empty( $citation_link ) ) : ?>
 				<a href="<?php echo esc_url( $citation_link ) ?>" title="<?php echo esc_attr( $citation_link_title ); ?>" target="<?php echo esc_attr( $citation_link_target ); ?>"><cite><?php echo esc_html( $citation ); ?></cite></a>
 			<?php else : ?>
 				<cite><?php echo esc_html( $citation ); ?></cite>
