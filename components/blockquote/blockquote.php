@@ -144,6 +144,8 @@ function mm_components_mm_blockquote_shortcode_ui() {
 		return;
 	}
 
+	$link_targets = mm_get_link_targets( 'mm-blockquote' );
+
 	shortcode_ui_register_for_shortcode(
 		'mm_blockquote',
 		array(
@@ -167,6 +169,22 @@ function mm_components_mm_blockquote_shortcode_ui() {
 					'label' => esc_html__( 'Citation', 'mm-components' ),
 					'attr'  => 'citation',
 					'type'  => 'text',
+				),
+				array(
+					'label' => esc_html__( 'Citation URL', 'mm-components' ),
+					'attr'  => 'citation_link',
+					'type'  => 'url',
+				),
+				array(
+					'label' => esc_html( 'Citation Link Title', 'mm-components' ),
+					'attr'  => 'citation_link_title',
+					'type'  => 'text',
+				),
+				array(
+					'label'   => esc_html( 'Citation Link Target', 'mm-components' ),
+					'attr'    => 'citation_link_target',
+					'type'    => 'select',
+					'options' => $link_targets,
 				),
 			),
 		)
