@@ -23,16 +23,30 @@ function mm_blockquote( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'quote'    => '',
-		'citation' => '',
-		'image_id' => '',
+		'quote'                => '',
+		'citation'             => '',
+		'citation_link'        => '',
+		'citation_link_title'  => '',
+		'citation_link_target' => '_self',
+		'image_id'             => '',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$quote    = $args['quote'];
-	$citation = $args['citation'];
-	$image_id = $args['image_id'];
+	$quote                = $args['quote'];
+	$citation             = $args['citation'];
+	$citation_link        = $args['citation_link'] == '||' ? '' : $args['citation_link'];
+	$citation_link_target = $args['citation_link_target'];
+	$citation_link_title  = $args['citation_link_title'];
+	$image_id             = $args['image_id'];
+
+	// Handle a VC link array.
+	if ( 'url' === substr( $args['citation_link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
+		$link_array           = vc_build_link( $args['citation_link'] );
+		$citation_link        = $link_array['url'];
+		$citation_link_target = $link_array['target'];
+		$citation_link_title  = $link_array['title'];
+	}
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -45,10 +59,16 @@ function mm_blockquote( $args ) {
 			<?php echo wp_get_attachment_image( (int)$image_id, 'thumbnail' ); ?>
 		<?php endif; ?>
 
-		<?php echo '<p>' . esc_html( $quote ) . '</p>'; ?>
+		<p><?php echo wp_kses_post( $quote ); ?></p>
 
 		<?php if ( ! empty( $citation ) ) : ?>
-			<cite><?php echo esc_html( $citation ); ?></cite>
+
+			<?php if ( ! empty( $citation_link ) ) : ?>
+				<a href="<?php echo esc_url( $citation_link ) ?>" title="<?php echo esc_attr( $citation_link_title ); ?>" target="<?php echo esc_attr( $citation_link_target ); ?>"><cite><?php echo esc_html( $citation ); ?></cite></a>
+			<?php else : ?>
+				<cite><?php echo esc_html( $citation ); ?></cite>
+			<?php endif; ?>
+
 		<?php endif; ?>
 
 	</blockquote>
@@ -94,7 +114,7 @@ function mm_vc_blockquote() {
 				'description' => __( 'Select an image from the library.', 'mm-components' ),
 			),
 			array(
-				'type'       => 'textarea',
+				'type'       => 'textarea_html',
 				'heading'    => __( 'Quote', 'mm-components' ),
 				'param_name' => 'quote',
 			),
@@ -102,6 +122,11 @@ function mm_vc_blockquote() {
 				'type'       => 'textfield',
 				'heading'    => __( 'Citation', 'mm-components' ),
 				'param_name' => 'citation',
+			),
+			array(
+				'type'       => 'vc_link',
+				'heading'    => __( 'Citation URL', 'mm-components' ),
+				'param_name' => 'citation_link',
 			),
 		)
 	) );
@@ -118,6 +143,8 @@ function mm_components_mm_blockquote_shortcode_ui() {
 	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
 		return;
 	}
+
+	$link_targets = mm_get_link_targets( 'mm-blockquote' );
 
 	shortcode_ui_register_for_shortcode(
 		'mm_blockquote',
@@ -142,6 +169,22 @@ function mm_components_mm_blockquote_shortcode_ui() {
 					'label' => esc_html__( 'Citation', 'mm-components' ),
 					'attr'  => 'citation',
 					'type'  => 'text',
+				),
+				array(
+					'label' => esc_html__( 'Citation URL', 'mm-components' ),
+					'attr'  => 'citation_link',
+					'type'  => 'url',
+				),
+				array(
+					'label' => esc_html( 'Citation Link Title', 'mm-components' ),
+					'attr'  => 'citation_link_title',
+					'type'  => 'text',
+				),
+				array(
+					'label'   => esc_html( 'Citation Link Target', 'mm-components' ),
+					'attr'    => 'citation_link_target',
+					'type'    => 'select',
+					'options' => $link_targets,
 				),
 			),
 		)
@@ -237,20 +280,22 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	public function form( $instance ) {
 
 		$defaults = array(
-			'title'    => '',
-			'quote'    => '',
-			'citation' => '',
-			'image_id' => '',
+			'title'         => '',
+			'quote'         => '',
+			'citation'      => '',
+			'citation_link' => '',
+			'image_id'      => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		$title     = $instance['title'];
-		$quote     = $instance['quote'];
-		$citation  = $instance['citation'];
-		$image_id  = $instance['image_id'];
-		$classname = $this->options['classname'];
+		$title         = $instance['title'];
+		$quote         = $instance['quote'];
+		$citation      = $instance['citation'];
+		$citation_link = $instance['citation_link'];
+		$image_id      = $instance['image_id'];
+		$classname     = $this->options['classname'];
 
 		// Title.
 		$this->field_text(
@@ -279,6 +324,15 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 			$citation
 		);
 
+		// Citation Link.
+		$this->field_text(
+				__( 'Citation Link', 'mm-components' ),
+				'',
+				$classname . '-link widefat',
+				'citation_link',
+				$citation_link
+		);
+
 		// Image.
 		$this->field_single_media(
 			__( 'Image', 'mm-components' ),
@@ -301,11 +355,12 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance             = $old_instance;
-		$instance['title']    = sanitize_text_field( $new_instance['title'] );
-		$instance['quote']    = wp_kses_post( $new_instance['quote'] );
-		$instance['citation'] = sanitize_text_field( $new_instance['citation'] );
-		$instance['image_id'] = ( ! empty( $new_instance['image_id'] ) ) ? intval( $new_instance['image_id'] ) : '';
+		$instance                  = $old_instance;
+		$instance['title']         = sanitize_text_field( $new_instance['title'] );
+		$instance['quote']         = wp_kses_post( $new_instance['quote'] );
+		$instance['citation']      = sanitize_text_field( $new_instance['citation'] );
+		$instance['citation_link'] = ( '' !== $new_instance['citation_link'] ) ? esc_url( $new_instance['citation_link'] ) : '';
+		$instance['image_id']      = ( ! empty( $new_instance['image_id'] ) ) ? intval( $new_instance['image_id'] ) : '';
 
 		return $instance;
 	}
