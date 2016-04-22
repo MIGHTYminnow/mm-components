@@ -1,0 +1,11 @@
+.vc_autocomplete-input input {
+	display: inline-block !important;
+}
+
+.vc_autocomplete-label {
+	float: left;
+}
+
+span.vc_autocomplete-label {
+	padding-right: 20px;
+}

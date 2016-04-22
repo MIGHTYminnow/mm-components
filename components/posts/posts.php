@@ -23,7 +23,7 @@ function mm_posts( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'post_ids'            => '',
+		'post_titles'            => '',
 		'post_type'           => 'post',
 		'taxonomy'            => '',
 		'term'                => '',
@@ -42,7 +42,7 @@ function mm_posts( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$post_ids      = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
+	$post_titles   = $args['post_titles'] ? str_getcsv( $args['post_titles'] ) : '';
 	$post_type     = sanitize_text_field( $args['post_type'] );
 	$taxonomy      = sanitize_text_field( $args['taxonomy'] );
 	$term          = sanitize_text_field( $args['term'] );
@@ -82,9 +82,9 @@ function mm_posts( $args ) {
 	);
 
 	// Add to our query if additional params have been passed.
-	if ( $post_ids ) {
+	if ( $post_titles ) {
 
-		$query_args['post__in'] = $post_ids;
+		$query_args['post__in'] = $post_titles;
 		$query_args['orderby']  = 'post__in';
 
 	} elseif ( $taxonomy && $term ) {
@@ -781,6 +781,7 @@ function mm_vc_posts() {
 		return;
 	}
 
+	$titles         = mm_get_post_titles_for_vc( 'mm-posts' );
 	$post_types     = mm_get_post_types_for_vc( 'mm-posts' );
 	$taxonomies     = mm_get_taxonomies_for_vc( 'mm-posts' );
 	$heading_levels = mm_get_heading_levels_for_vc( 'mm-posts' );
@@ -788,18 +789,21 @@ function mm_vc_posts() {
 	$templates      = mm_get_mm_posts_templates_for_vc( 'mm-posts' );
 
 	vc_map( array(
-		'name'     => __( 'Posts', 'mm-components' ),
-		'base'     => 'mm_posts',
-		'class'    => '',
-		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
-		'category' => __( 'Content', 'mm-components' ),
-		'params'   => array(
+		'name'              => __( 'Posts', 'mm-components' ),
+		'base'              => 'mm_posts',
+		'class'             => '',
+		'icon'              => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
+		'category'          => __( 'Content', 'mm-components' ),
+		'admin_enqueue_css' => MM_COMPONENTS_URL . '/css/post-titles-autocomplete.css',
+		'params'            => array(
 			array(
-				'type'        => 'textfield',
-				'heading'     => __( 'Post IDs', 'mm-components' ),
-				'param_name'  => 'post_ids',
-				'description' => __( 'Enter post IDs to display (separated by commas)', 'mm-components' ),
-				'value'       => '',
+				'type'        => 'autocomplete',
+				'heading'     => __( 'Post/Page Titles', 'mm-components' ),
+				'param_name'  => 'post_titles',
+				'description' => __( 'Enter specific post or page titles to display', 'mm-components' ),
+				'settings'    => array(
+					'values' => $titles,
+				),
 			),
 			array(
 				'type'        => 'dropdown',

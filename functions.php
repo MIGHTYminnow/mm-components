@@ -222,6 +222,36 @@ function mm_get_taxonomies_for_vc( $context = '' ) {
 }
 
 /**
+ * Return an array of post/page titles for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted titles.
+ */
+function mm_get_post_titles_for_vc( $context = '' ) {
+
+	// Grab the posts.
+	$posts = get_posts(
+		array(
+			'posts_per_page' => -1,
+			'post_type'		 => mm_get_post_types( 'mm-posts' ),
+		)
+	);
+
+	$result = array();
+
+	foreach ( $posts as $post )	{
+		$result[] = array(
+			'value' => $post->ID,
+			'label' => $post->post_title,
+		);
+	}
+	return $result;
+}
+
+/**
  * Return an array of registered image sizes.
  *
  * @since   1.0.0
