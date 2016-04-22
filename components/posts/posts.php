@@ -23,7 +23,7 @@ function mm_posts( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'post_titles'            => '',
+		'post_titles'         => '',
 		'post_type'           => 'post',
 		'taxonomy'            => '',
 		'term'                => '',
