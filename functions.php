@@ -18,7 +18,7 @@
  * @return  array             Updated atts
  */
 function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
-	return wp_parse_args( $atts, $defaults );
+    return wp_parse_args( $atts, $defaults );
 }
 
 /**
@@ -33,16 +33,16 @@ function mm_shortcode_atts( $defaults = array(), $atts = array() ) {
  */
 function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
 
-	if ( empty( $link_array['url'] ) ) {
-		return $content;
-	}
+    if ( empty( $link_array['url'] ) ) {
+        return $content;
+    }
 
-	return sprintf( '<a href="%s" title="%s" target="%s">%s</a>',
-		$link_array['url'],
-		$link_array['title'],
-		$link_array['target'],
-		$content
-	);
+    return sprintf( '<a href="%s" title="%s" target="%s">%s</a>',
+        $link_array['url'],
+        $link_array['title'],
+        $link_array['target'],
+        $content
+    );
 }
 
 /**
@@ -55,15 +55,15 @@ function mm_maybe_wrap_in_link( $content, $link_array = array() ) {
  */
 function mm_true_or_false( $value ) {
 
-	if ( ! isset( $value ) ) {
-		return false;
-	}
+    if ( ! isset( $value ) ) {
+        return false;
+    }
 
-	if ( true === $value || 'true' === $value || 1 === $value || '1' === $value || 'yes' === $value || 'on' === $value ) {
-		return true;
-	} else {
-		return false;
-	}
+    if ( true === $value || 'true' === $value || 1 === $value || '1' === $value || 'yes' === $value || 'on' === $value ) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**
@@ -75,24 +75,24 @@ function mm_true_or_false( $value ) {
  */
 function mm_is_base64( $string ) {
 
-	$decoded = base64_decode( $string, true );
+    $decoded = base64_decode( $string, true );
 
-	// Check if there are invalid characters in the string.
-	if ( ! preg_match( '/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $string ) ) {
-		return false;
-	}
+    // Check if there are invalid characters in the string.
+    if ( ! preg_match( '/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $string ) ) {
+        return false;
+    }
 
-	// Decode the string in strict mode and check whether it is recognized as invalid.
-	if ( ! base64_decode( $string, true ) ) {
-		return false;
-	}
+    // Decode the string in strict mode and check whether it is recognized as invalid.
+    if ( ! base64_decode( $string, true ) ) {
+        return false;
+    }
 
-	// Reencode and compare it to the original value.
-	if ( base64_encode( $decoded ) != $string ) {
-		return false;
-	}
+    // Reencode and compare it to the original value.
+    if ( base64_encode( $decoded ) != $string ) {
+        return false;
+    }
 
-	return true;
+    return true;
 };
 
 /**
@@ -107,17 +107,17 @@ function mm_is_base64( $string ) {
  */
 function mm_check_user_role( $role, $user_id = null ) {
 
-	if ( is_numeric( $user_id ) ) {
-		$user = get_userdata( $user_id );
-	} else {
-		$user = wp_get_current_user();
-	}
+    if ( is_numeric( $user_id ) ) {
+        $user = get_userdata( $user_id );
+    } else {
+        $user = wp_get_current_user();
+    }
 
-	if ( empty( $user ) ) {
-		return false;
-	}
+    if ( empty( $user ) ) {
+        return false;
+    }
 
-	return in_array( $role, (array)$user->roles );
+    return in_array( $role, (array)$user->roles );
 }
 
 /**
@@ -131,28 +131,28 @@ function mm_check_user_role( $role, $user_id = null ) {
  */
 function mm_get_post_types( $context = '' ) {
 
-	$post_type_args = array(
-		'public'   => true,
-		'_builtin' => false
-	);
+    $post_type_args = array(
+        'public'   => true,
+        '_builtin' => false
+    );
 
-	$custom_post_types = get_post_types( $post_type_args, 'objects', 'and' );
+    $custom_post_types = get_post_types( $post_type_args, 'objects', 'and' );
 
-	$formatted_cpts = array();
+    $formatted_cpts = array();
 
-	foreach( $custom_post_types as $post_type ) {
-		$formatted_cpts[ $post_type->name ] = $post_type->labels->singular_name;
-	}
+    foreach( $custom_post_types as $post_type ) {
+        $formatted_cpts[ $post_type->name ] = $post_type->labels->singular_name;
+    }
 
-	// Manually add 'post' and 'page' types.
-	$default_post_types = array(
-		'post' => __( 'Post', 'mm-components' ),
-		'page' => __( 'Page', 'mm-components' ),
-	);
+    // Manually add 'post' and 'page' types.
+    $default_post_types = array(
+        'post' => __( 'Post', 'mm-components' ),
+        'page' => __( 'Page', 'mm-components' ),
+    );
 
-	$post_types = $default_post_types + $formatted_cpts;
+    $post_types = $default_post_types + $formatted_cpts;
 
-	return apply_filters( 'mm_post_types', $post_types, $context );
+    return apply_filters( 'mm_post_types', $post_types, $context );
 }
 
 /**
@@ -166,7 +166,7 @@ function mm_get_post_types( $context = '' ) {
  */
 function mm_get_post_types_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_post_types( $context ) );
+    return array_flip( mm_get_post_types( $context ) );
 }
 
 /**
@@ -180,26 +180,26 @@ function mm_get_post_types_for_vc( $context = '' ) {
  */
 function mm_get_taxonomies( $context = '' ) {
 
-	$taxonomy_args = array(
-		'public'   => true,
-		'_builtin' => false
-	);
+    $taxonomy_args = array(
+        'public'   => true,
+        '_builtin' => false
+    );
 
-	$custom_taxonomies = get_taxonomies( $taxonomy_args, 'objects', 'and' );
+    $custom_taxonomies = get_taxonomies( $taxonomy_args, 'objects', 'and' );
 
-	// Manually add 'category' and 'tag'.
-	$taxonomies = array(
-		'category' => __( 'Category', 'mm-components' ),
-		'post_tag' => __( 'Tag', 'mm-components' ),
-	);
+    // Manually add 'category' and 'tag'.
+    $taxonomies = array(
+        'category' => __( 'Category', 'mm-components' ),
+        'post_tag' => __( 'Tag', 'mm-components' ),
+    );
 
-	// Format the taxonomies.
-	foreach ( $custom_taxonomies as $taxonomy ) {
+    // Format the taxonomies.
+    foreach ( $custom_taxonomies as $taxonomy ) {
 
-		$taxonomies[ $taxonomy->name ] = $taxonomy->labels->singular_name;
-	}
+        $taxonomies[ $taxonomy->name ] = $taxonomy->labels->singular_name;
+    }
 
-	return apply_filters( 'mm_taxonomies', $taxonomies, $context );
+    return apply_filters( 'mm_taxonomies', $taxonomies, $context );
 }
 
 /**
@@ -213,12 +213,12 @@ function mm_get_taxonomies( $context = '' ) {
  */
 function mm_get_taxonomies_for_vc( $context = '' ) {
 
-	// Add an empty first option.
-	$empty_option = array(
-		__( 'Select a Taxonomy', 'mm-components' ) => '',
-	);
+    // Add an empty first option.
+    $empty_option = array(
+        __( 'Select a Taxonomy', 'mm-components' ) => '',
+    );
 
-	return $empty_option + array_flip( mm_get_taxonomies( $context ) );
+    return $empty_option + array_flip( mm_get_taxonomies( $context ) );
 }
 
 /**
@@ -232,23 +232,24 @@ function mm_get_taxonomies_for_vc( $context = '' ) {
  */
 function mm_get_post_titles_for_vc( $context = '' ) {
 
-	// Grab the posts.
-	$posts = get_posts(
-		array(
-			'posts_per_page' => -1,
-			'post_type'		 => mm_get_post_types( 'mm-posts' ),
-		)
-	);
+    // Grab the posts.
+    $posts = get_posts(
+        array(
+            'posts_per_page' => -1,
+            'post_type'      => mm_get_post_types( 'mm-posts' ),
+        )
+    );
 
-	$result = array();
+    $post_titles = array();
 
-	foreach ( $posts as $post )	{
-		$result[] = array(
-			'value' => $post->ID,
-			'label' => $post->post_title,
-		);
-	}
-	return $result;
+    foreach ( $posts as $post ) {
+        $post_titles[] = array(
+            'value' => $post->ID,
+            'label' => $post->post_title,
+        );
+    }
+
+    return apply_filters( 'mm_post_titles', $post_titles, $context );
 }
 
 /**
@@ -262,19 +263,19 @@ function mm_get_post_titles_for_vc( $context = '' ) {
  */
 function mm_get_image_sizes( $context = '' ) {
 
-	$image_sizes = get_intermediate_image_sizes();
-	$formatted_image_sizes = array();
+    $image_sizes = get_intermediate_image_sizes();
+    $formatted_image_sizes = array();
 
-	foreach ( $image_sizes as $image_size ) {
+    foreach ( $image_sizes as $image_size ) {
 
-		$formatted_image_size = ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $image_size ) ) );
-		$formatted_image_sizes[ $image_size ] = $formatted_image_size;
-	}
+        $formatted_image_size = ucwords( str_replace( '_', ' ', str_replace( '-', ' ', $image_size ) ) );
+        $formatted_image_sizes[ $image_size ] = $formatted_image_size;
+    }
 
-	// Manually add in the 'Full' size.
-	$formatted_image_sizes['full'] = __( 'Full', 'mm-components' );
+    // Manually add in the 'Full' size.
+    $formatted_image_sizes['full'] = __( 'Full', 'mm-components' );
 
-	return apply_filters( 'mm_image_sizes', $formatted_image_sizes, $context );
+    return apply_filters( 'mm_image_sizes', $formatted_image_sizes, $context );
 }
 
 /**
@@ -288,12 +289,12 @@ function mm_get_image_sizes( $context = '' ) {
  */
 function mm_get_image_sizes_for_vc( $context = '' ) {
 
-	// Add an empty first option.
-	$empty_option = array(
-		__( 'Default', 'mm-components' ) => '',
-	);
+    // Add an empty first option.
+    $empty_option = array(
+        __( 'Default', 'mm-components' ) => '',
+    );
 
-	return $empty_option + array_flip( mm_get_image_sizes( $context ) );
+    return $empty_option + array_flip( mm_get_image_sizes( $context ) );
 }
 
 /**
@@ -307,25 +308,25 @@ function mm_get_image_sizes_for_vc( $context = '' ) {
  */
 function mm_custom_image_field_description( $image_size = '' ) {
 
-	$default_message = __( 'Upload an image that is large enough to be output without stretching.', 'mm-components' );
+    $default_message = __( 'Upload an image that is large enough to be output without stretching.', 'mm-components' );
 
-	// Do default image message if no specific image_size is passed.
-	if ( ! $image_size ) {
-		return $default_message;
-	}
+    // Do default image message if no specific image_size is passed.
+    if ( ! $image_size ) {
+        return $default_message;
+    }
 
-	// Get dimensions of image.
-	$image_dimensions = mm_get_image_size_dimensions( $image_size );
+    // Get dimensions of image.
+    $image_dimensions = mm_get_image_size_dimensions( $image_size );
 
-	// Do default message if the specified image size doesn't exists.
-	if ( ! $image_dimensions ) {
-		return $default_message;
-	}
+    // Do default message if the specified image size doesn't exists.
+    if ( ! $image_dimensions ) {
+        return $default_message;
+    }
 
-	$width = $image_dimensions['width'] * 2;
-	$height = $image_dimensions['height'] * 2;
+    $width = $image_dimensions['width'] * 2;
+    $height = $image_dimensions['height'] * 2;
 
-	return sprintf( __( 'Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that it is not stretched.', 'mm-components' ), $width, $height );
+    return sprintf( __( 'Upload an image that is at least <b>%dpx</b> × <b>%dpx</b> to ensure that it is not stretched.', 'mm-components' ), $width, $height );
 }
 
 /**
@@ -339,25 +340,25 @@ function mm_custom_image_field_description( $image_size = '' ) {
  */
 function mm_get_image_size_dimensions( $image_size = '' ) {
 
-	global $_wp_additional_image_sizes;
+    global $_wp_additional_image_sizes;
 
-	if ( in_array( $image_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+    if ( in_array( $image_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
 
-		$image_dimensions['width'] = get_option( $image_size . '_size_w' );
-		$image_dimensions['height'] = get_option( $image_size . '_size_h' );
+        $image_dimensions['width'] = get_option( $image_size . '_size_w' );
+        $image_dimensions['height'] = get_option( $image_size . '_size_h' );
 
-	} elseif ( isset( $_wp_additional_image_sizes[ $image_size ] ) ) {
+    } elseif ( isset( $_wp_additional_image_sizes[ $image_size ] ) ) {
 
-		$image_dimensions = array(
-			'width' => $_wp_additional_image_sizes[ $image_size ]['width'],
-			'height' => $_wp_additional_image_sizes[ $image_size ]['height'],
-		);
+        $image_dimensions = array(
+            'width' => $_wp_additional_image_sizes[ $image_size ]['width'],
+            'height' => $_wp_additional_image_sizes[ $image_size ]['height'],
+        );
 
-	} else {
-		return false;
-	}
+    } else {
+        return false;
+    }
 
-	return $image_dimensions;
+    return $image_dimensions;
 }
 
 /**
@@ -371,8 +372,8 @@ function mm_get_image_size_dimensions( $image_size = '' ) {
  */
 function mm_get_mm_posts_templates( $context = '' ) {
 
-	// All core and custom templates should be registered using this filter.
-	return apply_filters( 'mm_posts_templates', array(), $context );
+    // All core and custom templates should be registered using this filter.
+    return apply_filters( 'mm_posts_templates', array(), $context );
 }
 
 /**
@@ -386,12 +387,12 @@ function mm_get_mm_posts_templates( $context = '' ) {
  */
 function mm_get_mm_posts_templates_for_vc( $context = '' ) {
 
-	// Add an empty first option.
-	$empty_option = array(
-		__( 'Default', 'mm-components' ) => '',
-	);
+    // Add an empty first option.
+    $empty_option = array(
+        __( 'Default', 'mm-components' ) => '',
+    );
 
-	return $empty_option + array_flip( mm_get_mm_posts_templates( $context ) );
+    return $empty_option + array_flip( mm_get_mm_posts_templates( $context ) );
 }
 
 /**
@@ -405,8 +406,8 @@ function mm_get_mm_posts_templates_for_vc( $context = '' ) {
  */
 function mm_get_mm_users_templates( $context = '' ) {
 
-	// All core and custom templates should be registered using this filter.
-	return apply_filters( 'mm_users_templates', array(), $context );
+    // All core and custom templates should be registered using this filter.
+    return apply_filters( 'mm_users_templates', array(), $context );
 }
 
 /**
@@ -420,12 +421,12 @@ function mm_get_mm_users_templates( $context = '' ) {
  */
 function mm_get_mm_users_templates_for_vc( $context = '' ) {
 
-	// Add an empty first option.
-	$empty_option = array(
-		__( 'Default', 'mm-components' ) => '',
-	);
+    // Add an empty first option.
+    $empty_option = array(
+        __( 'Default', 'mm-components' ) => '',
+    );
 
-	return $empty_option + array_flip( mm_get_mm_users_templates( $context ) );
+    return $empty_option + array_flip( mm_get_mm_users_templates( $context ) );
 }
 
 /**
@@ -439,15 +440,15 @@ function mm_get_mm_users_templates_for_vc( $context = '' ) {
  */
 function mm_get_wrap_elements( $context = '' ) {
 
-	$wrap_elements = array(
-		'article' => 'article',
-		'div'     => 'div',
-		'ul'      => 'ul',
-		'ol'      => 'ol',
-		'span'    => 'span',
-	);
+    $wrap_elements = array(
+        'article' => 'article',
+        'div'     => 'div',
+        'ul'      => 'ul',
+        'ol'      => 'ol',
+        'span'    => 'span',
+    );
 
-	return apply_filters( 'mm_components_wrap_elements', $wrap_elements, $context );
+    return apply_filters( 'mm_components_wrap_elements', $wrap_elements, $context );
 }
 
 /**
@@ -461,12 +462,12 @@ function mm_get_wrap_elements( $context = '' ) {
  */
 function mm_get_wrap_elements_for_vc( $context = '' ) {
 
-	// Add an empty first option.
-	$empty_option = array(
-		__( 'Default', 'mm-components' ) => '',
-	);
+    // Add an empty first option.
+    $empty_option = array(
+        __( 'Default', 'mm-components' ) => '',
+    );
 
-	return $empty_option + array_flip( mm_get_wrap_elements( $context ) );
+    return $empty_option + array_flip( mm_get_wrap_elements( $context ) );
 }
 
 /**
@@ -480,15 +481,15 @@ function mm_get_wrap_elements_for_vc( $context = '' ) {
  */
 function mm_get_icon_styles( $context = '' ) {
 
-	// Add an empty first option.
-	$icon_style = array(
-		''               => __( 'Icon Only', 'mm-components' ),
-		'circle'         => __( 'Circle', 'mm-components' ),
-		'square'         =>	__( 'Square', 'mm-components' ),
-		'rounded-square' =>	__( 'Rounded Square', 'mm-components' ),
-	);
+    // Add an empty first option.
+    $icon_style = array(
+        ''               => __( 'Icon Only', 'mm-components' ),
+        'circle'         => __( 'Circle', 'mm-components' ),
+        'square'         => __( 'Square', 'mm-components' ),
+        'rounded-square' => __( 'Rounded Square', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_get_icon_styles', $icon_style, $context );
+    return apply_filters( 'mm_get_icon_styles', $icon_style, $context );
 }
 
 /**
@@ -502,7 +503,7 @@ function mm_get_icon_styles( $context = '' ) {
  */
 function mm_get_icon_styles_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_icon_styles( $context ) );
+    return array_flip( mm_get_icon_styles( $context ) );
 }
 
 /**
@@ -516,7 +517,7 @@ function mm_get_icon_styles_for_vc( $context = '' ) {
  */
 function mm_get_social_icons_types_for_vc( $context = '' ) {
 
-	return apply_filters( 'mm_social_icons_types', array(), $context );
+    return apply_filters( 'mm_social_icons_types', array(), $context );
 }
 
 /**
@@ -530,7 +531,7 @@ function mm_get_social_icons_types_for_vc( $context = '' ) {
  */
 function mm_get_social_icons_types( $context = '' ) {
 
-	return array_flip( mm_get_social_icons_types_for_vc( $context ) );
+    return array_flip( mm_get_social_icons_types_for_vc( $context ) );
 }
 
 /**
@@ -544,15 +545,15 @@ function mm_get_social_icons_types( $context = '' ) {
  */
 function mm_get_social_networks( $context = '' ) {
 
-	$social_networks = array(
-		'facebook'  => __( 'Facebook', 'mm-components' ),
-		'twitter'   => __( 'Twitter', 'mm-components' ),
-		'instagram' => __( 'Instagram', 'mm-components' ),
-		'pinterest' => __( 'Pinterest', 'mm-components' ),
-		'youtube'   => __( 'Youtube', 'mm-components' ),
-	);
+    $social_networks = array(
+        'facebook'  => __( 'Facebook', 'mm-components' ),
+        'twitter'   => __( 'Twitter', 'mm-components' ),
+        'instagram' => __( 'Instagram', 'mm-components' ),
+        'pinterest' => __( 'Pinterest', 'mm-components' ),
+        'youtube'   => __( 'Youtube', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_social_networks', $social_networks, $context );
+    return apply_filters( 'mm_social_networks', $social_networks, $context );
 }
 
 /**
@@ -566,7 +567,7 @@ function mm_get_social_networks( $context = '' ) {
  */
 function mm_get_social_networks_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_social_networks( $context ) );
+    return array_flip( mm_get_social_networks( $context ) );
 }
 
 /**
@@ -580,13 +581,13 @@ function mm_get_social_networks_for_vc( $context = '' ) {
  */
 function mm_get_image_card_styles( $context = '' ) {
 
-	// Add an empty first option.
-	$image_card_styles = array(
-		'button-bottom' => __( 'Button Bottom', 'mm-components' ),
-		'text-inside'   => __( 'Text Inside', 'mm-components' ),
-	);
+    // Add an empty first option.
+    $image_card_styles = array(
+        'button-bottom' => __( 'Button Bottom', 'mm-components' ),
+        'text-inside'   => __( 'Text Inside', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_get_image_card_styles', $image_card_styles, $context );
+    return apply_filters( 'mm_get_image_card_styles', $image_card_styles, $context );
 }
 
 /**
@@ -600,7 +601,7 @@ function mm_get_image_card_styles( $context = '' ) {
  */
 function mm_get_image_card_styles_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_image_card_styles( $context ) );
+    return array_flip( mm_get_image_card_styles( $context ) );
 }
 
 /**
@@ -614,43 +615,43 @@ function mm_get_image_card_styles_for_vc( $context = '' ) {
  */
 function mm_get_timezones( $context = '' ) {
 
-	$timezones = array(
-		'GMT-1200' => __( '(GMT -12:00) Eniwetok, Kwajalein', 'mm-components' ),
-		'GMT-1100' => __( '(GMT -11:00) Midway Island, Samoa', 'mm-components' ),
-		'GMT-1000' => __( '(GMT -10:00) Hawaii', 'mm-components' ),
-		'GMT-0900' => __( '(GMT -9:00) Alaska', 'mm-components' ),
-		'GMT-0800' => __( '(GMT -8:00) Pacific Time (US & Canada)', 'mm-components' ),
-		'GMT-0700' => __( '(GMT -7:00) Mountain Time (US & Canada)', 'mm-components' ),
-		'GMT-0600' => __( '(GMT -6:00) Central Time (US & Canada), Mexico City', 'mm-components' ),
-		'GMT-0500' => __( '(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima', 'mm-components' ),
-		'GMT-0430' => __( '(GMT -4:30) Caracas', 'mm-components' ),
-		'GMT-0400' => __( '(GMT -4:00) Atlantic Time (Canada), La Paz, Santiago', 'mm-components' ),
-		'GMT-0330' => __( '(GMT -3:30) Newfoundland', 'mm-components' ),
-		'GMT-0300' => __( '(GMT -3:00) Brazil, Buenos Aires, Georgetown', 'mm-components' ),
-		'GMT-0200' => __( '(GMT -2:00) Mid-Atlantic', 'mm-components' ),
-		'GMT-0100' => __( '(GMT -1:00 hour) Azores, Cape Verde Islands', 'mm-components' ),
-		'GMT'      => __( '(GMT) Western Europe Time, London, Lisbon, Casablanca, Greenwich', 'mm-components' ),
-		'GMT+0100' => __( '(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris', 'mm-components' ),
-		'GMT+0200' => __( '(GMT +2:00) Kaliningrad, South Africa, Cairo', 'mm-components' ),
-		'GMT+0300' => __( '(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg', 'mm-components' ),
-		'GMT+0330' => __( '(GMT +3:30) Tehran', 'mm-components' ),
-		'GMT+0400' => __( '(GMT +4:00) Abu Dhabi, Muscat, Yerevan, Baku, Tbilisi', 'mm-components' ),
-		'GMT+0430' => __( '(GMT +4:30) Kabul', 'mm-components' ),
-		'GMT+0500' => __( '(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent', 'mm-components' ),
-		'GMT+0530' => __( '(GMT +5:30) Mumbai, Kolkata, Chennai, New Delhi', 'mm-components' ),
-		'GMT+0545' => __( '(GMT +5:45) Kathmandu', 'mm-components' ),
-		'GMT+0600' => __( '(GMT +6:00) Almaty, Dhaka, Colombo', 'mm-components' ),
-		'GMT+0630' => __( '(GMT +6:30) Yangon, Cocos Islands', 'mm-components' ),
-		'GMT+0700' => __( '(GMT +7:00) Bangkok, Hanoi, Jakarta', 'mm-components' ),
-		'GMT+0800' => __( '(GMT +8:00) Beijing, Perth, Singapore, Hong Kong', 'mm-components' ),
-		'GMT+0900' => __( '(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk', 'mm-components' ),
-		'GMT+0930' => __( '(GMT +9:30) Adelaide, Darwin', 'mm-components' ),
-		'GMT+1000' => __( '(GMT +10:00) Eastern Australia, Guam, Vladivostok', 'mm-components' ),
-		'GMT+1100' => __( '(GMT +11:00) Magadan, Solomon Islands, New Caledonia', 'mm-components' ),
-		'GMT+1200' => __( '(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka', 'mm-components' ),
-	);
+    $timezones = array(
+        'GMT-1200' => __( '(GMT -12:00) Eniwetok, Kwajalein', 'mm-components' ),
+        'GMT-1100' => __( '(GMT -11:00) Midway Island, Samoa', 'mm-components' ),
+        'GMT-1000' => __( '(GMT -10:00) Hawaii', 'mm-components' ),
+        'GMT-0900' => __( '(GMT -9:00) Alaska', 'mm-components' ),
+        'GMT-0800' => __( '(GMT -8:00) Pacific Time (US & Canada)', 'mm-components' ),
+        'GMT-0700' => __( '(GMT -7:00) Mountain Time (US & Canada)', 'mm-components' ),
+        'GMT-0600' => __( '(GMT -6:00) Central Time (US & Canada), Mexico City', 'mm-components' ),
+        'GMT-0500' => __( '(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima', 'mm-components' ),
+        'GMT-0430' => __( '(GMT -4:30) Caracas', 'mm-components' ),
+        'GMT-0400' => __( '(GMT -4:00) Atlantic Time (Canada), La Paz, Santiago', 'mm-components' ),
+        'GMT-0330' => __( '(GMT -3:30) Newfoundland', 'mm-components' ),
+        'GMT-0300' => __( '(GMT -3:00) Brazil, Buenos Aires, Georgetown', 'mm-components' ),
+        'GMT-0200' => __( '(GMT -2:00) Mid-Atlantic', 'mm-components' ),
+        'GMT-0100' => __( '(GMT -1:00 hour) Azores, Cape Verde Islands', 'mm-components' ),
+        'GMT'      => __( '(GMT) Western Europe Time, London, Lisbon, Casablanca, Greenwich', 'mm-components' ),
+        'GMT+0100' => __( '(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris', 'mm-components' ),
+        'GMT+0200' => __( '(GMT +2:00) Kaliningrad, South Africa, Cairo', 'mm-components' ),
+        'GMT+0300' => __( '(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg', 'mm-components' ),
+        'GMT+0330' => __( '(GMT +3:30) Tehran', 'mm-components' ),
+        'GMT+0400' => __( '(GMT +4:00) Abu Dhabi, Muscat, Yerevan, Baku, Tbilisi', 'mm-components' ),
+        'GMT+0430' => __( '(GMT +4:30) Kabul', 'mm-components' ),
+        'GMT+0500' => __( '(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent', 'mm-components' ),
+        'GMT+0530' => __( '(GMT +5:30) Mumbai, Kolkata, Chennai, New Delhi', 'mm-components' ),
+        'GMT+0545' => __( '(GMT +5:45) Kathmandu', 'mm-components' ),
+        'GMT+0600' => __( '(GMT +6:00) Almaty, Dhaka, Colombo', 'mm-components' ),
+        'GMT+0630' => __( '(GMT +6:30) Yangon, Cocos Islands', 'mm-components' ),
+        'GMT+0700' => __( '(GMT +7:00) Bangkok, Hanoi, Jakarta', 'mm-components' ),
+        'GMT+0800' => __( '(GMT +8:00) Beijing, Perth, Singapore, Hong Kong', 'mm-components' ),
+        'GMT+0900' => __( '(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk', 'mm-components' ),
+        'GMT+0930' => __( '(GMT +9:30) Adelaide, Darwin', 'mm-components' ),
+        'GMT+1000' => __( '(GMT +10:00) Eastern Australia, Guam, Vladivostok', 'mm-components' ),
+        'GMT+1100' => __( '(GMT +11:00) Magadan, Solomon Islands, New Caledonia', 'mm-components' ),
+        'GMT+1200' => __( '(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_timezones', $timezones, $context );
+    return apply_filters( 'mm_timezones', $timezones, $context );
 }
 
 /**
@@ -664,11 +665,11 @@ function mm_get_timezones( $context = '' ) {
  */
 function mm_get_timezones_for_vc( $context = '' ) {
 
-	$empty_option = array(
-		__( 'Select A Timezone', 'mm-components' ) => '',
-	);
+    $empty_option = array(
+        __( 'Select A Timezone', 'mm-components' ) => '',
+    );
 
-	return $empty_option + array_flip( mm_get_timezones( $context ) );
+    return $empty_option + array_flip( mm_get_timezones( $context ) );
 }
 
 /**
@@ -682,18 +683,18 @@ function mm_get_timezones_for_vc( $context = '' ) {
  */
 function mm_get_user_roles( $context = '' ) {
 
-	global $wp_roles;
+    global $wp_roles;
 
-	$user_roles = array();
+    $user_roles = array();
 
-	foreach ( $wp_roles->roles as $role => $role_params ) {
+    foreach ( $wp_roles->roles as $role => $role_params ) {
 
-		$role_name = ( isset( $role_params['name'] ) ) ? $role_params['name'] : $role;
+        $role_name = ( isset( $role_params['name'] ) ) ? $role_params['name'] : $role;
 
-		$user_roles[ $role ] = $role_name;
-	}
+        $user_roles[ $role ] = $role_name;
+    }
 
-	return apply_filters( 'mm_user_roles', $user_roles, $context );
+    return apply_filters( 'mm_user_roles', $user_roles, $context );
 }
 
 /**
@@ -707,7 +708,7 @@ function mm_get_user_roles( $context = '' ) {
  */
 function mm_get_user_roles_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_user_roles( $context ) );
+    return array_flip( mm_get_user_roles( $context ) );
 }
 
 /**
@@ -721,14 +722,14 @@ function mm_get_user_roles_for_vc( $context = '' ) {
  */
 function mm_get_colors( $context = '' ) {
 
-	$colors = array(
-		'default' => __( 'Default', 'mm-components' ),
-		'light'   => __( 'Light', 'mm-components' ),
-		'medium'  => __( 'Medium', 'mm-components' ),
-		'dark'    => __( 'Dark', 'mm-components' ),
-	);
+    $colors = array(
+        'default' => __( 'Default', 'mm-components' ),
+        'light'   => __( 'Light', 'mm-components' ),
+        'medium'  => __( 'Medium', 'mm-components' ),
+        'dark'    => __( 'Dark', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_colors', $colors, $context );
+    return apply_filters( 'mm_colors', $colors, $context );
 }
 
 /**
@@ -742,7 +743,7 @@ function mm_get_colors( $context = '' ) {
  */
 function mm_get_colors_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_colors( $context ) );
+    return array_flip( mm_get_colors( $context ) );
 }
 
 /**
@@ -756,19 +757,19 @@ function mm_get_colors_for_vc( $context = '' ) {
  */
 function mm_get_background_position( $context = '' ) {
 
-	$position = array(
-		'center center' => __( 'Center Center', 'mm-components' ),
-		'center top'    => __( 'Center Top', 'mm-components' ),
-		'center bottom' => __( 'Center Bottom', 'mm-components' ),
-		'left center'   => __( 'Left Center', 'mm-components' ),
-		'left top'      => __( 'Left Top', 'mm-components' ),
-		'left bottom'   => __( 'Left Bottom', 'mm-components' ),
-		'right center'  => __( 'Right Center', 'mm-components' ),
-		'right top'     => __( 'Right Top', 'mm-components' ),
-		'right bottom'  => __( 'Right Bottom', 'mm-components' ),
-	);
+    $position = array(
+        'center center' => __( 'Center Center', 'mm-components' ),
+        'center top'    => __( 'Center Top', 'mm-components' ),
+        'center bottom' => __( 'Center Bottom', 'mm-components' ),
+        'left center'   => __( 'Left Center', 'mm-components' ),
+        'left top'      => __( 'Left Top', 'mm-components' ),
+        'left bottom'   => __( 'Left Bottom', 'mm-components' ),
+        'right center'  => __( 'Right Center', 'mm-components' ),
+        'right top'     => __( 'Right Top', 'mm-components' ),
+        'right bottom'  => __( 'Right Bottom', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_background_position', $position, $context );
+    return apply_filters( 'mm_background_position', $position, $context );
 }
 
 /**
@@ -782,7 +783,7 @@ function mm_get_background_position( $context = '' ) {
  */
 function mm_get_background_position_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_background_position( $context ) );
+    return array_flip( mm_get_background_position( $context ) );
 }
 
 /**
@@ -796,13 +797,13 @@ function mm_get_background_position_for_vc( $context = '' ) {
  */
 function mm_get_overlay_colors( $context = '' ) {
 
-	$colors = array(
-		''      => __( 'None', 'mm-components' ),
-		'white' => __( 'White', 'mm-components' ),
-		'black' => __( 'Black', 'mm-components' ),
-	);
+    $colors = array(
+        ''      => __( 'None', 'mm-components' ),
+        'white' => __( 'White', 'mm-components' ),
+        'black' => __( 'Black', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_overlay_colors', $colors, $context );
+    return apply_filters( 'mm_overlay_colors', $colors, $context );
 }
 
 /**
@@ -816,7 +817,7 @@ function mm_get_overlay_colors( $context = '' ) {
  */
 function mm_get_overlay_colors_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_overlay_colors( $context ) );
+    return array_flip( mm_get_overlay_colors( $context ) );
 }
 
 /**
@@ -830,20 +831,20 @@ function mm_get_overlay_colors_for_vc( $context = '' ) {
  */
 function mm_get_overlay_opacity_values( $context = '' ) {
 
-	$values = array(
-		'0.1' => __( '0.1', 'mm-components' ),
-		'0.2' => __( '0.2', 'mm-components' ),
-		'0.3' => __( '0.3', 'mm-components' ),
-		'0.4' => __( '0.4', 'mm-components' ),
-		'0.5' => __( '0.5', 'mm-components' ),
-		'0.6' => __( '0.6', 'mm-components' ),
-		'0.7' => __( '0.7', 'mm-components' ),
-		'0.8' => __( '0.8', 'mm-components' ),
-		'0.9' => __( '0.9', 'mm-components' ),
-		'1'   => __( '1', 'mm-components' ),
-	);
+    $values = array(
+        '0.1' => __( '0.1', 'mm-components' ),
+        '0.2' => __( '0.2', 'mm-components' ),
+        '0.3' => __( '0.3', 'mm-components' ),
+        '0.4' => __( '0.4', 'mm-components' ),
+        '0.5' => __( '0.5', 'mm-components' ),
+        '0.6' => __( '0.6', 'mm-components' ),
+        '0.7' => __( '0.7', 'mm-components' ),
+        '0.8' => __( '0.8', 'mm-components' ),
+        '0.9' => __( '0.9', 'mm-components' ),
+        '1'   => __( '1', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_overlay_opacity_values', $values, $context );
+    return apply_filters( 'mm_overlay_opacity_values', $values, $context );
 }
 
 /**
@@ -857,7 +858,7 @@ function mm_get_overlay_opacity_values( $context = '' ) {
  */
 function mm_get_overlay_opacity_values_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_overlay_opacity_values( $context ) );
+    return array_flip( mm_get_overlay_opacity_values( $context ) );
 }
 
 /**
@@ -871,11 +872,11 @@ function mm_get_overlay_opacity_values_for_vc( $context = '' ) {
  */
 function mm_get_wrapper_elements( $context = '' ) {
 
-	$wrapper_elements = mm_get_heading_levels( $context );
+    $wrapper_elements = mm_get_heading_levels( $context );
 
-	$wrapper_elements['p'] = __( 'p', 'mm-components' );
+    $wrapper_elements['p'] = __( 'p', 'mm-components' );
 
-	return apply_filters( 'mm_wrapper_elements', $wrapper_elements, $context );
+    return apply_filters( 'mm_wrapper_elements', $wrapper_elements, $context );
 }
 
 /**
@@ -889,11 +890,11 @@ function mm_get_wrapper_elements( $context = '' ) {
  */
 function mm_get_wrapper_elements_for_vc( $context = '' ) {
 
-	$empty_option = array(
-		__( 'Select an element', 'mm-components' ),
-	);
+    $empty_option = array(
+        __( 'Select an element', 'mm-components' ),
+    );
 
-	return $empty_option + array_flip( mm_get_wrapper_elements( $context ) );
+    return $empty_option + array_flip( mm_get_wrapper_elements( $context ) );
 }
 
 /**
@@ -907,16 +908,16 @@ function mm_get_wrapper_elements_for_vc( $context = '' ) {
  */
 function mm_get_heading_levels( $context = '' ) {
 
-	$heading_levels = array(
-		'h1' => __( 'h1', 'mm-components' ),
-		'h2' => __( 'h2', 'mm-components' ),
-		'h3' => __( 'h3', 'mm-components' ),
-		'h4' => __( 'h4', 'mm-components' ),
-		'h5' => __( 'h5', 'mm-components' ),
-		'h6' => __( 'h6', 'mm-components' ),
-	);
+    $heading_levels = array(
+        'h1' => __( 'h1', 'mm-components' ),
+        'h2' => __( 'h2', 'mm-components' ),
+        'h3' => __( 'h3', 'mm-components' ),
+        'h4' => __( 'h4', 'mm-components' ),
+        'h5' => __( 'h5', 'mm-components' ),
+        'h6' => __( 'h6', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_heading_levels', $heading_levels, $context );
+    return apply_filters( 'mm_heading_levels', $heading_levels, $context );
 }
 
 /**
@@ -930,11 +931,11 @@ function mm_get_heading_levels( $context = '' ) {
  */
 function mm_get_heading_levels_for_vc( $context = '' ) {
 
-	$empty_option = array(
-		__( 'Select a heading level', 'mm-components' ),
-	);
+    $empty_option = array(
+        __( 'Select a heading level', 'mm-components' ),
+    );
 
-	return $empty_option + array_flip( mm_get_heading_levels( $context ) );
+    return $empty_option + array_flip( mm_get_heading_levels( $context ) );
 }
 
 /**
@@ -948,14 +949,14 @@ function mm_get_heading_levels_for_vc( $context = '' ) {
  */
 function mm_get_text_alignment( $context = '' ) {
 
-	$text_alignment = array(
-		'default' => __( 'Default', 'mm-components' ),
-		'left'    => __( 'Left', 'mm-components' ),
-		'center'  => __( 'Center', 'mm-components' ),
-		'right'   => __( 'Right', 'mm-components' ),
-	);
+    $text_alignment = array(
+        'default' => __( 'Default', 'mm-components' ),
+        'left'    => __( 'Left', 'mm-components' ),
+        'center'  => __( 'Center', 'mm-components' ),
+        'right'   => __( 'Right', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_text_alignment', $text_alignment, $context );
+    return apply_filters( 'mm_text_alignment', $text_alignment, $context );
 }
 
 /**
@@ -969,7 +970,7 @@ function mm_get_text_alignment( $context = '' ) {
  */
 function mm_get_text_alignment_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_text_alignment( $context ) );
+    return array_flip( mm_get_text_alignment( $context ) );
 }
 
 /**
@@ -983,11 +984,11 @@ function mm_get_text_alignment_for_vc( $context = '' ) {
  */
 function mm_get_fonts( $context = '' ) {
 
-	$fonts = array(
-		'default' => __( 'Default', 'mm-components' ),
-	);
+    $fonts = array(
+        'default' => __( 'Default', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_fonts', $fonts, $context );
+    return apply_filters( 'mm_fonts', $fonts, $context );
 }
 
 /**
@@ -1001,7 +1002,7 @@ function mm_get_fonts( $context = '' ) {
  */
 function mm_get_fonts_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_fonts( $context ) );
+    return array_flip( mm_get_fonts( $context ) );
 }
 
 /**
@@ -1015,14 +1016,14 @@ function mm_get_fonts_for_vc( $context = '' ) {
  */
 function mm_get_font_weights( $context = '' ) {
 
-	$font_weights = array(
-		'normal'    => __( 'Normal', 'mm-components' ),
-		'light'     => __( 'Light', 'mm-components' ),
-		'semi-bold' => __( 'Semi-bold', 'mm-components' ),
-		'bold'      => __( 'Bold', 'mm-components' ),
-	);
+    $font_weights = array(
+        'normal'    => __( 'Normal', 'mm-components' ),
+        'light'     => __( 'Light', 'mm-components' ),
+        'semi-bold' => __( 'Semi-bold', 'mm-components' ),
+        'bold'      => __( 'Bold', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_font_weights', $font_weights, $context );
+    return apply_filters( 'mm_font_weights', $font_weights, $context );
 }
 
 /**
@@ -1036,11 +1037,11 @@ function mm_get_font_weights( $context = '' ) {
  */
 function mm_get_font_weights_for_vc( $context = '' ) {
 
-	$empty_option = array(
-		__( 'Default' ) => '',
-	);
+    $empty_option = array(
+        __( 'Default' ) => '',
+    );
 
-	return $empty_option + array_flip( mm_get_font_weights( $context ) );
+    return $empty_option + array_flip( mm_get_font_weights( $context ) );
 }
 
 /**
@@ -1054,15 +1055,15 @@ function mm_get_font_weights_for_vc( $context = '' ) {
  */
 function mm_get_button_styles( $context = '' ) {
 
-	$button_style = array(
-		'default'        => __( 'Default', 'mm-components' ),
-		'ghost'          => __( 'Ghost', 'mm-components' ),
-		'solid-to-ghost' => __( 'Solid to Ghost', 'mm-components' ),
-		'three-d'        => __( '3D', 'mm-components' ),
-		'gradient'       => __( 'Gradient', 'mm-components' ),
-	);
+    $button_style = array(
+        'default'        => __( 'Default', 'mm-components' ),
+        'ghost'          => __( 'Ghost', 'mm-components' ),
+        'solid-to-ghost' => __( 'Solid to Ghost', 'mm-components' ),
+        'three-d'        => __( '3D', 'mm-components' ),
+        'gradient'       => __( 'Gradient', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_button_styles', $button_style, $context );
+    return apply_filters( 'mm_button_styles', $button_style, $context );
 }
 
 /**
@@ -1076,7 +1077,7 @@ function mm_get_button_styles( $context = '' ) {
  */
 function mm_get_button_styles_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_button_styles( $context ) );
+    return array_flip( mm_get_button_styles( $context ) );
 }
 
 /**
@@ -1090,13 +1091,13 @@ function mm_get_button_styles_for_vc( $context = '' ) {
  */
 function mm_get_button_border_weights( $context = '' ) {
 
-	$button_border_weights = array(
-		'default' => __( 'Default', 'mm-components' ),
-		'thin'    => __( 'Thin', 'mm-components' ),
-		'thick'   => __( 'Thick', 'mm-components' ),
-	);
+    $button_border_weights = array(
+        'default' => __( 'Default', 'mm-components' ),
+        'thin'    => __( 'Thin', 'mm-components' ),
+        'thick'   => __( 'Thick', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_button_border_weights', $button_border_weights, $context );
+    return apply_filters( 'mm_button_border_weights', $button_border_weights, $context );
 }
 
 /**
@@ -1110,7 +1111,7 @@ function mm_get_button_border_weights( $context = '' ) {
  */
 function mm_get_button_border_weights_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_button_border_weights( $context ) );
+    return array_flip( mm_get_button_border_weights( $context ) );
 }
 
 /**
@@ -1124,13 +1125,13 @@ function mm_get_button_border_weights_for_vc( $context = '' ) {
  */
 function mm_get_button_corner_styles( $context = '' ) {
 
-	$button_corner_styles = array(
-		'pointed' => __( 'Pointed', 'mm-components' ),
-		'rounded' => __( 'Rounded', 'mm-components' ),
-		'pill'    => __( 'Pill', 'mm-components' ),
-	);
+    $button_corner_styles = array(
+        'pointed' => __( 'Pointed', 'mm-components' ),
+        'rounded' => __( 'Rounded', 'mm-components' ),
+        'pill'    => __( 'Pill', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_button_corner_styles', $button_corner_styles, $context );
+    return apply_filters( 'mm_button_corner_styles', $button_corner_styles, $context );
 }
 
 /**
@@ -1144,7 +1145,7 @@ function mm_get_button_corner_styles( $context = '' ) {
  */
 function mm_get_button_corner_styles_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_button_corner_styles( $context ) );
+    return array_flip( mm_get_button_corner_styles( $context ) );
 }
 
 /**
@@ -1158,14 +1159,14 @@ function mm_get_button_corner_styles_for_vc( $context = '' ) {
  */
 function mm_get_link_targets( $context = '' ) {
 
-	$link_targets = array(
-		'_self'   => __( 'Same window', 'mm-components' ),
-		'_blank'  => __( 'New window', 'mm-components' ),
-		'_parent' => __( 'Parent window', 'mm-components' ),
-		'_top'    => __( 'Top window', 'mm-components' ),
-	);
+    $link_targets = array(
+        '_self'   => __( 'Same window', 'mm-components' ),
+        '_blank'  => __( 'New window', 'mm-components' ),
+        '_parent' => __( 'Parent window', 'mm-components' ),
+        '_top'    => __( 'Top window', 'mm-components' ),
+    );
 
-	return apply_filters( 'mm_link_targets', $link_targets, $context );
+    return apply_filters( 'mm_link_targets', $link_targets, $context );
 }
 
 /**
@@ -1179,7 +1180,7 @@ function mm_get_link_targets( $context = '' ) {
  */
 function mm_get_link_targets_for_vc( $context = '' ) {
 
-	return array_flip( mm_get_link_targets( $context ) );
+    return array_flip( mm_get_link_targets( $context ) );
 }
 
 /**
@@ -1191,14 +1192,14 @@ function mm_get_link_targets_for_vc( $context = '' ) {
  */
 function mm_output_table_element_open( $classes = '' ) {
 
-	if ( '' !== $classes ) {
-		printf(
-			'<table class="%s">',
-			esc_attr( $classes )
-		);
-	} else {
-		echo '<table>';
-	}
+    if ( '' !== $classes ) {
+        printf(
+            '<table class="%s">',
+            esc_attr( $classes )
+        );
+    } else {
+        echo '<table>';
+    }
 }
 
 /**
@@ -1208,7 +1209,7 @@ function mm_output_table_element_open( $classes = '' ) {
  */
 function mm_output_table_element_close() {
 
-	echo '</table>';
+    echo '</table>';
 }
 
 /**
@@ -1218,7 +1219,7 @@ function mm_output_table_element_close() {
  */
 function mm_output_thead_element_open() {
 
-	echo '<thead>';
+    echo '<thead>';
 }
 
 /**
@@ -1228,7 +1229,7 @@ function mm_output_thead_element_open() {
  */
 function mm_output_thead_element_close() {
 
-	echo '</thead>';
+    echo '</thead>';
 }
 
 /**
@@ -1238,7 +1239,7 @@ function mm_output_thead_element_close() {
  */
 function mm_output_tbody_element_open() {
 
-	echo '<tbody>';
+    echo '<tbody>';
 }
 
 /**
@@ -1248,5 +1249,5 @@ function mm_output_tbody_element_open() {
  */
 function mm_output_tbody_element_close() {
 
-	echo '</tbody>';
+    echo '</tbody>';
 }

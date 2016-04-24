@@ -23,7 +23,7 @@ function mm_posts( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'post_titles'         => '',
+		'post_ids'            => '',
 		'post_type'           => 'post',
 		'taxonomy'            => '',
 		'term'                => '',
@@ -42,7 +42,7 @@ function mm_posts( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$post_titles   = $args['post_titles'] ? str_getcsv( $args['post_titles'] ) : '';
+	$post_ids      = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
 	$post_type     = sanitize_text_field( $args['post_type'] );
 	$taxonomy      = sanitize_text_field( $args['taxonomy'] );
 	$term          = sanitize_text_field( $args['term'] );
@@ -82,9 +82,9 @@ function mm_posts( $args ) {
 	);
 
 	// Add to our query if additional params have been passed.
-	if ( $post_titles ) {
+	if ( $post_ids ) {
 
-		$query_args['post__in'] = $post_titles;
+		$query_args['post__in'] = $post_ids;
 		$query_args['orderby']  = 'post__in';
 
 	} elseif ( $taxonomy && $term ) {
@@ -788,6 +788,25 @@ function mm_vc_posts() {
 	$image_sizes    = mm_get_image_sizes_for_vc( 'mm-posts' );
 	$templates      = mm_get_mm_posts_templates_for_vc( 'mm-posts' );
 
+	// Grab post type values with capital letters for description and title fields.
+	$post_types_formatted = mm_get_post_types();
+
+	// Format the array of post titles to include better formatting.
+	$last = array_slice( $post_types_formatted, -1 );
+	$first = join( ', ', array_slice( $post_types_formatted, 0, -1 ) );
+	$both = array_filter( array_merge( array( $first ), $last ), 'strlen');
+	$formatted_titles = join(' or ', $both);
+
+	$title_heading = sprintf(
+		__( '%s Titles', 'mm-components' ),
+		$formatted_titles
+	);
+
+	$title_description = sprintf(
+		__( 'Enter a specific %s to display', 'mm-components' ),
+		$formatted_titles
+	);
+
 	vc_map( array(
 		'name'              => __( 'Posts', 'mm-components' ),
 		'base'              => 'mm_posts',
@@ -798,9 +817,9 @@ function mm_vc_posts() {
 		'params'            => array(
 			array(
 				'type'        => 'autocomplete',
-				'heading'     => __( 'Post/Page Titles', 'mm-components' ),
-				'param_name'  => 'post_titles',
-				'description' => __( 'Enter specific post or page titles to display', 'mm-components' ),
+				'heading'     => $title_heading,
+				'param_name'  => 'post_ids',
+				'description' => $title_description,
 				'settings'    => array(
 					'values' => $titles,
 				),
