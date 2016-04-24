@@ -23,6 +23,7 @@ function mm_posts( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
+		'query_type'          => 'collection',
 		'post_ids'            => '',
 		'post_type'           => 'post',
 		'taxonomy'            => '',
@@ -42,6 +43,7 @@ function mm_posts( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
+	$query_type    = sanitize_text_field( $args['query_type'] );
 	$post_ids      = $args['post_ids'] ? str_getcsv( $args['post_ids'] ) : '';
 	$post_type     = sanitize_text_field( $args['post_type'] );
 	$taxonomy      = sanitize_text_field( $args['taxonomy'] );
@@ -69,12 +71,23 @@ function mm_posts( $args ) {
 	global $post;
 	$global_post_id = (int)$post->ID;
 
-	// Set up a generic query.
-	$query_args = array(
-		'post_type'      => $post_type,
-		'post_status'    => 'publish',
-		'posts_per_page' => $per_page,
-	);
+	// Set up a generic query depending on query type.
+	if ( $query_type == 'specific' ) {
+
+		$query_args = array(
+			'post_type'      => mm_get_post_types( 'mm-posts' ),
+			'post_status'    => 'publish',
+			'posts_per_page' => $per_page,
+		);
+
+	} else {
+
+		$query_args = array(
+			'post_type'      => $post_type,
+			'post_status'    => 'publish',
+			'posts_per_page' => $per_page,
+		);
+	}
 
 	// Exclude the page we're on from the query to prevent an infinite loop.
 	$query_args['post__not_in'] = array(
@@ -781,6 +794,7 @@ function mm_vc_posts() {
 		return;
 	}
 
+	$query_types    = mm_get_query_types_for_vc( 'mm-posts' );
 	$titles         = mm_get_post_titles_for_vc( 'mm-posts' );
 	$post_types     = mm_get_post_types_for_vc( 'mm-posts' );
 	$taxonomies     = mm_get_taxonomies_for_vc( 'mm-posts' );
@@ -789,7 +803,7 @@ function mm_vc_posts() {
 	$templates      = mm_get_mm_posts_templates_for_vc( 'mm-posts' );
 
 	// Grab post type values with capital letters for description and title fields.
-	$post_types_formatted = mm_get_post_types();
+	$post_types_formatted = mm_get_post_types( 'mm-posts ');
 
 	// Format the array of post titles to include better formatting.
 	$last = array_slice( $post_types_formatted, -1 );
@@ -816,12 +830,25 @@ function mm_vc_posts() {
 		'admin_enqueue_css' => MM_COMPONENTS_URL . '/css/post-titles-autocomplete.css',
 		'params'            => array(
 			array(
+				'type'        => 'dropdown',
+				'heading'     => __( 'Selection Type', 'mm-components' ),
+				'param_name'  => 'query_type',
+				'description' => __( 'Select posts by title or select posts of a specific type, taxonomy or term', 'mm-components' ),
+				'value'       => $query_types,
+			),
+			array(
 				'type'        => 'autocomplete',
 				'heading'     => $title_heading,
 				'param_name'  => 'post_ids',
 				'description' => $title_description,
 				'settings'    => array(
-					'values' => $titles,
+					'values'  => $titles,
+				),
+				'dependency' => array(
+					'element' => 'query_type',
+					'value'   => array(
+						'specific',
+					)
 				),
 			),
 			array(
@@ -830,6 +857,12 @@ function mm_vc_posts() {
 				'param_name'  => 'post_type',
 				'description' => __( 'Select a post type to display multiple posts', 'mm-components' ),
 				'value'       => $post_types,
+				'dependency' => array(
+					'element' => 'query_type',
+					'value'   => array(
+						'collection',
+					)
+				),
 			),
 			array(
 				'type'        => 'dropdown',
@@ -837,6 +870,12 @@ function mm_vc_posts() {
 				'param_name'  => 'taxonomy',
 				'description' => __( 'Select a taxonomy and term to only include posts that have the term', 'mm-components' ),
 				'value'       => $taxonomies,
+				'dependency' => array(
+					'element' => 'query_type',
+					'value'   => array(
+						'collection',
+					)
+				),
 			),
 			array(
 				'type'        => 'textfield',
@@ -844,6 +883,12 @@ function mm_vc_posts() {
 				'param_name'  => 'term',
 				'description' => __( 'Specify a term in the selected taxonomy to only include posts that have the term', 'mm-components' ),
 				'value'       => '',
+				'dependency' => array(
+					'element' => 'query_type',
+					'value'   => array(
+						'collection',
+					)
+				),
 			),
 			array(
 				'type'        => 'dropdown',

@@ -222,7 +222,7 @@ function mm_get_taxonomies_for_vc( $context = '' ) {
 }
 
 /**
- * Return an array of post/page titles for use in a Visual Composer dropdown param.
+ * Return an array of post/page titles for use in a Visual Composer autocomplete param.
  *
  * @since   1.0.0
  *
@@ -236,7 +236,7 @@ function mm_get_post_titles_for_vc( $context = '' ) {
 	$posts = get_posts(
 		array(
 			'posts_per_page' => -1,
-			'post_type'      => mm_get_post_types( 'mm-posts' ),
+			'post_type'      => mm_get_post_types( 'mm-components' ),
 		)
 	);
 
@@ -250,6 +250,25 @@ function mm_get_post_titles_for_vc( $context = '' ) {
 	}
 
 	return apply_filters( 'mm_post_titles', $post_titles, $context );
+}
+
+/**
+ * Return an array of query types for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted query types.
+ */
+function mm_get_query_types_for_vc( $context = '' ) {
+
+	$query_types = array(
+		'Collection' => 'collection',
+		'Specific'   => 'specific',
+	);
+
+	return apply_filters( 'mm_query_types', $query_types, $context );
 }
 
 /**
