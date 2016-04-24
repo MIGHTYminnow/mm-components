@@ -73,15 +73,12 @@ function mm_posts( $args ) {
 
 	// Set up a generic query depending on query type.
 	if ( $query_type == 'specific' ) {
-
 		$query_args = array(
 			'post_type'      => mm_get_post_types( 'mm-posts' ),
 			'post_status'    => 'publish',
 			'posts_per_page' => $per_page,
 		);
-
 	} else {
-
 		$query_args = array(
 			'post_type'      => $post_type,
 			'post_status'    => 'publish',
@@ -805,20 +802,21 @@ function mm_vc_posts() {
 	// Grab post type values with capital letters for description and title fields.
 	$post_types_formatted = mm_get_post_types( 'mm-posts ');
 
-	// Format the array of post titles to include better formatting.
+	// Modify the array of post titles for better formatting.
 	$last = array_slice( $post_types_formatted, -1 );
 	$first = join( ', ', array_slice( $post_types_formatted, 0, -1 ) );
 	$both = array_filter( array_merge( array( $first ), $last ), 'strlen');
 	$formatted_titles = join(' or ', $both);
+	$fomatted_plural_titles = str_replace( array( ',', ' or' ), array( 's,' , 's or' ), trim( $formatted_titles) ).'s';
 
 	$title_heading = sprintf(
-		__( '%s Titles', 'mm-components' ),
-		$formatted_titles
+		__( 'Enter the title(s) of specific %s to display', 'mm-components' ),
+		esc_html( $fomatted_plural_titles )
 	);
 
 	$title_description = sprintf(
 		__( 'Enter a specific %s to display', 'mm-components' ),
-		$formatted_titles
+		esc_html( $formatted_titles )
 	);
 
 	vc_map( array(
