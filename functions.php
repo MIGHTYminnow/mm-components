@@ -236,7 +236,7 @@ function mm_get_post_titles_for_vc( $context = '' ) {
 	$posts = get_posts(
 		array(
 			'posts_per_page' => -1,
-			'post_type'		 => mm_get_post_types( 'mm-posts' ),
+			'post_type'      => mm_get_post_types( 'mm-posts' ),
 		)
 	);
 
