@@ -23,7 +23,7 @@ function mm_blockquote( $args ) {
 
 	// Set our defaults and use them as needed.
 	$defaults = array(
-		'quote'                => '',
+		'content'              => '',
 		'citation'             => '',
 		'citation_link'        => '',
 		'citation_link_title'  => '',
@@ -33,7 +33,7 @@ function mm_blockquote( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	// Get clean param values.
-	$quote                = $args['quote'];
+	$quote                = $args['content'];
 	$citation             = $args['citation'];
 	$citation_link        = $args['citation_link'] == '||' ? '' : $args['citation_link'];
 	$citation_link_target = $args['citation_link_target'];
@@ -88,7 +88,11 @@ add_shortcode( 'mm_blockquote', 'mm_blockquote_shortcode' );
  *
  * @return  string        Shortcode output.
  */
-function mm_blockquote_shortcode( $atts ) {
+function mm_blockquote_shortcode( $atts = array(), $content = null ) {
+
+	if ( $content ) {
+		$atts['content'] = $content;
+	}
 
 	return mm_blockquote( $atts );
 }
@@ -116,7 +120,7 @@ function mm_vc_blockquote() {
 			array(
 				'type'       => 'textarea_html',
 				'heading'    => __( 'Quote', 'mm-components' ),
-				'param_name' => 'quote',
+				'param_name' => 'content',
 			),
 			array(
 				'type'       => 'textfield',
@@ -162,7 +166,7 @@ function mm_components_mm_blockquote_shortcode_ui() {
 				),
 				array(
 					'label' => esc_html__( 'Quote', 'mm-components' ),
-					'attr'  => 'quote',
+					'attr'  => 'content',
 					'type'  => 'textarea',
 				),
 				array(
@@ -248,7 +252,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 
 		$defaults = array(
 			'title'    => '',
-			'quote'    => '',
+			'content'  => '',
 			'citation' => '',
 			'image_id' => '',
 		);
@@ -281,7 +285,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 
 		$defaults = array(
 			'title'         => '',
-			'quote'         => '',
+			'content'       => '',
 			'citation'      => '',
 			'citation_link' => '',
 			'image_id'      => '',
@@ -291,7 +295,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 		$instance = wp_parse_args( $instance, $defaults );
 
 		$title         = $instance['title'];
-		$quote         = $instance['quote'];
+		$quote         = $instance['content'];
 		$citation      = $instance['citation'];
 		$citation_link = $instance['citation_link'];
 		$image_id      = $instance['image_id'];
@@ -311,7 +315,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 			__( 'Quote', 'mm-components' ),
 			'',
 			$classname . '-quote widefat',
-			'quote',
+			'content',
 			$quote
 		);
 
@@ -326,11 +330,11 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 
 		// Citation Link.
 		$this->field_text(
-				__( 'Citation Link', 'mm-components' ),
-				'',
-				$classname . '-link widefat',
-				'citation_link',
-				$citation_link
+			__( 'Citation Link', 'mm-components' ),
+			'',
+			$classname . '-link widefat',
+			'citation_link',
+			$citation_link
 		);
 
 		// Image.
@@ -357,7 +361,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 
 		$instance                  = $old_instance;
 		$instance['title']         = sanitize_text_field( $new_instance['title'] );
-		$instance['quote']         = wp_kses_post( $new_instance['quote'] );
+		$instance['content']       = wp_kses_post( $new_instance['content'] );
 		$instance['citation']      = sanitize_text_field( $new_instance['citation'] );
 		$instance['citation_link'] = ( '' !== $new_instance['citation_link'] ) ? esc_url( $new_instance['citation_link'] ) : '';
 		$instance['image_id']      = ( ! empty( $new_instance['image_id'] ) ) ? intval( $new_instance['image_id'] ) : '';
