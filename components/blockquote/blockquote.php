@@ -56,7 +56,7 @@ function mm_blockquote( $args ) {
 	<blockquote class="<?php echo esc_attr( $mm_classes ); ?>">
 
 		<?php if ( 0 !== (int)$image_id ) : ?>
-			<?php echo wp_get_attachment_image( (int)$image_id, 'thumbnail' ); ?>
+			<?php echo wp_get_attachment_image( (int)$image_id, 'thumbnail', false, array( 'class' => 'alignright' )  ); ?>
 		<?php endif; ?>
 
 		<p><?php echo wp_kses_post( $quote ); ?></p>
