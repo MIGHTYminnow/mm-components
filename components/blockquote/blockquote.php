@@ -64,7 +64,7 @@ function mm_blockquote( $args ) {
 		<?php if ( ! empty( $citation ) ) : ?>
 
 			<?php if ( ! empty( $citation_link ) ) : ?>
-				<a href="<?php echo esc_url( $citation_link ) ?>" title="<?php echo esc_attr( $citation_link_title ); ?>" target="<?php echo esc_attr( $citation_link_target ); ?>"><cite><?php echo esc_html( $citation ); ?></cite></a>
+				<cite><a href="<?php echo esc_url( $citation_link ) ?>" title="<?php echo esc_attr( $citation_link_title ); ?>" target="<?php echo esc_attr( $citation_link_target ); ?>"><?php echo esc_html( $citation ); ?></a></cite>
 			<?php else : ?>
 				<cite><?php echo esc_html( $citation ); ?></cite>
 			<?php endif; ?>
