@@ -243,9 +243,16 @@ function mm_get_post_titles_for_vc( $context = '' ) {
 	$post_titles = array();
 
 	foreach ( $posts as $post )	{
+
+		$post_label = sprintf(
+			'<strong>%s</strong> %s' ,
+			ucwords( $post->post_type ),
+			$post->post_title
+		);
+
 		$post_titles[] = array(
 			'value' => $post->ID,
-			'label' => $post->post_title,
+			'label' => $post_label,
 		);
 	}
 
