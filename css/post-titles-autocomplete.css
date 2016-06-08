@@ -9,3 +9,13 @@
 span.vc_autocomplete-label {
 	padding-right: 20px;
 }
+
+span.post-type-label {
+	font-weight: bold;
+	text-transform: capitalize;
+	margin-right: 2px;
+}
+
+.wpb_element_label {
+	text-transform: none;
+}
