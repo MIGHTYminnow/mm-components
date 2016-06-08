@@ -810,7 +810,7 @@ function mm_vc_posts() {
 	$fomatted_plural_titles = str_replace( array( ',', ' or' ), array( 's,' , 's or' ), trim( $formatted_titles) ).'s';
 
 	$title_heading = sprintf(
-		__( 'Enter the title(s) of specific %s to display', 'mm-components' ),
+		__( 'Enter the Title(s) of Specific %s to Display', 'mm-components' ),
 		esc_html( $fomatted_plural_titles )
 	);
 
