@@ -29,6 +29,7 @@ function mm_blockquote( $args ) {
 		'citation_link_title'  => '',
 		'citation_link_target' => '_self',
 		'image_id'             => '',
+		'template'             => '',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
@@ -39,6 +40,7 @@ function mm_blockquote( $args ) {
 	$citation_link_target = $args['citation_link_target'];
 	$citation_link_title  = $args['citation_link_title'];
 	$image_id             = $args['image_id'];
+	$template             = $args['template'];
 
 	// Handle a VC link array.
 	if ( 'url' === substr( $args['citation_link'], 0, 3 ) && function_exists( 'vc_build_link' ) ) {
@@ -51,31 +53,19 @@ function mm_blockquote( $args ) {
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
-	ob_start() ?>
+	do_action( 'mm_blockquote_register_hooks', $args );
 
-	<blockquote class="<?php echo esc_attr( $mm_classes ); ?>">
+	ob_start(); ?>
 
-		<?php if ( 0 !== (int)$image_id ) : ?>
-			<?php echo wp_get_attachment_image( (int)$image_id, 'thumbnail', false, array( 'class' => 'alignright' )  ); ?>
-		<?php endif; ?>
+	<div class="<?php echo esc_attr( $mm_classes ); ?>">
+		<?php do_action( 'mm_blockquote_output_image', $args ); ?>
+		<?php do_action( 'mm_blockquote_content', $args ); ?>
+	<div>
 
-		<p><?php echo wp_kses_post( $quote ); ?></p>
+	<?php return ob_get_clean();
 
-		<?php if ( ! empty( $citation ) ) : ?>
+	do_action( 'mm_blockquote_reset_hooks' );
 
-			<?php if ( ! empty( $citation_link ) ) : ?>
-				<cite><a href="<?php echo esc_url( $citation_link ) ?>" title="<?php echo esc_attr( $citation_link_title ); ?>" target="<?php echo esc_attr( $citation_link_target ); ?>"><?php echo esc_html( $citation ); ?></a></cite>
-			<?php else : ?>
-				<cite><?php echo esc_html( $citation ); ?></cite>
-			<?php endif; ?>
-
-		<?php endif; ?>
-
-	</blockquote>
-
-	<?php
-
-	return ob_get_clean();
 }
 
 add_shortcode( 'mm_blockquote', 'mm_blockquote_shortcode' );
@@ -97,6 +87,81 @@ function mm_blockquote_shortcode( $atts = array(), $content = null ) {
 	return mm_blockquote( $atts );
 }
 
+add_action( 'mm_blockquote_register_hooks', 'mm_blockquote_register_default_hooks', 9, 1 );
+/**
+ * Set up our default hooks.
+ *
+ * @since  1.0.0
+ *
+ * @param  array   $args     The instance args.
+ */
+function mm_blockquote_register_default_hooks( $args ) {
+
+	add_action( 'mm_blockquote_content', 'mm_blockquote_output_content', 10, 1 );
+
+	if( 'image-left' !== $template ) {
+		add_action( 'mm_blockquote_content', 'mm_blockquote_output_image', 8, 1 );
+	}
+
+}
+
+/**
+ * Default blockquote content output.
+ *
+ * @since  1.0.0
+ *
+ * @param  array   $args     The instance args.
+ */
+function mm_blockquote_output_content( $args ) {
+
+	?>
+
+	<blockquote>
+
+	<?php do_action( 'mm_blockquote_output_image', $args ); ?>
+
+		<p><?php echo wp_kses_post( $args['content'] ); ?></p>
+
+		<?php if ( ! empty( $args['citation'] ) ) : ?>
+
+			<?php if ( ! empty( $args['citation_link'] ) ) : ?>
+				<cite><a href="<?php echo esc_url( $args['citation_link'] ) ?>" title="<?php echo esc_attr( $args['citation_link_title'] ); ?>" target="<?php echo esc_attr( $args['citation_link_target'] ); ?>"><?php echo esc_html( $args['citation'] ); ?></a></cite>
+			<?php else : ?>
+				<cite><?php echo esc_html( $args['citation'] ); ?></cite>
+			<?php endif; ?>
+
+		<?php endif; ?>
+
+	</blockquote>
+
+	<?php
+}
+
+/**
+ * Default blockquote image output.
+ *
+ * @since  1.0.0
+ *
+ * @param  array   $args     The instance args.
+ */
+function mm_blockquote_output_image( $args ) {
+
+	// Support the image being an ID or a URL.
+	if ( is_numeric( $args['image_id'] ) ) {
+	    $image_array = wp_get_attachment_image_src( $args['image_id'], 'thumbnail', false, array( 'class' => 'alignright' )  );
+	    $image_url   = $image_array[0];
+	} else {
+	    $image_url = esc_url( $image_id );
+	}
+
+	if ( '' !== $image_url ) {
+		printf( '<img class="blockquote-image" src="%s">',
+			$image_url
+		);
+	}
+
+}
+
 add_action( 'vc_before_init', 'mm_vc_blockquote' );
 /**
  * Visual Composer add-on.
@@ -105,12 +170,21 @@ add_action( 'vc_before_init', 'mm_vc_blockquote' );
  */
 function mm_vc_blockquote() {
 
+	$templates      = mm_get_mm_blockquote_templates_for_vc( 'mm-blockquote' );
+
 	vc_map( array(
 		'name'     => __( 'Blockquote', 'mm-components' ),
 		'base'     => 'mm_blockquote',
 		'icon'     => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
 		'category' => __( 'Content', 'mm-components' ),
 		'params'   => array(
+			array(
+				'type'        => 'dropdown',
+				'heading'     => __( 'Template', 'mm-components' ),
+				'param_name'  => 'template',
+				'description' => __( 'Select a custom template for custom output', 'mm-components' ),
+				'value'       => $templates,
+			),
 			array(
 				'type'        => 'attach_image',
 				'heading'     => __( 'Image', 'mm-components' ),

@@ -422,6 +422,40 @@ function mm_get_mm_posts_templates_for_vc( $context = '' ) {
 }
 
 /**
+ * Return an array of Mm Posts templates.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
+ */
+function mm_get_mm_blockquote_templates( $context = '' ) {
+
+	// All core and custom templates should be registered using this filter.
+	return apply_filters( 'mm_blockquote_templates', array(), $context );
+}
+
+/**
+ * Return an array of Mm Posts templates for use in a Visual Composer param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
+ */
+function mm_get_mm_blockquote_templates_for_vc( $context = '' ) {
+
+	// Add an empty first option.
+	$empty_option = array(
+		__( 'Default', 'mm-components' ) => '',
+	);
+
+	return $empty_option + array_flip( mm_get_mm_blockquote_templates( $context ) );
+}
+
+/**
  * Return an array of Mm Users templates.
  *
  * @since   1.0.0
