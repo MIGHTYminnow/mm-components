@@ -58,7 +58,6 @@ function mm_blockquote( $args ) {
 	ob_start(); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
-		<?php do_action( 'mm_blockquote_output_image', $args ); ?>
 		<?php do_action( 'mm_blockquote_content', $args ); ?>
 	<div>
 
@@ -99,9 +98,6 @@ function mm_blockquote_register_default_hooks( $args ) {
 
 	add_action( 'mm_blockquote_content', 'mm_blockquote_output_content', 10, 1 );
 
-	if( 'image-left' !== $template ) {
-		add_action( 'mm_blockquote_content', 'mm_blockquote_output_image', 8, 1 );
-	}
 
 }
 
@@ -118,7 +114,9 @@ function mm_blockquote_output_content( $args ) {
 
 	<blockquote>
 
-	<?php do_action( 'mm_blockquote_output_image', $args ); ?>
+	<?php if( 'image-left' !== $args['template'] ) {
+		echo mm_blockquote_output_image( $args );
+	} ?>
 
 		<p><?php echo wp_kses_post( $args['content'] ); ?></p>
 

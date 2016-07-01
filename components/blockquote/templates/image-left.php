@@ -26,7 +26,7 @@ function mm_blockquote_image_content_hooks( $args ) {
 	// Turn off all default output.
 	remove_all_actions( 'mm_blockquote_content' );
 
-	add_action( 'mm_blockquote_content', 'mm_blockquote_output_image');
-	add_action( 'mm_blockquote_content', 'mm_blockquote_output_content');
+	add_action( 'mm_blockquote_content', 'mm_blockquote_output_image', 8 );
+	add_action( 'mm_blockquote_content', 'mm_blockquote_output_content', 10 );
 
 }
