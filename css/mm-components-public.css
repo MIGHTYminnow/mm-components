@@ -113,6 +113,18 @@
 
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
+/* Blockquote
+--------------------------------------------- */
+/* Image Left Template */
+.mm-blockquote-wrapper.image-left blockquote {
+  overflow: hidden;
+}
+
+.mm-blockquote-wrapper.image-left img {
+  float: left;
+  margin-right: 2%;
+}
+
 /* Button
 --------------------------------------------- */
 /* Default Styles */

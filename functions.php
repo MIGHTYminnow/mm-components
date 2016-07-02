@@ -422,7 +422,7 @@ function mm_get_mm_posts_templates_for_vc( $context = '' ) {
 }
 
 /**
- * Return an array of Mm Posts templates.
+ * Return an array of Mm Blockquote templates.
  *
  * @since   1.0.0
  *
@@ -433,11 +433,17 @@ function mm_get_mm_posts_templates_for_vc( $context = '' ) {
 function mm_get_mm_blockquote_templates( $context = '' ) {
 
 	// All core and custom templates should be registered using this filter.
-	return apply_filters( 'mm_blockquote_templates', array(), $context );
+
+	// Add an empty first option.
+	$empty_option = array(
+		'' => __( 'Default', 'mm-components' ),
+	);
+
+	return $empty_option + apply_filters( 'mm_blockquote_templates', array(), $context );
 }
 
 /**
- * Return an array of Mm Posts templates for use in a Visual Composer param.
+ * Return an array of Mm Blockquote templates for use in a Visual Composer param.
  *
  * @since   1.0.0
  *

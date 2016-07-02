@@ -28,6 +28,7 @@ function mm_blockquote( $args ) {
 		'citation_link'        => '',
 		'citation_link_title'  => '',
 		'citation_link_target' => '_self',
+		'citation_link_text'   => '',
 		'image_id'             => '',
 		'template'             => '',
 	);
@@ -39,6 +40,7 @@ function mm_blockquote( $args ) {
 	$citation_link        = $args['citation_link'] == '||' ? '' : $args['citation_link'];
 	$citation_link_target = $args['citation_link_target'];
 	$citation_link_title  = $args['citation_link_title'];
+	$citation_link_text   = $args['citation_link_text'];
 	$image_id             = $args['image_id'];
 	$template             = $args['template'];
 
@@ -53,17 +55,66 @@ function mm_blockquote( $args ) {
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
 
-	do_action( 'mm_blockquote_register_hooks', $args );
+	if ( $template ) {
+		$mm_classes = "$mm_classes $template";
+	}
 
-	ob_start(); ?>
+	ob_start();
 
-	<div class="<?php echo esc_attr( $mm_classes ); ?>">
-		<?php do_action( 'mm_blockquote_content', $args ); ?>
-	<div>
+	$image_output = wp_get_attachment_image( (int)$image_id, 'thumbnail' );
+
+	?>
+
+	<div class="mm-blockquote-wrapper <?php echo esc_attr( $mm_classes ); ?>">
+
+		<?php if( 'image-left' === $template ) {
+			if ( 0 !== (int)$image_id ) {
+				echo $image_output;
+			}
+		} ?>
+
+		<blockquote>
+
+			<?php if( '' === $template ) {
+				if ( 0 !== (int)$image_id ) {
+					echo $image_output;
+				}
+			} ?>
+
+			<p><?php echo wp_kses_post( $quote ); ?></p>
+
+			<?php if ( ! empty( $citation ) ) {
+
+				if ( ! empty( $citation_link ) && ! empty( $citation_link_text ) ) {
+					printf( '<cite>%s<a href="%s" title="%s" target="%s">%s</a></cite>',
+						esc_html( $citation ),
+						esc_url( $citation_link ),
+						esc_attr( $citation_link_title ),
+						esc_attr( $citation_link_target ),
+						esc_html( $citation_link_text )
+						);
+				} elseif ( ! empty( $citation_link ) ) {
+					printf( '<cite><a href="%s" title="%s" target="%s">%s</a></cite>',
+						esc_url( $citation_link ),
+						esc_attr( $citation_link_title ),
+						esc_attr( $citation_link_target ),
+						esc_html( $citation )
+						);
+				} else {
+					echo '<cite>';
+					echo esc_html( $citation );
+					echo '</cite>';
+				}
+
+			}
+
+			?>
+
+		</blockquote>
+
+	</div>
 
 	<?php return ob_get_clean();
-
-	do_action( 'mm_blockquote_reset_hooks' );
 
 }
 
@@ -84,80 +135,6 @@ function mm_blockquote_shortcode( $atts = array(), $content = null ) {
 	}
 
 	return mm_blockquote( $atts );
-}
-
-add_action( 'mm_blockquote_register_hooks', 'mm_blockquote_register_default_hooks', 9, 1 );
-/**
- * Set up our default hooks.
- *
- * @since  1.0.0
- *
- * @param  array   $args     The instance args.
- */
-function mm_blockquote_register_default_hooks( $args ) {
-
-	add_action( 'mm_blockquote_content', 'mm_blockquote_output_content', 10, 1 );
-
-
-}
-
-/**
- * Default blockquote content output.
- *
- * @since  1.0.0
- *
- * @param  array   $args     The instance args.
- */
-function mm_blockquote_output_content( $args ) {
-
-	?>
-
-	<blockquote>
-
-	<?php if( 'image-left' !== $args['template'] ) {
-		echo mm_blockquote_output_image( $args );
-	} ?>
-
-		<p><?php echo wp_kses_post( $args['content'] ); ?></p>
-
-		<?php if ( ! empty( $args['citation'] ) ) : ?>
-
-			<?php if ( ! empty( $args['citation_link'] ) ) : ?>
-				<cite><a href="<?php echo esc_url( $args['citation_link'] ) ?>" title="<?php echo esc_attr( $args['citation_link_title'] ); ?>" target="<?php echo esc_attr( $args['citation_link_target'] ); ?>"><?php echo esc_html( $args['citation'] ); ?></a></cite>
-			<?php else : ?>
-				<cite><?php echo esc_html( $args['citation'] ); ?></cite>
-			<?php endif; ?>
-
-		<?php endif; ?>
-
-	</blockquote>
-
-	<?php
-}
-
-/**
- * Default blockquote image output.
- *
- * @since  1.0.0
- *
- * @param  array   $args     The instance args.
- */
-function mm_blockquote_output_image( $args ) {
-
-	// Support the image being an ID or a URL.
-	if ( is_numeric( $args['image_id'] ) ) {
-	    $image_array = wp_get_attachment_image_src( $args['image_id'], 'thumbnail', false, array( 'class' => 'alignright' )  );
-	    $image_url   = $image_array[0];
-	} else {
-	    $image_url = esc_url( $image_id );
-	}
-
-	if ( '' !== $image_url ) {
-		printf( '<img class="blockquote-image" src="%s">',
-			$image_url
-		);
-	}
-
 }
 
 add_action( 'vc_before_init', 'mm_vc_blockquote' );
@@ -204,6 +181,11 @@ function mm_vc_blockquote() {
 				'heading'    => __( 'Citation URL', 'mm-components' ),
 				'param_name' => 'citation_link',
 			),
+			array(
+				'type'       => 'textfield',
+				'heading'    => __( 'Citation URL Text', 'mm-components' ),
+				'param_name' => 'citation_link_text',
+			),
 		)
 	) );
 }
@@ -220,6 +202,7 @@ function mm_components_mm_blockquote_shortcode_ui() {
 		return;
 	}
 
+	$templates    = mm_get_mm_blockquote_templates_for_vc( 'mm-blockquote' );
 	$link_targets = mm_get_link_targets( 'mm-blockquote' );
 
 	shortcode_ui_register_for_shortcode(
@@ -235,6 +218,12 @@ function mm_components_mm_blockquote_shortcode_ui() {
 					'libraryType' => array( 'image' ),
 					'addButton'   => esc_html__( 'Select Image', 'mm-components' ),
 					'frameTitle'  => esc_html__( 'Select Image', 'mm-components' ),
+				),
+				array(
+					'label'   => esc_html( 'Template', 'mm-components' ),
+					'attr'    => 'templates',
+					'type'    => 'select',
+					'options' => $templates,
 				),
 				array(
 					'label' => esc_html__( 'Quote', 'mm-components' ),
@@ -254,6 +243,11 @@ function mm_components_mm_blockquote_shortcode_ui() {
 				array(
 					'label' => esc_html( 'Citation Link Title', 'mm-components' ),
 					'attr'  => 'citation_link_title',
+					'type'  => 'text',
+				),
+				array(
+					'label' => esc_html( 'Citation URL Text', 'mm-components' ),
+					'attr'  => 'citation_link_text',
 					'type'  => 'text',
 				),
 				array(
@@ -323,10 +317,11 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	public function widget( $args, $instance ) {
 
 		$defaults = array(
-			'title'    => '',
-			'content'  => '',
-			'citation' => '',
-			'image_id' => '',
+			'title'              => '',
+			'content'            => '',
+			'citation'           => '',
+			'image_id'           => '',
+			'citation_link_text' => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
@@ -356,22 +351,27 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	public function form( $instance ) {
 
 		$defaults = array(
-			'title'         => '',
-			'content'       => '',
-			'citation'      => '',
-			'citation_link' => '',
-			'image_id'      => '',
+			'title'              => '',
+			'template'           => '',
+			'content'            => '',
+			'citation'           => '',
+			'image_id'           => '',
+			'citation_link_text' => '',
 		);
 
 		// Use our instance args if they are there, otherwise use the defaults.
 		$instance = wp_parse_args( $instance, $defaults );
 
-		$title         = $instance['title'];
-		$quote         = $instance['content'];
-		$citation      = $instance['citation'];
-		$citation_link = $instance['citation_link'];
-		$image_id      = $instance['image_id'];
-		$classname     = $this->options['classname'];
+		$title              = $instance['title'];
+		$template           = $instance['template'];
+  		$quote              = $instance['content'];
+		$citation           = $instance['citation'];
+		$citation_link      = $instance['citation_link'];
+		$image_id           = $instance['image_id'];
+		$citation_link_text = $instance['citation_link_text'];
+		$classname          = $this->options['classname'];
+
+		$templates = mm_get_mm_blockquote_templates( 'mm-blockquote' );
 
 		// Title.
 		$this->field_text(
@@ -380,6 +380,16 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 			$classname . '-title widefat',
 			'title',
 			$title
+		);
+
+		// Template
+		$this->field_select(
+			__( 'Template', 'mm-components' ),
+			'',
+			$classname . '-template widefat',
+			'template',
+			$template,
+			$templates
 		);
 
 		// Quote.
@@ -409,6 +419,15 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 			$citation_link
 		);
 
+		// Citation URL
+		$this->field_text(
+			__( 'Citation Link Text', 'mm-components' ),
+			'',
+			$classname . '-link-text widefat',
+			'citation_link_text',
+			$citation_link_text
+		);
+
 		// Image.
 		$this->field_single_media(
 			__( 'Image', 'mm-components' ),
@@ -431,12 +450,14 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$instance                  = $old_instance;
-		$instance['title']         = sanitize_text_field( $new_instance['title'] );
-		$instance['content']       = wp_kses_post( $new_instance['content'] );
-		$instance['citation']      = sanitize_text_field( $new_instance['citation'] );
-		$instance['citation_link'] = ( '' !== $new_instance['citation_link'] ) ? esc_url( $new_instance['citation_link'] ) : '';
-		$instance['image_id']      = ( ! empty( $new_instance['image_id'] ) ) ? intval( $new_instance['image_id'] ) : '';
+		$instance                       = $old_instance;
+		$instance['title']              = sanitize_text_field( $new_instance['title'] );
+		$instance['template']           = sanitize_text_field( $new_instance['template'] );
+		$instance['content']            = wp_kses_post( $new_instance['content'] );
+		$instance['citation']           = sanitize_text_field( $new_instance['citation'] );
+		$instance['citation_link']      = ( '' !== $new_instance['citation_link'] ) ? esc_url( $new_instance['citation_link'] ) : '';
+		$instance['citation_link_text'] = sanitize_text_field( $new_instance['citation_link_text'] );
+		$instance['image_id']           = ( ! empty( $new_instance['image_id'] ) ) ? intval( $new_instance['image_id'] ) : '';
 
 		return $instance;
 	}

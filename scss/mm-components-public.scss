@@ -363,6 +363,24 @@ $thick-border: 3px solid;
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
 
+/* Blockquote
+--------------------------------------------- */
+
+/* Image Left Template */
+
+.mm-blockquote-wrapper {
+	&.image-left {
+		blockquote {
+			overflow: hidden;
+		}
+
+		img {
+			float: left;
+			margin-right: 2%;
+		}
+	}
+}
+
 /* Button
 --------------------------------------------- */
 
