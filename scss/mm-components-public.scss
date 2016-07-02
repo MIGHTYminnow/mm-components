@@ -375,8 +375,12 @@ $thick-border: 3px solid;
 		}
 
 		img {
-			float: left;
-			margin-right: 2%;
+			float: none;
+			margin-right: 0;
+			@media (min-width: 500px) {
+				float: left;
+				margin-right: 2%;
+			}
 		}
 	}
 }

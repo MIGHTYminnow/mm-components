@@ -121,8 +121,15 @@
 }
 
 .mm-blockquote-wrapper.image-left img {
-  float: left;
-  margin-right: 2%;
+  float: none;
+  margin-right: 0;
+}
+
+@media (min-width: 500px) {
+  .mm-blockquote-wrapper.image-left img {
+    float: left;
+    margin-right: 2%;
+  }
 }
 
 /* Button
