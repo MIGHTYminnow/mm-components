@@ -413,12 +413,7 @@ function mm_get_mm_posts_templates( $context = '' ) {
  */
 function mm_get_mm_posts_templates_for_vc( $context = '' ) {
 
-	// Add an empty first option.
-	$empty_option = array(
-		__( 'Default', 'mm-components' ) => '',
-	);
-
-	return $empty_option + array_flip( mm_get_mm_posts_templates( $context ) );
+	return array_flip( mm_get_mm_posts_templates( $context ) );
 }
 
 /**
@@ -432,9 +427,6 @@ function mm_get_mm_posts_templates_for_vc( $context = '' ) {
  */
 function mm_get_mm_blockquote_templates( $context = '' ) {
 
-	// All core and custom templates should be registered using this filter.
-
-	// Add an empty first option.
 	$empty_option = array(
 		''           => __( 'Default', 'mm-components' ),
 		'image-left' => __( 'Image Left', 'mm-components' ),
