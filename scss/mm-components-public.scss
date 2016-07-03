@@ -369,6 +369,9 @@ $thick-border: 3px solid;
 /* Image Left Template */
 
 .mm-blockquote-wrapper {
+	img {
+		margin: 0 0 10px 20px;
+	}
 	&.image-left {
 		blockquote {
 			overflow: hidden;

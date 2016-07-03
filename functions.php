@@ -436,7 +436,8 @@ function mm_get_mm_blockquote_templates( $context = '' ) {
 
 	// Add an empty first option.
 	$empty_option = array(
-		'' => __( 'Default', 'mm-components' ),
+		''           => __( 'Default', 'mm-components' ),
+		'image-left' => __( 'Image Left', 'mm-components' ),
 	);
 
 	return $empty_option + apply_filters( 'mm_blockquote_templates', array(), $context );
@@ -453,12 +454,7 @@ function mm_get_mm_blockquote_templates( $context = '' ) {
  */
 function mm_get_mm_blockquote_templates_for_vc( $context = '' ) {
 
-	// Add an empty first option.
-	$empty_option = array(
-		__( 'Default', 'mm-components' ) => '',
-	);
-
-	return $empty_option + array_flip( mm_get_mm_blockquote_templates( $context ) );
+	return array_flip( mm_get_mm_blockquote_templates( $context ) );
 }
 
 /**

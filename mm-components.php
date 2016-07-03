@@ -78,7 +78,6 @@ function mm_components_init_components() {
 	// Include active components.
 	if ( array_key_exists( 'blockquote', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/blockquote/blockquote.php';
-		require_once MM_COMPONENTS_PATH . 'components/blockquote/templates/image-left.php';
 	}
 	if ( array_key_exists( 'button', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/button/button.php';
