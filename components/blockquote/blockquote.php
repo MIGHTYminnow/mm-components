@@ -177,14 +177,27 @@ function mm_vc_blockquote() {
 				'param_name' => 'citation',
 			),
 			array(
+				'type'       => 'checkbox',
+				'heading'    => __( 'Link Citation?', 'mm-components' ),
+				'param_name' => 'citation_link_option',
+			),
+			array(
 				'type'       => 'vc_link',
 				'heading'    => __( 'Citation URL', 'mm-components' ),
 				'param_name' => 'citation_link',
+				'dependency' => array(
+					'element'   => 'citation_link_option',
+					'not_empty' => true,
+				),
 			),
 			array(
 				'type'       => 'textfield',
 				'heading'    => __( 'Citation URL Text', 'mm-components' ),
 				'param_name' => 'citation_link_text',
+				'dependency' => array(
+					'element'   => 'citation_link_option',
+					'not_empty' => true,
+				),
 			),
 		)
 	) );
@@ -355,7 +368,9 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 			'template'           => '',
 			'content'            => '',
 			'citation'           => '',
+			'link_citation'      => '',
 			'image_id'           => '',
+			'citation_link'      => '',
 			'citation_link_text' => '',
 		);
 
@@ -366,9 +381,10 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 		$template           = $instance['template'];
   		$quote              = $instance['content'];
 		$citation           = $instance['citation'];
+		$link_citation      = $instance['link_citation'];
 		$citation_link      = $instance['citation_link'];
-		$image_id           = $instance['image_id'];
 		$citation_link_text = $instance['citation_link_text'];
+		$image_id           = $instance['image_id'];
 		$classname          = $this->options['classname'];
 
 		$templates = mm_get_mm_blockquote_templates( 'mm-blockquote' );
@@ -410,11 +426,19 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 			$citation
 		);
 
+		$this->field_checkbox(
+			__( 'Link citation?', 'mm-components' ),
+			'',
+			$classname . '-link-citation widefat',
+			'link_citation',
+			$link_citation
+		);
+
 		// Citation Link.
 		$this->field_text(
 			__( 'Citation Link', 'mm-components' ),
 			'',
-			$classname . '-link widefat',
+			$classname . '-citation-link widefat',
 			'citation_link',
 			$citation_link
 		);
@@ -423,7 +447,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 		$this->field_text(
 			__( 'Citation Link Text', 'mm-components' ),
 			'',
-			$classname . '-link-text widefat',
+			$classname . '-citation-link-text widefat',
 			'citation_link_text',
 			$citation_link_text
 		);
@@ -455,6 +479,7 @@ class Mm_Blockquote_Widget extends Mm_Components_Widget {
 		$instance['template']           = sanitize_text_field( $new_instance['template'] );
 		$instance['content']            = wp_kses_post( $new_instance['content'] );
 		$instance['citation']           = sanitize_text_field( $new_instance['citation'] );
+		$instance['link_citation']      = sanitize_text_field( $new_instance['link_citation'] );
 		$instance['citation_link']      = ( '' !== $new_instance['citation_link'] ) ? esc_url( $new_instance['citation_link'] ) : '';
 		$instance['citation_link_text'] = sanitize_text_field( $new_instance['citation_link_text'] );
 		$instance['image_id']           = ( ! empty( $new_instance['image_id'] ) ) ? intval( $new_instance['image_id'] ) : '';
