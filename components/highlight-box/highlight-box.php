@@ -192,7 +192,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 
 		$defaults = array(
 			'heading_text'   => '',
-			'paragraph_text' => '',
+			'content'        => '',
 			'link_text'      => '',
 			'link'           => '',
 		);
@@ -219,7 +219,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		$defaults = array(
 			'title'          => '',
 			'heading_text'   => '',
-			'paragraph_text' => '',
+			'content'        => '',
 			'link_text'      => '',
 			'link'           => '',
 		);
@@ -228,7 +228,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		$instance = wp_parse_args( $instance, $defaults );
 
 		$heading_text   = $instance['heading_text'];
-		$paragraph_text = $instance['paragraph_text'];
+		$paragraph_text = $instance['content'];
 		$link_text      = $instance['link_text'];
 		$link           = $instance['link'];
 		$classname      = $this->options['classname'];
@@ -247,7 +247,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 			__( 'Paragraph Text', 'mm-components' ),
 			'',
 			$classname . '-paragraph-text widefat',
-			'paragraph_text',
+			'content',
 			$paragraph_text
 		);
 
@@ -284,7 +284,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 
 		$instance                   = $old_instance;
 		$instance['heading_text']   = wp_kses_post( $new_instance['heading_text'] );
-		$instance['paragraph_text'] = wp_kses_post( $new_instance['paragraph_text'] );
+		$instance['content']        = do_shortcode( wp_kses_post( $new_instance['content'] ) );
 		$instance['link_text']      = sanitize_text_field( $new_instance['link_text'] );
 		$instance['link']           = sanitize_text_field( $new_instance['link'] );
 
