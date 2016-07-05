@@ -38,7 +38,7 @@ function mm_posts_simple_image_content_hooks( $context, $args ) {
 		add_action( 'mm_posts_content', 'mm_posts_output_custom_post_image_simple_image_content', 8, 3 );
 	}
 
-	add_action( 'mm_posts_content', 'mm_posts_output_post_title', 10, 3 );
+	add_action( 'mm_posts_content', 'mm_posts_output_post_header', 10, 3 );
 
 	if ( mm_true_or_false( $args['show_post_meta'] ) ) {
 		add_action( 'mm_posts_content', 'mm_posts_output_post_meta', 11, 3 );
