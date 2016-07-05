@@ -420,6 +420,38 @@ function mm_get_mm_posts_templates_for_vc( $context = '' ) {
 
 	return $empty_option + array_flip( mm_get_mm_posts_templates( $context ) );
 }
+/**
+ * Return an array of Mm Blockquote templates.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
+ */
+function mm_get_mm_blockquote_templates( $context = '' ) {
+
+	$templates = array(
+		''           => __( 'Default', 'mm-components' ),
+		'image-left' => __( 'Image Left', 'mm-components' ),
+	);
+
+	return $templates + apply_filters( 'mm_blockquote_templates', array(), $context );
+}
+
+/**
+ * Return an array of Mm Blockquote templates for use in a Visual Composer param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
+ */
+function mm_get_mm_blockquote_templates_for_vc( $context = '' ) {
+
+	return array_flip( mm_get_mm_blockquote_templates( $context ) );
+}
 
 /**
  * Return an array of Mm Users templates.
