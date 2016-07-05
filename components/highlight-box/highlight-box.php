@@ -23,7 +23,7 @@ function mm_highlight_box( $args ) {
 
 	$defaults = array(
 		'heading_text'   => '',
-		'paragraph_text' => '',
+		'content'        => '',
 		'link'           => '',
 		'link_text'      => '',
 		'link_target'    => '',
@@ -31,7 +31,7 @@ function mm_highlight_box( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	$heading_text   = $args['heading_text'];
-	$paragraph_text = $args['paragraph_text'];
+	$paragraph_text = $args['content'];
 	$link_url       = $args['link'];
 	$link_text      = $args['link_text'];
 	$link_title     = $args['link_text'];
@@ -57,7 +57,7 @@ function mm_highlight_box( $args ) {
 		<?php endif; ?>
 
 		<?php if ( ! empty( $paragraph_text ) ) : ?>
-			<p><?php echo esc_html( $paragraph_text ); ?></p>
+			<p><?php echo do_shortcode( wp_kses_post( $paragraph_text ) ); ?></p>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $link_url ) && ! empty( $link_text ) ) {
@@ -86,7 +86,11 @@ add_shortcode( 'mm_highlight_box', 'mm_highlight_box_shortcode' );
  *
  * @return  string        Shortcode output.
  */
-function mm_highlight_box_shortcode( $atts ) {
+function mm_highlight_box_shortcode( $atts, $content = null ) {
+
+	if ( $content ) {
+		$atts['content'] = $content;
+	}
 
 	return mm_highlight_box( $atts );
 }
@@ -115,7 +119,7 @@ function mm_vc_highlight_box() {
 			array(
 				'type'       => 'textarea_html',
 				'heading'    => __( 'Paragraph Text', 'mm-components' ),
-				'param_name' => 'paragraph_text',
+				'param_name' => 'content',
 			),
 			array(
 				'type'       => 'textfield',
