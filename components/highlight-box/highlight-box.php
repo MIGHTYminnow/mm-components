@@ -113,7 +113,7 @@ function mm_vc_highlight_box() {
 				'admin_label' => true,
 			),
 			array(
-				'type'       => 'textarea',
+				'type'       => 'textarea_html',
 				'heading'    => __( 'Paragraph Text', 'mm-components' ),
 				'param_name' => 'paragraph_text',
 			),
