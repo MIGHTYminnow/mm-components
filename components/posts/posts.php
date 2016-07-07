@@ -61,6 +61,11 @@ function mm_posts( $args ) {
 		$mm_classes = "$mm_classes $template";
 	}
 
+	// Maybe add category filter AJAX.
+
+		wp_enqueue_script( 'mm-posts-ajax' );
+
+
 	// Maybe set up masonry.
 	if ( $masonry ) {
 		wp_enqueue_script( 'mm-isotope' );
@@ -140,6 +145,8 @@ function mm_posts( $args ) {
 
 			<?php setup_postdata( $query->post ); ?>
 
+			<div class='mm-posts-loop'>
+
 			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
 
 				<?php do_action( 'mm_posts_header', $query->post, $context, $args ); ?>
@@ -149,6 +156,8 @@ function mm_posts( $args ) {
 				<?php do_action( 'mm_posts_footer', $query->post, $context, $args ); ?>
 
 			</article>
+
+			</div>
 
 		<?php endwhile; ?>
 
@@ -190,6 +199,8 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 )
  * @param  array   $args     The instance args.
  */
 function mm_posts_register_default_hooks( $context, $args ) {
+
+	add_action( 'mm_posts_before', 'mm_posts_output_category_filters', 10, 3 );
 
 	if ( mm_true_or_false( $args['masonry'] ) ) {
 		add_action( 'mm_posts_before', 'mm_posts_output_masonry_sizers', 12, 3 );
@@ -242,6 +253,36 @@ function mm_posts_reset_default_hooks() {
 function mm_posts_output_masonry_sizers() {
 
 	echo '<div class="mm-posts-masonry-gutter"></div>';
+}
+
+/**
+ * Output post category filter.
+ *
+ * @since  1.0.0
+ */
+function mm_posts_output_category_filters() {
+
+	echo "<ul class='mm-posts-filter' data-category='All'>";
+	echo "<li class='mm-posts-cat-item'><a class='current' href='#'>All</a></li>";
+	wp_list_categories( array(
+		'title_li'     => '',
+		'hide_empty'   => 0,
+		'hierarchical' => false,
+		'taxonomy'     => 'category',
+		)
+	);
+	echo "</ul>";
+}
+
+add_action( 'wp_ajax_mm_posts_cat_filter', 'mm_posts_cat_filter', 10, 3 );
+
+/**
+ * AJAX handler for filtering posts.
+ *
+ * @since  1.0.0
+ */
+function mm_posts_cat_filter( $post, $context, $args ) {
+
 }
 
 /**

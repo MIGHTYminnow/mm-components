@@ -193,6 +193,15 @@ function mm_components_scripts_and_styles() {
 		true
 	);
 
+	// Register MM posts AJAX scripts.
+	wp_register_script(
+		'mm-posts-ajax',
+		MM_COMPONENTS_URL . 'js/mm-posts-ajax.js',
+		array( 'jquery' ),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
 	// Register jQuery countdown.
 	wp_register_script(
 		'mm-jquery-countdown',
