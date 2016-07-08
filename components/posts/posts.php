@@ -137,15 +137,17 @@ function mm_posts( $args ) {
 
 	ob_start(); ?>
 
+	<?php do_action( 'mm_posts_before_wrapper', $query, $context, $args ); ?>
+
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
 		<?php do_action( 'mm_posts_before', $query, $context, $args ); ?>
 
+		<div class='mm-posts-loop'>
+
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
 			<?php setup_postdata( $query->post ); ?>
-
-			<div class='mm-posts-loop'>
 
 			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
 
@@ -157,9 +159,9 @@ function mm_posts( $args ) {
 
 			</article>
 
-			</div>
-
 		<?php endwhile; ?>
+
+		</div>
 
 		<?php do_action( 'mm_posts_after', $query, $context, $args ); ?>
 
@@ -200,7 +202,7 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 )
  */
 function mm_posts_register_default_hooks( $context, $args ) {
 
-	add_action( 'mm_posts_before', 'mm_posts_output_category_filters', 10, 3 );
+	add_action( 'mm_posts_before_wrapper', 'mm_posts_output_category_filters', 10, 3 );
 
 	if ( mm_true_or_false( $args['masonry'] ) ) {
 		add_action( 'mm_posts_before', 'mm_posts_output_masonry_sizers', 12, 3 );
@@ -231,6 +233,7 @@ add_action( 'mm_posts_reset_hooks', 'mm_posts_reset_default_hooks' );
  */
 function mm_posts_reset_default_hooks() {
 
+	remove_all_actions( 'wp_ajax_mm_posts_cat_filter' );
 	remove_all_actions( 'mm_posts_before' );
 	remove_all_actions( 'mm_posts_header' );
 	remove_all_actions( 'mm_posts_content' );
@@ -262,6 +265,7 @@ function mm_posts_output_masonry_sizers() {
  */
 function mm_posts_output_category_filters() {
 
+	echo "<div class='mm-posts-filter-wrapper'>";
 	echo "<ul class='mm-posts-filter' data-category='All'>";
 	echo "<li class='mm-posts-cat-item'><a class='current' href='#'>All</a></li>";
 	wp_list_categories( array(
@@ -272,18 +276,36 @@ function mm_posts_output_category_filters() {
 		)
 	);
 	echo "</ul>";
+	echo "</div>";
 }
 
-add_action( 'wp_ajax_mm_posts_cat_filter', 'mm_posts_cat_filter', 10, 3 );
-
+add_action( 'wp_ajax_mm_posts_cat_filter', 'mm_posts_cat_filter' );
 /**
  * AJAX handler for filtering posts.
  *
  * @since  1.0.0
  */
-function mm_posts_cat_filter( $post, $context, $args ) {
+function mm_posts_cat_filter( $args ) {
 
+	add_filter( 'mm_posts_query_args', 'mm_posts_query_filter', 10, 2 );
+	function mm_posts_query_filter( $query_args, $args ) {
+		$cat_data = $_POST['cat_data'];
+		$taxonomy = sanitize_text_field( $args['taxonomy'] );
+		$query_args['tax_query'] = array(
+			array(
+				'taxonomy' => 'category',
+				'field'    => 'slug',
+				'terms'    => $cat_data
+			),
+		);
+
+		return $query_args;
+	}
+
+	echo mm_posts( $args );
+	die();
 }
+
 
 /**
  * Default post header output.
