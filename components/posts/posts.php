@@ -37,6 +37,7 @@ function mm_posts( $args ) {
 		'show_post_info'      => false,
 		'show_post_meta'      => false,
 		'use_post_content'    => false,
+		'ajax_filter'         => false,
 		'link_title'          => true,
 		'masonry'             => false,
 	);
@@ -52,6 +53,7 @@ function mm_posts( $args ) {
 	$per_page      = (int)$args['per_page'];
 	$template      = sanitize_text_field( $args['template'] );
 	$masonry       = mm_true_or_false( $args['masonry'] );
+	$ajax_filter   = mm_true_or_false( $args['ajax_filter'] );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -62,9 +64,9 @@ function mm_posts( $args ) {
 	}
 
 	// Maybe add category filter AJAX.
-
+	if ( $ajax_filter ) {
 		wp_enqueue_script( 'mm-posts-ajax' );
-
+	}
 
 	// Maybe set up masonry.
 	if ( $masonry ) {
@@ -137,9 +139,11 @@ function mm_posts( $args ) {
 
 	ob_start(); ?>
 
-	<?php do_action( 'mm_posts_before_wrapper', $query, $context, $args ); ?>
-
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
+
+
+	<?php echo mm_posts_output_taxonomy_term_filter( $post, $context, $args ); ?>
+
 
 		<?php do_action( 'mm_posts_before', $query, $context, $args ); ?>
 
@@ -149,15 +153,7 @@ function mm_posts( $args ) {
 
 			<?php setup_postdata( $query->post ); ?>
 
-			<article id="post-<?php the_ID( $query->post->ID ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
-
-				<?php do_action( 'mm_posts_header', $query->post, $context, $args ); ?>
-
-				<?php do_action( 'mm_posts_content', $query->post, $context, $args ); ?>
-
-				<?php do_action( 'mm_posts_footer', $query->post, $context, $args ); ?>
-
-			</article>
+			<?php echo mm_post_article( $query->post, $context, $args ); ?>
 
 		<?php endwhile; ?>
 
@@ -202,8 +198,6 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 )
  */
 function mm_posts_register_default_hooks( $context, $args ) {
 
-	add_action( 'mm_posts_before_wrapper', 'mm_posts_output_category_filters', 10, 3 );
-
 	if ( mm_true_or_false( $args['masonry'] ) ) {
 		add_action( 'mm_posts_before', 'mm_posts_output_masonry_sizers', 12, 3 );
 	}
@@ -233,7 +227,6 @@ add_action( 'mm_posts_reset_hooks', 'mm_posts_reset_default_hooks' );
  */
 function mm_posts_reset_default_hooks() {
 
-	remove_all_actions( 'wp_ajax_mm_posts_cat_filter' );
 	remove_all_actions( 'mm_posts_before' );
 	remove_all_actions( 'mm_posts_header' );
 	remove_all_actions( 'mm_posts_content' );
@@ -259,27 +252,71 @@ function mm_posts_output_masonry_sizers() {
 }
 
 /**
- * Output post category filter.
+ * Default post header output.
  *
  * @since  1.0.0
+ *
+ * @param  object  $post     The current post object.
+ * @param  object  $context  The global post object.
+ * @param  array   $args     The instance args.
  */
-function mm_posts_output_category_filters() {
+function mm_post_article( $post, $context, $args ) {
 
-	echo "<div class='mm-posts-filter-wrapper'>";
-	echo "<ul class='mm-posts-filter' data-category='All'>";
-	echo "<li class='mm-posts-cat-item'><a class='current' href='#'>All</a></li>";
-	wp_list_categories( array(
-		'title_li'     => '',
-		'hide_empty'   => 0,
-		'hierarchical' => false,
-		'taxonomy'     => 'category',
-		)
-	);
-	echo "</ul>";
-	echo "</div>";
+	ob_start(); ?>
+
+	<article id="post-<?php the_ID( $post ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
+
+		<?php do_action( 'mm_posts_header', $post, $context, $args ); ?>
+
+		<?php do_action( 'mm_posts_content', $post, $context, $args ); ?>
+
+		<?php do_action( 'mm_posts_footer', $post, $context, $args ); ?>
+
+	</article>
+
+	<?php return ob_get_clean();
 }
 
-add_action( 'wp_ajax_mm_posts_cat_filter', 'mm_posts_cat_filter' );
+/**
+ * Output a taxonomy term filter.
+ *
+ * @since   1.1.0
+ *
+ * @param   WP_Query  $query    The query object.
+ * @param   WP_Post   $context  The global post object.
+ * @param   array     $args     The instance args.
+ *
+ * @return  string              The category filters HTML.
+ */
+function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
+
+	if ( mm_true_or_false( $args['ajax_filter'] ) ) {
+
+		ob_start(); ?>
+
+		<div class="mm-posts-filter-wrapper">
+		<ul class="mm-posts-filter" data-taxonomy="<?php esc_attr_e( $args['taxonomy'] ); ?>">
+		<li class="mm-posts-cat-item"><a class="current" href="#"><?php _e( 'All', 'mm-components' ); ?></a></li>
+		<?php wp_list_categories( array(
+			'title_li'     => '',
+			'hide_empty'   => 0,
+			'hierarchical' => false,
+			'taxonomy'     => 'category',
+			)
+		); ?>
+		</ul>
+		</div>
+
+		<?php
+
+		return apply_filters( 'mm_posts_taxonomy_term_filter', ob_get_clean(), $query, $context, $args );
+
+		} else {
+			return;
+		}
+}
+
+add_action( 'wp_ajax_mm_posts_cat_filter', 'mm_posts_cat_filter', 1 );
 /**
  * AJAX handler for filtering posts.
  *
@@ -287,25 +324,35 @@ add_action( 'wp_ajax_mm_posts_cat_filter', 'mm_posts_cat_filter' );
  */
 function mm_posts_cat_filter( $args ) {
 
-	add_filter( 'mm_posts_query_args', 'mm_posts_query_filter', 10, 2 );
-	function mm_posts_query_filter( $query_args, $args ) {
-		$cat_data = $_POST['cat_data'];
-		$taxonomy = sanitize_text_field( $args['taxonomy'] );
-		$query_args['tax_query'] = array(
-			array(
-				'taxonomy' => 'category',
-				'field'    => 'slug',
-				'terms'    => $cat_data
-			),
+	global $post;
+	$tax = $_POST['tax'];
+	$context = $post;
+
+	var_dump( $post );
+
+	$args = array(
+		'query_type'          => 'collection',
+		'post_ids'            => '',
+		'post_type'           => 'post',
+		'taxonomy'            => 'category',
+		'term'                => $tax,
+		'heading_level'       => 'h1',
+		'per_page'            => 10,
+		'pagination'          => '',
+		'template'            => '',
+		'show_featured_image' => false,
+		'featured_image_size' => 'thumbnail',
+		'show_post_info'      => true,
+		'show_post_meta'      => false,
+		'use_post_content'    => false,
+		'ajax_filter'         => false,
+		'link_title'          => true,
+		'masonry'             => false,
 		);
 
-		return $query_args;
-	}
-
-	echo mm_posts( $args );
+	echo mm_post_article( $post, $context, $args );
 	die();
 }
-
 
 /**
  * Default post header output.
@@ -999,6 +1046,14 @@ function mm_vc_posts() {
 				'param_name'  => 'template',
 				'description' => __( 'Select a custom template for custom output', 'mm-components' ),
 				'value'       => $templates,
+			),
+			array(
+				'type'       => 'checkbox',
+				'heading'    => __( 'Use AJAX category Filter?', 'mm-components' ),
+				'param_name' => 'ajax_filter',
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
 			),
 			array(
 				'type'       => 'checkbox',
