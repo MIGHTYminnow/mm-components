@@ -404,8 +404,6 @@ function mm_posts_term_filter( $args ) {
 
 	do_action( 'mm_posts_register_hooks', $context, $args ); ?>
 
-	<?php do_action( 'mm_posts_before_loop', $query, $context, $args ); ?>
-
 	<div class="mm-posts-loop">
 
 	<?php while ( $query->have_posts() ) : $query->the_post(); ?>
