@@ -193,6 +193,15 @@ function mm_components_scripts_and_styles() {
 		true
 	);
 
+	// Register jQuery pagination.
+	wp_register_script(
+		'mm-jquery-pagination',
+		MM_COMPONENTS_URL . 'lib/simple-pagination/jquery.pagination.js',
+		array( 'jquery' ),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
 	// Register MM posts AJAX scripts.
 	wp_register_script(
 		'mm-posts-ajax',
