@@ -361,7 +361,7 @@ function mm_posts_get_data_attributes( $query, $context, $args ) {
 	$data_atts .= ( $args['post_ids'] ) ? ' data-post-ids=' . '"' . sanitize_text_field( $args['post_ids'] ) . '"' : '';
 	$data_atts .= ( $args['post_type'] ) ? ' data-post-type=' . '"' . sanitize_text_field( $args['post_type'] ) . '"' : '';
 	$data_atts .= ( $args['taxonomy'] ) ? ' data-taxonomy=' . '"' . sanitize_text_field( $args['taxonomy'] ) . '"' : 'data-taxonomy="category"';
-	$data_atts .= ( $args['term'] ) ? ' data-term=' . '"' . sanitize_text_field( $args['term'] ) . '"' : 'data-term="1" ';
+	$data_atts .= ( $args['term'] ) ? ' data-term=' . '"' . sanitize_text_field( $args['term'] ) . '"' : 'data-term="" ';
 	$data_atts .= ( $args['heading_level'] ) ? ' data-heading-level=' . '"' . sanitize_text_field( $args['heading_level'] ) . '"' : 'h2';
 	$data_atts .= ( $args['per_page'] ) ? ' data-per-page=' . '"' . (int)$args['per_page'] . '"' : '';
 	$data_atts .= ( $args['pagination'] ) ? ' data-pagination=' . '"' . sanitize_text_field( $args['pagination'] ) . '"' : '';
