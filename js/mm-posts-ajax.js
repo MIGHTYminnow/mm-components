@@ -24,15 +24,16 @@ var mm_posts_data = function() {
 	imageTag          = typeof $mmPosts.data( 'image-tag' ) != "undefined" ? $mmPosts.data( 'image-tag' ) : '';
 	imageTag          = typeof $mmPosts.data( 'paged' ) != "undefined" ? $mmPosts.data( 'paged' ) : '';
 	totalPages        = typeof $mmPosts.data( 'total-pages' ) != "undefined" ? $mmPosts.data( 'total-pages' ) : '';
+	totalPosts        = typeof $mmPosts.data( 'total-posts' ) != "undefined" ? $mmPosts.data( 'total-posts' ) : '';
 	paged             = typeof $mmPosts.data( 'paged' ) != "undefined" ? $mmPosts.data( 'paged' ) : '';
 }
 
-var mm_posts_ajax_filter = function( newPageVal ) {
-	$( '.mm-posts-filter .cat-item a' ).on( 'click', function( e ) {
+var mm_posts_ajax_filter = function( e, newPageVal ) {
 		e.preventDefault();
 		var $this = $( this );
 		var newTerm;
 		var pageNumberRounded;
+		var $responseObj;
 
 		//Set term-data value to empty when all terms are clicked.
 		if( $this.text() == 'All' ) {
@@ -71,30 +72,41 @@ var mm_posts_ajax_filter = function( newPageVal ) {
 			masonry           : masonry,
 			fallbackImage     : fallbackImage,
 			imageTag          : imageTag,
-			totalPages        : totalPages
+			totalPages        : totalPages,
+			totalPosts        : pageNumberRounded
 		}
 		// Make the AJAX request.
 		$.post( ajaxurl, data, function( response ) {
 
+			$responseObj = $( response );
+			totalPosts = $responseObj.filter( '.ajax-total-posts' ).text();
+			$mmPosts.attr( 'data-total-posts', totalPosts );
+
 			// Format and update the posts loop.
 			$( '.mm-posts-loop' ).replaceWith( response );
 
-			if ( $('.mm-posts' ).hasClass( 'mm-ajax-pagination' ) ) {
+			totalPosts = $responseObj.filter( '.ajax-total-posts' ).text();
+			$( '.pagination' ).show();
 
-				$responseObj = $( response );
-				perPage = typeof $mmPosts.data( 'per-page' ) != "undefined" ? $mmPosts.data( 'per-page' ) : '';
+			if ( $mmPosts.hasClass( 'mm-ajax-pagination' ) ) {
 
-				postsNumber = $responseObj.find( 'article').length;
-				pageNumber = postsNumber / perPage;
+				postsPerPage = $mmPosts.data( 'per-page' );
+				pageNumber = totalPosts / postsPerPage;
 				pageNumberRounded = Math.ceil( pageNumber );
-				console.log( pageNumberRounded );
 
-				$( '.pagination' ).twbsPagination({
-				    totalPages: totalPages
-				});
+				if( pageNumberRounded > 1 ) {
+					$( '.pagination' ).twbsPagination({
+				    	totalPages: pageNumberRounded,
+				    	last : false,
+				    	first :false
+					});
+				} else {
+					$( '.pagination' ).hide();
+				}
+
+				$mmPosts.find( '.ajax-total-posts' ).remove();
 			}
 		});
-});
 
 }
 
@@ -102,7 +114,6 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 	var $page;
 	var newPageVal;
 	var newTerm;
-	$( '.pagination' ).on( 'click', function() {
 		$this = $( this );
 
 		//Set page-data value to the text of current clicked page number.
@@ -141,9 +152,10 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 
 		$.post( ajaxurl, data, function( response ) {
 			$( '.mm-posts-loop' ).replaceWith( response );
+			$mmPosts.find( '.ajax-total-posts' ).remove();
 
 		});
-	});
+
 }
 
 jQuery( document ).ready( function( $ ) {
@@ -151,7 +163,7 @@ jQuery( document ).ready( function( $ ) {
 	mm_posts_data();
 
 	//Runs the AJAX filter.
-	mm_posts_ajax_filter();
+	$( '.mm-posts-filter .cat-item a').on( 'click', mm_posts_ajax_filter );
 
 	totalPages = $( '.mm-posts' ).attr( 'data-total-pages' );
 
@@ -159,11 +171,14 @@ jQuery( document ).ready( function( $ ) {
 	if ( $( '.mm-posts' ).hasClass( 'mm-ajax-pagination' ) ) {
 
 		$( '.mm-posts' ).twbsPagination({
-		    totalPages: totalPages
+		    totalPages: totalPages,
+		    last : false,
+		    first :false
 		});
 
 		mm_posts_ajax_pagination();
-		mm_posts_ajax_filter();
+
+		$( '.pagination' ).on( 'click', mm_posts_ajax_pagination );
 	}
 
 });

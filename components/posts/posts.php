@@ -363,7 +363,7 @@ function mm_posts_get_data_attributes( $query, $context, $args ) {
 	$data_atts .= ( $args['taxonomy'] ) ? ' data-taxonomy=' . '"' . sanitize_text_field( $args['taxonomy'] ) . '"' : 'data-taxonomy="category"';
 	$data_atts .= ( $args['term'] ) ? ' data-term=' . '"' . sanitize_text_field( $args['term'] ) . '"' : 'data-term="" ';
 	$data_atts .= ( $args['heading_level'] ) ? ' data-heading-level=' . '"' . sanitize_text_field( $args['heading_level'] ) . '"' : 'h2';
-	$data_atts .= ( $args['per_page'] ) ? ' data-per-page=' . '"' . (int)$args['per_page'] . '"' : '';
+	$data_atts .= ( $args['per_page'] ) ? ' data-per-page=' . '"' . (int)$args['per_page'] . '"' : ' data-per-page="10"';
 	$data_atts .= ( $args['pagination'] ) ? ' data-pagination=' . '"' . sanitize_text_field( $args['pagination'] ) . '"' : '';
 	$data_atts .= ( $args['ajax_pagination'] ) ? ' data-ajax-pagination=' . '"' . sanitize_text_field( $args['ajax_pagination'] ) . '"' : '';
 	$data_atts .= ( $args['template'] ) ? ' data-template=' . '"' . sanitize_text_field( $args['template'] ) . '"' : '';
@@ -376,71 +376,10 @@ function mm_posts_get_data_attributes( $query, $context, $args ) {
 	$data_atts .= ( $args['masonry'] ) ? ' data-masonry=' . '"' . sanitize_text_field( $args['masonry'] ) . '"' : '';
 	$data_atts .= ( isset( $args['current_page'] ) ) ? ' data-page=' . '"' . sanitize_text_field( $args['current_page'] ) . '"' : 'data-paged="1"';
 	$data_atts .= ' data-total-pages=' . $query->max_num_pages;
+	$data_atts .= ' data-total-posts=' . $query->found_posts;
 	$data_atts .= ( isset( $args['current_page'] ) ) ? ' data-current-page=' . '"' . sanitize_text_field( $args['current_page'] ) . '"' : ' data-current-page="1"';
 
 	return apply_filters( 'mm_posts_data_attributes', $data_atts, $query, $context, $args );
-}
-
-add_action( 'wp_ajax_mm_posts_ajax_filter', 'mm_posts_ajax_filter', 1 );
-/**
- * AJAX handler for filtering posts.
- *
- * @since  1.0.0
- */
-function mm_posts_ajax_filter( $args ) {
-
-	$args = mm_posts_get_ajax_args( $args );
-
-	global $post;
-	$post = get_post( $args['current_id'] );
-	$query_args['paged'] = $args['current_page'];
-	$query_args['post__not_in'] = array( $args['current_id'] );
-	$query_args['posts_per_page'] = $args['posts_per_page'];
-	$query->max_num_pages = $args[ 'total_pages'];
-
-	if( $args['term'] ) {
-	$query_args['tax_query'] = array (
-		array(
-			'taxonomy' => $args['taxonomy'],
-			'field'    => 'slug',
-			'terms'    => $args['term']
-			)
-		);
-	}
-
-	if( $ajax_pagination ) {
-		$page = ( get_query_var( 'page' ) ) ? (int)get_query_var( 'page' ) : 1;
-		$query_args['max_num_pages'] = $query->max_num_pages;
-	}
-
-	// Do the query.
-	$query = new WP_Query( $query_args );
-
-	error_log( print_r( $query, true ) );
-
-	// Store the global post object as the context we'll pass to our hooks.
-	$context = $post;
-
-	do_action( 'mm_posts_register_hooks', $context, $args ); ?>
-
-	<div class="mm-posts-loop">
-
-		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
-
-			<?php setup_postdata( $query->post ); ?>
-
-			<?php echo mm_post_article( $post, $context, $args ); ?>
-
-		<?php endwhile; ?>
-
-	</div>
-
-	<?php wp_reset_postdata();
-
-	do_action( 'mm_posts_reset_hooks' );
-
-	die();
-
 }
 
 /**
@@ -474,6 +413,7 @@ function mm_posts_get_ajax_args( $args ) {
 	$masonry             = ( isset( $_POST['masonry'] ) ) ? sanitize_text_field( $_POST['masonry'] ) : false;
 	$current_page        = ( isset( $_POST['currentPage'] ) ) ? ( $_POST['currentPage'] ) : 1;
 	$total_pages         = ( isset( $_POST['totalPages'] ) ) ? ( $_POST['totalPages'] ) : '';
+	$total_posts         = ( isset( $_POST['totalPosts'] ) ) ? ( $_POST['totalPosts'] ) : '';
 
 	//Set data as new MM post args.
 	$args = array(
@@ -500,9 +440,78 @@ function mm_posts_get_ajax_args( $args ) {
 		'masonry'             => $masonry,
 		'current_page'        => $current_page,
 		'total_pages'         => $total_pages,
+		'total_posts'         => $total_posts,
 	);
 
 	return apply_filters( 'mm_posts_ajax_args', $args );
+}
+
+add_action( 'wp_ajax_nopriv_mm_posts_ajax_filter', 'mm_posts_ajax_filter', 1 );
+add_action( 'wp_ajax_mm_posts_ajax_filter', 'mm_posts_ajax_filter', 1 );
+/**
+ * AJAX handler for filtering posts.
+ *
+ * @since  1.0.0
+ */
+function mm_posts_ajax_filter( $args ) {
+
+	$args = mm_posts_get_ajax_args( $args );
+
+	global $post;
+	$post = get_post( $args['current_id'] );
+	$query_args = array(
+		'paged'        => $args['current_page'],
+		'post__not_in' => array(
+				$args['current_id']
+			),
+		'posts_per_page' => $args['posts_per_page'],
+		'max_num_pages'  => $args['total_pages'],
+		'post_status'    => 'publish'
+	);
+
+	if( $args['term'] ) {
+	$query_args['tax_query'] = array (
+		array(
+			'taxonomy' => $args['taxonomy'],
+			'field'    => 'slug',
+			'terms'    => $args['term']
+			)
+		);
+	}
+
+	if( mm_true_or_false( $args['ajax_pagination'] ) ) {
+		$page = ( get_query_var( 'page' ) ) ? (int)get_query_var( 'page' ) : 1;
+		$query_args['max_num_pages'] = $args[ 'total_pages'];
+	}
+
+	// Do the query.
+	$query = new WP_Query( $query_args );
+
+	// Store the global post object as the context we'll pass to our hooks.
+	$context = $post;
+
+	do_action( 'mm_posts_register_hooks', $context, $args ); ?>
+
+	<div class="mm-posts-loop">
+
+		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+
+			<?php setup_postdata( $query->post ); ?>
+
+			<?php echo mm_post_article( $post, $context, $args ); ?>
+
+		<?php endwhile; ?>
+
+	</div>
+
+	<span class="ajax-total-posts"><?php echo $query->found_posts; ?></span>
+
+	<?php wp_reset_postdata();
+
+	do_action( 'mm_posts_reset_hooks' );
+
+	die();
+
 }
 
 /**
