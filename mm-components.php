@@ -305,3 +305,12 @@ function mm_components_custom_classes( $classes, $component, $atts ) {
 
 	return $classes;
 }
+
+add_action('wp_head','pluginname_ajaxurl');
+function pluginname_ajaxurl() {
+?>
+	<script type="text/javascript">
+	var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+	</script>
+<?php
+}

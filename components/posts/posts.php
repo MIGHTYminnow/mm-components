@@ -39,6 +39,7 @@ function mm_posts( $args ) {
 		'show_post_meta'      => false,
 		'use_post_content'    => false,
 		'ajax_filter'         => false,
+		'filter_style'        => 'links',
 		'link_title'          => true,
 		'masonry'             => false,
 	);
@@ -55,6 +56,7 @@ function mm_posts( $args ) {
 	$template        = sanitize_text_field( $args['template'] );
 	$masonry         = mm_true_or_false( $args['masonry'] );
 	$ajax_filter     = mm_true_or_false( $args['ajax_filter'] );
+	$filter_style    = sanitize_text_field( $args['filter_style'] );
 	$pagination      = sanitize_text_field( $args['pagination'] );
 	$ajax_pagination = mm_true_or_false( $args['ajax_pagination'] );
 
@@ -145,8 +147,6 @@ function mm_posts( $args ) {
 	$context = $post;
 
 	do_action( 'mm_posts_register_hooks', $context, $args );
-
-		error_log( print_r( $query_args, true ) );
 
 	ob_start(); ?>
 
@@ -310,18 +310,40 @@ function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
 
 	ob_start(); ?>
 
-	<div class="mm-posts-filter-wrapper">
-	<ul class="mm-posts-filter" >
-	<li class="cat-item current"><a href="#"><?php _e( 'All', 'mm-components' ); ?></a></li>
-	<?php wp_list_categories( array(
-		'title_li'     => '',
-		'hide_empty'   => 0,
-		'hierarchical' => false,
-		'taxonomy'     => $taxonomy,
-		)
-	); ?>
-	</ul>
-	</div>
+	<?php if ( $args['filter_style'] == 'dropdown' ) : ?>
+
+		<div class="mm-posts-filter-wrapper">
+		<dic class="mm-posts-filter" >
+		<?php wp_dropdown_categories(array(
+			'taxonomy'         => $taxonomy,
+			'orderby'          => 'name',
+	        'show_option_none' => 'Select',
+			'hide_empty'       => 1,
+	        'value_field'      => 'name',
+			'name'             => 'term-select',
+			'id'               => 'term_dropdown',
+		)); ?>
+
+		</div>
+		</div>
+
+	<?php else: ?>
+
+		<div class="mm-posts-filter-wrapper">
+		<ul class="mm-posts-filter" >
+		<li class="cat-item current"><a href="#" class="mm-posts-filter-all"><?php _e( 'All', 'mm-components' ); ?></a></li>
+		<?php wp_list_categories( array(
+			'title_li'     => '',
+			'hide_empty'   => 1,
+			'hierarchical' => false,
+			'taxonomy'     => $taxonomy,
+			)
+		); ?>
+		</ul>
+		</div>
+
+	<?php endif; ?>
+
 
 	<?php
 
@@ -372,9 +394,9 @@ function mm_posts_get_data_attributes( $query, $context, $args ) {
 	$data_atts .= ( $args['show_post_info'] ) ? ' data-show-post-info=' . '"' . sanitize_text_field( $args['show_post_info'] ) . '"' : '';
 	$data_atts .= ( $args['show_post_meta'] ) ? ' data-show-post-meta=' . '"' . sanitize_text_field( $args['show_post_meta'] ) . '"' : '';
 	$data_atts .= ( $args['use_post_content'] ) ? ' data-use-post-content=' . '"' . sanitize_text_field( $args['use_post_content'] ) . '"' : '';
+	$data_atts .= ( $args['filter_style'] ) ? ' data-filter-style=' . '"' . sanitize_text_field( $args['filter_style'] ) . '"' : '';
 	$data_atts .= ( $args['link_title'] ) ? ' data-link-title=' . '"' . sanitize_text_field( $args['link_title'] ) . '"' : '';
 	$data_atts .= ( $args['masonry'] ) ? ' data-masonry=' . '"' . sanitize_text_field( $args['masonry'] ) . '"' : '';
-	$data_atts .= ( isset( $args['current_page'] ) ) ? ' data-page=' . '"' . sanitize_text_field( $args['current_page'] ) . '"' : 'data-paged="1"';
 	$data_atts .= ' data-total-pages=' . $query->max_num_pages;
 	$data_atts .= ' data-total-posts=' . $query->found_posts;
 	$data_atts .= ( isset( $args['current_page'] ) ) ? ' data-current-page=' . '"' . sanitize_text_field( $args['current_page'] ) . '"' : ' data-current-page="1"';
@@ -465,15 +487,15 @@ function mm_posts_ajax_filter( $args ) {
 				$args['current_id']
 			),
 		'posts_per_page' => $args['posts_per_page'],
-		'max_num_pages'  => $args['total_pages'],
-		'post_status'    => 'publish'
+		'post_status'    => 'publish',
+		'max_num_pages'  => $args[ 'total_pages'],
 	);
 
 	if( $args['term'] ) {
 	$query_args['tax_query'] = array (
 		array(
 			'taxonomy' => $args['taxonomy'],
-			'field'    => 'slug',
+			'field'    => 'name',
 			'terms'    => $args['term']
 			)
 		);
@@ -481,7 +503,6 @@ function mm_posts_ajax_filter( $args ) {
 
 	if( mm_true_or_false( $args['ajax_pagination'] ) ) {
 		$page = ( get_query_var( 'page' ) ) ? (int)get_query_var( 'page' ) : 1;
-		$query_args['max_num_pages'] = $args[ 'total_pages'];
 	}
 
 	// Do the query.
@@ -504,7 +525,12 @@ function mm_posts_ajax_filter( $args ) {
 
 	</div>
 
-	<span class="ajax-total-posts"><?php echo $query->found_posts; ?></span>
+	<?php
+
+	// Grab the new number of posts per page to update pagination links.
+	$new_page_number = ceil( $query->found_posts / $args['posts_per_page']) ?>
+
+	<span class="ajax-total-pages"><?php echo $new_page_number; ?></span>
 
 	<?php wp_reset_postdata();
 
@@ -1041,22 +1067,6 @@ function mm_posts_filter_from_query_args( $query_args, $args ) {
 	return $query_args;
 }
 
-/**
- * Use specific query args present in the URL to alter the mm_posts query.
- *
- * @since   1.0.0
- *
- * @param   array  $query_args  The original query args.
- * @param   array  $args        The instance args.
- *
- * @return  array  $query_args  The query args.
- */
-function mm_posts_get_query_args( $query_args ) {
-
-	return $query_args;
-
-}
-
 add_action( 'init', 'mm_vc_posts', 12 );
 /**
  * Visual Composer component.
@@ -1237,6 +1247,15 @@ function mm_vc_posts() {
 				'param_name' => 'ajax_filter',
 				'value'      => array(
 					__( 'Yes', 'mm-components' ) => 1,
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'AJAX Filter Terms List Style', 'mm-components' ),
+				'param_name' => 'filter_style',
+				'value'      => array(
+					__( 'Links', 'mm-components' )    => 'links',
+					__( 'Dropdown', 'mm-components' ) => 'dropdown',
 				),
 			),
 			array(
