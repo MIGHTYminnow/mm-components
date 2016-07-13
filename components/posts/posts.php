@@ -31,7 +31,6 @@ function mm_posts( $args ) {
 		'heading_level'       => 'h1',
 		'per_page'            => '',
 		'pagination'          => '',
-		'ajax_pagination'     => false,
 		'template'            => '',
 		'show_featured_image' => false,
 		'featured_image_size' => 'thumbnail',
@@ -58,7 +57,6 @@ function mm_posts( $args ) {
 	$ajax_filter     = mm_true_or_false( $args['ajax_filter'] );
 	$filter_style    = sanitize_text_field( $args['filter_style'] );
 	$pagination      = sanitize_text_field( $args['pagination'] );
-	$ajax_pagination = mm_true_or_false( $args['ajax_pagination'] );
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
@@ -69,13 +67,13 @@ function mm_posts( $args ) {
 	}
 
 	// Maybe add AJAX pagination class.
-	if ( $ajax_pagination ) {
+	if ( $args['pagination'] == 'ajax-pagination' ) {
 		$mm_classes .= ' mm-ajax-pagination';
 		wp_enqueue_script( 'mm-jquery-pagination' );
 	}
 
 	// Maybe add category filter AJAX.
-	if ( $ajax_filter || $ajax_pagination ) {
+	if ( $ajax_filter || $args['pagination'] == 'ajax-pagination' ) {
 		wp_enqueue_script( 'mm-posts-ajax' );
 	}
 
@@ -227,7 +225,7 @@ function mm_posts_register_default_hooks( $context, $args ) {
 		add_action( 'mm_posts_footer', 'mm_posts_output_post_meta', 10, 3 );
 	}
 
-	if ( ! empty( $args['pagination'] && ! mm_true_or_false( $args['ajax_pagination'] ) ) ) {
+	if ( ( $args['pagination'] == 'next-prev' || $args['pagination'] == 'page-numbers' ) ) {
 		add_action( 'mm_posts_after', 'mm_posts_output_pagination', 12, 3 );
 	}
 
@@ -313,7 +311,7 @@ function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
 	<?php if ( $args['filter_style'] == 'dropdown' ) : ?>
 
 		<div class="mm-posts-filter-wrapper">
-		<dic class="mm-posts-filter" >
+		<div class="mm-posts-filter" >
 		<?php wp_dropdown_categories(array(
 			'taxonomy'         => $taxonomy,
 			'orderby'          => 'name',
@@ -387,7 +385,6 @@ function mm_posts_get_data_attributes( $query, $context, $args ) {
 	$data_atts .= ( $args['heading_level'] ) ? ' data-heading-level=' . '"' . sanitize_text_field( $args['heading_level'] ) . '"' : 'h2';
 	$data_atts .= ( $args['per_page'] ) ? ' data-per-page=' . '"' . (int)$args['per_page'] . '"' : ' data-per-page="10"';
 	$data_atts .= ( $args['pagination'] ) ? ' data-pagination=' . '"' . sanitize_text_field( $args['pagination'] ) . '"' : '';
-	$data_atts .= ( $args['ajax_pagination'] ) ? ' data-ajax-pagination=' . '"' . sanitize_text_field( $args['ajax_pagination'] ) . '"' : '';
 	$data_atts .= ( $args['template'] ) ? ' data-template=' . '"' . sanitize_text_field( $args['template'] ) . '"' : '';
 	$data_atts .= ( $args['show_featured_image'] ) ? ' data-show-featured-image=' . '"' . sanitize_text_field( $args['show_featured_image'] ) . '"' : '';
 	$data_atts .= ( $args['featured_image_size'] ) ? ' data-featured-image-size=' . '"' . sanitize_text_field( $args['featured_image_size'] ) . '"' : '';
@@ -424,7 +421,6 @@ function mm_posts_get_ajax_args( $args ) {
 	$per_page            = ( isset( $_POST['perPage'] ) )  ? sanitize_text_field( $_POST['perPage'] ) : '';
 	$paged               = ( isset( $_POST['currentPage'] ) )  ? $_POST['currentPage'] : '';
 	$pagination          = ( isset( $_POST['pagination'] ) )  ? sanitize_text_field( $_POST['pagination'] ) : '';
-	$ajax_pagination     = ( isset( $_POST['ajaxPagination'] ) )  ? sanitize_text_field( $_POST['ajaxPagination'] ) : '';
 	$template            = ( isset( $_POST['template'] ) )  ? sanitize_text_field( $_POST['template'] ) : '';
 	$show_featured_image = ( isset( $_POST['showFeaturedImage'] ) ) ? sanitize_text_field( $_POST['showFeaturedImage'] ) : false;
 	$featured_image_size = ( isset( $_POST['featuredImageSize'] ) ) ? sanitize_text_field( $_POST['featuredImageSize'] ) : 'thumbnail';
@@ -450,7 +446,6 @@ function mm_posts_get_ajax_args( $args ) {
 		'posts_per_page'      => $per_page,
 		'paged'               => $current_page,
 		'pagination'          => $pagination,
-		'ajax_pagination'     => $ajax_pagination,
 		'template'            => $template,
 		'show_featured_image' => $show_featured_image,
 		'featured_image_size' => $featured_image_size,
@@ -482,6 +477,7 @@ function mm_posts_ajax_filter( $args ) {
 	global $post;
 	$post = get_post( $args['current_id'] );
 	$query_args = array(
+		'post_type'    => $args['post_type'],
 		'paged'        => $args['current_page'],
 		'post__not_in' => array(
 				$args['current_id']
@@ -501,7 +497,7 @@ function mm_posts_ajax_filter( $args ) {
 		);
 	}
 
-	if( mm_true_or_false( $args['ajax_pagination'] ) ) {
+	if( $args['pagination'] == 'ajax-pagination' ) {
 		$page = ( get_query_var( 'page' ) ) ? (int)get_query_var( 'page' ) : 1;
 	}
 
@@ -1206,14 +1202,35 @@ function mm_vc_posts() {
 					__( 'None', 'mm-components' )         => '',
 					__( 'Next/Prev', 'mm-components' )    => 'next-prev',
 					__( 'Page Numbers', 'mm-components' ) => 'page-numbers',
+					__( 'AJAX Pagination', 'mm-components' ) => 'ajax-pagination',
 				),
 			),
 			array(
 				'type'       => 'checkbox',
-				'heading'    => __( 'Use AJAX Pagination?', 'mm-components' ),
-				'param_name' => 'ajax_pagination',
+				'heading'    => __( 'Use AJAX Filter?', 'mm-components' ),
+				'param_name' => 'ajax_filter',
 				'value'      => array(
 					__( 'Yes', 'mm-components' ) => 1,
+				),
+				'dependency' => array(
+					'element'   => 'pagination',
+					'value'     => array(
+						'',
+						'ajax-pagination',
+					),
+				),
+			),
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'AJAX Filter Terms List Style', 'mm-components' ),
+				'param_name' => 'filter_style',
+				'value'      => array(
+					__( 'Links', 'mm-components' )    => 'links',
+					__( 'Dropdown', 'mm-components' ) => 'dropdown',
+				),
+				'dependency' => array(
+					'element'   => 'ajax_filter',
+					'not_empty' => true,
 				),
 			),
 			array(
@@ -1240,23 +1257,6 @@ function mm_vc_posts() {
 				'param_name'  => 'template',
 				'description' => __( 'Select a custom template for custom output', 'mm-components' ),
 				'value'       => $templates,
-			),
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Use AJAX Filter?', 'mm-components' ),
-				'param_name' => 'ajax_filter',
-				'value'      => array(
-					__( 'Yes', 'mm-components' ) => 1,
-				),
-			),
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'AJAX Filter Terms List Style', 'mm-components' ),
-				'param_name' => 'filter_style',
-				'value'      => array(
-					__( 'Links', 'mm-components' )    => 'links',
-					__( 'Dropdown', 'mm-components' ) => 'dropdown',
-				),
 			),
 			array(
 				'type'       => 'checkbox',

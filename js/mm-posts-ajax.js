@@ -12,7 +12,6 @@ var mm_posts_data = function() {
 	headingLevel      = typeof $mmPosts.data( 'heading-level' ) != "undefined" ? $mmPosts.data( 'heading-level' ) : '';
 	perPage           = typeof $mmPosts.data( 'per-page' ) != "undefined" ? $mmPosts.data( 'per-page' ) : '';
 	pagination        = typeof $mmPosts.data( 'pagination' ) != "undefined" ? $mmPosts.data( 'pagination' ) : '';
-	ajaxPagination    = typeof $mmPosts.data( 'ajax-pagination' ) != "undefined" ? $mmPosts.data( 'ajaxPagination' ) : '';
 	template          = typeof $mmPosts.data( 'template' ) != "undefined" ? $mmPosts.data( 'template' ) : '';
 	showFeaturedImage = typeof $mmPosts.data( 'show-featured-image' ) != "undefined" ? $mmPosts.data( 'show-featured-image' ) : '';
 	featuredImageSize = typeof $mmPosts.data( 'featured-image-size' ) != "undefined" ? $mmPosts.data( 'featured-image-size' ) : '';
@@ -30,7 +29,7 @@ var mm_posts_data = function() {
 	paged             = typeof $mmPosts.data( 'paged' ) != "undefined" ? $mmPosts.data( 'paged' ) : '';
 }
 
-var mm_posts_ajax_data = function( newTerm, pageNumberRounded, newPageVal, newTotalPosts ) {
+var mm_posts_ajax_data = function( newTerm, pageNumberRounded, newPageVal ) {
 
 	data = {
 		action            : 'mm_posts_ajax_filter',
@@ -45,7 +44,6 @@ var mm_posts_ajax_data = function( newTerm, pageNumberRounded, newPageVal, newTo
 		perPage           : perPage,
 		paged             : paged,
 		pagination        : pagination,
-		ajaxPagination    : ajaxPagination,
 		template          : template,
 		showFeaturedImage : showFeaturedImage,
 		featuredImageSize : featuredImageSize,
@@ -56,7 +54,7 @@ var mm_posts_ajax_data = function( newTerm, pageNumberRounded, newPageVal, newTo
 		masonry           : masonry,
 		fallbackImage     : fallbackImage,
 		imageTag          : imageTag,
-		totalPosts        : newTotalPosts,
+		totalPosts        : totalPosts,
 		totalPages        : totalPages,
 		filterStyle       : filterStyle
 	};
@@ -65,15 +63,13 @@ var mm_posts_ajax_data = function( newTerm, pageNumberRounded, newPageVal, newTo
 var mm_posts_ajax_filter = function( e, newPageVal ) {
 		var $this = $( this );
 		var $mmPostsLoop = $mmPosts.find( '.mm-posts-loop' );
+		var $pagination = $( '.pagination' );
 		var newTerm;
 		var loading;
 		var $termText;
-		var pageNumberRounded;
 		var $responseObj;
-		var totalPosts;
-		var postsPerPage;
-		var pageNumber;
-		var pageNumberRounded;
+		var newTotalPages;
+
 
 		e.preventDefault();
 
@@ -100,8 +96,6 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 
 		$( '.no-results' ).remove();
 
-		$( '.pagination' ).show();
-
 		// Set the text of the clicked term as the term-data attribute.
 		$this.parents( '.mm-posts-filter-wrapper' ).siblings( '.mm-posts' ).attr( 'data-term', $termText );
 
@@ -126,14 +120,16 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 			$mmPosts.attr( 'data-total-pages', newTotalPages );
 
 			//Reload pagination links when number of pages changes.
-			if ( newTotalPages > 1 ) {
-				$( '.pagination' ).empty().removeData("twbs-pagination").unbind("page").twbsPagination({
-		        	totalPages: newTotalPages,
-		        	last : false,
-		        	first :false
-		    	});
-			} else {
-				$( '.pagination' ).empty().removeData("twbs-pagination").unbind("page");
+			if ( $mmPosts.hasClass( 'mm-ajax-pagination' ) ) {
+				if ( newTotalPages > 1 ) {
+					$pagination.empty().removeData("twbs-pagination").unbind("page").twbsPagination({
+			        	totalPages: newTotalPages,
+			        	last : false,
+			        	first : false
+			    	});
+				} else {
+					$pagination.empty().removeData("twbs-pagination").unbind("page");
+				}
 			}
 
 			if( $( '.mm-posts-loop' ).find( 'article' ).length == 0 ) {
@@ -151,6 +147,7 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 	$this = $( this );
 	var $mmPostsLoop = $mmPosts.find( '.mm-posts-loop' );
 	var $page;
+	var $responseObj;
 	var newPageVal;
 	var newTerm;
 	var postsPerPage;
@@ -170,8 +167,6 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 	$.post( ajaxurl, data, function( response ) {
 
 		$responseObj = $( response );
-
-		console.log( newPageVal );
 
 		// Format and update the posts loop.
 		$mmPostsLoop.replaceWith( response );

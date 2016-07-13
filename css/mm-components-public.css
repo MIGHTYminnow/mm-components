@@ -690,6 +690,39 @@ a.mm-button.full-width {
   margin: 0 6px;
 }
 
+.mm-posts ul.pagination li {
+  list-style-type: none;
+  width: auto;
+  float: left;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background-color: #99CCCC;
+}
+
+.mm-posts-filter {
+  overflow: auto;
+  margin: 0 !important;
+  margin-bottom: 30px;
+}
+
+.mm-posts-filter li {
+  list-style-type: none;
+  width: auto;
+  float: left;
+  padding: 8px 14px;
+}
+
+.mm-posts-filter select {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .mm-posts-filter select {
+    max-width: 75%;
+  }
+}
+
 /* Posts Templates
 --------------------------------------------- */
 /* Simple List */

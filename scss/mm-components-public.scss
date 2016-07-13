@@ -790,6 +790,35 @@ a.mm-button {
 			margin: 0 6px;
 		}
 	}
+	ul.pagination {
+		li {
+			list-style-type: none;
+			width: auto;
+			float: left;
+			padding: 5px 8px;
+			border-radius: 5px;
+			background-color: $default-color;
+		}
+	}
+}
+
+.mm-posts-filter {
+	overflow: auto;
+	margin: 0 !important;
+	margin-bottom: 30px;
+	li {
+		list-style-type: none;
+		width: auto;
+		float: left;
+		padding: 8px 14px;
+	}
+	select {
+		width: 100%;
+		margin-bottom: 20px;
+		@media( min-width: 768px ) {
+			max-width: 75%;
+		}
+	}
 }
 
 /* Posts Templates
