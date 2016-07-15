@@ -329,7 +329,7 @@ function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
 
 		<div class="mm-posts-filter-wrapper">
 		<ul class="mm-posts-filter" >
-		<li class="cat-item current"><a href="#" class="mm-posts-filter-all"><?php _e( 'All', 'mm-components' ); ?></a></li>
+		<li class="cat-item active"><a href="#" class="mm-posts-filter-all"><?php _e( 'All', 'mm-components' ); ?></a></li>
 		<?php wp_list_categories( array(
 			'title_li'     => '',
 			'hide_empty'   => 1,

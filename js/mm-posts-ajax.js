@@ -63,6 +63,7 @@ var mm_posts_ajax_data = function( newTerm, pageNumberRounded, newPageVal ) {
 var mm_posts_ajax_filter = function( e, newPageVal ) {
 		var $this = $( this );
 		var $mmPostsLoop = $mmPosts.find( '.mm-posts-loop' );
+		var $filterLinks = $( '.mm-posts-filter a' );
 		var $pagination = $( '.pagination' );
 		var newTerm;
 		var loading;
@@ -70,8 +71,13 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 		var $responseObj;
 		var newTotalPages;
 
-
 		e.preventDefault();
+
+		$filterLinks.removeAttr('href');
+
+		$filterLinks.unbind( 'click' );
+
+		$( '.mm-posts-filter li.active' ).removeClass( 'active' );
 
 		//Set term-data value to empty when all terms are clicked.
 		if( filterStyle == 'links' ) {
@@ -93,6 +99,8 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 				$termText = $this.val();
 			}
 		}
+
+		$this.parent( 'li' ).addClass( 'active' );
 
 		$( '.no-results' ).remove();
 
@@ -139,13 +147,16 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 			//Remove loading text and total posts markup.
 			$( '.loading' ).remove();
 			$mmPosts.find( '.ajax-total-pages' ).remove();
+			$filterLinks.bind( 'click', mm_posts_ajax_filter );
+			$filterLinks.attr( 'href', "#" );
 		});
 
 }
 
-var mm_posts_ajax_pagination = function( newTerm ) {
+var mm_posts_ajax_pagination = function( e, newTerm ) {
 	$this = $( this );
 	var $mmPostsLoop = $mmPosts.find( '.mm-posts-loop' );
+	var $paginationLinks = $( '.pagination a' );
 	var $page;
 	var $responseObj;
 	var newPageVal;
@@ -154,7 +165,13 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 	var pageNumber;
 	var pageNumberRounded;
 
+	e.preventDefault();
+
 	//Set page-data value to the text of current clicked page number.
+
+	$paginationLinks.removeAttr('href');
+
+	$this.unbind( 'click' );
 
 	newPageVal = $mmPosts.find( '.pagination li.active a' ).text();
 
@@ -164,6 +181,11 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 
 	mm_posts_ajax_data( newTerm, pageNumberRounded, newPageVal );
 
+	$mmPostsLoop.css( 'visibility', 'hidden' );
+	loading = '<span class="loading">Loading...</span>';
+	$mmPostsLoop.before( loading );
+
+	// Make the AJAX request.
 	$.post( ajaxurl, data, function( response ) {
 
 		$responseObj = $( response );
@@ -176,6 +198,12 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 		$mmPosts.attr( 'data-total-pages', newTotalPages );
 
 		$mmPosts.find( '.ajax-total-pages' ).remove();
+
+		$( '.loading' ).remove();
+
+		$( '.pagination' ).bind( 'click', mm_posts_ajax_pagination );
+
+		$paginationLinks.attr( 'href', '#' );
 
 	});
 

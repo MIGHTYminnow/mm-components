@@ -791,10 +791,19 @@ a.mm-button {
 		}
 	}
 	ul.pagination {
+		float: left;
+		clear: both;
+		margin: 0;
 		li {
 			list-style-type: none;
 			width: auto;
 			float: left;
+		}
+		li.active a {
+			background-color: $light-color;
+			color: #fff;
+		}
+		a {
 			padding: 5px 8px;
 			border-radius: 5px;
 			background-color: $default-color;
@@ -804,13 +813,23 @@ a.mm-button {
 
 .mm-posts-filter {
 	overflow: auto;
-	margin: 0 !important;
+	margin-left: 0 !important;
 	margin-bottom: 30px;
 	li {
 		list-style-type: none;
 		width: auto;
 		float: left;
 		padding: 8px 14px;
+	}
+	li.active {
+		background-color: $light-color;
+		border-radius: 5px;
+	}
+	li.active a {
+		color: #fff;
+	}
+	li:first-of-type {
+		margin-left: 20px;
 	}
 	select {
 		width: 100%;
