@@ -794,10 +794,12 @@ a.mm-button {
 		float: left;
 		clear: both;
 		margin: 0;
+		padding-left: 0;
 		li {
 			list-style-type: none;
 			width: auto;
 			float: left;
+			margin-right: 8px;
 		}
 		li.active a {
 			background-color: $light-color;
@@ -809,12 +811,18 @@ a.mm-button {
 			background-color: $default-color;
 		}
 	}
+	i.mm-loading {
+		width: 100%;
+	    position: relative;
+		color: $medium-color;
+	}
 }
 
 .mm-posts-filter {
 	overflow: auto;
 	margin-left: 0 !important;
 	margin-bottom: 30px;
+	padding-left: 0;
 	li {
 		list-style-type: none;
 		width: auto;
@@ -838,6 +846,10 @@ a.mm-button {
 			max-width: 75%;
 		}
 	}
+}
+
+.mm-posts-loop {
+	min-height: 300px;
 }
 
 /* Posts Templates

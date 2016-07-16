@@ -66,7 +66,6 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 		var $filterLinks = $( '.mm-posts-filter a' );
 		var $pagination = $( '.pagination' );
 		var newTerm;
-		var loading;
 		var $termText;
 		var $responseObj;
 		var newTotalPages;
@@ -100,6 +99,8 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 			}
 		}
 
+		$( '.mm-loading' ).show();
+
 		$this.parent( 'li' ).addClass( 'active' );
 
 		$( '.no-results' ).remove();
@@ -111,9 +112,7 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 		newTerm = $mmPosts.attr( 'data-term' );
 		mm_posts_ajax_data( newTerm, totalPages, newPageVal );
 
-		$mmPostsLoop.css( 'visibility', 'hidden' );
-		loading = '<span class="loading">Loading...</span>';
-		$mmPostsLoop.before( loading );
+		$mmPostsLoop.empty();
 
 		// Make the AJAX request.
 		$.post( ajaxurl, data, function( response ) {
@@ -145,7 +144,7 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 			}
 
 			//Remove loading text and total posts markup.
-			$( '.loading' ).remove();
+			$( '.mm-loading' ).hide();
 			$mmPosts.find( '.ajax-total-pages' ).remove();
 			$filterLinks.bind( 'click', mm_posts_ajax_filter );
 			$filterLinks.attr( 'href', "#" );
@@ -171,8 +170,6 @@ var mm_posts_ajax_pagination = function( e, newTerm ) {
 
 	$paginationLinks.removeAttr('href');
 
-	$this.unbind( 'click' );
-
 	newPageVal = $mmPosts.find( '.pagination li.active a' ).text();
 
 	$mmPostsLoop.attr( 'data-current-page', newPageVal );
@@ -181,9 +178,11 @@ var mm_posts_ajax_pagination = function( e, newTerm ) {
 
 	mm_posts_ajax_data( newTerm, pageNumberRounded, newPageVal );
 
-	$mmPostsLoop.css( 'visibility', 'hidden' );
-	loading = '<span class="loading">Loading...</span>';
-	$mmPostsLoop.before( loading );
+	$mmPosts.twbsPagination('disable');
+
+	$mmPostsLoop.empty();
+
+	$( '.mm-loading' ).show();
 
 	// Make the AJAX request.
 	$.post( ajaxurl, data, function( response ) {
@@ -199,9 +198,9 @@ var mm_posts_ajax_pagination = function( e, newTerm ) {
 
 		$mmPosts.find( '.ajax-total-pages' ).remove();
 
-		$( '.loading' ).remove();
+		$( '.mm-loading' ).hide();
 
-		$( '.pagination' ).bind( 'click', mm_posts_ajax_pagination );
+		$mmPosts.twbsPagination('enable');
 
 		$paginationLinks.attr( 'href', '#' );
 
@@ -214,6 +213,11 @@ jQuery( document ).ready( function( $ ) {
 	var totalPages;
 
 	mm_posts_data();
+
+	loading = '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw mm-loading"></i>';
+	$( '.mm-posts' ).prepend( loading );
+	$( '.mm-loading' ).hide();
+
 
 	//Runs the AJAX filter.
 	$( '.mm-posts-filter .cat-item a').on( 'click', mm_posts_ajax_filter );

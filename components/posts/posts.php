@@ -80,7 +80,7 @@ function mm_posts( $args ) {
 	// Maybe set up masonry.
 	if ( $masonry ) {
 		wp_enqueue_script( 'mm-isotope' );
-		$mm_classes .= ' mm-masonry';
+		$masonry_class = 'mm-masonry';
 	}
 
 	// Set up the context we're in.
@@ -154,7 +154,7 @@ function mm_posts( $args ) {
 
 		<?php do_action( 'mm_posts_before_loop', $query, $context, $args ); ?>
 
-		<div class="mm-posts-loop">
+		<div class="mm-posts-loop <?php echo esc_attr( $masonry_class ); ?>">
 
 			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
