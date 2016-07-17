@@ -148,13 +148,16 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 			$mmPosts.find( '.ajax-total-pages' ).remove();
 			$filterLinks.bind( 'click', mm_posts_ajax_filter );
 			$filterLinks.attr( 'href', "#" );
+
+			$( '.pagination li:not(.disabled)' ).on( 'click', mm_posts_ajax_pagination );
 		});
 
 }
 
-var mm_posts_ajax_pagination = function( e, newTerm ) {
+var mm_posts_ajax_pagination = function( newTerm ) {
 	$this = $( this );
 	var $mmPostsLoop = $mmPosts.find( '.mm-posts-loop' );
+	var $paginationWrapper = $( '.mm-posts-ajax-pagination-wrapper' );
 	var $paginationLinks = $( '.pagination a' );
 	var $page;
 	var $responseObj;
@@ -164,21 +167,15 @@ var mm_posts_ajax_pagination = function( e, newTerm ) {
 	var pageNumber;
 	var pageNumberRounded;
 
-	e.preventDefault();
-
 	//Set page-data value to the text of current clicked page number.
 
-	$paginationLinks.removeAttr('href');
-
-	newPageVal = $mmPosts.find( '.pagination li.active a' ).text();
+	newPageVal = $paginationWrapper.find( '.pagination li.active a' ).text();
 
 	$mmPostsLoop.attr( 'data-current-page', newPageVal );
 
 	newTerm = $mmPosts.attr( 'data-term' );
 
 	mm_posts_ajax_data( newTerm, pageNumberRounded, newPageVal );
-
-	$mmPosts.twbsPagination('disable');
 
 	$mmPostsLoop.empty();
 
@@ -200,9 +197,7 @@ var mm_posts_ajax_pagination = function( e, newTerm ) {
 
 		$( '.mm-loading' ).hide();
 
-		$mmPosts.twbsPagination('enable');
-
-		$paginationLinks.attr( 'href', '#' );
+		$( '.pagination li:not(.disabled)' ).on( 'click', mm_posts_ajax_pagination );
 
 	});
 
@@ -228,13 +223,13 @@ jQuery( document ).ready( function( $ ) {
 	//Only run AJAX pagination if activated.
 	if ( $mmPosts.hasClass( 'mm-ajax-pagination' ) ) {
 
-		$( '.mm-posts' ).twbsPagination({
+		$( '.mm-posts-ajax-pagination-wrapper' ).twbsPagination({
 		    totalPages: totalPages,
 		    last : false,
 		    first :false
 		});
 
-		$( '.pagination' ).on( 'click', mm_posts_ajax_pagination );
+		$( '.pagination li:not(.disabled)' ).on( 'click', mm_posts_ajax_pagination );
 	}
 
 });

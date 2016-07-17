@@ -41,6 +41,7 @@ function mm_posts( $args ) {
 		'filter_style'        => 'links',
 		'link_title'          => true,
 		'masonry'             => false,
+		'current_page'        => '1',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
 
@@ -50,7 +51,7 @@ function mm_posts( $args ) {
 	$post_type       = sanitize_text_field( $args['post_type'] );
 	$taxonomy        = sanitize_text_field( $args['taxonomy'] );
 	$term            = sanitize_text_field( $args['term'] );
-	$heading_level   = sanitize_text_field( $args['heading_level'] );
+	$heading_level   = $args['heading_level'];
 	$per_page        = (int)$args['per_page'];
 	$template        = sanitize_text_field( $args['template'] );
 	$masonry         = mm_true_or_false( $args['masonry'] );
@@ -81,6 +82,8 @@ function mm_posts( $args ) {
 	if ( $masonry ) {
 		wp_enqueue_script( 'mm-isotope' );
 		$masonry_class = 'mm-masonry';
+	} else {
+		$masonry_class = '';
 	}
 
 	// Set up the context we're in.
@@ -166,9 +169,11 @@ function mm_posts( $args ) {
 
 		</div>
 
-		<?php do_action( 'mm_posts_after', $query, $context, $args ); ?>
+		<?php do_action( 'mm_posts_after_loop', $query, $context, $args ); ?>
 
 	</div>
+
+	<?php do_action( 'mm_posts_after', $query, $context, $args ); ?>
 
 	<?php
 
@@ -206,7 +211,7 @@ add_action( 'mm_posts_register_hooks', 'mm_posts_register_default_hooks', 9, 2 )
 function mm_posts_register_default_hooks( $context, $args ) {
 
 	if ( mm_true_or_false( $args['ajax_filter'] ) ) {
-		add_action( 'mm_posts_before', 'mm_posts_taxonomy_term_filter', 8, 3 );
+		add_action( 'mm_posts_before', 'mm_posts_output_taxonomy_term_filter', 10, 3 );
 	}
 
 	if ( mm_true_or_false( $args['masonry'] ) ) {
@@ -229,6 +234,9 @@ function mm_posts_register_default_hooks( $context, $args ) {
 		add_action( 'mm_posts_after', 'mm_posts_output_pagination', 12, 3 );
 	}
 
+	if ( $args['pagination'] == 'ajax-pagination' ) {
+		add_action( 'mm_posts_after', 'mm_posts_output_ajax_pagination_wrapper', 12, 3 );
+	}
 
 }
 
@@ -242,9 +250,12 @@ function mm_posts_reset_default_hooks() {
 
 	remove_all_actions( 'mm_posts_before' );
 	remove_all_actions( 'mm_posts_before_loop' );
+	remove_all_actions( 'mm_posts_before_article' );
+	remove_all_actions( 'mm_posts_after_article' );
 	remove_all_actions( 'mm_posts_header' );
 	remove_all_actions( 'mm_posts_content' );
 	remove_all_actions( 'mm_posts_footer' );
+	remove_all_actions( 'mm_posts_after_loop' );
 	remove_all_actions( 'mm_posts_after' );
 
 	remove_all_filters( 'mm_posts_post_header' );
@@ -266,6 +277,16 @@ function mm_posts_output_masonry_sizers() {
 }
 
 /**
+ * Output ajax pagination wrapper.
+ *
+ * @since  1.0.0
+ */
+function mm_posts_output_ajax_pagination_wrapper() {
+
+	echo '<div class="mm-posts-ajax-pagination-wrapper"></div>';
+}
+
+/**
  * Default post header output.
  *
  * @since  1.0.0
@@ -278,6 +299,8 @@ function mm_posts_article( $post, $context, $args ) {
 
 	ob_start(); ?>
 
+	<?php add_action( 'mm_posts_before_article', $post, $context, $args ); ?>
+
 	<article id="post-<?php the_ID( $post ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
 
 		<?php do_action( 'mm_posts_header', $post, $context, $args ); ?>
@@ -287,6 +310,8 @@ function mm_posts_article( $post, $context, $args ) {
 		<?php do_action( 'mm_posts_footer', $post, $context, $args ); ?>
 
 	</article>
+
+	<?php add_action( 'mm_posts_after_article', $post, $context, $args ); ?>
 
 	<?php return ob_get_clean();
 }
@@ -302,46 +327,44 @@ function mm_posts_article( $post, $context, $args ) {
  *
  * @return  string              The category filters HTML.
  */
-function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
+function mm_posts_taxonomy_term_filter( $query, $context, $args ) {
 
 	$taxonomy = $args['taxonomy'] ? ( $args['taxonomy'] ) : 'category';
 
 	ob_start(); ?>
 
+	<div class="mm-posts-filter-wrapper">
+
 	<?php if ( $args['filter_style'] == 'dropdown' ) : ?>
-
-		<div class="mm-posts-filter-wrapper">
 		<div class="mm-posts-filter" >
-		<?php wp_dropdown_categories(array(
-			'taxonomy'         => $taxonomy,
-			'orderby'          => 'name',
-	        'show_option_none' => 'Select',
-			'hide_empty'       => 1,
-	        'value_field'      => 'name',
-			'name'             => 'term-select',
-			'id'               => 'term_dropdown',
-		)); ?>
+			<?php wp_dropdown_categories(array(
+				'taxonomy'         => $taxonomy,
+				'orderby'          => 'name',
+		        'show_option_none' => 'Select',
+				'hide_empty'       => 1,
+		        'value_field'      => 'name',
+				'name'             => 'term-select',
+				'id'               => 'term_dropdown',
+			)); ?>
 
-		</div>
 		</div>
 
 	<?php else: ?>
 
-		<div class="mm-posts-filter-wrapper">
 		<ul class="mm-posts-filter" >
-		<li class="cat-item active"><a href="#" class="mm-posts-filter-all"><?php _e( 'All', 'mm-components' ); ?></a></li>
-		<?php wp_list_categories( array(
-			'title_li'     => '',
-			'hide_empty'   => 1,
-			'hierarchical' => false,
-			'taxonomy'     => $taxonomy,
-			)
-		); ?>
+			<li class="cat-item active"><a href="#" class="mm-posts-filter-all"><?php _e( 'All', 'mm-components' ); ?></a></li>
+			<?php wp_list_categories( array(
+				'title_li'     => '',
+				'hide_empty'   => 1,
+				'hierarchical' => false,
+				'taxonomy'     => $taxonomy,
+				)
+			); ?>
 		</ul>
-		</div>
 
 	<?php endif; ?>
 
+	</div>
 
 	<?php
 
@@ -359,8 +382,8 @@ function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
  *
  * @return  string              The category filters HTML.
  */
-function mm_posts_taxonomy_term_filter( $query, $context, $args ) {
-	echo mm_posts_output_taxonomy_term_filter( $query, $context, $args );
+function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
+	echo mm_posts_taxonomy_term_filter( $query, $context, $args );
 }
 
 /**
@@ -376,29 +399,44 @@ function mm_posts_taxonomy_term_filter( $query, $context, $args ) {
  */
 function mm_posts_get_data_attributes( $query, $context, $args ) {
 
-	$data_atts = 'data-current-post-id=' . '"' . $context->ID . '"';
-	$data_atts .= ( $args['query_type'] ) ? ' data-query-type=' . '"' . sanitize_text_field( $args['query_type'] ) . '"' : '';
-	$data_atts .= ( $args['post_ids'] ) ? ' data-post-ids=' . '"' . sanitize_text_field( $args['post_ids'] ) . '"' : '';
-	$data_atts .= ( $args['post_type'] ) ? ' data-post-type=' . '"' . sanitize_text_field( $args['post_type'] ) . '"' : '';
-	$data_atts .= ( $args['taxonomy'] ) ? ' data-taxonomy=' . '"' . sanitize_text_field( $args['taxonomy'] ) . '"' : 'data-taxonomy="category"';
-	$data_atts .= ( $args['term'] ) ? ' data-term=' . '"' . sanitize_text_field( $args['term'] ) . '"' : 'data-term="" ';
-	$data_atts .= ( $args['heading_level'] ) ? ' data-heading-level=' . '"' . sanitize_text_field( $args['heading_level'] ) . '"' : 'h2';
-	$data_atts .= ( $args['per_page'] ) ? ' data-per-page=' . '"' . (int)$args['per_page'] . '"' : ' data-per-page="10"';
-	$data_atts .= ( $args['pagination'] ) ? ' data-pagination=' . '"' . sanitize_text_field( $args['pagination'] ) . '"' : '';
-	$data_atts .= ( $args['template'] ) ? ' data-template=' . '"' . sanitize_text_field( $args['template'] ) . '"' : '';
-	$data_atts .= ( $args['show_featured_image'] ) ? ' data-show-featured-image=' . '"' . sanitize_text_field( $args['show_featured_image'] ) . '"' : '';
-	$data_atts .= ( $args['featured_image_size'] ) ? ' data-featured-image-size=' . '"' . sanitize_text_field( $args['featured_image_size'] ) . '"' : '';
-	$data_atts .= ( $args['show_post_info'] ) ? ' data-show-post-info=' . '"' . sanitize_text_field( $args['show_post_info'] ) . '"' : '';
-	$data_atts .= ( $args['show_post_meta'] ) ? ' data-show-post-meta=' . '"' . sanitize_text_field( $args['show_post_meta'] ) . '"' : '';
-	$data_atts .= ( $args['use_post_content'] ) ? ' data-use-post-content=' . '"' . sanitize_text_field( $args['use_post_content'] ) . '"' : '';
-	$data_atts .= ( $args['filter_style'] ) ? ' data-filter-style=' . '"' . sanitize_text_field( $args['filter_style'] ) . '"' : '';
-	$data_atts .= ( $args['link_title'] ) ? ' data-link-title=' . '"' . sanitize_text_field( $args['link_title'] ) . '"' : '';
-	$data_atts .= ( $args['masonry'] ) ? ' data-masonry=' . '"' . sanitize_text_field( $args['masonry'] ) . '"' : '';
-	$data_atts .= ' data-total-pages=' . $query->max_num_pages;
-	$data_atts .= ' data-total-posts=' . $query->found_posts;
-	$data_atts .= ( isset( $args['current_page'] ) ) ? ' data-current-page=' . '"' . sanitize_text_field( $args['current_page'] ) . '"' : ' data-current-page="1"';
+	$data_atts = array();
+	    $data_args = array(
+	        'query_type',
+	        'post_ids',
+	        'post_type',
+	        'taxonomy',
+	        'term',
+	        'heading_level',
+	        'per_page',
+	        'pagination',
+	        'template',
+	        'show_featured_image',
+	        'featured_image_size',
+	        'show_post_info',
+	        'show_post_meta',
+	        'use_post_content',
+	        'filter_style',
+	        'link_title',
+	        'masonry',
+	        'current_page',
+	    );
 
-	return apply_filters( 'mm_posts_data_attributes', $data_atts, $query, $context, $args );
+	// Convert args to data-* attributes.
+    foreach ( $data_args as $data_arg ) {
+        if ( ! empty( $args[ $data_arg ] ) ) {
+            $data_atts[] = 'data-' . str_replace( '_', '-', $data_arg ) . '=' . (string)$args[ $data_arg ];
+        }
+    }
+
+    // Add special data attributes.
+    $data_atts[] = 'data-total-pages=' . $query->max_num_pages;
+    $data_atts[] = 'data-total-posts=' . $query->found_posts;
+    $data_atts[] = 'data-global-post-id=' . $context->ID;
+
+    // Convert to a string.
+    $data_atts = esc_attr( implode( ' ', $data_atts ) );
+
+    return apply_filters( 'mm_posts_data_attributes', $data_atts, $query, $context, $args );
 }
 
 /**
@@ -411,27 +449,27 @@ function mm_posts_get_data_attributes( $query, $context, $args ) {
 function mm_posts_get_ajax_args( $args ) {
 
 	//Get data from AJAX call.
-	$current_id          = ( isset( $_POST['showFeaturedImage'] ) ) ? sanitize_text_field( $_POST['currentId'] ) : '';
-	$taxonomy            = ( isset( $_POST['taxonomy'] ) )  ? sanitize_text_field( $_POST['taxonomy'] ) : '';
-	$query_type          = ( isset( $_POST['queryType'] ) )  ? sanitize_text_field( $_POST['queryType'] ) : '';
-	$post_ids            = ( isset( $_POST['postIds'] ) )  ? sanitize_text_field( $_POST['postIds'] ) : '';
-	$post_type           = ( isset( $_POST['postType'] ) )  ? sanitize_text_field( $_POST['postType'] ) : '';
-	$term                = ( isset( $_POST['term'] ) )  ? sanitize_text_field( $_POST['term'] ) : '';
-	$heading_level       = ( isset( $_POST['headingLevel'] ) )  ? sanitize_text_field( $_POST['headingLevel'] ) : '';
-	$per_page            = ( isset( $_POST['perPage'] ) )  ? sanitize_text_field( $_POST['perPage'] ) : '';
-	$paged               = ( isset( $_POST['currentPage'] ) )  ? $_POST['currentPage'] : '';
-	$pagination          = ( isset( $_POST['pagination'] ) )  ? sanitize_text_field( $_POST['pagination'] ) : '';
-	$template            = ( isset( $_POST['template'] ) )  ? sanitize_text_field( $_POST['template'] ) : '';
-	$show_featured_image = ( isset( $_POST['showFeaturedImage'] ) ) ? sanitize_text_field( $_POST['showFeaturedImage'] ) : false;
-	$featured_image_size = ( isset( $_POST['featuredImageSize'] ) ) ? sanitize_text_field( $_POST['featuredImageSize'] ) : 'thumbnail';
-	$show_post_info      = ( isset( $_POST['showPostInfo'] ) ) ? sanitize_text_field( $_POST['showPostInfo'] ) : false;
-	$show_post_meta      = ( isset( $_POST['showPostMeta'] ) ) ? sanitize_text_field( $_POST['showPostMeta'] ) : false;
-	$use_post_content    = ( isset( $_POST['usePostContent'] ) ) ? sanitize_text_field( $_POST['usePostContent'] ) : false;
-	$link_title          = ( isset( $_POST['linkTitle'] ) ) ? sanitize_text_field( $_POST['linkTitle'] ) : true;
-	$masonry             = ( isset( $_POST['masonry'] ) ) ? sanitize_text_field( $_POST['masonry'] ) : false;
-	$current_page        = ( isset( $_POST['currentPage'] ) ) ? ( $_POST['currentPage'] ) : 1;
-	$total_pages         = ( isset( $_POST['totalPages'] ) ) ? ( $_POST['totalPages'] ) : '';
-	$total_posts         = ( isset( $_POST['totalPosts'] ) ) ? ( $_POST['totalPosts'] ) : '';
+	$current_id          = sanitize_text_field( $_POST['currentId'] );
+	$taxonomy            = sanitize_text_field( $_POST['taxonomy'] );
+	$query_type          = sanitize_text_field( $_POST['queryType'] );
+	$post_ids            = sanitize_text_field( $_POST['postIds'] );
+	$post_type           = sanitize_text_field( $_POST['postType'] );
+	$term                = sanitize_text_field( $_POST['term'] );
+	$heading_level       = sanitize_text_field( $_POST['headingLevel'] );
+	$per_page            = sanitize_text_field( $_POST['perPage'] );
+	$paged               = sanitize_text_field( $_POST['currentPage'] );
+	$pagination          = sanitize_text_field( $_POST['pagination'] );
+	$template            = sanitize_text_field( $_POST['template'] );
+	$show_featured_image = sanitize_text_field( $_POST['showFeaturedImage'] );
+	$featured_image_size = sanitize_text_field( $_POST['featuredImageSize'] );
+	$show_post_info      = sanitize_text_field( $_POST['showPostInfo'] );
+	$show_post_meta      = sanitize_text_field( $_POST['showPostMeta'] );
+	$use_post_content    = sanitize_text_field( $_POST['usePostContent'] );
+	$link_title          = sanitize_text_field( $_POST['linkTitle'] );
+	$masonry             = sanitize_text_field( $_POST['masonry'] );
+	$current_page        = sanitize_text_field( $_POST['currentPage'] );
+	$total_pages         = sanitize_text_field( $_POST['totalPages'] );
+	$total_posts         = sanitize_text_field( $_POST['totalPosts'] );
 
 	//Set data as new MM post args.
 	$args = array(
