@@ -869,7 +869,7 @@ a.mm-button.full-width {
 }
 
 .mm-posts.image-grid.no-gutter .entry-title,
-.mm-posts.image-grid.mm-masonry .mm-post {
+.mm-posts.image-grid.mm-masonry .mm-posts-loop .mm-post {
   margin: 0;
 }
 

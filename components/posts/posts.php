@@ -29,7 +29,7 @@ function mm_posts( $args ) {
 		'taxonomy'            => '',
 		'term'                => '',
 		'heading_level'       => 'h1',
-		'per_page'            => '',
+		'per_page'            => '10',
 		'pagination'          => '',
 		'template'            => '',
 		'show_featured_image' => false,
@@ -150,17 +150,17 @@ function mm_posts( $args ) {
 
 	<?php do_action( 'mm_posts_before', $query, $context, $args ); ?>
 
-	<div class="<?php echo esc_attr( $mm_classes ); ?>" <?php echo mm_posts_get_data_attributes( $query, $context, $args ); ?> >
+	<div class="<?php echo esc_attr( $mm_classes ); ?> <?php echo esc_attr( $masonry_class ); ?>" <?php echo mm_posts_get_data_attributes( $query, $context, $args ); ?> >
 
 		<?php do_action( 'mm_posts_before_loop', $query, $context, $args ); ?>
 
-		<div class="mm-posts-loop <?php echo esc_attr( $masonry_class ); ?>">
+		<div class="mm-posts-loop">
 
 			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
 				<?php setup_postdata( $query->post ); ?>
 
-				<?php echo mm_post_article( $post, $context, $args ); ?>
+				<?php echo mm_posts_article( $post, $context, $args ); ?>
 
 			<?php endwhile; ?>
 
@@ -274,7 +274,7 @@ function mm_posts_output_masonry_sizers() {
  * @param  object  $context  The global post object.
  * @param  array   $args     The instance args.
  */
-function mm_post_article( $post, $context, $args ) {
+function mm_posts_article( $post, $context, $args ) {
 
 	ob_start(); ?>
 
@@ -515,7 +515,7 @@ function mm_posts_ajax_filter( $args ) {
 
 			<?php setup_postdata( $query->post ); ?>
 
-			<?php echo mm_post_article( $post, $context, $args ); ?>
+			<?php echo mm_posts_article( $post, $context, $args ); ?>
 
 		<?php endwhile; ?>
 
