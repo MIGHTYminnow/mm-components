@@ -29,7 +29,7 @@ function mm_posts( $args ) {
 		'taxonomy'            => '',
 		'term'                => '',
 		'heading_level'       => 'h1',
-		'per_page'            => '10',
+		'per_page'            => 10,
 		'pagination'          => '',
 		'template'            => '',
 		'show_featured_image' => false,
