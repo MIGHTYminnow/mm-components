@@ -149,8 +149,6 @@ function mm_posts( $args ) {
 
 	do_action( 'mm_posts_register_hooks', $context, $args );
 
-	mm_posts_output_js_data_var( $query, $context, $args );
-
 	ob_start(); ?>
 
 	<?php do_action( 'mm_posts_before', $query, $context, $args ); ?>
@@ -214,6 +212,10 @@ function mm_posts_register_default_hooks( $context, $args ) {
 
 	if ( mm_true_or_false( $args['ajax_filter'] ) ) {
 		add_action( 'mm_posts_before', 'mm_posts_output_taxonomy_term_filter', 10, 3 );
+	}
+
+	if ( mm_true_or_false( $args['ajax_filter'] ) || $args['pagination'] == 'ajax-pagination' ) {
+		add_action( 'mm_posts_before', 'mm_posts_output_js_data_var', 10, 3 );
 	}
 
 	if ( mm_true_or_false( $args['masonry'] ) ) {
