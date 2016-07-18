@@ -149,11 +149,13 @@ function mm_posts( $args ) {
 
 	do_action( 'mm_posts_register_hooks', $context, $args );
 
+	mm_posts_output_js_data_var( $query, $context, $args );
+
 	ob_start(); ?>
 
 	<?php do_action( 'mm_posts_before', $query, $context, $args ); ?>
 
-	<div class="<?php echo esc_attr( $mm_classes ); ?> <?php echo esc_attr( $masonry_class ); ?>" <?php echo mm_posts_get_data_attributes( $query, $context, $args ); ?> >
+	<div class="<?php echo esc_attr( $mm_classes ); ?> <?php echo esc_attr( $masonry_class ); ?>" >
 
 		<?php do_action( 'mm_posts_before_loop', $query, $context, $args ); ?>
 
@@ -387,7 +389,7 @@ function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
 }
 
 /**
- * Output taxonomy term filter data attributes.
+ * Output json string of args.
  *
  * @since   1.0.0
  *
@@ -397,46 +399,37 @@ function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
  *
  * @return  string              The category filters HTML.
  */
-function mm_posts_get_data_attributes( $query, $context, $args ) {
+function mm_posts_get_js_data_var( $query, $context, $args ) {
 
-	$data_atts = array();
-	    $data_args = array(
-	        'query_type',
-	        'post_ids',
-	        'post_type',
-	        'taxonomy',
-	        'term',
-	        'heading_level',
-	        'per_page',
-	        'pagination',
-	        'template',
-	        'show_featured_image',
-	        'featured_image_size',
-	        'show_post_info',
-	        'show_post_meta',
-	        'use_post_content',
-	        'filter_style',
-	        'link_title',
-	        'masonry',
-	        'current_page',
-	    );
+	$args['total_pages']    = esc_attr( $query->max_num_pages );
+	$args['total_posts']    = esc_attr( $query->found_posts );
+	$args['global_post_id'] = esc_attr( $context->ID );
 
-	// Convert args to data-* attributes.
-    foreach ( $data_args as $data_arg ) {
-        if ( ! empty( $args[ $data_arg ] ) ) {
-            $data_atts[] = 'data-' . str_replace( '_', '-', $data_arg ) . '=' . (string)$args[ $data_arg ];
-        }
-    }
+	ob_start();
 
-    // Add special data attributes.
-    $data_atts[] = 'data-total-pages=' . $query->max_num_pages;
-    $data_atts[] = 'data-total-posts=' . $query->found_posts;
-    $data_atts[] = 'data-global-post-id=' . $context->ID;
+	?>
+	<script type="text/javascript">
+	    var mmPostsData = <?php echo json_encode( $args );?>;
 
-    // Convert to a string.
-    $data_atts = esc_attr( implode( ' ', $data_atts ) );
+	</script>
+	<?php
 
-    return apply_filters( 'mm_posts_data_attributes', $data_atts, $query, $context, $args );
+    return apply_filters( 'mm_posts_get_js_data_var', ob_get_clean(), $query, $context, $args );
+}
+
+/**
+ * Echo the js var data script.
+ *
+ * @since   1.0.0
+ *
+ * @param   WP_Query  $query    The query object.
+ * @param   WP_Post   $context  The global post object.
+ * @param   array     $args     The instance args.
+ *
+ * @return  string              The category filters HTML.
+ */
+function mm_posts_output_js_data_var( $query, $context, $args ) {
+	echo mm_posts_get_js_data_var( $query, $context, $args );
 }
 
 /**
@@ -449,7 +442,7 @@ function mm_posts_get_data_attributes( $query, $context, $args ) {
 function mm_posts_get_ajax_args( $args ) {
 
 	//Get data from AJAX call.
-	$current_id          = sanitize_text_field( $_POST['currentId'] );
+	$global_post_id      = sanitize_text_field( $_POST['globalPostId'] );
 	$taxonomy            = sanitize_text_field( $_POST['taxonomy'] );
 	$query_type          = sanitize_text_field( $_POST['queryType'] );
 	$post_ids            = sanitize_text_field( $_POST['postIds'] );
@@ -457,7 +450,6 @@ function mm_posts_get_ajax_args( $args ) {
 	$term                = sanitize_text_field( $_POST['term'] );
 	$heading_level       = sanitize_text_field( $_POST['headingLevel'] );
 	$per_page            = sanitize_text_field( $_POST['perPage'] );
-	$paged               = sanitize_text_field( $_POST['currentPage'] );
 	$pagination          = sanitize_text_field( $_POST['pagination'] );
 	$template            = sanitize_text_field( $_POST['template'] );
 	$show_featured_image = sanitize_text_field( $_POST['showFeaturedImage'] );
@@ -468,20 +460,21 @@ function mm_posts_get_ajax_args( $args ) {
 	$link_title          = sanitize_text_field( $_POST['linkTitle'] );
 	$masonry             = sanitize_text_field( $_POST['masonry'] );
 	$current_page        = sanitize_text_field( $_POST['currentPage'] );
+	$paged               = sanitize_text_field( $_POST['currentPage'] );
 	$total_pages         = sanitize_text_field( $_POST['totalPages'] );
 	$total_posts         = sanitize_text_field( $_POST['totalPosts'] );
 
 	//Set data as new MM post args.
 	$args = array(
-		'current_id'          => $current_id,
-		'post__not_in'        => array( $current_id ),
+		'global_post_id'      => $global_post_id,
+		'post__not_in'        => array( $global_post_id ),
 		'query_type'          => $query_type,
 		'post_ids'            => $post_ids,
 		'post_type'           => $post_type,
-		'taxonomy'            => $taxonomy,
+		'taxonomy'            => 'category',
 		'term'                => $term,
 		'heading_level'       => $heading_level,
-		'posts_per_page'      => $per_page,
+		'per_page'            => $per_page,
 		'paged'               => $current_page,
 		'pagination'          => $pagination,
 		'template'            => $template,
@@ -490,7 +483,6 @@ function mm_posts_get_ajax_args( $args ) {
 		'show_post_info'      => $show_post_info,
 		'show_post_meta'      => $show_post_meta,
 		'use_post_content'    => $use_post_content,
-		'ajax_filter'         => false,
 		'link_title'          => $link_title,
 		'masonry'             => $masonry,
 		'current_page'        => $current_page,
@@ -513,19 +505,19 @@ function mm_posts_ajax_filter( $args ) {
 	$args = mm_posts_get_ajax_args( $args );
 
 	global $post;
-	$post = get_post( $args['current_id'] );
+	$post = get_post( $args['global_post_id'] );
 	$query_args = array(
 		'post_type'    => $args['post_type'],
 		'paged'        => $args['current_page'],
 		'post__not_in' => array(
-				$args['current_id']
+				$args['global_post_id']
 			),
-		'posts_per_page' => $args['posts_per_page'],
+		'posts_per_page' => $args['per_page'],
 		'post_status'    => 'publish',
 		'max_num_pages'  => $args[ 'total_pages'],
 	);
 
-	if( $args['term'] ) {
+	if( '' !== $args['term'] ) {
 	$query_args['tax_query'] = array (
 		array(
 			'taxonomy' => $args['taxonomy'],
@@ -562,7 +554,7 @@ function mm_posts_ajax_filter( $args ) {
 	<?php
 
 	// Grab the new number of posts per page to update pagination links.
-	$new_page_number = ceil( $query->found_posts / $args['posts_per_page']) ?>
+	$new_page_number = ceil( $query->found_posts / $args['per_page']) ?>
 
 	<span class="ajax-total-pages"><?php echo $new_page_number; ?></span>
 

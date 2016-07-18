@@ -792,7 +792,8 @@ a.mm-button {
 	}
 	i.mm-loading {
 		width: 100%;
-	    position: relative;
+	    position: absolute;
+	    top: 40%;
 		color: $medium-color;
 	}
 }
@@ -800,7 +801,6 @@ a.mm-button {
 .mm-posts-filter {
 	overflow: auto;
 	margin-left: 0 !important;
-	margin-bottom: 30px;
 	padding-left: 0;
 	li {
 		list-style-type: none;
@@ -828,7 +828,7 @@ a.mm-button {
 }
 
 .mm-posts-loop {
-	height: auto;
+	min-height: 300px;
 }
 
 .mm-posts-ajax-pagination-wrapper {
