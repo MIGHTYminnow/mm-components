@@ -473,7 +473,7 @@ function mm_posts_get_ajax_args( $args ) {
 		'query_type'          => $query_type,
 		'post_ids'            => $post_ids,
 		'post_type'           => $post_type,
-		'taxonomy'            => 'category',
+		'taxonomy'            => $taxonomy,
 		'term'                => $term,
 		'heading_level'       => $heading_level,
 		'per_page'            => $per_page,
@@ -505,6 +505,7 @@ add_action( 'wp_ajax_mm_posts_ajax_filter', 'mm_posts_ajax_filter', 1 );
 function mm_posts_ajax_filter( $args ) {
 
 	$args = mm_posts_get_ajax_args( $args );
+	$taxonomy = ( '' !== $args['taxonomy'] ) ? $args['taxonomy'] : 'category';
 
 	global $post;
 	$post = get_post( $args['global_post_id'] );
@@ -522,7 +523,7 @@ function mm_posts_ajax_filter( $args ) {
 	if( '' !== $args['term'] ) {
 	$query_args['tax_query'] = array (
 		array(
-			'taxonomy' => $args['taxonomy'],
+			'taxonomy' => $taxonomy,
 			'field'    => 'name',
 			'terms'    => $args['term']
 			)
@@ -1213,11 +1214,20 @@ function mm_vc_posts() {
 				),
 			),
 			array(
-				'type'        => 'dropdown',
-				'heading'     => __( 'Heading Level', 'mm-components' ),
-				'param_name'  => 'heading_level',
-				'description' => __( 'Select the post title heading level', 'mm-components' ),
-				'value'       => $heading_levels,
+				'type'       => 'checkbox',
+				'heading'    => __( 'Use AJAX Filter?', 'mm-components' ),
+				'description' => __( 'Allow AJAX post filtering accoring to taxonomy specified above', 'mm-components' ),
+				'param_name' => 'ajax_filter',
+				'value'      => array(
+					__( 'Yes', 'mm-components' ) => 1,
+				),
+				'dependency' => array(
+					'element'   => 'pagination',
+					'value'     => array(
+						'',
+						'ajax-pagination',
+					),
+				),
 			),
 			array(
 				'type'        => 'textfield',
@@ -1235,21 +1245,6 @@ function mm_vc_posts() {
 					__( 'Next/Prev', 'mm-components' )    => 'next-prev',
 					__( 'Page Numbers', 'mm-components' ) => 'page-numbers',
 					__( 'AJAX Pagination', 'mm-components' ) => 'ajax-pagination',
-				),
-			),
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Use AJAX Filter?', 'mm-components' ),
-				'param_name' => 'ajax_filter',
-				'value'      => array(
-					__( 'Yes', 'mm-components' ) => 1,
-				),
-				'dependency' => array(
-					'element'   => 'pagination',
-					'value'     => array(
-						'',
-						'ajax-pagination',
-					),
 				),
 			),
 			array(
@@ -1297,6 +1292,13 @@ function mm_vc_posts() {
 				'value'      => array(
 					__( 'Yes', 'mm-components' ) => 1,
 				),
+			),
+			array(
+				'type'        => 'dropdown',
+				'heading'     => __( 'Heading Level', 'mm-components' ),
+				'param_name'  => 'heading_level',
+				'description' => __( 'Select the post title heading level', 'mm-components' ),
+				'value'       => $heading_levels,
 			),
 			array(
 				'type'       => 'checkbox',

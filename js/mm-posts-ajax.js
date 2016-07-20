@@ -108,7 +108,7 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 		}
 
 		if( $( '.mm-posts-loop' ).find( 'article' ).length == 0 ) {
-			$( '.mm-posts-loop' ).after( '<span class="no-results">No Results Found.</span>' );
+			$( '.mm-posts-loop' ).before( '<span class="no-results">No Results Found.</span>' );
 		}
 
 		$( '.mm-loading' ).hide();
