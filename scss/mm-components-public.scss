@@ -738,7 +738,7 @@ a.mm-button {
 
 .mm-posts {
 	article {
-		overflow: auto;	
+		overflow: hidden;
 	}
 	.entry-image {
 		max-width: 150px;
@@ -788,6 +788,74 @@ a.mm-button {
 		span {
 			display: inline-block;
 			margin: 0 6px;
+		}
+	}
+	i.mm-loading {
+		width: 100%;
+	    position: absolute;
+	    top: 40%;
+		color: $medium-color;
+	}
+}
+
+.mm-posts-filter {
+	overflow: auto;
+	margin-left: 0 !important;
+	padding-left: 0;
+	li {
+		list-style-type: none;
+		width: auto;
+		float: left;
+		padding: 8px 14px;
+	}
+	li.active {
+		background-color: $light-color;
+		border-radius: 5px;
+	}
+	li.active a {
+		color: #fff;
+	}
+	li:first-of-type {
+		margin-left: 20px;
+	}
+	select {
+		width: 100%;
+		margin-bottom: 20px;
+		@media( min-width: 768px ) {
+			max-width: 75%;
+		}
+	}
+}
+
+.mm-posts-loop {
+	min-height: 300px;
+}
+
+.mm-posts-ajax-pagination-wrapper {
+	position: relative;
+	ul.pagination {
+		float: left;
+		clear: both;
+		margin: 0;
+		padding-left: 0;
+		li {
+			list-style-type: none;
+			width: auto;
+			float: left;
+			margin-right: 8px;
+		}
+		li.active a {
+			background-color: $light-color;
+			color: $white-color;
+		}
+		li.disabled a {
+			cursor: default;
+			pointer-events: none;
+		}
+		a {
+			padding: 5px 8px;
+			border-radius: 5px;
+			background-color: $default-color;
 		}
 	}
 }
@@ -872,7 +940,7 @@ a.mm-button {
 }
 
 .mm-posts.image-grid.titles-inside .entry-title,
-.mm-posts.image-grid.titles-inside.mm-masonry .entry-title {
+.mm-posts.image-grid.titles-inside.mm-masonry .mm-posts-loop .entry-title {
 	position: absolute;
 	bottom: 0;
 	margin-bottom: 18px;
@@ -885,7 +953,7 @@ a.mm-button {
 	color: #fff;
 }
 
-.mm-posts.image-grid.titles-inside.no-gutter.mm-masonry .entry-title {
+.mm-posts.image-grid.titles-inside.no-gutter.mm-masonry .mm-posts-loop .entry-title {
 	margin-bottom: 0;
 }
 
@@ -896,7 +964,7 @@ a.mm-button {
 }
 
 .mm-posts.image-grid.no-gutter .entry-title,
-.mm-posts.image-grid.mm-masonry .mm-post {
+.mm-posts.image-grid.mm-masonry .mm-posts-loop .mm-post {
 	margin: 0;
 }
 
@@ -922,10 +990,10 @@ a.mm-button {
 	.entry-title, .entry-meta-wrap {
 		clear: none;
 	}
-	
+
 	.entry-image {
 		margin: 0 15px 0 0;
-	}	
+	}
 }
 
 

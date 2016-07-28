@@ -53,6 +53,7 @@ function mm_posts_simple_image_content_hooks( $context, $args ) {
 function mm_posts_output_custom_post_image_simple_image_content( $post, $context, $args ) {
 
 	$custom_output = apply_filters( 'mm_posts_post_image', '', $post, $context, $args );
+	$image_tag = '';
 
 	if ( '' !== $custom_output ) {
 		echo $custom_output;
@@ -73,7 +74,7 @@ function mm_posts_output_custom_post_image_simple_image_content( $post, $context
 
 	} else {
 
-		$fallback_image = $args['fallback_image'];
+		$fallback_image = ( isset( $args['fallback_image'] ) ) ? $args['fallback_image'] : '' ;
 
 		// Support the fallback image
 		if ( is_numeric( $fallback_image ) ) {

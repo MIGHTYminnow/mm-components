@@ -621,7 +621,7 @@ a.mm-button.full-width {
 /* Posts
 --------------------------------------------- */
 .mm-posts article {
-  overflow: auto;
+  overflow: hidden;
 }
 
 .mm-posts .entry-image {
@@ -688,6 +688,88 @@ a.mm-button.full-width {
 .mm-posts .pagination-wrap span {
   display: inline-block;
   margin: 0 6px;
+}
+
+.mm-posts i.mm-loading {
+  width: 100%;
+  position: absolute;
+  top: 40%;
+  color: #666;
+}
+
+.mm-posts-filter {
+  overflow: auto;
+  margin-left: 0 !important;
+  padding-left: 0;
+}
+
+.mm-posts-filter li {
+  list-style-type: none;
+  width: auto;
+  float: left;
+  padding: 8px 14px;
+}
+
+.mm-posts-filter li.active {
+  background-color: #999;
+  border-radius: 5px;
+}
+
+.mm-posts-filter li.active a {
+  color: #fff;
+}
+
+.mm-posts-filter li:first-of-type {
+  margin-left: 20px;
+}
+
+.mm-posts-filter select {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .mm-posts-filter select {
+    max-width: 75%;
+  }
+}
+
+.mm-posts-loop {
+  min-height: 300px;
+}
+
+.mm-posts-ajax-pagination-wrapper {
+  position: relative;
+}
+
+.mm-posts-ajax-pagination-wrapper ul.pagination {
+  float: left;
+  clear: both;
+  margin: 0;
+  padding-left: 0;
+}
+
+.mm-posts-ajax-pagination-wrapper ul.pagination li {
+  list-style-type: none;
+  width: auto;
+  float: left;
+  margin-right: 8px;
+}
+
+.mm-posts-ajax-pagination-wrapper ul.pagination li.active a {
+  background-color: #999;
+  color: #fff;
+}
+
+.mm-posts-ajax-pagination-wrapper ul.pagination li.disabled a {
+  cursor: default;
+  pointer-events: none;
+}
+
+.mm-posts-ajax-pagination-wrapper ul.pagination a {
+  padding: 5px 8px;
+  border-radius: 5px;
+  background-color: #99CCCC;
 }
 
 /* Posts Templates
@@ -772,7 +854,7 @@ a.mm-button.full-width {
 }
 
 .mm-posts.image-grid.titles-inside .entry-title,
-.mm-posts.image-grid.titles-inside.mm-masonry .entry-title {
+.mm-posts.image-grid.titles-inside.mm-masonry .mm-posts-loop .entry-title {
   position: absolute;
   bottom: 0;
   margin-bottom: 18px;
@@ -785,7 +867,7 @@ a.mm-button.full-width {
   color: #fff;
 }
 
-.mm-posts.image-grid.titles-inside.no-gutter.mm-masonry .entry-title {
+.mm-posts.image-grid.titles-inside.no-gutter.mm-masonry .mm-posts-loop .entry-title {
   margin-bottom: 0;
 }
 
@@ -796,7 +878,7 @@ a.mm-button.full-width {
 }
 
 .mm-posts.image-grid.no-gutter .entry-title,
-.mm-posts.image-grid.mm-masonry .mm-post {
+.mm-posts.image-grid.mm-masonry .mm-posts-loop .mm-post {
   margin: 0;
 }
 
