@@ -1230,6 +1230,19 @@ function mm_vc_posts() {
 				),
 			),
 			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'AJAX Filter Terms List Style', 'mm-components' ),
+				'param_name' => 'filter_style',
+				'value'      => array(
+					__( 'Links', 'mm-components' )    => 'links',
+					__( 'Dropdown', 'mm-components' ) => 'dropdown',
+				),
+				'dependency' => array(
+					'element'   => 'ajax_filter',
+					'not_empty' => true,
+				),
+			),
+			array(
 				'type'        => 'textfield',
 				'heading'     => __( 'Posts Per Page', 'mm-components' ),
 				'param_name'  => 'per_page',
@@ -1245,19 +1258,6 @@ function mm_vc_posts() {
 					__( 'Next/Prev', 'mm-components' )    => 'next-prev',
 					__( 'Page Numbers', 'mm-components' ) => 'page-numbers',
 					__( 'AJAX Pagination', 'mm-components' ) => 'ajax-pagination',
-				),
-			),
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'AJAX Filter Terms List Style', 'mm-components' ),
-				'param_name' => 'filter_style',
-				'value'      => array(
-					__( 'Links', 'mm-components' )    => 'links',
-					__( 'Dropdown', 'mm-components' ) => 'dropdown',
-				),
-				'dependency' => array(
-					'element'   => 'ajax_filter',
-					'not_empty' => true,
 				),
 			),
 			array(
