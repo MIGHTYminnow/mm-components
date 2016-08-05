@@ -1222,10 +1222,9 @@ function mm_vc_posts() {
 					__( 'Yes', 'mm-components' ) => 1,
 				),
 				'dependency' => array(
-					'element'   => 'pagination',
+					'element'   => 'query_type',
 					'value'     => array(
-						'',
-						'ajax-pagination',
+						'collection',
 					),
 				),
 			),
