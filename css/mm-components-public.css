@@ -801,6 +801,10 @@ a.mm-button.full-width {
 }
 
 /* Image Grid */
+.mm-posts.image-grid {
+  margin-bottom: 20px;
+}
+
 .mm-posts.image-grid::after {
   content: '';
   display: table;
