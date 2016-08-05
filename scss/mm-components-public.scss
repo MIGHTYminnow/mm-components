@@ -893,6 +893,7 @@ a.mm-button {
 /* Image Grid */
 
 .mm-posts.image-grid {
+	margin-bottom: 20px;
 	&::after {
 		content: '';
 		display: table;
