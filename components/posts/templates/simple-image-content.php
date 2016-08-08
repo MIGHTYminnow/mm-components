@@ -83,13 +83,13 @@ function mm_posts_output_custom_post_image_simple_image_content( $post, $context
 	}
 
 	// Output image with/without link
-	if ( mm_true_or_false( $args['link_title'] ) ) {
+	if ( mm_true_or_false( $args['link_title'] ) && has_post_thumbnail( $post->ID ) ) {
 		printf(
 			'<div class="entry-image"><a href="%s">%s</a></div>',
 			get_permalink( $post->ID ),
 			$image_tag
 		);
-	} else {
+	} elseif( has_post_thumbnail( $post->ID ) ) {
 		printf(
 			'<div class="entry-image">%s</div>',
 			$image_tag
