@@ -67,6 +67,7 @@ var mm_posts_ajax_data = function( newTerm, newPageVal ) {
 var mm_posts_ajax_filter = function( e, newPageVal ) {
 	var $this = $( this );
 	var $mmPosts = $this.parents( '.mm-posts-wrapper' ).find( '.mm-posts' );
+	var $mmPostsFilter = $this.parents( '.mm-posts-wrapper' ).find( '.mm-posts-filter' );
 	var $mmPostsLoop = $mmPosts.find( '.mm-posts-loop' );
 	var $mmLoading = $mmPosts.find( '.mm-loading' );
 	var $filterLinks = $( '.mm-posts-filter a' );
@@ -84,7 +85,7 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 
 	$filterLinks.unbind( 'click' );
 
-	$( '.mm-posts-filter li.active' ).removeClass( 'active' );
+	$mmPostsFilter.find( 'li.active' ).removeClass( 'active' );
 
 	filterStyle = $mmPosts.attr( 'data-filter-style' );
 
@@ -165,9 +166,8 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 	var $mmPosts = $this.prev( '.mm-posts' );
 	var $mmPostsLoop = $mmPosts.find( '.mm-posts-loop' );
 	var $mmLoading = $mmPosts.parent( '.mm-posts-wrapper' ).find( '.mm-loading' );
-	var $paginationWrapper = $( '.mm-posts-ajax-pagination-wrapper' );
-	var newPageVal = $this.find( 'li.active a' ).text();;
-	var newTerm = $mmPosts.attr( 'data-term' );;
+	var newPageVal = $this.find( 'li.active a' ).text();
+	var newTerm = $mmPosts.attr( 'data-term' );
 
 	mm_posts_data( $mmPosts );
 
@@ -198,7 +198,6 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 jQuery( document ).ready( function( $ ) {
 
 	var $mmPosts = $( '.mm-posts' );
-	var $mmPostsFilterWrapper = $( '.mm-posts-filter-wrapper');
 	var $mmPostsPaginationWrapper = $( '.mm-posts-ajax-pagination-wrapper' );
 
 	loading = '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw mm-loading"></i>';
