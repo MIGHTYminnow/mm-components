@@ -344,7 +344,7 @@ function mm_posts_taxonomy_term_filter( $query, $context, $args ) {
 			<?php wp_dropdown_categories(array(
 				'taxonomy'         => $taxonomy,
 				'orderby'          => 'name',
-		        'show_option_none' => 'Select',
+		        'show_option_none' => 'All',
 				'hide_empty'       => 1,
 		        'value_field'      => 'name',
 				'name'             => 'term-select',
