@@ -151,29 +151,33 @@ function mm_posts( $args ) {
 
 	ob_start(); ?>
 
-	<?php do_action( 'mm_posts_before', $query, $context, $args ); ?>
+	<div class="mm-posts-wrapper">
 
-	<div class="<?php echo esc_attr( $mm_classes ); ?> <?php echo esc_attr( $masonry_class ); ?>" >
+		<?php do_action( 'mm_posts_before', $query, $context, $args ); ?>
 
-		<?php do_action( 'mm_posts_before_loop', $query, $context, $args ); ?>
+		<div class="<?php echo esc_attr( $mm_classes ); echo esc_attr( $masonry_class );?>" <?php echo mm_posts_get_data_attributes( $query, $context, $args ); ?> >
 
-		<div class="mm-posts-loop">
+			<?php do_action( 'mm_posts_before_loop', $query, $context, $args ); ?>
 
-			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+			<div class="mm-posts-loop">
 
-				<?php setup_postdata( $query->post ); ?>
+				<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-				<?php echo mm_posts_article( $post, $context, $args ); ?>
+					<?php setup_postdata( $query->post ); ?>
 
-			<?php endwhile; ?>
+					<?php echo mm_posts_article( $post, $context, $args ); ?>
+
+				<?php endwhile; ?>
+
+			</div>
+
+			<?php do_action( 'mm_posts_after_loop', $query, $context, $args ); ?>
 
 		</div>
 
-		<?php do_action( 'mm_posts_after_loop', $query, $context, $args ); ?>
+		<?php do_action( 'mm_posts_after', $query, $context, $args ); ?>
 
 	</div>
-
-	<?php do_action( 'mm_posts_after', $query, $context, $args ); ?>
 
 	<?php
 
@@ -212,10 +216,6 @@ function mm_posts_register_default_hooks( $context, $args ) {
 
 	if ( mm_true_or_false( $args['ajax_filter'] ) ) {
 		add_action( 'mm_posts_before', 'mm_posts_output_taxonomy_term_filter', 10, 3 );
-	}
-
-	if ( mm_true_or_false( $args['ajax_filter'] ) || $args['pagination'] == 'ajax-pagination' ) {
-		add_action( 'mm_posts_before', 'mm_posts_output_js_data_var', 10, 3 );
 	}
 
 	if ( mm_true_or_false( $args['masonry'] ) ) {
@@ -401,37 +401,46 @@ function mm_posts_output_taxonomy_term_filter( $query, $context, $args ) {
  *
  * @return  string              The category filters HTML.
  */
-function mm_posts_get_js_data_var( $query, $context, $args ) {
+function mm_posts_get_data_attributes( $query, $context, $args ) {
 
-	$args['total_pages']    = esc_attr( $query->max_num_pages );
-	$args['total_posts']    = esc_attr( $query->found_posts );
-	$args['global_post_id'] = esc_attr( $context->ID );
+	$data_atts = array();
+	$data_args = array(
+		'query_type',
+		'post_ids',
+		'post_type',
+		'taxonomy',
+		'term',
+		'heading_level',
+		'per_page',
+		'pagination',
+		'template',
+		'show_featured_image',
+		'featured_image_size',
+		'show_post_info',
+		'show_post_meta',
+		'use_post_content',
+		'filter_style',
+		'link_title',
+		'masonry',
+		'current_page',
+	);
 
-	ob_start();
+   // Convert args to data-* attributes.
+   foreach ( $data_args as $data_arg ) {
+       if ( ! empty( $args[ $data_arg ] ) ) {
+           $data_atts[] = 'data-' . str_replace( '_', '-', $data_arg ) . '=' . (string)$args[ $data_arg ];
+       }
+   }
 
-	?>
-	<script type="text/javascript">
-	    var mmPostsData = <?php echo json_encode( $args );?>;
+   // Add special data attributes.
+   $data_atts[] = 'data-total-pages=' . $query->max_num_pages;
+   $data_atts[] = 'data-total-posts=' . $query->found_posts;
+   $data_atts[] = 'data-global-post-id=' . $context->ID;
 
-	</script>
-	<?php
+   // Convert to a string.
+   $data_atts = esc_attr( implode( ' ', $data_atts ) );
 
-    return apply_filters( 'mm_posts_get_js_data_var', ob_get_clean(), $query, $context, $args );
-}
-
-/**
- * Echo the js var data script.
- *
- * @since   1.0.0
- *
- * @param   WP_Query  $query    The query object.
- * @param   WP_Post   $context  The global post object.
- * @param   array     $args     The instance args.
- *
- * @return  string              The category filters HTML.
- */
-function mm_posts_output_js_data_var( $query, $context, $args ) {
-	echo mm_posts_get_js_data_var( $query, $context, $args );
+   return apply_filters( 'mm_posts_data_attributes', $data_atts, $query, $context, $args );
 }
 
 /**
