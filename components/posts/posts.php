@@ -58,7 +58,6 @@ function mm_posts( $args ) {
 	$ajax_filter     = mm_true_or_false( $args['ajax_filter'] );
 	$filter_style    = sanitize_text_field( $args['filter_style'] );
 	$pagination      = sanitize_text_field( $args['pagination'] );
-	$data_atts       = '';
 
 	// Get Mm classes.
 	$mm_classes = apply_filters( 'mm_components_custom_classes', '', $component, $args );
