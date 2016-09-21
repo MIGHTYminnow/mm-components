@@ -164,6 +164,7 @@ var mm_posts_ajax_filter = function( e, newPageVal ) {
 var mm_posts_ajax_pagination = function( newTerm ) {
 	$this = $( this );
 	var $mmPosts = $this.prev( '.mm-posts' );
+	var $mmPostsPaginationWrapper = $this.parents( '.mm-posts-wrapper' ).find( '.mm-posts-ajax-pagination-wrapper .pagination' );
 	var $mmPostsLoop = $mmPosts.find( '.mm-posts-loop' );
 	var $mmLoading = $mmPosts.parent( '.mm-posts-wrapper' ).find( '.mm-loading' );
 	var newPageVal = $this.find( 'li.active a' ).text();
@@ -176,6 +177,10 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 	$mmPostsLoop.css({ "visibility" : "hidden" });
 
 	$mmLoading.show();
+
+	$mmPostsPaginationWrapper.prepend( '<div class="pagination-cover" style="position: absolute; width: 100%; height: 100%;"></div>' );
+
+	$mmPostsPaginationWrapper.find( '.pagination-cover' ).show();
 
 	// Make the AJAX request.
 	$.post( ajaxurl, data, function( response ) {
@@ -190,6 +195,8 @@ var mm_posts_ajax_pagination = function( newTerm ) {
 		$mmPosts.find( '.ajax-total-pages' ).remove();
 
 		$mmLoading.hide();
+
+		$mmPostsPaginationWrapper.find( '.pagination-cover' ).hide();
 
 	});
 
