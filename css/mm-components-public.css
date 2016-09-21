@@ -744,6 +744,7 @@ a.mm-button.full-width {
 .mm-posts-ajax-pagination-wrapper ul.pagination {
   float: left;
   clear: both;
+  position: relative;
   margin: 0;
   padding-left: 0;
 }
