@@ -736,6 +736,12 @@ a.mm-button {
 /* Posts
 --------------------------------------------- */
 
+.mm-posts-wrapper {
+	clear: both;
+	padding-bottom: 50px;
+	position: relative;
+}
+
 .mm-posts {
 	article {
 		overflow: hidden;
@@ -792,9 +798,13 @@ a.mm-button {
 	i.mm-loading {
 		width: 100%;
 	    position: absolute;
-	    top: 40%;
+	    top: 20%;
 		color: $medium-color;
 	}
+}
+
+.mm-posts.mm-ajax-pagination {
+	position: relative;
 }
 
 .mm-posts-filter {
@@ -1045,6 +1055,10 @@ a.mm-button {
 .mm-slider > .content-wrapper {
 	position: absolute;
 	z-index: 10;
+}
+
+.mm-slider.full-width > .content-wrapper {
+	width: 100%;
 }
 
 .flickity-prev-next-button {
