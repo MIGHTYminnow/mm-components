@@ -96,7 +96,7 @@ function mm_slider( $args ) {
 		$mm_classes .= ' content-as-slides';
 	}
 
-	if ( 'full-width' ) {
+	if ( $full_width ) {
 		$mm_classes .= ' full-width';
 	}
 
