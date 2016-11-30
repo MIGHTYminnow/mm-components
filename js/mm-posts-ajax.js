@@ -217,15 +217,18 @@ jQuery( document ).ready( function( $ ) {
 		var $paginationWrapper = $this.parents( '.mm-posts-wrapper' ).find( '.mm-posts-ajax-pagination-wrapper' );
 		totalPages = $this.data( 'total-pages' );
 
-		//Only run AJAX pagination if activated.
-		if ( $this.hasClass( 'mm-ajax-pagination' ) ) {
-			$paginationWrapper.twbsPagination({
-			    totalPages: totalPages,
-			    last : false,
-			    first :false,
-			    initiateStartPageClick: false,
-			   	onPageClick: mm_posts_ajax_pagination,
-			});
+		//Output pagination links when there are multiple pages.
+		if( totalPages > 1 ) {
+			//Only run AJAX pagination if activated.
+			if ( $this.hasClass( 'mm-ajax-pagination' ) ) {
+				$paginationWrapper.twbsPagination({
+				    totalPages: totalPages,
+				    last : false,
+				    first :false,
+				    initiateStartPageClick: false,
+				   	onPageClick: mm_posts_ajax_pagination,
+				});
+			}
 		}
 	});
 
