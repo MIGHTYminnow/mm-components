@@ -153,7 +153,7 @@ $thick-border: 3px solid;
 			&.fa-twitter {
 				@include social-icon-background-colors($twitter-color);
 			}
-			&.fa-youtube {
+			&.fa-youtube-play {
 				@include social-icon-background-colors($youtube-color);
 			}
 			&.fa-google-plus {
@@ -162,7 +162,7 @@ $thick-border: 3px solid;
 			&.fa-instagram {
 				@include social-icon-background-colors($instagram-color);
 			}
-			&.fa-pinterest {
+			&.fa-pinterest-p {
 				@include social-icon-background-colors($pinterest-color);
 			}
 			&.fa-linkedin {
@@ -221,7 +221,7 @@ $thick-border: 3px solid;
 			&.fa-twitter {
 				@include social-icon-ghost-colors($twitter-color);
 			}
-			&.fa-youtube {
+			&.fa-youtube-play {
 				@include social-icon-ghost-colors($youtube-color);
 			}
 			&.fa-google-plus {
@@ -230,7 +230,7 @@ $thick-border: 3px solid;
 			&.fa-instagram {
 				@include social-icon-ghost-colors($instagram-color);
 			}
-			&.fa-pinterest {
+			&.fa-pinterest-p {
 				@include social-icon-ghost-colors($pinterest-color);
 			}
 			&.fa-linkedin {
@@ -1141,7 +1141,7 @@ ol.flickity-page-dots {
 			&.fa-twitter {
 				@include social-icon-colors($twitter-color);
 			}
-			&.fa-youtube {
+			&.fa-youtube-play {
 				@include social-icon-colors($youtube-color);
 			}
 			&.fa-google-plus {
@@ -1150,7 +1150,7 @@ ol.flickity-page-dots {
 			&.fa-instagram {
 				@include social-icon-colors($instagram-color);
 			}
-			&.fa-pinterest {
+			&.fa-pinterest-p {
 				@include social-icon-colors($pinterest-color);
 			}
 			&.fa-linkedin {
