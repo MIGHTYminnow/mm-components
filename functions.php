@@ -222,6 +222,63 @@ function mm_get_taxonomies_for_vc( $context = '' ) {
 }
 
 /**
+ * Return an array of post/page titles for use in a Visual Composer autocomplete param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted titles.
+ */
+function mm_get_post_titles_for_vc( $context = '' ) {
+
+	// Grab the posts.
+	$posts = get_posts(
+		array(
+			'posts_per_page' => -1,
+			'post_type'      => mm_get_post_types( 'mm-components' ),
+		)
+	);
+
+	$post_titles = array();
+
+	foreach ( $posts as $post )	{
+
+		$post_label = sprintf(
+			'<strong>%s</strong> %s' ,
+			ucwords( $post->post_type ),
+			$post->post_title
+		);
+
+		$post_titles[] = array(
+			'value' => $post->ID,
+			'label' => $post_label,
+		);
+	}
+
+	return apply_filters( 'mm_post_titles', $post_titles, $context );
+}
+
+/**
+ * Return an array of query types for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of formatted query types.
+ */
+function mm_get_query_types_for_vc( $context = '' ) {
+
+	$query_types = array(
+		'Collection' => 'collection',
+		'Specific'   => 'specific',
+	);
+
+	return apply_filters( 'mm_query_types', $query_types, $context );
+}
+
+/**
  * Return an array of registered image sizes.
  *
  * @since   1.0.0
@@ -362,6 +419,38 @@ function mm_get_mm_posts_templates_for_vc( $context = '' ) {
 	);
 
 	return $empty_option + array_flip( mm_get_mm_posts_templates( $context ) );
+}
+/**
+ * Return an array of Mm Blockquote templates.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
+ */
+function mm_get_mm_blockquote_templates( $context = '' ) {
+
+	$templates = array(
+		''           => __( 'Default', 'mm-components' ),
+		'image-left' => __( 'Image Left', 'mm-components' ),
+	);
+
+	return $templates + apply_filters( 'mm_blockquote_templates', array(), $context );
+}
+
+/**
+ * Return an array of Mm Blockquote templates for use in a Visual Composer param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of template names.
+ */
+function mm_get_mm_blockquote_templates_for_vc( $context = '' ) {
+
+	return array_flip( mm_get_mm_blockquote_templates( $context ) );
 }
 
 /**
@@ -753,6 +842,73 @@ function mm_get_background_position( $context = '' ) {
 function mm_get_background_position_for_vc( $context = '' ) {
 
 	return array_flip( mm_get_background_position( $context ) );
+}
+
+/**
+ * Return an array of slider types.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of slider types.
+ */
+function mm_get_slider_types( $context = '' ) {
+
+	$types = array(
+		'content-as-slides' => __( 'Content As Slides', 'mm-components' ),
+		'static-content'    => __( 'Static Content', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_slider_types', $types, $context );
+}
+
+/**
+ * Return an array of slider types for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of slide types.
+ */
+function mm_get_slider_types_for_vc( $context = '' ) {
+
+	return array_flip( mm_get_slider_types( $context ) );
+}
+
+/**
+ * Return an array of slider sizing options.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of slider size values.
+ */
+function mm_get_slider_heights( $context = '' ) {
+
+	$heights = array(
+		'custom-height'   => __( 'Custom Height', 'mm-components' ),
+		'full-height'     => __( 'Full Height', 'mm-components' ),
+		'adaptive-height' => __( 'Adaptive Height', 'mm-components' ),
+	);
+
+	return apply_filters( 'mm_slider_height', $heights, $context );
+}
+
+/**
+ * Return an array of slider sizes for use in a Visual Composer dropdown param.
+ *
+ * @since   1.0.0
+ *
+ * @param   string  $context  The context to pass to our filter.
+ *
+ * @return  array             The array of sizes.
+ */
+function mm_get_slider_heights_for_vc( $context = '' ) {
+
+	return array_flip( mm_get_slider_heights( $context ) );
 }
 
 /**

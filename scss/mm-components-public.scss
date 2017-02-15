@@ -153,7 +153,7 @@ $thick-border: 3px solid;
 			&.fa-twitter {
 				@include social-icon-background-colors($twitter-color);
 			}
-			&.fa-youtube {
+			&.fa-youtube-play {
 				@include social-icon-background-colors($youtube-color);
 			}
 			&.fa-google-plus {
@@ -162,7 +162,7 @@ $thick-border: 3px solid;
 			&.fa-instagram {
 				@include social-icon-background-colors($instagram-color);
 			}
-			&.fa-pinterest {
+			&.fa-pinterest-p {
 				@include social-icon-background-colors($pinterest-color);
 			}
 			&.fa-linkedin {
@@ -221,7 +221,7 @@ $thick-border: 3px solid;
 			&.fa-twitter {
 				@include social-icon-ghost-colors($twitter-color);
 			}
-			&.fa-youtube {
+			&.fa-youtube-play {
 				@include social-icon-ghost-colors($youtube-color);
 			}
 			&.fa-google-plus {
@@ -230,7 +230,7 @@ $thick-border: 3px solid;
 			&.fa-instagram {
 				@include social-icon-ghost-colors($instagram-color);
 			}
-			&.fa-pinterest {
+			&.fa-pinterest-p {
 				@include social-icon-ghost-colors($pinterest-color);
 			}
 			&.fa-linkedin {
@@ -362,6 +362,32 @@ $thick-border: 3px solid;
 
 /* Individual Component Styles
 ---------------------------------------------------------------------------------------------------- */
+
+/* Blockquote
+--------------------------------------------- */
+
+/* Image Left Template */
+
+.mm-blockquote-wrapper {
+	img {
+		margin: 0 0 10px 20px;
+	}
+	&.image-left {
+		blockquote {
+			overflow: hidden;
+		}
+
+		img {
+			float: none;
+			margin-right: 0;
+			margin-bottom: 2%;
+			@media (min-width: 500px) {
+				float: left;
+				margin-right: 2%;
+			}
+		}
+	}
+}
 
 /* Button
 --------------------------------------------- */
@@ -710,12 +736,17 @@ a.mm-button {
 /* Posts
 --------------------------------------------- */
 
+.mm-posts-wrapper {
+	clear: both;
+	padding-bottom: 50px;
+	position: relative;
+}
+
 .mm-posts {
 	article {
-		overflow: auto;	
+		overflow: hidden;
 	}
 	.entry-image {
-		max-width: 150px;
 		float: left;
 		margin: 0 15px 12px 0;
 		a {
@@ -764,6 +795,79 @@ a.mm-button {
 			margin: 0 6px;
 		}
 	}
+	i.mm-loading {
+		width: 100%;
+	    position: absolute;
+	    top: 20%;
+		color: $medium-color;
+	}
+}
+
+.mm-posts.mm-ajax-pagination {
+	position: relative;
+}
+
+.mm-posts-filter {
+	overflow: auto;
+	margin-left: 0 !important;
+	padding-left: 0;
+	li {
+		list-style-type: none !important;
+		width: auto;
+		float: left;
+		padding: 8px 14px;
+	}
+	li.active {
+		background-color: $light-color;
+		border-radius: 5px;
+	}
+	li.active a {
+		color: #fff;
+	}
+	li:first-of-type {
+		margin-left: 20px;
+	}
+	select {
+		width: 100%;
+		margin-bottom: 20px;
+		@media( min-width: 768px ) {
+			max-width: 75%;
+		}
+	}
+}
+
+.mm-posts-loop {
+	min-height: 300px;
+}
+
+.mm-posts-ajax-pagination-wrapper {
+	position: relative;
+	ul.pagination {
+		float: left;
+		clear: both;
+		position: relative;
+		margin: 0;
+		padding-left: 0;
+		li {
+			list-style-type: none;
+			width: auto;
+			float: left;
+			margin-right: 8px;
+		}
+		li.active a {
+			background-color: $light-color;
+			color: $white-color;
+		}
+		li.disabled a {
+			cursor: default;
+			pointer-events: none;
+		}
+		a {
+			padding: 5px 8px;
+			border-radius: 5px;
+			background-color: $default-color;
+		}
+	}
 }
 
 /* Posts Templates
@@ -799,6 +903,7 @@ a.mm-button {
 /* Image Grid */
 
 .mm-posts.image-grid {
+	margin-bottom: 20px;
 	&::after {
 		content: '';
 		display: table;
@@ -846,7 +951,7 @@ a.mm-button {
 }
 
 .mm-posts.image-grid.titles-inside .entry-title,
-.mm-posts.image-grid.titles-inside.mm-masonry .entry-title {
+.mm-posts.image-grid.titles-inside.mm-masonry .mm-posts-loop .entry-title {
 	position: absolute;
 	bottom: 0;
 	margin-bottom: 18px;
@@ -859,7 +964,7 @@ a.mm-button {
 	color: #fff;
 }
 
-.mm-posts.image-grid.titles-inside.no-gutter.mm-masonry .entry-title {
+.mm-posts.image-grid.titles-inside.no-gutter.mm-masonry .mm-posts-loop .entry-title {
 	margin-bottom: 0;
 }
 
@@ -870,7 +975,7 @@ a.mm-button {
 }
 
 .mm-posts.image-grid.no-gutter .entry-title,
-.mm-posts.image-grid.mm-masonry .mm-post {
+.mm-posts.image-grid.mm-masonry .mm-posts-loop .mm-post {
 	margin: 0;
 }
 
@@ -896,12 +1001,74 @@ a.mm-button {
 	.entry-title, .entry-meta-wrap {
 		clear: none;
 	}
-	
+
+	.entry-header, .entry-meta-wrap, .entry-content {
+		width: 100%;
+		float: none;
+		@media( min-width: 768px ) {
+			width: 70%;
+			float: right;
+		}
+	}
+
 	.entry-image {
-		margin: 0 15px 0 0;
-	}	
+		margin: 0 15px 10px 0;
+		width: 100%;
+		float: none;
+		@media( min-width: 768px ) {
+			width: 25%;
+			float: left;
+			margin-bottom: 0;
+		}
+		a {
+			display: inline-block
+		}
+	}
 }
 
+/* Slider
+--------------------------------------------- */
+
+.mm-slider {
+	margin-bottom: 30px;
+}
+
+.mm-slider .mm-carousel-item {
+	text-align: center;
+}
+
+.mm-slider.content-as-slides .mm-carousel-item {
+	margin-right: 16px;
+}
+
+.mm-slider .mm-carousel-item,
+.mm-slider.full-width .mm-carousel-item[class*='slide-'] img,
+.mm-slider.full-width .mm-carousel-item img {
+	width: 100%;
+}
+
+.mm-slider.mm-full-window-height .mm-carousel-item img,
+.mm-slider:not(.adaptive) .mm-carousel-item {
+	height: 100%;
+}
+
+.mm-slider > .content-wrapper {
+	position: absolute;
+	z-index: 10;
+}
+
+.mm-slider.full-width > .content-wrapper {
+	width: 100%;
+}
+
+.flickity-prev-next-button {
+	z-index: 20;
+}
+
+ol.flickity-page-dots {
+	margin-left: 0 !important;
+	margin-bottom: 0 !important;
+}
 
 /* Social Icons
 --------------------------------------------- */
@@ -974,7 +1141,7 @@ a.mm-button {
 			&.fa-twitter {
 				@include social-icon-colors($twitter-color);
 			}
-			&.fa-youtube {
+			&.fa-youtube-play {
 				@include social-icon-colors($youtube-color);
 			}
 			&.fa-google-plus {
@@ -983,7 +1150,7 @@ a.mm-button {
 			&.fa-instagram {
 				@include social-icon-colors($instagram-color);
 			}
-			&.fa-pinterest {
+			&.fa-pinterest-p {
 				@include social-icon-colors($pinterest-color);
 			}
 			&.fa-linkedin {

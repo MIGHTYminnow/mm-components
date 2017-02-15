@@ -65,6 +65,7 @@ function mm_components_init_components() {
 		'logo-strip'         => __( 'Logo Strip', 'mm-components' ),
 		'posts'              => __( 'Posts', 'mm-components' ),
 		'restricted-content' => __( 'Restricted Content', 'mm-components' ),
+		'slider'             => __( 'Slider', 'mm-components' ),
 		'social-icons'       => __( 'Social Icons', 'mm-components' ),
 		'users'              => __( 'Users', 'mm-components' ),
 	);
@@ -120,6 +121,9 @@ function mm_components_init_components() {
 	}
 	if ( array_key_exists( 'restricted-content', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/restricted-content/restricted-content.php';
+	}
+	if ( array_key_exists( 'slider', $mm_active_components ) ) {
+		require_once MM_COMPONENTS_PATH . 'components/slider/slider.php';
 	}
 	if ( array_key_exists( 'social-icons', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/social-icons/social-icons.php';
@@ -193,6 +197,24 @@ function mm_components_scripts_and_styles() {
 		true
 	);
 
+	// Register jQuery pagination.
+	wp_register_script(
+		'mm-jquery-pagination',
+		MM_COMPONENTS_URL . 'lib/simple-pagination/jquery.pagination.js',
+		array( 'jquery' ),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
+	// Register MM posts AJAX scripts.
+	wp_register_script(
+		'mm-posts-ajax',
+		MM_COMPONENTS_URL . 'js/mm-posts-ajax.js',
+		array( 'jquery' ),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
 	// Register jQuery countdown.
 	wp_register_script(
 		'mm-jquery-countdown',
@@ -200,6 +222,22 @@ function mm_components_scripts_and_styles() {
 		array( 'jquery' ),
 		MM_COMPONENTS_VERSION,
 		true
+	);
+
+	// Register flickity.
+	wp_register_script(
+		'mm-flickity',
+		MM_COMPONENTS_URL . 'lib/flickity/flickity.pkgd.min.js',
+		array(),
+		MM_COMPONENTS_VERSION,
+		true
+	);
+
+	wp_enqueue_style(
+		'mm-flickity',
+		MM_COMPONENTS_URL . 'lib/flickity/flickity.min.css',
+		array(),
+		MM_COMPONENTS_VERSION
 	);
 
 	// General styles.
@@ -286,4 +324,13 @@ function mm_components_custom_classes( $classes, $component, $atts ) {
 	$classes = implode( ' ', $class_array );
 
 	return $classes;
+}
+
+add_action('wp_head','pluginname_ajaxurl');
+function pluginname_ajaxurl() {
+?>
+	<script type="text/javascript">
+	var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+	</script>
+<?php
 }
