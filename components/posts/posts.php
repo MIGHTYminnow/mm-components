@@ -254,8 +254,8 @@ function mm_posts_reset_default_hooks() {
 
 	remove_all_actions( 'mm_posts_before' );
 	remove_all_actions( 'mm_posts_before_loop' );
-	remove_all_actions( 'mm_posts_before_article' );
-	remove_all_actions( 'mm_posts_after_article' );
+	//remove_all_actions( 'mm_posts_before_article' );
+	//remove_all_actions( 'mm_posts_after_article' );
 	remove_all_actions( 'mm_posts_header' );
 	remove_all_actions( 'mm_posts_content' );
 	remove_all_actions( 'mm_posts_footer' );
@@ -303,7 +303,7 @@ function mm_posts_article( $post, $context, $args ) {
 
 	ob_start(); ?>
 
-	<?php add_action( 'mm_posts_before_article', $post, $context, $args ); ?>
+	<?php do_action( 'mm_posts_before_article', $post, $context, $args ); ?>
 
 	<article id="post-<?php the_ID( $post ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
 
@@ -315,7 +315,7 @@ function mm_posts_article( $post, $context, $args ) {
 
 	</article>
 
-	<?php add_action( 'mm_posts_after_article', $post, $context, $args ); ?>
+	<?php do_action( 'mm_posts_after_article', $post, $context, $args ); ?>
 
 	<?php return ob_get_clean();
 }
@@ -357,7 +357,7 @@ function mm_posts_taxonomy_term_filter( $query, $context, $args ) {
 
 		<ul class="mm-posts-filter" >
 			<li class="cat-item active"><a href="#" class="mm-posts-filter-all"><?php _e( 'All', 'mm-components' ); ?></a></li>
-			<?php wp_list_categories( array(
+			<?php get_terms( array(
 				'title_li'     => '',
 				'hide_empty'   => 1,
 				'hierarchical' => false,
@@ -549,7 +549,7 @@ function mm_posts_ajax_filter( $args ) {
 	// Store the global post object as the context we'll pass to our hooks.
 	$context = $post;
 
-	do_action( 'mm_posts_register_hooks', $context, $args ); ?>
+	do_action( 'mm_posts_register_hooks', $post, $context, $args ); ?>
 
 	<div class="mm-posts-loop">
 
