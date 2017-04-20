@@ -303,7 +303,7 @@ function mm_posts_article( $post, $context, $args ) {
 
 	ob_start(); ?>
 
-	<?php add_action( 'mm_posts_before_article', $post, $context, $args ); ?>
+	<?php do_action( 'mm_posts_before_article', $post, $context, $args ); ?>
 
 	<article id="post-<?php the_ID( $post ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
 
@@ -315,7 +315,7 @@ function mm_posts_article( $post, $context, $args ) {
 
 	</article>
 
-	<?php add_action( 'mm_posts_after_article', $post, $context, $args ); ?>
+	<?php do_action( 'mm_posts_after_article', $post, $context, $args ); ?>
 
 	<?php return ob_get_clean();
 }
