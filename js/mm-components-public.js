@@ -310,6 +310,8 @@
 
 				if ( $trigger.hasClass( 'fade' ) ) {
 					$target.toggleClass( 'open' ).fadeToggle();
+				} else if ( $trigger.hasClass( 'slide' ) ) {
+					$target.slideToggle();
 				} else {
 					$target.toggleClass( 'open' ).toggle();
 				}
