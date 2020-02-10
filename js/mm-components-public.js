@@ -310,8 +310,6 @@
 
 				if ( $trigger.hasClass( 'fade' ) ) {
 					$target.toggleClass( 'open' ).fadeToggle();
-				} else if ( $trigger.hasClass( 'slide' ) ) {
-					$target.slideToggle();
 				} else {
 					$target.toggleClass( 'open' ).toggle();
 				}
@@ -355,35 +353,6 @@
 	 	});
 	}
 
-	function mmSliderSlideClass() {
-		i = 0;
-		$( '.mm-slider.content-as-slides .content-wrapper > div' ).each( function() {
-			$( this ).addClass( 'mm-carousel-item' );
-		})
-
-		$( '.mm-carousel-item' ).each( function() {
-			i++;
-			$( this ).addClass( 'slide-' + i );
-		})
-	}
-
-	function mmSliderHeight() {
-		var containerHeight = 0;
-		var windowWidth = $(window).width();
-		if( windowWidth < 768 ) {
-			// Loop through elements children to find & set the biggest height
-			$( '.mm-slider.static-content .content-wrapper' ).each( function(){
-			 // If this elements height is bigger than the biggestHeight
-				 if ($(this).height() > containerHeight ) {
-				   // Set the biggestHeight to this Height
-				   containerHeight = $( this ).height() + 20;
-				 }
-			});
-			// Set the container height
-			$( '.mm-slider.static-content, .mm-slider-image img' ).height( containerHeight );
-		}
-	}
-
 	/**
 	 * Start the party.
 	 */
@@ -392,8 +361,6 @@
 		mmStartCountdowns();
 		mmSetupExpandableContent();
 		mmPostsInitMasonry();
-		mmSliderSlideClass();
-		mmSliderHeight();
 
 		// Trigger the scroll event once to ensure our inview listeners fire
 		// if their elements are initially in view.

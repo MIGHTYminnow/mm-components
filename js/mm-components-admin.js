@@ -34,9 +34,6 @@
 
 		// Set up field dependencies for Mm Image Card.
 		$( '.widget[id*="mm_image_card_widget"]' ).mmImageCardFields();
-
-		// Set up field dependencies for Mm Blockquote
-		$( '.widget[id*="mm_blockquote_widget"]' ).mmBlockquoteFields();
 	});
 
 	// Reset or initialize certain fields when widgets are added or updated.
@@ -65,10 +62,6 @@
 
 		if ( $( data[0] ).is( '.widget[id*="mm_image_card_widget"]' ) ) {
 			$( data[0] ).mmImageCardFields();
-		}
-
-		if ( $( data[0] ).is( '.widget[id*="mm_blockquote_widget"]' ) ) {
-			$( data[0] ).mmBlockquoteFields();
 		}
 	});
 
@@ -533,34 +526,6 @@
 				}
 			});
 
-		});
-	}
-
-	/**
-	 * Dependency for Blockquote widget fields.
-	 *
-	 * @since  1.0.0
-	 */
-	$.fn.mmBlockquoteFields = function() {
-
-		return this.each( function() {
-			$widget = $( this );
-			$showCitationLink = $widget.find( '.mm-blockquote-link-citation' );
-			$citationLink     = $widget.find( '.mm-text-field-wrap' ).has( '.mm-blockquote-citation-link' );
-			$citationLinkText = $widget.find( '.mm-text-field-wrap' ).has( '.mm-blockquote-citation-link-text' );
-
-			if( ! $showCitationLink.is( ':checked' ) ) {
-				$citationLink.addClass( 'mm-hidden' );
-				$citationLinkText.addClass( 'mm-hidden' );
-			} else {
-				$citationLink.removeClass( 'mm-hidden' );
-				$citationLinkText.removeClass( 'mm-hidden' );
-			}
-
-			$showCitationLink.on( 'click', function() {
-				$citationLink.toggleClass( 'mm-hidden' );
-				$citationLinkText.toggleClass( 'mm-hidden' );
-			});
 		});
 	}
 

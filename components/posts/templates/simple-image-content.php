@@ -38,7 +38,7 @@ function mm_posts_simple_image_content_hooks( $context, $args ) {
 		add_action( 'mm_posts_content', 'mm_posts_output_custom_post_image_simple_image_content', 8, 3 );
 	}
 
-	add_action( 'mm_posts_content', 'mm_posts_output_post_header', 10, 3 );
+	add_action( 'mm_posts_content', 'mm_posts_output_post_title', 10, 3 );
 
 	if ( mm_true_or_false( $args['show_post_meta'] ) ) {
 		add_action( 'mm_posts_content', 'mm_posts_output_post_meta', 11, 3 );
@@ -53,7 +53,6 @@ function mm_posts_simple_image_content_hooks( $context, $args ) {
 function mm_posts_output_custom_post_image_simple_image_content( $post, $context, $args ) {
 
 	$custom_output = apply_filters( 'mm_posts_post_image', '', $post, $context, $args );
-	$image_tag = '';
 
 	if ( '' !== $custom_output ) {
 		echo $custom_output;
@@ -74,7 +73,7 @@ function mm_posts_output_custom_post_image_simple_image_content( $post, $context
 
 	} else {
 
-		$fallback_image = ( isset( $args['fallback_image'] ) ) ? $args['fallback_image'] : '' ;
+		$fallback_image = $args['fallback_image'];
 
 		// Support the fallback image
 		if ( is_numeric( $fallback_image ) ) {
@@ -83,13 +82,13 @@ function mm_posts_output_custom_post_image_simple_image_content( $post, $context
 	}
 
 	// Output image with/without link
-	if ( mm_true_or_false( $args['link_title'] ) && ! empty( $image_tag ) ) {
+	if ( mm_true_or_false( $args['link_title'] ) ) {
 		printf(
 			'<div class="entry-image"><a href="%s">%s</a></div>',
 			get_permalink( $post->ID ),
 			$image_tag
 		);
-	} elseif( ! empty( $image_tag ) ) {
+	} else {
 		printf(
 			'<div class="entry-image">%s</div>',
 			$image_tag

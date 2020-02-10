@@ -12,6 +12,7 @@ function mm_image_card( $args ) {
         'image_size'           => '',
         'image_text'           => '',
         'image_text_color'     => '',
+        'content'              => '',
         'link_image'           => '',
         'link_title'           => '',
         'link_target'          => '_self',
@@ -33,6 +34,7 @@ function mm_image_card( $args ) {
     $image_size           = $args['image_size'];
     $image_text           = $args['image_text'];
     $image_text_color     = $args['image_text_color'];
+    $content              = $args['content'];
     $link                 = $args['link'];
     $link_image           = $args['link_image'];
     $link_title           = $args['link_title'];
@@ -92,20 +94,22 @@ function mm_image_card( $args ) {
 
     if ( $link_image ) {
         $content_output = sprintf(
-            '%s<a href="%s" title="%s" target="%s"><img class="%s" src="%s"></a>',
+            '%s<a href="%s" title="%s" target="%s"><img class="%s" src="%s"></a><p>%s</p>',
             $image_text_output,
             esc_url( $link_url ),
             esc_attr( $link_title ),
             esc_attr( $link_target ),
             'mm-image-card-image',
-            esc_attr( $image_url )
+            esc_attr( $image_url ),
+            wp_kses_post( $content )
         );
     } else {
         $content_output = sprintf(
-            '%s<img class="%s" src="%s">',
+            '%s<img class="%s" src="%s"><p>%s</p>',
             $image_text_output,
             'mm-image-card-image',
-            esc_attr( $image_url )
+            esc_attr( $image_url ),
+            wp_kses_post( $content )
         );
 
     }
@@ -219,6 +223,11 @@ function mm_vc_image_card() {
                 'heading'     => __( 'Image Size', 'mm-components' ),
                 'param_name'  => 'image_size',
                 'value'       => $image_sizes,
+            ),
+            array(
+                'type'       => 'content',
+                'heading'    => __( 'Content', 'mm-components' ),
+                'param_name' => 'content',
             ),
             array(
                 'type'       => 'textfield',
@@ -362,6 +371,7 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
             'image_size'           => '',
             'image_text'           => '',
             'image_text_color'     => '',
+            'content'              => '',
             'link_image'           => '',
             'link_target'          => '_self',
             'content_align'        => 'default',
@@ -402,6 +412,7 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
             'image_size'           => '',
             'image_text'           => '',
             'image_text_color'     => '',
+            'content'              => '',
             'link_image'           => '',
             'link'                 => '',
             'link_target'          => '_self',
@@ -423,6 +434,7 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
         $image_size           = $instance['image_size'];
         $image_text           = $instance['image_text'];
         $image_text_color     = $instance['image_text_color'];
+        $content              = $instance['content'];
         $link_image           = $instance['link_image'];
         $link                 = $instance['link'];
         $link_target          = $instance['link_target'];
@@ -512,6 +524,15 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
             mm_get_link_targets( 'mm-button' )
         );
 
+        // Content.
+        $this->field_textarea(
+            __( 'Content', 'mm-components' ),
+            '',
+            $classname . '-content widefat',
+            'content',
+            $content
+        );
+
         // Content align.
         $this->field_select(
             __( 'Content Alignment', 'mm-components' ),
@@ -582,6 +603,7 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
         $instance['image_text_color']     = sanitize_text_field( $new_instance['image_text_color'] );
         $instance['link_image']           = sanitize_text_field( $new_instance['link_image'] );
         $instance['link']                 = sanitize_text_field( $new_instance['link'] );
+        $instance['content']              = sanitize_text_field( $new_instance['content'] );
         $instance['content_align']        = sanitize_text_field( $new_instance['content_align'] );
         $instance['button_link']          = sanitize_text_field( $new_instance['button_link'] );
         $instance['button_link_target']   = sanitize_text_field( $new_instance['button_link_target'] );

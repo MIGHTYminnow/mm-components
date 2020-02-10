@@ -23,7 +23,7 @@ function mm_highlight_box( $args ) {
 
 	$defaults = array(
 		'heading_text'   => '',
-		'content'        => '',
+		'paragraph_text' => '',
 		'link'           => '',
 		'link_text'      => '',
 		'link_target'    => '',
@@ -31,7 +31,7 @@ function mm_highlight_box( $args ) {
 	$args = wp_parse_args( (array)$args, $defaults );
 
 	$heading_text   = $args['heading_text'];
-	$paragraph_text = $args['content'];
+	$paragraph_text = $args['paragraph_text'];
 	$link_url       = $args['link'];
 	$link_text      = $args['link_text'];
 	$link_title     = $args['link_text'];
@@ -57,7 +57,7 @@ function mm_highlight_box( $args ) {
 		<?php endif; ?>
 
 		<?php if ( ! empty( $paragraph_text ) ) : ?>
-			<p><?php echo do_shortcode( wp_kses_post( $paragraph_text ) ); ?></p>
+			<p><?php echo esc_html( $paragraph_text ); ?></p>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $link_url ) && ! empty( $link_text ) ) {
@@ -86,11 +86,7 @@ add_shortcode( 'mm_highlight_box', 'mm_highlight_box_shortcode' );
  *
  * @return  string        Shortcode output.
  */
-function mm_highlight_box_shortcode( $atts, $content = null ) {
-
-	if ( $content ) {
-		$atts['content'] = $content;
-	}
+function mm_highlight_box_shortcode( $atts ) {
 
 	return mm_highlight_box( $atts );
 }
@@ -117,9 +113,9 @@ function mm_vc_highlight_box() {
 				'admin_label' => true,
 			),
 			array(
-				'type'       => 'textarea_html',
+				'type'       => 'textarea',
 				'heading'    => __( 'Paragraph Text', 'mm-components' ),
-				'param_name' => 'content',
+				'param_name' => 'paragraph_text',
 			),
 			array(
 				'type'       => 'textfield',
@@ -133,50 +129,6 @@ function mm_vc_highlight_box() {
 			),
 		)
 	) );
-}
-
-add_action( 'register_shortcode_ui', 'mm_components_mm_highlight_box_shortcode_ui' );
-/**
- * Register UI for Shortcake.
- *
- * @since  1.0.0
-*/
-function mm_components_mm_highlight_box_shortcode_ui() {
-
-	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
-		return;
-	}
-
-	shortcode_ui_register_for_shortcode(
-		'mm_highlight_box',
-		array(
-			'label'         => esc_html__( 'Mm Highlight Box', 'mm-components' ),
-			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
-			'attrs'         => array(
-				array(
-					'label' => esc_html__( 'Heading', 'mm-components' ),
-					'attr'  => 'heading_text',
-					'type'  => 'text',
-				),
-				array(
-					'label' => esc_html__( 'Paragraph Text', 'mm-components' ),
-					'attr'  => 'paragraph_text',
-					'type'  => 'textarea',
-				),
-				array(
-					'label' => esc_html__( 'Link Text', 'mm-components' ),
-					'attr'  => 'link_text',
-					'type'  => 'text',
-				),
-				array(
-					'label'       => esc_html__( 'Link URL', 'mm-components' ),
-					'description' => esc_html__( 'Enter the full URL for the link.', 'mm-components' ),
-					'attr'        => 'link',
-					'type'        => 'url',
-				),
-			),
-		)
-	);
 }
 
 add_action( 'widgets_init', 'mm_components_register_highlight_box_widget' );
@@ -236,7 +188,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 
 		$defaults = array(
 			'heading_text'   => '',
-			'content'        => '',
+			'paragraph_text' => '',
 			'link_text'      => '',
 			'link'           => '',
 		);
@@ -263,7 +215,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		$defaults = array(
 			'title'          => '',
 			'heading_text'   => '',
-			'content'        => '',
+			'paragraph_text' => '',
 			'link_text'      => '',
 			'link'           => '',
 		);
@@ -272,7 +224,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 		$instance = wp_parse_args( $instance, $defaults );
 
 		$heading_text   = $instance['heading_text'];
-		$paragraph_text = $instance['content'];
+		$paragraph_text = $instance['paragraph_text'];
 		$link_text      = $instance['link_text'];
 		$link           = $instance['link'];
 		$classname      = $this->options['classname'];
@@ -291,7 +243,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 			__( 'Paragraph Text', 'mm-components' ),
 			'',
 			$classname . '-paragraph-text widefat',
-			'content',
+			'paragraph_text',
 			$paragraph_text
 		);
 
@@ -328,7 +280,7 @@ class Mm_Highlight_Box_Widget extends Mm_Components_Widget {
 
 		$instance                   = $old_instance;
 		$instance['heading_text']   = wp_kses_post( $new_instance['heading_text'] );
-		$instance['content']        = do_shortcode( wp_kses_post( $new_instance['content'] ) );
+		$instance['paragraph_text'] = wp_kses_post( $new_instance['paragraph_text'] );
 		$instance['link_text']      = sanitize_text_field( $new_instance['link_text'] );
 		$instance['link']           = sanitize_text_field( $new_instance['link'] );
 

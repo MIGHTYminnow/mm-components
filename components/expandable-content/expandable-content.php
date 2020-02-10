@@ -213,13 +213,11 @@ function mm_vc_expandable_content() {
 				'value'      => $alignment,
 			),
 			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Fade in or Slide?', 'mm-components' ),
+				'type'       => 'checkbox',
+				'heading'    => __( 'Fade in?', 'mm-components' ),
 				'param_name' => 'fade',
 				'value'      => array(
-					__( 'None', 'mm-components' ) => '',
-					__( 'Fade', 'mm-components' ) => 'fade',
-					__( 'Slide', 'mm-components' ) => 'slide'
+					__( 'Yes', 'mm-components' ) => 'fade',
 				),
 			),
 			array(
@@ -388,16 +386,14 @@ class Mm_Expandable_Content_Widget extends Mm_Components_Widget {
 		);
 
 		// Fade.
-		$this->field_select(
-			__( 'Fade in or Slide?', 'mm-components' ),
+		$this->field_multi_checkbox(
+			__( 'Fade in?', 'mm-components' ),
 			'',
 			$classname . '-fade widefat',
 			'fade',
 			$fade,
 			array(
-				'' => __( 'None', 'mm-components' ),
-				'fade' => __( 'Fade', 'mm-components' ),
-				'slide' => __( 'Slide', 'mm-components' ),
+				'fade' => 'Yes',
 			)
 		);
 

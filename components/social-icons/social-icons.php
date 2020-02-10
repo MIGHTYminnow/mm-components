@@ -104,10 +104,9 @@ function mm_social_icons( $args ) {
 				}
 
 				printf(
-					'<a href="%s" class="%s" aria-label="%s link">%s</a>',
+					'<a href="%s" class="%s">%s</a>',
 					esc_url( $link ),
 					esc_attr( $social_network . '-link' ),
-					esc_attr( $social_network ),
 					$icon
 				);
 			}
@@ -303,102 +302,6 @@ function mm_vc_social_icons() {
 	}
 
 	vc_add_params( 'mm_social_icons', $social_network_params );
-}
-
-add_action( 'register_shortcode_ui', 'mm_components_mm_social_icons_shortcode_ui' );
-/**
- * Register UI for Shortcake.
- *
- * @since  1.0.0
-*/
-function mm_components_mm_social_icons_shortcode_ui() {
-
-	if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
-		return;
-	}
-
-	$social_icons_types = mm_get_social_icons_types( 'mm-social-icons' );
-	$image_sizes        = mm_get_image_sizes( 'mm-social-icons' );
-	$text_alignment     = mm_get_text_alignment( 'mm-social-icons' );
-	$icon_styles        = mm_get_icon_styles( 'mm-social-icons' );
-	$colors             = mm_get_colors( 'mm-social-icons' );
-	$social_networks    = mm_get_social_networks( 'mm-social-icons' );
-
-	$attrs = array(
-		array(
-			'label'       => esc_html__( 'Icon Type', 'mm-components' ),
-			'attr'        => 'icon_type',
-			'type'        => 'select',
-			'options'     => $social_icons_types,
-		),
-		array(
-			'label'       => esc_html__( 'Image Size', 'mm-components' ),
-			'attr'        => 'image_size',
-			'type'        => 'select',
-			'options'     => $image_sizes,
-		),
-		array(
-			'label'       => esc_html__( 'Icon Alignment', 'mm-components' ),
-			'attr'        => 'alignment',
-			'type'        => 'select',
-			'options'     => $text_alignment,
-		),
-		array(
-			'label'       => esc_html__( 'Icon Style', 'mm-components' ),
-			'attr'        => 'style',
-			'type'        => 'select',
-			'options'     => $icon_styles,
-		),
-		array(
-			'label'       => esc_html__( 'Ghost Mode?', 'mm-button' ),
-			'description' => esc_html__( 'Colored icon and icon border with a transparent background', 'mm-components' ),
-			'attr'        => 'ghost',
-			'type'        => 'checkbox',
-		),
-		array(
-			'label'       => esc_html__( 'Icon Color', 'mm-components' ),
-			'attr'        => 'color',
-			'type'        => 'select',
-			'options'     => $colors,
-		),
-		array(
-			'label'       => esc_html__( 'Icon Size', 'mm-components' ),
-			'attr'        => 'size',
-			'type'        => 'select',
-			'options'     => array(
-				''      => esc_html__( 'Normal', 'mm-components' ),
-				'small' => esc_html__( 'Small', 'mm-components' ),
-				'large' => esc_html__( 'Large', 'mm-components' ),
-			),
-		),
-	);
-
-	foreach ( $social_networks as $social_network_label => $social_network ) {
-
-		$attrs[] = array(
-				'label'       => esc_html( $social_network_label . ' Link', 'mm-components' ),
-				'attr'        => $social_network . '_link',
-				'type'        => 'text',
-		);
-
-		$attrs[] = array(
-				'label'       => esc_html__( $social_network_label . ' Image', 'mm-components' ),
-				'attr'        => $social_network . '_image',
-				'type'        => 'attachment',
-				'libraryType' => array( 'image' ),
-				'addButton'   => esc_html__( 'Select '. $social_network_label . ' Image', 'mm-components' ),
-				'frameTitle'  => esc_html__( 'Select '. $social_network_label . ' Image', 'mm-components' ),
-		);
-	}
-
-	shortcode_ui_register_for_shortcode(
-		'mm_social_icons',
-		array(
-			'label'         => esc_html__( 'Mm Social Icons', 'mm-components' ),
-			'listItemImage' => MM_COMPONENTS_ASSETS_URL . 'component-icon.png',
-			'attrs'         => $attrs,
-		)
-	);
 }
 
 add_action( 'widgets_init', 'mm_components_register_social_icons_widget' );
