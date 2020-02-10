@@ -570,6 +570,7 @@ function mm_get_social_networks( $context = '' ) {
 		'instagram' => __( 'Instagram', 'mm-components' ),
 		'pinterest' => __( 'Pinterest', 'mm-components' ),
 		'youtube'   => __( 'Youtube', 'mm-components' ),
+		'linkedin'   => __( 'LinkedIn', 'mm-components' ),
 	);
 
 	return apply_filters( 'mm_social_networks', $social_networks, $context );
