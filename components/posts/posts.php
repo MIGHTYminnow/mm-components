@@ -122,6 +122,8 @@ function mm_posts( $args ) {
 	// Allow the query to be filtered.
 	$query_args = apply_filters( 'mm_posts_query_args', $query_args, $args );
 
+	$query_args['paged'] = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+
 	// Do the query.
 	$query = new WP_Query( $query_args );
 
@@ -504,7 +506,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 	}
 
 	// Get the page query arg from the URL.
-	$page = ( get_query_var( 'page' ) ) ? (int)get_query_var( 'page' ) : 1;
+	$page = ( get_query_var( 'paged' ) ) ? (int)get_query_var( 'paged' ) : 1;
 
 	// Bail if we don't have any additional pages to show.
 	if ( 1 >= $query->max_num_pages ) {
@@ -525,7 +527,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 			if ( 1 < $page ) {
 				printf(
 					'<a href="%s" class="%s" title="%s">%s</a>',
-					'?page=' . ( $page - 1 ),
+					'?paged=' . ( $page - 1 ),
 					'pagination-link prev button',
 					__( 'Previous', 'mm-components' ),
 					__( 'Previous', 'mm-components' )
@@ -535,7 +537,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 			if ( $query->max_num_pages > $page ) {
 				printf(
 					'<a href="%s" class="%s" title="%s">%s</a>',
-					'?page=' . ( $page + 1 ),
+					'?paged=' . ( $page + 1 ),
 					'pagination-link next button',
 					__( 'Next', 'mm-components' ),
 					__( 'Next', 'mm-components' )
@@ -557,7 +559,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 					}
 					printf(
 						'<a href="%s" class="%s" title="%s">%s</a>',
-						'?page=' . $i,
+						'?paged=' . $i,
 						$link_classes,
 						$i,
 						$i
@@ -569,7 +571,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 				// We have 6 or more total pages and we're showing a page between 3 and (total - 2).
 				printf(
 					'<a href="%s" class="%s" title="%s">%s</a>',
-					'?page=1',
+					'?paged=1',
 					'pagination-link page-1 button',
 					'1',
 					'1'
@@ -581,21 +583,21 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 
 				printf(
 					'<a href="%s" class="%s" title="%s">%s</a>',
-					'?page=' . ( $page - 1 ),
+					'?paged=' . ( $page - 1 ),
 					'pagination-link page-' . ( $page - 1 ) . ' button',
 					$page - 1,
 					$page - 1
 				);
 				printf(
 					'<a href="%s" class="%s" title="%s">%s</a>',
-					'?page=' . $page,
+					'?paged=' . $page,
 					'pagination-link page-' . $page . ' button selected',
 					$page,
 					$page
 				);
 				printf(
 					'<a href="%s" class="%s" title="%s">%s</a>',
-					'?page=' . ( $page + 1 ),
+					'?paged=' . ( $page + 1 ),
 					'pagination-link page-' . ( $page + 1 ) . ' button',
 					$page + 1,
 					$page + 1
@@ -607,7 +609,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 
 				printf(
 					'<a href="%s" class="%s" title="%s">%s</a>',
-					'?page=' . $query->max_num_pages,
+					'?paged=' . $query->max_num_pages,
 					'pagination-link page-' . $query->max_num_pages . ' button',
 					$query->max_num_pages,
 					$query->max_num_pages
@@ -624,7 +626,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 					}
 					printf(
 						'<a href="%s" class="%s" title="%s">%s</a>',
-						'?page=' . $i,
+						'?paged=' . $i,
 						$link_classes,
 						$i,
 						$i
@@ -635,7 +637,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 
 				printf(
 					'<a href="%s" class="%s" title="%s">%s</a>',
-					'?page=' . $query->max_num_pages,
+					'?paged=' . $query->max_num_pages,
 					'pagination-link page-' . $query->max_num_pages . ' button',
 					$query->max_num_pages,
 					$query->max_num_pages
@@ -646,7 +648,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 				// We have more than 6 pages and we're showing the last or second to last page.
 				printf(
 					'<a href="%s" class="%s" title="%s">%s</a>',
-					'?page=1',
+					'?paged=1',
 					'pagination-link page-1 button',
 					'1',
 					'1'
@@ -662,7 +664,7 @@ function mm_posts_output_pagination( $query, $context, $args ) {
 					}
 					printf(
 						'<a href="%s" class="%s" title="%s">%s</a>',
-						'?page=' . $i,
+						'?paged=' . $i,
 						$link_classes,
 						$i,
 						$i
@@ -748,8 +750,8 @@ function mm_posts_filter_from_query_args( $query_args, $args ) {
 		$query_args['posts_per_page'] = (int)$_GET['per_page'];
 	}
 
-	if ( ! empty( $args['pagination'] ) && get_query_var( 'page' ) ) {
-		$query_args['paged'] = (int)get_query_var( 'page' );
+	if ( ! empty( $args['pagination'] ) && get_query_var( 'paged' ) ) {
+		$query_args['paged'] = (int)get_query_var( 'paged' );
 	}
 
 	if ( isset( $_GET['author'] ) ) {
