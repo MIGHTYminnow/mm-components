@@ -3,7 +3,7 @@
  * Plugin Name: MIGHTYminnow Components
  * Plugin URI: http://mightyminnow.com
  * Description: Custom components and functionality for WordPress.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: MIGHTYminnow Web Studio
  * Author URI: http://mightyminnow.com
  * License: GPL2+
@@ -11,7 +11,7 @@
  * Domain Path: /languages
  */
 
-define( 'MM_COMPONENTS_VERSION', '1.0.0' );
+define( 'MM_COMPONENTS_VERSION', '1.0.1' );
 define( 'MM_COMPONENTS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MM_COMPONENTS_URL', plugin_dir_url( __FILE__ ) );
 define( 'MM_COMPONENTS_ASSETS_URL', MM_COMPONENTS_URL . 'assets/' );
