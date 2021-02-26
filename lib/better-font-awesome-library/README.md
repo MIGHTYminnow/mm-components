@@ -27,15 +27,16 @@ The Better Font Awesome Library allows you to automatically integrate the latest
 * Utilizes transients to optimize for speed and performance.
 
 ## Installation ##
-The Better Font Awesome Library contains a [Git submodule](http://git-scm.com/book/en/Git-Tools-Submodules) which will require you to recursively clone this repo:
+The Better Font Awesome Library should ideally be installed via Composer:
 ```
-git clone --recursive https://github.com/MickeyKay/better-font-awesome-library.git
+composer require mickey-kay/better-font-awesome-library
 ```
 
-Alternately, if you've already cloned the repo and need to add the submodules, you can run the following command:
+Alternately, you can install the library manually, which can be useful for development and/or custom builds:
 ```
-// Initialize and update all submodules.
-git submodule update --init --recursive
+git clone https://github.com/MickeyKay/better-font-awesome-library.git
+cd better-font-awesome-library
+npm run build
 ```
 
 ## Usage ##
@@ -44,13 +45,13 @@ git submodule update --init --recursive
 2. Add the following code to your main plugin file or your theme's functions.php file.
    ```php
 	add_action( 'init', 'my_prefix_load_bfa' );
-	/**	
+	/**
 	 * Initialize the Better Font Awesome Library.
 	 *
 	 * (see usage notes below on proper hook priority)
 	 */
 	function my_prefix_load_bfa() {
-	
+
 		// Include the main library file. Make sure to modify the path to match your directory structure.
 		require_once ( dirname( __FILE__ ) . '/better-font-awesome-library/better-font-awesome-library.php' );
 
@@ -64,7 +65,7 @@ git submodule update --init --recursive
 				'load_shortcode'      => true,
 				'load_tinymce_plugin' => true,
 		);
-		
+
 		// Initialize the Better Font Awesome Library.
 		Better_Font_Awesome_Library::get_instance( $args );
 	}
@@ -122,13 +123,13 @@ If either the `$args['load_shortcode']` or `$args['load_tinymce_plugin']` initia
 [icon name="star" class="2x spin" unprefixed_class="my-custom-class"]
 ```
 
-**name**  
+**name**
 The unprefixed icon name (e.g. star). The version-specific prefix will be automatically prepended.
 
-**class**  
+**class**
 Unprefixed [Font Awesome icon classes](http://fortawesome.github.io/Font-Awesome/examples/). The version-specific prefix will be automatically prepended to each class.
 
-**unprefixed_class**  
+**unprefixed_class**
 Any additional classes that you wish to remain unprefixed (e.g. my-custom-class).
 
 #### Shortcode Output ####
@@ -144,7 +145,7 @@ The example shortcode above would output the following depending on which versio
 ```
 
 ## The Better Font Awesome Library Object ##
-The Better Font Awesome Library object can be accessed with the following code:  
+The Better Font Awesome Library object can be accessed with the following code:
 `Better_Font_Awesome_Library::get_instance();`
 
 The object has the following public methods:
@@ -246,6 +247,13 @@ Applied to the classes that are output on each icon's `<i>` element.
 **Parameters**
 
 * `$class` (string)
+
+#### bfa_icon_tag ####
+Applied to the tag that is output for each icon. Defaults is 'i', which outputs `<i>`.
+
+**Parameters**
+
+* `$tag` (string)
 
 #### bfa_icon ####
 Applied to the entire `<i>` element that is output for each icon.

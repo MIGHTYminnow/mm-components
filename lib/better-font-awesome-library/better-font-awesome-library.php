@@ -39,15 +39,6 @@ class Better_Font_Awesome_Library {
 	const SLUG = 'bfa';
 
 	/**
-	 * Better Font Awesome Library version slug.
-	 *
-	 * @since  1.0.0
-	 *
-	 * @var    string
-	 */
-	const VERSION = '1.4.0';
-
-	/**
 	 * jsDelivr API URL for Font Awesome version info.
 	 *
 	 * @since  1.0.0
@@ -73,13 +64,13 @@ class Better_Font_Awesome_Library {
 	 * @var    array
 	 */
 	private $default_args = array(
-		'version'                 => 'latest',
-		'minified'                => true,
-		'remove_existing_fa'      => false,
-		'load_styles'             => true,
-		'load_admin_styles'       => true,
-		'load_shortcode'          => true,
-		'load_tinymce_plugin'     => true,
+		'version'             => 'latest',
+		'minified'            => true,
+		'remove_existing_fa'  => false,
+		'load_styles'         => true,
+		'load_admin_styles'   => true,
+		'load_shortcode'      => true,
+		'load_tinymce_plugin' => true,
 	);
 
 	/**
@@ -147,12 +138,19 @@ class Better_Font_Awesome_Library {
 	 * @var    string
 	 */
 	private $fallback_data = array(
-		'directory' => 'lib/fallback-font-awesome/',
+		'directory' => 'lib/font-awesome/',
 		'path'      => '',
 		'url'       => '',
 		'version'   => '',
 		'css'       => '',
 	);
+
+	/**
+	 * Icon picker library dir.
+	 *
+	 * @var  string
+	 */
+	private $icon_picker_directory = 'lib/fontawesome-iconpicker/dist/';
 
 	/**
 	 * Array of available Font Awesome icon slugs.
@@ -958,14 +956,25 @@ class Better_Font_Awesome_Library {
 		 */
 		$class = apply_filters( 'bfa_icon_class', $class, $name );
 
+		/**
+		 * Filter the default <i> icon tag.
+		 *
+		 * @since  1.5.0
+		 *
+		 * @param  string  Tag to use for output icons (default = 'i').
+		 */
+		$tag = apply_filters( 'bfa_icon_tag', 'i' );
+
 		// Generate the HTML <i> icon element output.
-		$output = sprintf( '<i class="%s %s %s %s" %s>%s</i>',
+		$output = sprintf( '<%s class="%s %s %s %s" %s>%s</%s>',
+			$tag,
 			$this->prefix,
 			$icon_name,
 			$class,
 			$size,
 			$title,
-			$space
+			$space,
+			$tag
 		);
 
 		/**
@@ -1015,8 +1024,8 @@ class Better_Font_Awesome_Library {
 		wp_enqueue_script( self::SLUG . '-admin', $this->root_url . 'js/admin.js' );
 
 		// Icon picker JS and CSS.
-		wp_enqueue_style( 'fontawesome-iconpicker', $this->root_url . 'lib/fontawesome-iconpicker/css/fontawesome-iconpicker' . $suffix . '.css' );
-		wp_enqueue_script( 'fontawesome-iconpicker', $this->root_url . 'lib/fontawesome-iconpicker/js/fontawesome-iconpicker' . $suffix . '.js' );
+		wp_enqueue_style( 'fontawesome-iconpicker', $this->root_url . $this->icon_picker_directory . 'css/fontawesome-iconpicker' . $suffix . '.css' );
+		wp_enqueue_script( 'fontawesome-iconpicker', $this->root_url . $this->icon_picker_directory . 'js/fontawesome-iconpicker' . $suffix . '.js' );
 
 		// Output PHP variables to JS.
 		$bfa_vars = array(
