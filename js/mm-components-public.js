@@ -370,7 +370,7 @@
 	/**
 	 * Start the after party.
 	 */
-	$( window ).load( function() {
+	$( window ).on( 'load', function() {
 		mmSetupHeroBanners();
 	});
 
