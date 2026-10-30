@@ -725,12 +725,10 @@ a.mm-button {
 	line-height: 1;
 }
 
-.mm-image-card-text {
-	position: absolute;
-    width: 100%;
+.mm-image-card-text,
+.mm-image-card-read-more {
     line-height: 1;
-    bottom: 0;
-    padding: 20px;
+    padding: 10px;
 }
 
 /* Posts

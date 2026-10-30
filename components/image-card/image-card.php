@@ -6,9 +6,7 @@ function mm_image_card( $args ) {
 
     // Set our defaults and use them as needed.
     $defaults = array(
-        'title'                => '',
         'image'                => '',
-        'image_card_style'     => 'button-bottom',
         'image_size'           => '',
         'image_text'           => '',
         'image_text_color'     => '',
@@ -27,7 +25,6 @@ function mm_image_card( $args ) {
     $args = wp_parse_args( (array)$args, $defaults );
 
     // Get clean param values.
-    $title                = $args['title'];
     $image                = $args['image'];
     $image_card_style     = $args['image_card_style'];
     $image_size           = $args['image_size'];
@@ -77,38 +74,32 @@ function mm_image_card( $args ) {
         $image_url = esc_url( $image );
     }
 
-    if( $image_text ) {
-        $image_text_output = sprintf(
-            '<span class="%s %s">%s</span>',
-            'mm-image-card-text',
-            esc_attr( 'mm-text-color-' . $image_text_color ),
-            esc_attr( $image_text )
-        );
-    }
-
     // Set container width to be the same as the image width.
     $image_data = wp_get_attachment_image_src( $image, $image_size );
     $image_width = $image_data[1];
 
-    if ( $link_image ) {
-        $content_output = sprintf(
-            '%s<a href="%s" title="%s" target="%s"><img class="%s" src="%s"></a>',
-            $image_text_output,
+    if( $image_text ) {
+        $image_text_output = sprintf(
+            '<div class="%s"><p class="%s">%s</p><a class="%s" href="%s" title="%s" target="%s">Read More</a></div>',
+            'mm-image-card-text-wrapper',
+            'mm-image-card-text',
+            esc_attr( $image_text ),
+            'mm-image-card-read-more',
             esc_url( $link_url ),
             esc_attr( $link_title ),
-            esc_attr( $link_target ),
-            'mm-image-card-image',
-            esc_attr( $image_url )
+            esc_attr( $link_target )
         );
-    } else {
-        $content_output = sprintf(
-            '%s<img class="%s" src="%s">',
-            $image_text_output,
-            'mm-image-card-image',
-            esc_attr( $image_url )
-        );
-
     }
+
+    $content_output = sprintf(
+        '<a href="%s" title="%s" target="%s"><img class="%s" src="%s"></a>%s',
+        esc_url( $link_url ),
+        esc_attr( $link_title ),
+        esc_attr( $link_target ),
+        'mm-image-card-image',
+        esc_attr( $image_url ),
+        $image_text_output
+    );
 
     // Build the button output.
     if ( $button_text ) {
@@ -124,10 +115,6 @@ function mm_image_card( $args ) {
             'color'         => $button_color,
             'alignment'     => $content_align,
         );
-
-        if ( 'button-bottom' === $image_card_style ) {
-            $button_output = mm_button( $button_args );
-        }
 
     }
 
@@ -180,7 +167,7 @@ function mm_image_card_shortcode( $atts = array(), $content = null ) {
     return mm_image_card( $atts );
 }
 
-add_action( 'vc_before_init', 'mm_vc_image_card' );
+//add_action( 'vc_before_init', 'mm_vc_image_card' );
 /**
  * Visual Composer add-on.
  *
@@ -209,19 +196,13 @@ function mm_vc_image_card() {
                 'param_name' => 'image',
             ),
             array(
-                'type'       => 'dropdown',
-                'heading'    => __( 'Image Card Style', 'mm-components' ),
-                'param_name' => 'image_card_style',
-                'value'      => $image_card_styles,
-            ),
-            array(
                 'type'        => 'dropdown',
                 'heading'     => __( 'Image Size', 'mm-components' ),
                 'param_name'  => 'image_size',
                 'value'       => $image_sizes,
             ),
             array(
-                'type'       => 'textfield',
+                'type'       => 'textarea',
                 'heading'    => __( 'Image Text', 'mm-components' ),
                 'param_name' => 'image_text',
                 'dependency' => array(
@@ -238,11 +219,6 @@ function mm_vc_image_card() {
                     'element' => 'image_card_style',
                     'value'   => 'text-inside',
                 ),
-            ),
-            array(
-                'type'       => 'checkbox',
-                'heading'    => __( 'Link Image?', 'mm-components' ),
-                'param_name' => 'link_image',
             ),
             array(
                 'type'       => 'vc_link',
@@ -357,11 +333,10 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
     public function widget( $args, $instance ) {
 
         $defaults = array(
+            'title'                => '',
             'image'                => '',
-            'image_card_style'     => 'button-bottom',
             'image_size'           => '',
             'image_text'           => '',
-            'image_text_color'     => '',
             'link_image'           => '',
             'link_target'          => '_self',
             'content_align'        => 'default',
@@ -382,6 +357,10 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
 
         echo $args['before_widget'];
 
+        if ( ! empty( $title ) ) {
+            echo $args['before_title'] . $title . $args['after_title'];
+        }
+
         echo mm_image_card( $instance );
 
         echo $args['after_widget'];
@@ -397,11 +376,10 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
     public function form( $instance ) {
 
         $defaults = array(
+            'title'                => '',
             'image'                => '',
-            'image_card_style'     => 'button-bottom',
             'image_size'           => '',
             'image_text'           => '',
-            'image_text_color'     => '',
             'link_image'           => '',
             'link'                 => '',
             'link_target'          => '_self',
@@ -418,11 +396,10 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
         // Use our instance args if they are there, otherwise use the defaults.
         $instance = wp_parse_args( $instance, $defaults );
 
+        $title                = $instance['title'];
         $image                = $instance['image'];
-        $image_card_style     = $instance['image_card_style'];
         $image_size           = $instance['image_size'];
         $image_text           = $instance['image_text'];
-        $image_text_color     = $instance['image_text_color'];
         $link_image           = $instance['link_image'];
         $link                 = $instance['link'];
         $link_target          = $instance['link_target'];
@@ -436,6 +413,14 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
         $button_color         = $instance['button_color'];
         $classname            = $this->options['classname'];
 
+        $this->field_text(
+            __( 'Title', 'mm-components' ),
+            '',
+            $classname . '-title widefat',
+            'title',
+            $title
+        );
+
         // Image.
         $this->field_single_media(
             __( 'Image', 'mm-components' ),
@@ -445,19 +430,9 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
             $image
         );
 
-        // Image Card Style.
-        $this->field_select(
-            __( 'Image Card Style', 'mm-components' ),
-            '',
-            $classname . '-image-card-style widefat',
-            'image_card_style',
-            $image_card_style,
-            mm_get_image_card_styles( 'mm-image-card' )
-        );
-
         // Link text.
         $this->field_text(
-            __( 'Link', 'mm-components' ),
+            __( 'Image Card Link', 'mm-components' ),
             '',
             $classname . '-link widefat',
             'link',
@@ -475,31 +450,12 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
         );
 
         // Image Text.
-        $this->field_text(
+        $this->field_textarea(
             __( 'Image Text', 'mm-components' ),
             '',
             $classname . '-image-text widefat',
             'image_text',
             $image_text
-        );
-
-        // Image Text Color.
-        $this->field_select(
-            __( 'Image Text Color', 'mm-components' ),
-            '',
-            $classname . '-image-text-color widefat',
-            'image_text_color',
-            $image_text_color,
-            mm_get_colors( 'mm-image-card' )
-        );
-
-        // Link Image.
-        $this->field_checkbox(
-            __( 'Link Image?', 'mm-components' ),
-            '',
-            $classname . '-link-image widefat',
-            'link_image',
-            $link_image
         );
 
         // Link target.
@@ -521,45 +477,6 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
             $content_align,
             mm_get_text_alignment( 'mm-image-card' )
         );
-
-        // Button text.
-        $this->field_text(
-            __( 'Button Text', 'mm-components' ),
-            '',
-            $classname . '-button-text widefat',
-            'button_text',
-            $button_text
-        );
-
-        // Button style.
-        $this->field_select(
-            __( 'Button Style', 'mm-components' ),
-            '',
-            $classname . '-button-style widefat',
-            'button_style',
-            $button_style,
-            mm_get_button_styles( 'mm-button' )
-        );
-
-        // Button border weight.
-        $this->field_select(
-            __( 'Button Border Weight', 'mm-components' ),
-            '',
-            $classname . '-button-border-weight widefat',
-            'button_border_weight',
-            $button_border_weight,
-            mm_get_button_border_weights( 'mm-button' )
-        );
-
-        // Button color.
-        $this->field_select(
-            __( 'Button Color', 'mm-components' ),
-            '',
-            $classname . '-button-color widefat',
-            'button_color',
-            $button_color,
-            mm_get_colors( 'mm-button' )
-        );
     }
 
     /**
@@ -575,21 +492,16 @@ class Mm_Image_Card_Widget extends Mm_Components_Widget {
     public function update( $new_instance, $old_instance ) {
 
         $instance                         = $old_instance;
+        $instance['title']                = sanitize_text_field( $new_instance['title'] );
         $instance['image']                = sanitize_text_field( $new_instance['image'] );
         $instance['image_card_style']     = sanitize_text_field( $new_instance['image_card_style'] );
         $instance['image_size']           = sanitize_text_field( $new_instance['image_size'] );
         $instance['image_text']           = sanitize_text_field( $new_instance['image_text'] );
-        $instance['image_text_color']     = sanitize_text_field( $new_instance['image_text_color'] );
         $instance['link_image']           = sanitize_text_field( $new_instance['link_image'] );
         $instance['link']                 = sanitize_text_field( $new_instance['link'] );
         $instance['content_align']        = sanitize_text_field( $new_instance['content_align'] );
         $instance['button_link']          = sanitize_text_field( $new_instance['button_link'] );
         $instance['button_link_target']   = sanitize_text_field( $new_instance['button_link_target'] );
-        $instance['button_text']          = sanitize_text_field( $new_instance['button_text'] );
-        $instance['button_style']         = sanitize_text_field( $new_instance['button_style'] );
-        $instance['button_border_weight'] = sanitize_text_field( $new_instance['button_border_weight'] );
-        $instance['button_corner_style']  = sanitize_text_field( $new_instance['button_corner_style'] );
-        $instance['button_color']         = sanitize_text_field( $new_instance['button_color'] );
 
         return $instance;
     }

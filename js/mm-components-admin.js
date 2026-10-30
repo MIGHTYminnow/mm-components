@@ -458,16 +458,6 @@
 			var $buttonBorderWrap   = $widget.find( '.mm-select-field-wrap' ).has( '.mm-image-card-widget-button-border-weight' );
 			var $buttonColorWrap    = $widget.find( '.mm-select-field-wrap' ).has( '.mm-image-card-widget-button-color' );
 
-			if( $linkImage.is( ':checked' ) ) {
-				$linkTargetWrap.removeClass( 'mm-hidden' );
-			} else {
-				$linkTargetWrap.addClass( 'mm-hidden' );
-			}
-
-			$linkImage.on( 'click', function() {
-				$linkTargetWrap.toggleClass( 'mm-hidden' );
-			});
-
 			if ( 'text-inside' === $imageCardStyle.find( 'option:selected').attr( 'value' ) ) {
 				$buttonTextWrap.addClass( 'mm-hidden' );
 				$buttonStyleWrap.addClass( 'mm-hidden' );

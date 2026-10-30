@@ -600,6 +600,13 @@ a.mm-button.full-width {
 
 /* Image Card
 --------------------------------------------- */
+.mm-image-card-widget .widgettitle {
+  padding: 20px 10px;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 0;
+}
+
 .mm-image-card-wrap {
   line-height: 0;
   position: relative;
@@ -607,15 +614,25 @@ a.mm-button.full-width {
 
 .mm-image-card-wrap .mm-button {
   width: 100%;
-  line-height: 1;
+  line-height: 1.2;
+}
+
+.mm-image-card-text-wrapper {
+  padding: 10px 10px 20px 10px;
 }
 
 .mm-image-card-text {
-  position: absolute;
-  width: 100%;
-  line-height: 1;
-  bottom: 0;
-  padding: 20px;
+  margin-top: 10px;
+}
+
+.mm-image-card-text,
+.mm-image-card-read-more {
+    line-height: 1.2;
+    padding: 0 10px;
+}
+
+.mm-image-card-read-more {
+  position: relative;
 }
 
 /* Posts

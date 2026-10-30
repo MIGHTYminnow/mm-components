@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: MIGHTYminnow Components
+ * Plugin Name: SVDP Custom Image Card Component
  * Plugin URI: http://mightyminnow.com
- * Description: Custom components and functionality for WordPress.
+ * Description: Custom components for SVDP.
  * Version: 1.0.0
  * Author: MIGHTYminnow Web Studio
  * Author URI: http://mightyminnow.com
@@ -51,23 +51,7 @@ function mm_components_init_components() {
 
 	// Set up array of all the components.
 	$mm_components = array(
-		'blockquote'         => __( 'Blockquote', 'mm-components' ),
-		'button'             => __( 'Button', 'mm-components' ),
-		'count-up'           => __( 'Count Up', 'mm-components' ),
-		'countdown'          => __( 'Countdown', 'mm-components' ),
-		'custom-content'     => __( 'Custom Content', 'mm-components' ),
-		'custom-heading'     => __( 'Custom Heading', 'mm-components' ),
-		'expandable-content' => __( 'Expandable Content', 'mm-components' ),
-		'hero-banner'        => __( 'Hero Banner', 'mm-components' ),
-		'highlight-box'      => __( 'Highlight Box', 'mm-components' ),
-		'icon-box'           => __( 'Icon Box', 'mm-components' ),
 		'image-card'         => __( 'Image Card', 'mm-components'),
-		'logo-strip'         => __( 'Logo Strip', 'mm-components' ),
-		'posts'              => __( 'Posts', 'mm-components' ),
-		'restricted-content' => __( 'Restricted Content', 'mm-components' ),
-		'slider'             => __( 'Slider', 'mm-components' ),
-		'social-icons'       => __( 'Social Icons', 'mm-components' ),
-		'users'              => __( 'Users', 'mm-components' ),
 	);
 
 	// Allow the theme to turn off specific components.
@@ -77,60 +61,8 @@ function mm_components_init_components() {
 	$GLOBALS['mm_active_components'] = $mm_active_components;
 
 	// Include active components.
-	if ( array_key_exists( 'blockquote', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/blockquote/blockquote.php';
-	}
-	if ( array_key_exists( 'button', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/button/button.php';
-	}
-	if ( array_key_exists( 'count-up', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/count-up/count-up.php';
-	}
-	if ( array_key_exists( 'countdown', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/countdown/countdown.php';
-	}
-	if ( array_key_exists( 'custom-content', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/custom-content/custom-content.php';
-	}
-	if ( array_key_exists( 'custom-heading', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/custom-heading/custom-heading.php';
-	}
-	if ( array_key_exists( 'expandable-content', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/expandable-content/expandable-content.php';
-	}
-	if ( array_key_exists( 'hero-banner', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/hero-banner/hero-banner.php';
-	}
-	if ( array_key_exists( 'highlight-box', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/highlight-box/highlight-box.php';
-	}
-	if ( array_key_exists( 'icon-box', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/icon-box/icon-box.php';
-	}
 	if ( array_key_exists( 'image-card', $mm_active_components ) ) {
 		require_once MM_COMPONENTS_PATH . 'components/image-card/image-card.php';
-	}
-	if ( array_key_exists( 'logo-strip', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/logo-strip/logo-strip.php';
-	}
-	if ( array_key_exists( 'posts', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/posts/posts.php';
-		require_once MM_COMPONENTS_PATH . 'components/posts/templates/image-grid.php';
-		require_once MM_COMPONENTS_PATH . 'components/posts/templates/simple-list.php';
-		require_once MM_COMPONENTS_PATH . 'components/posts/templates/simple-image-content.php';
-	}
-	if ( array_key_exists( 'restricted-content', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/restricted-content/restricted-content.php';
-	}
-	if ( array_key_exists( 'slider', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/slider/slider.php';
-	}
-	if ( array_key_exists( 'social-icons', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/social-icons/social-icons.php';
-	}
-	if ( array_key_exists( 'users', $mm_active_components ) ) {
-		require_once MM_COMPONENTS_PATH . 'components/users/users.php';
-		require_once MM_COMPONENTS_PATH . 'components/users/templates/user-table.php';
 	}
 
 	// Include Visual Composer Integration if VC is activated.
