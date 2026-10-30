@@ -53,7 +53,7 @@ function mm_highlight_box( $args ) {
 	<div class="<?php echo esc_attr( $mm_classes ); ?>">
 
 		<?php if ( ! empty( $heading_text ) ) : ?>
-			<h3><?php echo esc_html( $heading_text ); ?></h3>
+			<h3><?php echo wp_kses_post( $heading_text ); ?></h3>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $paragraph_text ) ) : ?>

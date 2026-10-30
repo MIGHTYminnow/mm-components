@@ -27,6 +27,7 @@ function mm_logo_strip( $args ) {
 		'title_heading'   => 'h2',
 		'title_alignment' => 'center',
 		'images'          => '',
+		'links'           => '',
 		'image_size'      => 'medium',
 	);
 	$args = wp_parse_args( (array)$args, $defaults );
@@ -36,6 +37,7 @@ function mm_logo_strip( $args ) {
 	$title_heading   = $args['title_heading'];
 	$title_alignment = $args['title_alignment'];
 	$images          = $args['images'];
+    $links           = $args['links'];
 	$image_size      = $args['image_size'];
 
 	// Bail if no images are specified.
@@ -45,6 +47,7 @@ function mm_logo_strip( $args ) {
 
 	// Create array from comma-separated image list.
 	$images = explode( ',', ltrim( $images ) );
+    $links = explode( ',', ltrim( $links ) );
 
 	// Only allow valid headings.
 	if ( ! in_array( $title_heading, array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ) ) ) {
@@ -78,11 +81,20 @@ function mm_logo_strip( $args ) {
 		} ?>
 
 		<?php
-			foreach ( $images as $image ) {
-				printf(
-					'<div class="logo">%s</div>',
-					wp_get_attachment_image( (int)$image, $image_size )
-				);
+			foreach ( $images as $key => $image ) {
+                if( isset($links) && isset($links[$key]) && '' !== $links[$key] ) {
+                    printf(
+                        '<div class="logo"><a href="%s">%s</a></div>',
+                        esc_attr( $links[$key] ),
+                        wp_get_attachment_image( (int)$image, $image_size )
+                    );
+                } else {
+                    printf(
+                        '<div class="logo">%s</div>',
+                        wp_get_attachment_image( (int)$image, $image_size )
+                    );
+                }
+
 			}
 		?>
 

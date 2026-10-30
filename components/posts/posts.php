@@ -34,6 +34,7 @@ function mm_posts( $args ) {
 		'template'            => '',
 		'show_featured_image' => false,
 		'featured_image_size' => 'thumbnail',
+		'fall_back_image'     => '',
 		'show_post_info'      => false,
 		'show_post_meta'      => false,
 		'use_post_content'    => false,
@@ -303,7 +304,7 @@ function mm_posts_article( $post, $context, $args ) {
 
 	ob_start(); ?>
 
-	<?php add_action( 'mm_posts_before_article', $post, $context, $args ); ?>
+	<?php do_action( 'mm_posts_before_article', $post, $context, $args ); ?>
 
 	<article id="post-<?php the_ID( $post ); ?>" <?php post_class( 'mm-post' ); ?> itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost" aria-label="Article">
 
@@ -315,7 +316,7 @@ function mm_posts_article( $post, $context, $args ) {
 
 	</article>
 
-	<?php add_action( 'mm_posts_after_article', $post, $context, $args ); ?>
+	<?php do_action( 'mm_posts_after_article', $post, $context, $args ); ?>
 
 	<?php return ob_get_clean();
 }
@@ -733,12 +734,27 @@ function mm_posts_output_post_image( $post, $context, $args ) {
 
 	if ( has_post_thumbnail( $post->ID ) ) {
 
-		printf(
-			'<div class="entry-image"><a href="%s">%s</a></div>',
-			get_permalink( $post->ID ),
-			get_the_post_thumbnail( $post->ID, $image_size )
-		);
+		$image_tag = get_the_post_thumbnail( $post->ID, $image_size );
+
+	} else {
+
+		$fallback_image = ( isset( $args['fall_back_image'] ) ) ? $args['fall_back_image'] : '' ;
+
+		// Support the fallback image
+		if ( is_numeric( $fallback_image ) ) {
+			$image_tag = wp_get_attachment_image( $fallback_image, $image_size );
+		}
+
 	}
+
+	if( ! empty( $image_tag ) ) {
+			printf(
+				'<div class="entry-image"><a href="%s">%s</a></div>',
+				get_permalink( $post->ID ),
+				$image_tag
+			);
+		}
+
 }
 
 /**

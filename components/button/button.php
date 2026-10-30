@@ -93,6 +93,7 @@ function mm_button( $args ) {
 	ob_start(); ?>
 
 	<div class="<?php echo esc_attr( $mm_classes . ' ' . $alignment ); ?>">
+		<div class="mm-button-pre"></div>
 		<a class="<?php echo esc_attr( $classes ); ?>" href="<?php echo esc_url( $link_url ) ?>" title="<?php echo esc_attr( $link_title ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo do_shortcode( $button_text ) ?></a>
 	</div>
 

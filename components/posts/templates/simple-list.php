@@ -35,19 +35,26 @@ function mm_posts_simple_list_hooks( $context, $args ) {
 
 	// Include our custom output.
 	add_action( 'mm_posts_content', 'mm_posts_output_post_title', 10, 3 );
-	add_action( 'mm_posts_content', 'mm_posts_simple_list_info', 11, 3 );
+	add_action( 'mm_posts_content', 'mm_posts_output_simple_list_info', 11, 3 );
 }
 
 /**
  * Maybe output the post info.
  */
-function mm_posts_simple_list_info( $post, $context, $args ) {
+function mm_posts_output_simple_list_info( $post, $context, $args ) {
 
 	if ( 1 != (int)$args['show_post_info'] ) {
 		return;
 	}
 
-	echo '<span class="entry-info-wrap"><span class="entry-info">— ';
+	$custom_output = apply_filters( 'mm_posts_simple_list_info', '', $post, $context, $args );
+
+	if ( '' !== $custom_output ) {
+		echo $custom_output;
+		return;
+	}
+
+	echo '<span class="entry-info-wrap"><span class="entry-info">';
 
 	$format = get_option( 'date_format' );
 	$time   = get_the_date( $format );
